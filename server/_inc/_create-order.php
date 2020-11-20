@@ -6,7 +6,7 @@
  * @var $api_client \SquareConnect\ApiClient
  */
 
-$orderBuilder = new \SSPickup\models\OrderBuilder($data, $config['location_id']);
+$orderBuilder = new \SSPickup\models\OrderBuilder($data, $config['location_id'], $payment_log);
 
 // $api_client set in _inc/process-payment.php
 $orders_api = new \SquareConnect\Api\OrdersApi($api_client);

@@ -34,6 +34,7 @@ $amountMoney->setAmount((int)($data->totals->total * 100));
 $amountMoney->setCurrency('USD');
 
 $body->setSourceId($data->nonce);
+$body->setAutoComplete(false);
 $body->setAmountMoney($amountMoney);
 $body->setLocationId($config['location_id']);
 $body->setBuyerEmailAddress($data->order->email);

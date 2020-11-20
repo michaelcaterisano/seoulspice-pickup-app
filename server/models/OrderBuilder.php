@@ -1,18 +1,23 @@
 <?php
 
 namespace SSPickup\models;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class OrderBuilder {
 	protected $_data;
 
 	protected $_order;
 
-	public function __construct($data, $location_id)
+	protected $_logger;
+
+	public function __construct($data, $location_id, $logger)
 	{
 		$this->_data = $data;
 		$this->_order = [
 			'location_id' => $location_id
 		];
+		$this->_logger = $logger;
 	}
 
 	public function getOrder()
@@ -44,16 +49,20 @@ class OrderBuilder {
 			date('m/d/Y') . ' ' . $this->_data->order->time
 		);
 
-		$this->_order['fulfillments'][0] = [
-			'pickup_details' => [
-				'pickup_at' => $pickupTime->format(DATE_RFC3339),
-				'recipient' => [
-					'display_name' => $this->_data->order->name,
-					'email_address' => $this->_data->order->email
+		// pickupTime is set to false on the first try. why is this being called twice?
+		if ($pickupTime) {
+			$this->_logger->info('pickup time: ', (array)$pickupTime);
+			$this->_order['fulfillments'][0] = [
+				'pickup_details' => [
+					'pickup_at' => $pickupTime->format(DATE_RFC3339),
+					'recipient' => [
+						'display_name' => $this->_data->order->name,
+						'email_address' => $this->_data->order->email
+					],
 				],
-			],
-			'type' => 'PICKUP'
-		];
+				'type' => 'PICKUP'
+			];
+		}
 
 		if ($this->_data->order->curbside) {
 			$this->_order['fulfillments'][0]['note'] = 'The customer has requested curbside delivery';
