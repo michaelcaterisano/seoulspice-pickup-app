@@ -23,3 +23,9 @@ server/vendor
 server/log
 server/_inc/config.php
 public/.htaccess
+
+# scratch
+TODO.txt
+example.php
+example-payOrder.php
+

@@ -16,9 +16,9 @@ $data = json_decode( $formData, false);
 
 include('./_inc/config.php');
 include('./_inc/_logger.php');
+include('./_inc/_create-order.php');
 include('./_inc/_process-payment.php');
 include('./_inc/_send-email.php');
-include('./_inc/_create-order.php');
 
 echo json_encode( $response );
 

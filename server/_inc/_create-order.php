@@ -21,20 +21,7 @@ try {
 	$order = $order_result->getOrder();
 	$payment_log->info('Order successfully processed: ', (array)$order);
 
-	$payBody = new \SquareConnect\Model\PayOrderRequest();
-	$payBody->setIdempotencyKey(uniqid( '', true ));
-	$payBody->setPaymentIds([
-		$payment->getId()
-	]);
-	try {
-		$payorder_result = $orders_api->payOrder($order->getId(), $payBody);
-		$payment_log->info('Order successfully paid: ', [
-			'payment_id' => $payment->getId(),
-			'order_id' => $order->getId()
-		]);
-	} catch (\SquareConnect\ApiException $e) {
-		$error_log->error( 'Exception when calling OrdersApi->payOrder:', json_decode(json_encode($e->getResponseBody()), true));
-	}
+  /********* payOrder code removed here  ************/
 } catch (\SquareConnect\ApiException $e) {
 	$error_log->error( 'Exception when calling OrdersApi->createOrder:', json_decode(json_encode($e->getResponseBody()), true));
 }

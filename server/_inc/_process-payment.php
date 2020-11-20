@@ -38,13 +38,33 @@ $body->setAmountMoney($amountMoney);
 $body->setLocationId($config['location_id']);
 $body->setBuyerEmailAddress($data->order->email);
 $body->setNote('Pickup Order for ' . $data->order->name);
-
+$body->setOrderId($order->getId());
 $body->setIdempotencyKey(uniqid( '', true ));
 
 try {
 	$payment_result = $payments_api->createPayment($body);
 	$payment = $payment_result->getPayment();
 	$payment_log->info('Payment successfully processed: ', (array)$payment);
+
+	// pay order
+	$payBody = new \SquareConnect\Model\PayOrderRequest();
+	$payBody->setIdempotencyKey(uniqid( '', true ));
+	$payBody->setPaymentIds([
+		$payment->getId()
+	]);
+
+	/******** payOrder code added from create-order.php *********/
+	try {
+		$payorder_result = $orders_api->payOrder($order->getId(), $payBody);
+		$payment_log->info('Order successfully paid: ', [
+			'payment_id' => $payment->getId(),
+			'order_id' => $order->getId()
+		]);
+	} catch (\SquareConnect\ApiException $e) {
+		$error_log->error( 'Exception when calling OrdersApi->payOrder:', json_decode(json_encode($e->getResponseBody()), true));
+	}
+	/********  end payOrder code  ****************/
+	
 } catch (\SquareConnect\ApiException $e) {
 	$error_log->error( 'Exception when calling PaymentsApi->createPayment:', json_decode(json_encode($e->getResponseBody()), true));
 	$responseBody = $e->getResponseBody();
