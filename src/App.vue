@@ -55,7 +55,7 @@ export default {
   },
   data() {
     return {
-      active: "entree",
+      active: "entree", // current active module
       edit: false
     };
   },

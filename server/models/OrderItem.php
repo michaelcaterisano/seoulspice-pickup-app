@@ -37,7 +37,6 @@ class OrderItem {
 
 	protected function _buildModifiers()
 	{
-		print("build modifiers");
 		foreach ($this->_data->options as $modifier) {
 			$this->_item['modifiers'][] = [
 				'base_price_money' => [

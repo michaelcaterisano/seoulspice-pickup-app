@@ -174,7 +174,7 @@ export default {
               name: this.name
             });
           }
-          this.$emit("update", "payment");
+          this.$emit("update", "payment"); // emits event to change active component
         }
       });
     },
