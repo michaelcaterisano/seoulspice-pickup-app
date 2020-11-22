@@ -13,13 +13,13 @@ header('Access-Control-Allow-Headers: *');
 
 $response = ['success' => false, 'message' => ''];
 $formData = file_get_contents( 'php://input' );
-$data = json_decode( $formData, false);
+$data = json_decode( $formData, false); // false is "associative" array argument
 
 
 include('./_inc/config.php');
 include('./_inc/_create-order.php');
 include('./_inc/_process-payment.php');
-include('./_inc/_send-email.php');
+// include('./_inc/_send-email.php');
 
 echo json_encode( $response );
 

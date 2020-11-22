@@ -54,17 +54,16 @@ try {
 		$payment->getId()
 	]);
 
-	/******** payOrder code added from create-order.php *********/
 	try {
 		$payorder_result = $orders_api->payOrder($order->getId(), $payBody);
 		$payment_log->info('Order successfully paid: ', [
 			'payment_id' => $payment->getId(),
 			'order_id' => $order->getId()
 		]);
+		$response['success'] = true;
 	} catch (\SquareConnect\ApiException $e) {
 		$error_log->error( 'Exception when calling OrdersApi->payOrder:', json_decode(json_encode($e->getResponseBody()), true));
 	}
-	/********  end payOrder code  ****************/
 	
 } catch (\SquareConnect\ApiException $e) {
 	$error_log->error( 'Exception when calling PaymentsApi->createPayment:', json_decode(json_encode($e->getResponseBody()), true));
