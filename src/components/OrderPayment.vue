@@ -113,8 +113,6 @@ export default {
             });
             return;
           }
-
-          console.log(`card nonce is: $${nonce}`);
           
           that.submitDisabled = true;
           const loadingComponent = that.$buefy.loading.open({
@@ -145,7 +143,6 @@ export default {
 
           if (response.status === 200) {
             if (response.data.success) {
-              console.log('SUCCESS')
               that.$gtag.event("transaction", {
                 transaction_id:
                   new Date().getTime() + Math.ceil(Math.random() * 1000),
@@ -154,7 +151,6 @@ export default {
               });
               that.$emit("update", "summary");
             } else {
-              console.log("FAIL")
               that.submitDisabled = false;
               that.paymentErrors.push({ message: response.data.message });
             }

@@ -10,18 +10,18 @@ try {
 	//Server settings
 	$mail->SMTPDebug = SMTP::DEBUG_OFF;
 	$mail->isSMTP();
-	$mail->Host       = '';
+	$mail->Host       = 'smtp.gmail.com';
 	$mail->SMTPAuth   = true;
-	$mail->Username   = '';
-	$mail->Password   = '';
+	$mail->Username   = 'kbleeberson@gmail.com';
+	$mail->Password   = 'rRAkFwrF9dDTAkZGioyBDJTLZoeiNbjdekZVAtrRRYWsRPeH9MbpUxJgvhHVGvya';
 	$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 	$mail->Port       = 587;
 	$mail->CharSet = 'UTF-8';
 
 	//Recipients
-	$mail->setFrom('', '');
+	$mail->setFrom('kbleeberson@gmail.com', 'Mailer');
 	$mail->addAddress($data->order->email, $data->order->name);     // Add a recipient
-	$mail->addReplyTo('', '');
+	$mail->addReplyTo('kbleeberson@gmail.com', 'Info');
 	if ($env !== 'dev') {
 		$mail->addCC($data->order->location->email);
 	}
