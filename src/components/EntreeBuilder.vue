@@ -7,7 +7,7 @@
             <h3>Choose your base</h3>
             <div class="buttons">
               <b-button
-                type="is-warning"
+                class="button"
                 v-for="base in entreeOptions.bases"
                 :key="base.name"
                 @click="setBase(base)"
@@ -124,10 +124,15 @@ export default {
   margin-top: 1em;
 }
 
-@media screen and (max-width: 786px) {
-  .buttons .button {
-    margin-left: auto;
-    margin-right: auto!important;
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
-}
+
+  .button {
+    width: 400px;
+    background: yellow;
+    border: 5px solid black;
+  }
 </style>
