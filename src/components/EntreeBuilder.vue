@@ -7,11 +7,11 @@
             <h3>Choose your base</h3>
             <div class="buttons">
               <b-button
-                class="button"
+                class="entree-button"
                 v-for="base in entreeOptions.bases"
                 :key="base.name"
                 @click="setBase(base)"
-                >{{ base.name }} ({{ base.price || currency }})</b-button
+                >{{ base.name }} </b-button
               >
             </div>
           </div>
@@ -130,9 +130,17 @@ export default {
     justify-content: center;
   }
 
-  .button {
+  .entree-button {
+    margin-right: 0rem !important; /* overring buefy */
+    border-radius: 10px;
     width: 400px;
-    background: yellow;
-    border: 5px solid black;
+    background: rgb(249,212,0);
+;
+    border: 3px solid black !important; /* overring buefy */
+  }
+
+  .entree-button:hover {
+    background: rgb(249,225,0);
+
   }
 </style>
