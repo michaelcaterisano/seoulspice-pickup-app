@@ -15,10 +15,30 @@ const entreeOptions = {
             max: 1,
             cartLabel: "Proteins",
             choices: [
-                { name: "Beef", price: 1.99, selected: false },
-                { name: "Chicken", price: 0, selected: false },
-                { name: "Spicy Pork", price: 0, selected: false },
-                { name: "Tofu", price: 0, selected: false },
+                {
+                    name: "Beef",
+                    price: 1.99,
+                    selected: false,
+                    imageUrl: "url(http://placekitten.com/200/200)",
+                },
+                {
+                    name: "Chicken",
+                    price: 0,
+                    selected: false,
+                    imageUrl: "http://placekitten.com/200/200",
+                },
+                {
+                    name: "Spicy Pork",
+                    price: 0,
+                    selected: false,
+                    imageUrl: "http://placekitten.com/200/200",
+                },
+                {
+                    name: "Tofu",
+                    price: 0,
+                    selected: false,
+                    imageUrl: "http://placekitten.com/200/200",
+                },
             ],
         },
         {

@@ -189,4 +189,30 @@ $navbar-breakpoint: 767px;
 .section {
   padding: 3rem 0.2rem;
 }
+
+.b-checkbox.checkbox {
+  height: 200px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: transparent;
+  outline: none;
+  color: black;
+}
+
+
+.button:active {
+  background: transparent;
+}
+
+.button:hover {
+  background: transparent;
+}
+
+.control {
+  width: auto;
+}
+
+
 </style>

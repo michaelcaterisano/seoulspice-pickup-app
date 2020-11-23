@@ -1,19 +1,24 @@
-<template
-  ><b-field :addons="false" :label="labelText">
-    <b-checkbox
-      v-for="choice in group.choices"
-      :key="choice.name"
-      v-model="choice.selected"
-      :disabled="checkboxIsDisabled(choice)"
-      type="is-warning"
-    >
-      {{ getChoiceName(choice) }}
-    </b-checkbox>
+<template>
+  <b-field :addons="false" :label="labelText">
+    <div class="checkbox-container">
+      <b-checkbox-button
+        class="image-checkbox"
+        v-for="choice in group.choices"
+        :key="choice.name"
+        v-model="choice.selected"
+        :disabled="checkboxIsDisabled(choice)"
+        type="is-text"
+      >
+        <img :src="getImageUrl(choice)" @click="toggleClicked()" />
+        {{ getChoiceName(choice) }}
+      </b-checkbox-button>
+    </div>
   </b-field>
 </template>
 
 <script>
 export default {
+ 
   computed: {
     labelText() {
       return this.group.label + " (Choose up to  " + this.group.max + ")";
@@ -35,6 +40,9 @@ export default {
     },
     updateOption() {
       return 1;
+    },
+    getImageUrl(choice) {
+      return choice.selected ? "http://placekitten.com/200/200" : "https://via.placeholder.com/200";
     }
   },
   name: "OrderOptionCheckboxGroup",
@@ -47,4 +55,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+  .checkbox-container {
+    display: flex;
+    flex-direction: row;
+  }
+</style>
