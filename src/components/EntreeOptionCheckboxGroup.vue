@@ -2,14 +2,16 @@
   <b-field :addons="false" :label="labelText">
     <div class="checkbox-container">
       <b-checkbox-button
-        class="image-checkbox"
         v-for="choice in group.choices"
         :key="choice.name"
         v-model="choice.selected"
         :disabled="checkboxIsDisabled(choice)"
         type="is-text"
       >
-        <img :src="getImageUrl(choice)" @click="toggleClicked()" />
+        <div class="image-container">
+          <img :src="getImageUrl(choice)" />  
+          <div v-bind:class="{ overlay: choice.selected }"></div>
+        </div>      
         {{ getChoiceName(choice) }}
       </b-checkbox-button>
     </div>
@@ -42,7 +44,7 @@ export default {
       return 1;
     },
     getImageUrl(choice) {
-      return choice.selected ? "http://placekitten.com/200/200" : "https://via.placeholder.com/200";
+      return choice.imageUrl;
     }
   },
   name: "OrderOptionCheckboxGroup",
@@ -56,7 +58,33 @@ export default {
 </script>
 
 <style scoped>
-
+  img {
+    display: block;
+    max-width: 100%; 
+    width: auto; 
+    height: auto;
+    border: 3px solid black;
+    border-radius: 15px;
+  }
+  .image-container {
+    position: relative;
+    display: inline-block;
+    width: 150px;
+    border-radius: 15px;
+  }
+  .overlay {
+    background:rgba(0,0,0,0.5);
+    position:absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border-radius: 15px;
+    background-image: url("~@/assets/check.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
   .checkbox-container {
     display: flex;
     flex-direction: row;

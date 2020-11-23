@@ -19,7 +19,7 @@ const entreeOptions = {
                     name: "Beef",
                     price: 1.99,
                     selected: false,
-                    imageUrl: "url(http://placekitten.com/200/200)",
+                    imageUrl: "http://placekitten.com/200/200",
                 },
                 {
                     name: "Chicken",
