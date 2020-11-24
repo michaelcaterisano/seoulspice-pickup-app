@@ -13,7 +13,7 @@
         class="button is-info"
         @click.prevent="setActiveOrderStep()"
         v-if="active !== 'extras'"
-        ><span>Next</span
+        ><span>Next </span
         ><span class="icon"> <i class="fas fa-arrow-right"></i> </span
       ></a>
       <a
@@ -28,22 +28,32 @@
 
 <script>
 import EntreeOptionCheckboxGroup from "./EntreeOptionCheckboxGroup";
+import { mapGetters } from "vuex";
+
 
 export default {
   components: {
     EntreeOptionCheckboxGroup
   },
-  computed: {},
+  computed: {
+    ...mapGetters(["items"]),
+  },
   data() {
     return {
-      active: "proteins",
+      selected: null,
+      active: "bases",
       steps: [
+        "bases",
         "proteins",
         "extraProteins",
         "veggies",
         "sauces",
         "toppings",
         "extras"
+      ],
+      comboSteps: [
+        "bases",
+        "extras",
       ]
     };
   },
@@ -52,9 +62,15 @@ export default {
       this.$emit("valid");
     },
     advanceStep() {
-      this.active = this.steps[
-        this.steps.findIndex(step => step === this.active) + 1
-      ];
+      if (this.combo.name === "Build Your Own") {
+        this.active = this.steps[
+          this.steps.findIndex(step => step === this.active) + 1
+        ];
+      } else {
+        this.active = this.comboSteps[
+          this.comboSteps.findIndex(step => step === this.active) + 1
+        ];
+      }
     },
     checkMinSelected(option) {
       return option.choices.some(choice => choice.selected);
@@ -64,7 +80,8 @@ export default {
 
       if (option.type === "extraProteins" || this.checkMinSelected(option)) {
         this.advanceStep();
-      } else {
+      } 
+      else {
         this.$buefy.dialog.confirm({
           message:
             "Are you sure you want to continue without selecting any options?",
@@ -73,10 +90,12 @@ export default {
           cancelText: "No"
         });
       }
+
+
     }
   },
   name: "OrderDetailsOptions",
-  props: ["options", "price"]
+  props: ["options", "price", "category", "combo"]
 };
 </script>
 

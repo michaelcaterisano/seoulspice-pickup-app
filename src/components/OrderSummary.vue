@@ -26,7 +26,7 @@
           <h3>Items Ordered</h3>
           <div v-for="(item, index) in items" :key="index">
             <p>
-              {{ item.qty }} X {{ item.name }} [{{
+              {{ item.qty }} X {{ item.combo }} {{ item.name }} [{{
                 (item.price * item.qty) | currency
               }}]
             </p>

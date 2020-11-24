@@ -1,14 +1,53 @@
 const entreeOptions = {
-    bases: [
+    categories: [
         { name: "Korean Feast For 2", price: 0 },
         { name: "Korean Feast For 4", price: 0 },
-        { name: "Rice Bowl", price: 9.99 },
-        { name: "Noodle Bowl", price: 9.99 },
-        { name: "Salad Bowl", price: 9.89 },
+        { name: "Bowl", price: 0 },
         { name: "Korrito", price: 0 },
         { name: "Kid's Bowl", price: 0 },
     ],
+    combos: [
+        { name: "Build Your Own", price: 0 },
+        { name: "Klassic", price: 0 },
+        { name: "Seoul Train", price: 0 },
+        { name: "Kimchi Krunch", price: 0 },
+        { name: "Southwest", price: 0 },
+        { name: "Fireball", price: 0 },
+        { name: "Herbivore", price: 0 },
+    ],
     options: [
+        {
+            type: "bases",
+            label: "Choose your base",
+            max: 2,
+            cartLabel: "Bases",
+            choices: [
+                {
+                    name: "White Rice",
+                    price: 0,
+                    selected: false,
+                    imageUrl: "http://placekitten.com/200/200",
+                },
+                {
+                    name: "Purple Rice",
+                    price: 0,
+                    selected: false,
+                    imageUrl: "http://placekitten.com/200/200",
+                },
+                {
+                    name: "Noodles",
+                    price: 0,
+                    selected: false,
+                    imageUrl: "http://placekitten.com/200/200",
+                },
+                {
+                    name: "Salad",
+                    price: 0,
+                    selected: false,
+                    imageUrl: "http://placekitten.com/200/200",
+                },
+            ],
+        },
         {
             type: "proteins",
             label: "Pick your protein",
