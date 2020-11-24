@@ -27,7 +27,7 @@ class OrderItem {
 				'amount' => (int)($this->_data->price * 100),
 				'currency' => 'USD'
 			],
-			'name' => $this->_data->name
+			'name' => $this->_data->combo . ' ' . $this->_data->name,
 		];
 
 		if ($this->_data->type === 'entree') {

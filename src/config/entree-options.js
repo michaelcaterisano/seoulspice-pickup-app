@@ -1,10 +1,10 @@
 const entreeOptions = {
     categories: [
-        { name: "Korean Feast For 2", price: 0 },
-        { name: "Korean Feast For 4", price: 0 },
-        { name: "Bowl", price: 0 },
-        { name: "Korrito", price: 0 },
-        { name: "Kid's Bowl", price: 0 },
+        { name: "Korean Feast For 2", price: 9.0 },
+        { name: "Korean Feast For 4", price: 9.0 },
+        { name: "Bowl", price: 9.0 },
+        { name: "Korrito", price: 9.0 },
+        { name: "Kid's Bowl", price: 9.0 },
     ],
     combos: [
         { name: "Build Your Own", price: 0 },
