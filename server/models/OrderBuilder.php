@@ -1,23 +1,18 @@
 <?php
 
 namespace SSPickup\models;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 
 class OrderBuilder {
 	protected $_data;
 
 	protected $_order;
 
-	protected $_logger;
-
-	public function __construct($data, $location_id, $logger)
+	public function __construct($data, $location_id)
 	{
 		$this->_data = $data;
 		$this->_order = [
 			'location_id' => $location_id
 		];
-		$this->_logger = $logger;
 	}
 
 	public function getOrder()
@@ -51,7 +46,6 @@ class OrderBuilder {
 
 		// pickupTime is set to false on the first try. why is this being called twice?
 		if ($pickupTime) {
-			$this->_logger->info('pickup time: ', (array)$pickupTime);
 			$this->_order['fulfillments'][0] = [
 				'pickup_details' => [
 					'pickup_at' => $pickupTime->format(DATE_RFC3339),

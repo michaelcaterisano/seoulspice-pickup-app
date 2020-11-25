@@ -10,7 +10,7 @@ class OrderItem {
 
 	public function __construct($data)
 	{
-		$this->_data = $data;
+    $this->_data = $data;
 	}
 
 	public function getItem()
@@ -56,10 +56,10 @@ class OrderItem {
 	}
 
 	protected function _getModifierName($modifier) {
-		$choiceNames = array_map(static function($choice) {
-			return $choice->name;
+    $choiceNames = array_map(function($choice) {
+			return $choice->name . ($choice->onTheSide === true ? " (on the side)" : "");
 		}, $modifier->choices);
 
-		return $modifier->cartLabel . ': ' . implode(', ', $choiceNames);
+		return $modifier->cartLabel . ': ' . implode(', ', $choiceNames); 
 	}
 }

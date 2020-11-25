@@ -132,7 +132,8 @@ const entreeOptions = {
             type: "sauces",
             label: "Pick your sauces",
             cartLabel: "Sauces",
-            max: 2,
+            max: 1,
+            onTheSide: false,
             choices: [
                 { name: "Korean Hot Sauce", price: 0, selected: false },
                 { name: "Creamy Sriracha", price: 0, selected: false },

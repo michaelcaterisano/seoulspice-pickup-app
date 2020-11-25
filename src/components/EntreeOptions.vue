@@ -41,10 +41,9 @@ export default {
     },
     data() {
         return {
-            selected: null,
             active: this.riceOnly() ? "rices" : "bases",
             steps: this.riceOnly()
-                ? this.koreanFeast()
+                ? this.isKoreanFeast()
                     ? ["rices", "proteins", "veggies", "toppings", "extras"]
                     : [
                           "rices",
@@ -95,17 +94,43 @@ export default {
         },
         setActiveOrderStep() {
             const option = this.options.getOption(this.active);
-
             if (
                 option.type === "extraProteins" ||
-                this.checkMinSelected(option)
+                (this.checkMinSelected(option) &&
+                    (this.category.name === "Korrito" ||
+                        option.type !== "sauces"))
             ) {
                 this.advanceStep();
-            } else {
+            }
+
+            if (!this.checkMinSelected(option)) {
                 this.$buefy.dialog.confirm({
                     message:
                         "Are you sure you want to continue without selecting any options?",
                     onConfirm: () => this.advanceStep(),
+                    confirmText: "Yes",
+                    cancelText: "No",
+                });
+            }
+            if (
+                option.type === "sauces" &&
+                this.category.name !== "Korrito" &&
+                this.checkMinSelected(option)
+            ) {
+                this.$buefy.dialog.confirm({
+                    message: "Do you want your sauce on the side?",
+                    onConfirm: () => {
+                        let choice = option.choices.find(
+                            (choice) => choice.selected
+                        );
+                        choice.onTheSide = true;
+                        alert(JSON.stringify(choice));
+                        this.advanceStep();
+                    },
+                    onCancel: () => {
+                        // record sauce "on it"
+                        this.advanceStep();
+                    },
                     confirmText: "Yes",
                     cancelText: "No",
                 });
@@ -118,7 +143,7 @@ export default {
                 this.category.name === "Korrito"
             );
         },
-        koreanFeast() {
+        isKoreanFeast() {
             return (
                 this.category.name === "Korean Feast For 2" ||
                 this.category.name === "Korean Feast For 4"
