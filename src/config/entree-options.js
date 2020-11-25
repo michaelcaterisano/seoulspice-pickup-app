@@ -49,6 +49,26 @@ const entreeOptions = {
             ],
         },
         {
+            type: "rices",
+            label: "Choose your rice",
+            max: 1,
+            cartLabel: "Rice",
+            choices: [
+                {
+                    name: "White Rice",
+                    price: 0,
+                    selected: false,
+                    imageUrl: "http://placekitten.com/200/200",
+                },
+                {
+                    name: "Purple Rice",
+                    price: 0,
+                    selected: false,
+                    imageUrl: "http://placekitten.com/200/200",
+                },
+            ],
+        },
+        {
             type: "proteins",
             label: "Pick your protein",
             max: 1,
@@ -97,6 +117,7 @@ const entreeOptions = {
             label: "Pick your veggies",
             cartLabel: "Veggies",
             max: 7,
+            KFmax: 4,
             choices: [
                 { name: "Corn", price: 0, selected: false },
                 { name: "Carrots", price: 0, selected: false },
