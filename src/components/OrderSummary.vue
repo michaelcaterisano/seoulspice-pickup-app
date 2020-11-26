@@ -102,6 +102,10 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  width: 80%;
+  max-width: 800px;
+}
 h3 {
   margin-top: 20px;
 }

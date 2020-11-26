@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <transition-group name="fade" mode="out-in">
       <entree-option-checkbox-group
         v-for="step in steps"
@@ -162,4 +162,11 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>

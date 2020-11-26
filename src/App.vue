@@ -36,13 +36,13 @@
 </template>
 
 <script>
-import OrderTotals from "./components/OrderTotals";
-import EntreeBuilder from "./components/EntreeBuilder";
-import OrderAddon from "./components/OrderAddon";
-import OrderConfirmation from "./components/OrderConfirmation";
-import OrderInformation from "./components/OrderInformation";
-import OrderPayment from "./components/OrderPayment";
-import OrderSummary from "./components/OrderSummary";
+import OrderTotals from './components/OrderTotals'
+import EntreeBuilder from './components/EntreeBuilder'
+import OrderAddon from './components/OrderAddon'
+import OrderConfirmation from './components/OrderConfirmation'
+import OrderInformation from './components/OrderInformation'
+import OrderPayment from './components/OrderPayment'
+import OrderSummary from './components/OrderSummary'
 export default {
   components: {
     OrderAddon,
@@ -51,38 +51,38 @@ export default {
     OrderConfirmation,
     OrderInformation,
     OrderPayment,
-    OrderSummary
+    OrderSummary,
   },
   data() {
     return {
-      active: "entree", // current active module
-      edit: false
-    };
+      active: 'entree', // current active module
+      edit: false,
+    }
   },
   methods: {
     setActive(section) {
       if (this.edit) {
-        this.active = "confirmation";
+        this.active = 'confirmation'
       } else {
-        this.active = section;
+        this.active = section
       }
-      this.edit = false;
-      document.documentElement.scrollTop = 0;
-      document.scrollTop = 0;
+      this.edit = false
+      document.documentElement.scrollTop = 0
+      document.scrollTop = 0
     },
     setEdit(section) {
-      this.setActive(section);
-      this.edit = true;
-    }
+      this.setActive(section)
+      this.edit = true
+    },
   },
-  name: "App"
-};
+  name: 'App',
+}
 </script>
 
 <style lang="scss">
 $body-size: 24px;
 
-@import "~bulma/sass/utilities/_all";
+@import '~bulma/sass/utilities/_all';
 
 $primary: #dd3333;
 $primary-invert: findColorInvert($primary);
@@ -92,38 +92,38 @@ $black: #0a0000;
 $black-invert: findColorInvert($black);
 
 $colors: (
-  "primary": (
+  'primary': (
     $primary,
-    $primary-invert
+    $primary-invert,
   ),
-  "warning": (
+  'warning': (
     $warning,
-    $warning-invert
+    $warning-invert,
   ),
-  "info": (
+  'info': (
     $info,
-    $info-invert
+    $info-invert,
   ),
-  "success": (
+  'success': (
     $success,
-    $success-invert
+    $success-invert,
   ),
-  "danger": (
+  'danger': (
     $danger,
-    $danger-invert
+    $danger-invert,
   ),
-  "black": (
+  'black': (
     $black,
-    $black-invert
+    $black-invert,
   ),
-  "light": (
+  'light': (
     $light,
-    $light-invert
+    $light-invert,
   ),
-  "dark": (
+  'dark': (
     $dark,
-    $dark-invert
-  )
+    $dark-invert,
+  ),
 );
 
 $steps-active-color: $warning;
@@ -131,8 +131,8 @@ $steps-previous-color: $warning;
 $radio-active-background-color: $warning;
 $navbar-breakpoint: 767px;
 
-@import "~bulma";
-@import "~buefy/src/scss/buefy";
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
 
 .fade-enter-active,
 .fade-leave-active {
@@ -191,8 +191,8 @@ $navbar-breakpoint: 767px;
 }
 
 .b-checkbox.checkbox {
-  height: 200px;
-  width: 200px;
+  height: auto;
+  width: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -200,7 +200,6 @@ $navbar-breakpoint: 767px;
   outline: none;
   color: black;
 }
-
 
 .button:active {
   background: transparent;
@@ -214,5 +213,7 @@ $navbar-breakpoint: 767px;
   width: auto;
 }
 
-
+.is-text {
+  text-decoration: none !important;
+}
 </style>

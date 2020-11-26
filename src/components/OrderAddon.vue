@@ -15,63 +15,70 @@
         ></order-addon-number-group>
       </transition-group>
       <div class="has-text-centered buttons">
-        <a class="button is-success" @click.prevent="addItems()"
-          ><span>Continue</span></a
-        >
+        <a class="button is-success" @click.prevent="addItems()">
+          <span>Continue</span>
+        </a>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import { ADD_ITEM } from "../store/mutations.type";
-import OrderAddonNumberGroup from "./OrderAddonNumberGroup";
-import drinkOptions from "../config/drink-options";
-import dessertOptions from "../config/dessert-options";
+import { ADD_ITEM } from '../store/mutations.type'
+import OrderAddonNumberGroup from './OrderAddonNumberGroup'
+import drinkOptions from '../config/drink-options'
+import dessertOptions from '../config/dessert-options'
 export default {
   components: {
-    OrderAddonNumberGroup
+    OrderAddonNumberGroup,
   },
   data() {
     return {
       drinkOptions: drinkOptions,
       dessertOptions: dessertOptions,
-      active: "drinks"
-    };
+      active: 'drinks',
+    }
   },
   methods: {
     addItems() {
       const choices =
-        this.active === "drinks"
+        this.active === 'drinks'
           ? this.drinkOptions.choices
-          : this.dessertOptions.choices;
-      const choicesToAdd = choices.filter(choice => choice.qty > 0);
+          : this.dessertOptions.choices
+      const choicesToAdd = choices.filter((choice) => choice.qty > 0)
 
       if (choicesToAdd.length) {
-        choicesToAdd.forEach(choice => {
+        choicesToAdd.forEach((choice) => {
           const itemToAdd = {
             name: choice.name,
             qty: choice.qty,
-            type: this.active === "drinks" ? "drink" : "dessert",
+            type: this.active === 'drinks' ? 'drink' : 'dessert',
             price: choice.price,
-            options: null
-          };
-          this.$store.commit(ADD_ITEM, itemToAdd);
-        });
+            options: null,
+          }
+          this.$store.commit(ADD_ITEM, itemToAdd)
+        })
       }
 
-      if (this.active === "drinks") {
-        this.active = "desserts";
+      if (this.active === 'drinks') {
+        this.active = 'desserts'
       } else {
-        this.$emit("update", "confirmation");
+        this.$emit('update', 'confirmation')
       }
-    }
+    },
   },
-  name: "OrderAddon"
-};
+  name: 'OrderAddon',
+}
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+  max-width: 600px;
+}
 .buttons {
   margin-top: 1em;
 }

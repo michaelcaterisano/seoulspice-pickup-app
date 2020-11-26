@@ -1,5 +1,5 @@
 <template>
-  <b-field :addons="false" :label="labelText">
+  <b-field class="label-text" :addons="false" :label="labelText">
     <div class="checkbox-container">
       <b-checkbox-button
         v-for="choice in group.choices"
@@ -85,11 +85,11 @@ img {
 }
 .image-container {
   position: relative;
-  display: inline-block;
-  width: 150px;
+  width: 100px;
   border-radius: 15px;
 }
 .overlay {
+  width: 100px;
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
@@ -105,7 +105,12 @@ img {
 .checkbox-container {
   display: flex;
   flex-direction: row;
-  justify-content: left;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.label-text {
+  text-align: center;
 }
 </style>

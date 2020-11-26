@@ -178,7 +178,8 @@ export default {
 .entree-button {
   margin-right: 0rem !important; /* overring buefy */
   border-radius: 10px;
-  width: 400px;
+  width: 80%;
+  max-width: 600px;
   background: rgb(249, 212, 0);
   border: 3px solid black !important; /* overring buefy */
 }
