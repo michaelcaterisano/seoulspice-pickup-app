@@ -34,50 +34,52 @@
 </template>
 
 <script>
-import { UPDATE_QTY, REMOVE_ITEM } from "../store/mutations.type";
-import { mapGetters } from "vuex";
+import { UPDATE_QTY, REMOVE_ITEM } from '../store/mutations.type'
+import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(["countEntrees"]),
+    ...mapGetters(['countEntrees']),
     price() {
-      return this.item.price * this.item.qty;
-    }
+      return this.item.price * this.item.qty
+    },
   },
   methods: {
     printOptions(option) {
-      let optionText = "";
-      optionText += "<strong>" + option.cartLabel + ": </strong>";
+      let optionText = ''
+      optionText += '<strong>' + option.cartLabel + ': </strong>'
       optionText += option.choices
-        .map(choice => {
-          let choiceText = choice.name;
+        .map((choice) => {
+          let choiceText = choice.onTheSide
+            ? choice.name + ' (on the side)'
+            : choice.name
           if (choice.price > 0) {
-            choiceText += " (+" + choice.price + ")";
+            choiceText += ' (+' + choice.price + ')'
           }
-          return choiceText;
+          return choiceText
         })
-        .join(", ");
-      return optionText;
+        .join(', ')
+      return optionText
     },
     updateQty(val) {
-      this.$store.commit(UPDATE_QTY, { qty: val, index: this.index });
+      this.$store.commit(UPDATE_QTY, { qty: val, index: this.index })
     },
     removeItem() {
-      if (this.item.type === "entree" && this.countEntrees === 1) {
+      if (this.item.type === 'entree' && this.countEntrees === 1) {
         this.$buefy.toast.open({
           duration: 5000,
           message:
-            "You must have at least one entree in your cart to place an order.",
-          type: "is-danger"
-        });
+            'You must have at least one entree in your cart to place an order.',
+          type: 'is-danger',
+        })
       } else {
-        this.$store.commit(REMOVE_ITEM, this.index);
+        this.$store.commit(REMOVE_ITEM, this.index)
       }
-    }
+    },
   },
-  name: "CartItem",
-  props: ["item", "index"]
-};
+  name: 'CartItem',
+  props: ['item', 'index'],
+}
 </script>
 
 <style scoped>
