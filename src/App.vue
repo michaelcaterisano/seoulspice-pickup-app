@@ -36,13 +36,13 @@
 </template>
 
 <script>
-import OrderTotals from './components/OrderTotals'
-import EntreeBuilder from './components/EntreeBuilder'
-import OrderAddon from './components/OrderAddon'
-import OrderConfirmation from './components/OrderConfirmation'
-import OrderInformation from './components/OrderInformation'
-import OrderPayment from './components/OrderPayment'
-import OrderSummary from './components/OrderSummary'
+import OrderTotals from './components/OrderTotals';
+import EntreeBuilder from './components/EntreeBuilder';
+import OrderAddon from './components/OrderAddon';
+import OrderConfirmation from './components/OrderConfirmation';
+import OrderInformation from './components/OrderInformation';
+import OrderPayment from './components/OrderPayment';
+import OrderSummary from './components/OrderSummary';
 export default {
   components: {
     OrderAddon,
@@ -57,26 +57,26 @@ export default {
     return {
       active: 'entree', // current active module
       edit: false,
-    }
+    };
   },
   methods: {
     setActive(section) {
       if (this.edit) {
-        this.active = 'confirmation'
+        this.active = 'confirmation';
       } else {
-        this.active = section
+        this.active = section;
       }
-      this.edit = false
-      document.documentElement.scrollTop = 0
-      document.scrollTop = 0
+      this.edit = false;
+      document.documentElement.scrollTop = 0;
+      document.scrollTop = 0;
     },
     setEdit(section) {
-      this.setActive(section)
-      this.edit = true
+      this.setActive(section);
+      this.edit = true;
     },
   },
   name: 'App',
-}
+};
 </script>
 
 <style lang="scss">
@@ -196,18 +196,18 @@ $navbar-breakpoint: 767px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: transparent;
+  background: transparent !important;
   outline: none;
   color: black;
 }
 
-.button:active {
-  background: transparent;
-}
+// .button:active {
+//   background: transparent;
+// }
 
-.button:hover {
-  background: transparent;
-}
+// .button:hover {
+//   background: transparent;
+// }
 
 .control {
   width: auto;

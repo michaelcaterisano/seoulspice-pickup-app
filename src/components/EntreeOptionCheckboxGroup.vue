@@ -28,11 +28,11 @@ export default {
           ? this.group.KFmax
             ? this.group.KFmax
             : this.group.max
-          : this.group.max
-      return this.group.label + ' (Choose up to  ' + max + ')'
+          : this.group.max;
+      return this.group.label + ' (Choose up to  ' + max + ')';
     },
     countSelectedOptions() {
-      return this.group.choices.filter((choice) => choice.selected).length
+      return this.group.choices.filter((choice) => choice.selected).length;
     },
   },
   methods: {
@@ -43,21 +43,21 @@ export default {
           ? this.group.KFmax
             ? this.group.KFmax
             : this.group.max
-          : this.group.max
-      return this.countSelectedOptions >= max && !item.selected
+          : this.group.max;
+      return this.countSelectedOptions >= max && !item.selected;
     },
     getChoiceName(choice) {
-      let choiceName = choice.name
+      let choiceName = choice.name;
       if (choice.price > 0) {
-        choiceName += ' (+' + choice.price + ')'
+        choiceName += ' (+' + choice.price + ')';
       }
-      return choiceName
+      return choiceName;
     },
     updateOption() {
-      return 1
+      return 1;
     },
     getImageUrl(choice) {
-      return choice.imageUrl
+      return choice.imageUrl;
     },
   },
   name: 'OrderOptionCheckboxGroup',
@@ -71,7 +71,7 @@ export default {
       required: true,
     },
   },
-}
+};
 </script>
 
 <style scoped>

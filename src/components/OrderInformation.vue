@@ -29,7 +29,7 @@
               v-validate="'required|email'"
             ></b-input>
           </b-field>
-          <b-field
+          <!-- <b-field
             label="Pickup Location"
             :type="{ 'is-danger': errors.has('location') }"
             :message="errors.first('location')"
@@ -50,7 +50,7 @@
                 {{ location.description }} ({{ location.address }})
               </option>
             </b-select>
-          </b-field>
+          </b-field> -->
           <b-field
             label="Time"
             :type="{ 'is-danger': errors.has('time') }"
@@ -105,51 +105,51 @@
 </template>
 
 <script>
-import { createHelpers } from 'vuex-map-fields'
-import { mapGetters } from 'vuex'
-import locations from '../config/locations'
-import LogRocket from 'logrocket'
-import cleave from '../utils/cleave-directive'
-import { orderStartTime, orderEndTime } from '../config/config'
+import { createHelpers } from 'vuex-map-fields';
+import { mapGetters } from 'vuex';
+import locations from '../config/locations';
+import LogRocket from 'logrocket';
+import cleave from '../utils/cleave-directive';
+import { orderStartTime, orderEndTime } from '../config/config';
 
 const { mapFields } = createHelpers({
   getterType: 'getOrderField',
   mutationType: 'updateOrderField',
-})
+});
 export default {
   computed: {
     ...mapFields(['name', 'email', 'location', 'time', 'curbside', 'tip']),
     ...mapGetters(['subtotal']),
     minTime() {
-      let minTime = new Date()
-      minTime.setHours(orderStartTime, 0, 0)
-      return minTime
+      let minTime = new Date();
+      minTime.setHours(orderStartTime, 0, 0);
+      return minTime;
     },
     maxTime() {
-      let maxTime = new Date()
-      maxTime.setHours(orderEndTime, 0, 0)
-      return maxTime
+      let maxTime = new Date();
+      maxTime.setHours(orderEndTime, 0, 0);
+      return maxTime;
     },
   },
   created() {
-    const now = new Date()
+    const now = new Date();
 
     if (now.getHours() >= orderEndTime || now.getHours() < orderStartTime) {
-      now.setHours(orderStartTime)
-      now.setMinutes(0)
-      this.time = now
+      now.setHours(orderStartTime);
+      now.setMinutes(0);
+      this.time = now;
     } else {
-      let startTime = new Date(now.getTime() + 15 * 60000)
-      const minutes = startTime.getMinutes()
-      const hours = startTime.getHours()
+      let startTime = new Date(now.getTime() + 15 * 60000);
+      const minutes = startTime.getMinutes();
+      const hours = startTime.getHours();
 
-      let m = ((((minutes + 7.5) / 15) | 0) * 15) % 60
-      let h = (((minutes / 105 + 0.5) | 0) + hours) % 24
+      let m = ((((minutes + 7.5) / 15) | 0) * 15) % 60;
+      let h = (((minutes / 105 + 0.5) | 0) + hours) % 24;
 
-      startTime.setMinutes(m)
-      startTime.setHours(h)
+      startTime.setMinutes(m);
+      startTime.setHours(h);
 
-      this.time = startTime
+      this.time = startTime;
     }
   },
   data() {
@@ -163,7 +163,7 @@ export default {
           prefix: '$ ',
         },
       },
-    }
+    };
   },
   directives: { cleave },
   methods: {
@@ -173,18 +173,18 @@ export default {
           if (process.env.NODE_ENV === 'production') {
             LogRocket.identify(this.email, {
               name: this.name,
-            })
+            });
           }
-          this.$emit('update', 'payment') // emits event to change active component
+          this.$emit('update', 'payment'); // emits event to change active component
         }
-      })
+      });
     },
     updateTip(val) {
-      this.tip = '$' + (this.subtotal * val).toFixed(2)
+      this.tip = '$' + (this.subtotal * val).toFixed(2);
     },
   },
   name: 'OrderInformation',
-}
+};
 </script>
 
 <style scoped>

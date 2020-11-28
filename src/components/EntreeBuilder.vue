@@ -3,11 +3,17 @@
     <section class="section">
       <div class="container">
         <transition class="fade">
-          <div v-if="!entree.category" class="has-text-centered">
+          <div v-if="!selectedLocation">
+            <order-location-component @location-selected="setLocation" />
+          </div>
+          <div
+            v-if="selectedLocation && !entree.category"
+            class="has-text-centered"
+          >
             <h3>What would you like to order?</h3>
-            <div class="buttons">
+            <div class="button-group">
               <b-button
-                class="entree-button"
+                class="yellow-button"
                 v-for="category in entreeOptions.categories"
                 :key="category.name"
                 @click="setCategory(category)"
@@ -20,9 +26,9 @@
             <h3>
               Would you like a Signature Combination or to Build Your Own?
             </h3>
-            <div class="buttons">
+            <div class="button-group">
               <b-button
-                class="entree-button"
+                class="yellow-button"
                 v-for="combo in entreeOptions.combos"
                 :key="combo.name"
                 @click="setCombo(combo)"
@@ -46,29 +52,31 @@
 </template>
 
 <script>
-import entreeOptions from '../config/entree-options'
-import EntreeOptionsComponent from '../components/EntreeOptions'
-import { ADD_ITEM } from '../store/mutations.type'
+import entreeOptions from '../config/entree-options';
+import EntreeOptionsComponent from '../components/EntreeOptions';
+import OrderLocationComponent from '../components/OrderLocation';
+import { ADD_ITEM } from '../store/mutations.type';
 
 export default {
   components: {
     EntreeOptionsComponent,
+    OrderLocationComponent,
   },
   name: 'EntreeBuilder',
   computed: {
     price() {
-      let price = 0
+      let price = 0;
       if (this.entree.category) {
-        price += this.entree.category.price
+        price += this.entree.category.price;
       }
       this.entreeOptions.options.forEach((option) => {
         option.choices.forEach((choice) => {
           if (choice.selected) {
-            price += choice.price
+            price += choice.price;
           }
-        })
-      })
-      return price
+        });
+      });
+      return price;
     },
     showCombos() {
       if (this.entree.category) {
@@ -76,9 +84,9 @@ export default {
           this.entree.combo === null &&
           this.entree.category.name !== 'Korean Feast For 2' &&
           this.entree.category.name !== 'Korean Feast For 4'
-        )
+        );
       }
-      return false
+      return false;
     },
     showOptions() {
       if (this.entree.category) {
@@ -86,38 +94,39 @@ export default {
           this.entree.combo !== null ||
           this.entree.category.name === 'Korean Feast For 2' ||
           this.entree.category.name === 'Korean Feast For 4'
-        )
+        );
       }
-      return false
+      return false;
     },
   },
   data() {
     return {
+      selectedLocation: null,
       entree: {
         category: null,
         combo: null,
         type: 'entree',
       },
       entreeOptions: entreeOptions,
-    }
+    };
   },
   methods: {
     addToCart() {
       let options = this.entreeOptions.options
         .map((option) => {
-          let choices = option.choices.filter((choice) => choice.selected)
+          let choices = option.choices.filter((choice) => choice.selected);
           if (choices.length) {
             return {
               type: option.type,
               cartLabel: option.cartLabel,
               choices: choices,
-            }
+            };
           }
-          return null
+          return null;
         })
-        .filter((option) => option !== null)
+        .filter((option) => option !== null);
 
-      const optionsToAdd = JSON.parse(JSON.stringify(options))
+      const optionsToAdd = JSON.parse(JSON.stringify(options));
 
       const entreeToAdd = {
         name: this.entree.category.name,
@@ -126,41 +135,44 @@ export default {
         qty: 1,
         type: this.entree.type,
         options: optionsToAdd,
-      }
+      };
 
-      this.$store.commit(ADD_ITEM, entreeToAdd)
-      this.confirmContinue()
+      this.$store.commit(ADD_ITEM, entreeToAdd);
+      this.confirmContinue();
     },
     confirmContinue() {
       this.$buefy.dialog.confirm({
         message: 'Would you like to add another entree?',
         onConfirm: () => this.clearEntree(),
         onCancel: () => {
-          this.$emit('update', 'addon')
-          this.clearEntree()
+          this.$emit('update', 'addon');
+          this.clearEntree();
         },
         confirmText: 'Yes',
         cancelText: 'No',
-      })
+      });
     },
     clearEntree() {
-      this.entree.category = null
-      this.entree.combo = null
+      this.entree.category = null;
+      this.entree.combo = null;
       this.entreeOptions.options.forEach((option) => {
         option.choices.forEach((choice) => {
-          choice.selected = false
-          choice.onTheSide ? choice.onTheSide === false : null
-        })
-      })
+          choice.selected = false;
+          choice.onTheSide ? choice.onTheSide === false : null;
+        });
+      });
     },
     setCategory(category) {
-      this.entree.category = category
+      this.entree.category = category;
     },
     setCombo(combo) {
-      this.entree.combo = combo
+      this.entree.combo = combo;
+    },
+    setLocation() {
+      this.selectedLocation = true;
     },
   },
-}
+};
 </script>
 
 <style type="text/scss" scoped>
@@ -169,14 +181,16 @@ export default {
   margin-top: 1em;
 }
 
-.buttons {
+.button-group {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
-.entree-button {
+.yellow-button {
   margin-right: 0rem !important; /* overring buefy */
+  margin-bottom: 20px;
   border-radius: 10px;
   width: 80%;
   max-width: 600px;
@@ -184,7 +198,7 @@ export default {
   border: 3px solid black !important; /* overring buefy */
 }
 
-.entree-button:hover {
+.yellow-button:hover {
   background: rgb(249, 225, 0);
 }
 </style>
