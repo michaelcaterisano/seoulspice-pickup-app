@@ -102,9 +102,9 @@ const entreeOptions = {
     },
     {
       type: "extraProteins",
-      label: "Would you like to add double protein?",
+      label: "Would you like to add extra protein?",
       cartLabel: "Double Proteins",
-      max: 1,
+      max: Infinity,
       choices: [
         { name: "Beef", price: 2.99, selected: false, imageUrl: "http://placekitten.com/200/200" },
         { name: "Chicken", price: 2.99, selected: false, imageUrl: "http://placekitten.com/200/200" },
@@ -132,7 +132,7 @@ const entreeOptions = {
       type: "sauces",
       label: "Pick your sauces",
       cartLabel: "Sauces",
-      max: 1,
+      max: 2,
       choices: [
         { name: "Korean Hot Sauce", price: 0, selected: false, imageUrl: "http://placekitten.com/200/200" },
         { name: "Creamy Sriracha", price: 0, selected: false, imageUrl: "http://placekitten.com/200/200" },
@@ -144,7 +144,7 @@ const entreeOptions = {
       type: "toppings",
       label: "Pick your toppings",
       cartLabel: "Toppings",
-      max: 4,
+      max: Infinity,
       choices: [
         { name: "Crispy Garlic", price: 0, selected: false, imageUrl: "http://placekitten.com/200/200" },
         { name: "Cilantro", price: 0, selected: false, imageUrl: "http://placekitten.com/200/200" },
@@ -155,10 +155,22 @@ const entreeOptions = {
       ],
     },
     {
+      type: "korean feast toppings",
+      label: "Pick your toppings",
+      cartLabel: "Toppings",
+      max: Infinity,
+      choices: [
+        { name: "Crispy Garlic", price: 0, selected: false, imageUrl: "http://placekitten.com/200/200" },
+        { name: "Cilantro", price: 0, selected: false, imageUrl: "http://placekitten.com/200/200" },
+        { name: "Scallions", price: 0, selected: false, imageUrl: "http://placekitten.com/200/200" },
+        { name: "Sesame Seeds", price: 0, selected: false, imageUrl: "http://placekitten.com/200/200" },
+      ],
+    },
+    {
       type: "extras",
       label: "Extras?",
       cartLabel: "Extras",
-      max: 6,
+      max: Infinity,
       choices: [
         { name: "The Egg", price: 1.99, selected: false, onTheSide: false, imageUrl: "http://placekitten.com/200/200" },
         { name: "Avocado", price: 1.59, selected: false, onTheSide: false, imageUrl: "http://placekitten.com/200/200" },

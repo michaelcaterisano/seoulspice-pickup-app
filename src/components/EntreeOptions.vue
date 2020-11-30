@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import EntreeOptionCheckboxGroup from './EntreeOptionCheckboxGroup'
-import { mapGetters } from 'vuex'
+import EntreeOptionCheckboxGroup from './EntreeOptionCheckboxGroup';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -46,7 +46,7 @@ export default {
       active: this.riceOnly() ? 'rices' : 'bases',
       steps: this.riceOnly()
         ? this.isKoreanFeast()
-          ? ['rices', 'proteins', 'veggies', 'toppings', 'extras']
+          ? ['rices', 'proteins', 'veggies', 'korean feast toppings', 'extras']
           : [
               'rices',
               'proteins',
@@ -65,49 +65,49 @@ export default {
             'toppings',
             'extras',
           ],
-      comboSteps: ['bases', 'extras'],
+      comboSteps: ['bases', 'extraProteins', 'extras'],
       korritoComboSteps: ['rices', 'extras'],
-    }
+    };
   },
   methods: {
     addItem() {
-      this.$emit('valid')
+      this.$emit('valid');
     },
     advanceStep() {
       if (this.combo) {
         if (this.combo.name === 'Build Your Own') {
           this.active = this.steps[
             this.steps.findIndex((step) => step === this.active) + 1
-          ]
+          ];
         } else {
           if (this.isKorrito()) {
             this.active = this.korritoComboSteps[
               this.korritoComboSteps.findIndex((step) => step === this.active) +
                 1
-            ]
+            ];
           } else {
             this.active = this.comboSteps[
               this.comboSteps.findIndex((step) => step === this.active) + 1
-            ]
+            ];
           }
         }
       } else {
         this.active = this.steps[
           this.steps.findIndex((step) => step === this.active) + 1
-        ]
+        ];
       }
     },
     checkMinSelected(option) {
-      return option.choices.some((choice) => choice.selected)
+      return option.choices.some((choice) => choice.selected);
     },
     setActiveOrderStep() {
-      const option = this.options.getOption(this.active)
+      const option = this.options.getOption(this.active);
       if (
         option.type === 'extraProteins' ||
         (this.checkMinSelected(option) &&
           (this.category.name === 'Korrito' || option.type !== 'sauces'))
       ) {
-        this.advanceStep()
+        this.advanceStep();
       }
 
       if (!this.checkMinSelected(option)) {
@@ -117,7 +117,7 @@ export default {
           onConfirm: () => this.advanceStep(),
           confirmText: 'Yes',
           cancelText: 'No',
-        })
+        });
       }
       if (
         option.type === 'sauces' &&
@@ -127,17 +127,17 @@ export default {
         this.$buefy.dialog.confirm({
           message: 'Do you want your sauce on the side?',
           onConfirm: () => {
-            let choice = option.choices.find((choice) => choice.selected)
-            choice.onTheSide = true
-            this.advanceStep()
+            let choice = option.choices.find((choice) => choice.selected);
+            choice.onTheSide = true;
+            this.advanceStep();
           },
           onCancel: () => {
             // record sauce "on it"
-            this.advanceStep()
+            this.advanceStep();
           },
           confirmText: 'Yes',
           cancelText: 'No',
-        })
+        });
       }
     },
     riceOnly() {
@@ -145,21 +145,21 @@ export default {
         this.category.name === 'Korean Feast For 2' ||
         this.category.name === 'Korean Feast For 4' ||
         this.category.name === 'Korrito'
-      )
+      );
     },
     isKoreanFeast() {
       return (
         this.category.name === 'Korean Feast For 2' ||
         this.category.name === 'Korean Feast For 4'
-      )
+      );
     },
     isKorrito() {
-      return this.category.name === 'Korrito'
+      return this.category.name === 'Korrito';
     },
   },
   name: 'OrderDetailsOptions',
   props: ['options', 'price', 'category', 'combo'],
-}
+};
 </script>
 
 <style scoped>

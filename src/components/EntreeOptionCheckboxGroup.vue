@@ -29,7 +29,10 @@ export default {
             ? this.group.KFmax
             : this.group.max
           : this.group.max;
-      return this.group.label + ' (Choose up to  ' + max + ')';
+
+      return max === Infinity
+        ? 'Choose as many as you like'
+        : this.group.label + ' (Choose up to  ' + max + ')';
     },
     countSelectedOptions() {
       return this.group.choices.filter((choice) => choice.selected).length;
