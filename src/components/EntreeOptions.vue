@@ -127,8 +127,7 @@ export default {
         this.$buefy.dialog.confirm({
           message: 'Do you want your sauce on the side?',
           onConfirm: () => {
-            let choice = option.choices.find((choice) => choice.selected);
-            choice.onTheSide = true;
+            this.$emit('note', 'Sauce on the side');
             this.advanceStep();
           },
           onCancel: () => {

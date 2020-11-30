@@ -27,7 +27,8 @@ class OrderItem {
 				'amount' => (int)($this->_data->price * 100),
 				'currency' => 'USD'
 			],
-			'name' => $this->_data->combo . ' ' . $this->_data->name,
+      'name' => $this->_data->combo . ' ' . $this->_data->name,
+      'note' => implode('. ', $this->_data->notes),
 		];
 
 		if ($this->_data->type === 'entree') {
@@ -57,7 +58,7 @@ class OrderItem {
 
 	protected function _getModifierName($modifier) {
     $choiceNames = array_map(function($choice) {
-			return $choice->name . ($choice->onTheSide === true ? " (on the side)" : "");
+			return $choice->name;
 		}, $modifier->choices);
 
 		return $modifier->cartLabel . ': ' . implode(', ', $choiceNames); 

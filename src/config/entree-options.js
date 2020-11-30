@@ -172,8 +172,8 @@ const entreeOptions = {
       cartLabel: "Extras",
       max: Infinity,
       choices: [
-        { name: "The Egg", price: 1.99, selected: false, onTheSide: false, imageUrl: "http://placekitten.com/200/200" },
-        { name: "Avocado", price: 1.59, selected: false, onTheSide: false, imageUrl: "http://placekitten.com/200/200" },
+        { name: "The Egg", price: 1.99, selected: false, imageUrl: "http://placekitten.com/200/200" },
+        { name: "Avocado", price: 1.59, selected: false, imageUrl: "http://placekitten.com/200/200" },
       ],
     },
   ],

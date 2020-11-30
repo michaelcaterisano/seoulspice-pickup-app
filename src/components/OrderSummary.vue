@@ -43,6 +43,9 @@
                 v-html="printOptions(option)"
                 :key="index"
               ></li>
+              <li v-for="note in item.notes" :key="note">
+                <strong>Order Notes:</strong> {{ note }}
+              </li>
             </ul>
           </div>
           <h3>Order Totals</h3>
@@ -68,13 +71,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { createHelpers } from 'vuex-map-fields'
+import { mapGetters } from 'vuex';
+import { createHelpers } from 'vuex-map-fields';
 
 const { mapFields } = createHelpers({
   getterType: 'getOrderField',
   mutationType: 'updateOrderField',
-})
+});
 export default {
   computed: {
     ...mapGetters(['total', 'itemSubtotal', 'tax', 'items', 'tip']),
@@ -82,23 +85,23 @@ export default {
     shortTime() {
       return this.time.toLocaleTimeString('en-US', {
         timeStyle: 'short',
-      })
+      });
     },
   },
   methods: {
     printOptions(option) {
-      let optionText = ''
-      optionText += '<strong>' + option.cartLabel + ': </strong>'
+      let optionText = '';
+      optionText += '<strong>' + option.cartLabel + ': </strong>';
       optionText += option.choices
         .map((choice) => {
-          return choice.onTheSide ? choice.name + ' (on the side)' : choice.name
+          return choice.name;
         })
-        .join(', ')
-      return optionText
+        .join(', ');
+      return optionText;
     },
   },
   name: 'OrderSummary',
-}
+};
 </script>
 
 <style scoped>

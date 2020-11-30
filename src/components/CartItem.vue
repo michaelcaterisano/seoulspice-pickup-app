@@ -30,39 +30,43 @@
         :key="index"
       ></li>
     </ul>
+
+    <ul class="notes">
+      <li v-for="note in item.notes" :key="note">
+        <strong>Order Notes:</strong> {{ note }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import { UPDATE_QTY, REMOVE_ITEM } from '../store/mutations.type'
-import { mapGetters } from 'vuex'
+import { UPDATE_QTY, REMOVE_ITEM } from '../store/mutations.type';
+import { mapGetters } from 'vuex';
 
 export default {
   computed: {
     ...mapGetters(['countEntrees']),
     price() {
-      return this.item.price * this.item.qty
+      return this.item.price * this.item.qty;
     },
   },
   methods: {
     printOptions(option) {
-      let optionText = ''
-      optionText += '<strong>' + option.cartLabel + ': </strong>'
+      let optionText = '';
+      optionText += '<strong>' + option.cartLabel + ': </strong>';
       optionText += option.choices
         .map((choice) => {
-          let choiceText = choice.onTheSide
-            ? choice.name + ' (on the side)'
-            : choice.name
+          let choiceText = choice.name;
           if (choice.price > 0) {
-            choiceText += ' (+' + choice.price + ')'
+            choiceText += ' (+' + choice.price + ')';
           }
-          return choiceText
+          return choiceText;
         })
-        .join(', ')
-      return optionText
+        .join(', ');
+      return optionText;
     },
     updateQty(val) {
-      this.$store.commit(UPDATE_QTY, { qty: val, index: this.index })
+      this.$store.commit(UPDATE_QTY, { qty: val, index: this.index });
     },
     removeItem() {
       if (this.item.type === 'entree' && this.countEntrees === 1) {
@@ -71,19 +75,24 @@ export default {
           message:
             'You must have at least one entree in your cart to place an order.',
           type: 'is-danger',
-        })
+        });
       } else {
-        this.$store.commit(REMOVE_ITEM, this.index)
+        this.$store.commit(REMOVE_ITEM, this.index);
       }
     },
   },
   name: 'CartItem',
   props: ['item', 'index'],
-}
+};
 </script>
 
 <style scoped>
 .options {
+  border-top: 1px solid #ccc;
+  margin-top: 15px;
+  padding-top: 15px;
+}
+.notes {
   border-top: 1px solid #ccc;
   margin-top: 15px;
   padding-top: 15px;

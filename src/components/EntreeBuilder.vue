@@ -43,6 +43,7 @@
             :category="entree.category"
             :combo="entree.combo"
             v-if="showOptions"
+            @note="addNote"
             @valid="addToCart"
           ></entree-options-component>
         </transition>
@@ -108,6 +109,7 @@ export default {
         type: 'entree',
       },
       entreeOptions: entreeOptions,
+      notes: [],
     };
   },
   methods: {
@@ -135,6 +137,7 @@ export default {
         qty: 1,
         type: this.entree.type,
         options: optionsToAdd,
+        notes: this.notes,
       };
 
       this.$store.commit(ADD_ITEM, entreeToAdd);
@@ -170,6 +173,9 @@ export default {
     },
     setLocation() {
       this.selectedLocation = true;
+    },
+    addNote(value) {
+      this.notes.push(value);
     },
   },
 };
