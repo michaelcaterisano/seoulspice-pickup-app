@@ -1,30 +1,22 @@
 <template>
-  <b-field
-    class="label-text"
-    :addons="false"
-    label="Where would you like to pick up?"
-  >
-    <div class="checkbox-container">
-      <b-button
-        class="yellow-button"
-        v-for="choice in locations"
-        :key="choice.address"
-        type="is-text"
-        @click="
-          () => {
-            location = choice;
-            $emit('location-selected');
-          }
-        "
-      >
-        <p>{{ choice.address }}</p>
-        {{ choice.description }}
-      </b-button>
-    </div>
-  </b-field>
+  <div class="card-container">
+    <location-card
+      class="location-card"
+      v-for="(loc, index) in locations"
+      :key="index"
+      :location="loc"
+      @click.native="
+        () => {
+          location = loc;
+          clicked();
+        }
+      "
+    ></location-card>
+  </div>
 </template>
 
 <script>
+import LocationCard from '../components/LocationCard';
 import locations from '../config/locations';
 import { createHelpers } from 'vuex-map-fields';
 
@@ -34,6 +26,9 @@ const { mapFields } = createHelpers({
 });
 
 export default {
+  components: {
+    LocationCard,
+  },
   computed: {
     ...mapFields(['location']),
   },
@@ -43,18 +38,31 @@ export default {
       locations: locations,
     };
   },
-  methods: {},
-  name: 'LocationOptionCheckboxGroup',
-  props: {},
+  methods: {
+    clicked() {
+      this.$emit('location-selected');
+    },
+  },
+  name: 'OrderLocation',
+  props: [],
 };
 </script>
 
 <style scoped>
-.checkbox-container {
+.card-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+}
+
+.location-card {
+  margin-bottom: 30px;
+  width: 60%;
+  cursor: pointer;
+}
+
+.location-card:hover {
+  box-shadow: 0 0 1px 2px rgb(249, 212, 0);
 }
 
 .yellow-button {
@@ -74,5 +82,11 @@ export default {
 
 .label-text {
   text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .location-card {
+    width: 100%;
+  }
 }
 </style>

@@ -187,9 +187,10 @@ $navbar-breakpoint: 767px;
 }
 
 .section {
-  padding: 3rem 0.2rem;
+  padding: 3rem 20px 0 20px;
 }
 
+// bulma overrides
 .b-checkbox.checkbox {
   height: auto;
   width: auto;
@@ -201,19 +202,15 @@ $navbar-breakpoint: 767px;
   color: black;
 }
 
-// .button:active {
-//   background: transparent;
-// }
-
-// .button:hover {
-//   background: transparent;
-// }
-
 .control {
   width: auto;
 }
 
 .is-text {
   text-decoration: none !important;
+}
+
+.media-content {
+  overflow: hidden;
 }
 </style>
