@@ -43,4 +43,8 @@ export default {
   margin-bottom: 24px !important;
   overflow: hidden;
 }
+.card-footer {
+  margin: 12px 0 -24px 0;
+  border-top: none !important;
+}
 </style>
