@@ -28,7 +28,7 @@
 export default {
   computed: {},
   method: {},
-  name: 'LocationCard',
+  name: 'OrderLocationCard',
   props: ['location'],
 };
 </script>

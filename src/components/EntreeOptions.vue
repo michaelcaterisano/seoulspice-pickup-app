@@ -31,51 +31,51 @@
 </template>
 
 <script>
-import EntreeOptionCheckboxGroup from './EntreeOptionCheckboxGroup';
-import { mapGetters } from 'vuex';
+import EntreeOptionCheckboxGroup from "./EntreeOptionCheckboxGroup";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
     EntreeOptionCheckboxGroup,
   },
   computed: {
-    ...mapGetters(['items']),
+    ...mapGetters(["items"]),
   },
   data() {
     return {
-      active: this.riceOnly() ? 'rices' : 'bases',
+      active: this.riceOnly() ? "rices" : "bases",
       steps: this.riceOnly()
         ? this.isKoreanFeast()
-          ? ['rices', 'proteins', 'veggies', 'korean feast toppings', 'extras']
+          ? ["rices", "proteins", "veggies", "korean feast toppings", "extras"]
           : [
-              'rices',
-              'proteins',
-              'extraProteins',
-              'veggies',
-              'sauces',
-              'toppings',
-              'extras',
+              "rices",
+              "proteins",
+              "extraProteins",
+              "veggies",
+              "sauces",
+              "toppings",
+              "extras",
             ]
         : [
-            'bases',
-            'proteins',
-            'extraProteins',
-            'veggies',
-            'sauces',
-            'toppings',
-            'extras',
+            "bases",
+            "proteins",
+            "extraProteins",
+            "veggies",
+            "sauces",
+            "toppings",
+            "extras",
           ],
-      comboSteps: ['bases', 'extraProteins', 'extras'],
-      korritoComboSteps: ['rices', 'extras'],
+      comboSteps: ["bases", "extraProteins", "extras"],
+      korritoComboSteps: ["rices", "extras"],
     };
   },
   methods: {
     addItem() {
-      this.$emit('valid');
+      this.$emit("valid");
     },
     advanceStep() {
       if (this.combo) {
-        if (this.combo.name === 'Build Your Own') {
+        if (this.combo.name === "Build Your Own") {
           this.active = this.steps[
             this.steps.findIndex((step) => step === this.active) + 1
           ];
@@ -103,9 +103,9 @@ export default {
     setActiveOrderStep() {
       const option = this.options.getOption(this.active);
       if (
-        option.type === 'extraProteins' ||
+        option.type === "extraProteins" ||
         (this.checkMinSelected(option) &&
-          (this.category.name === 'Korrito' || option.type !== 'sauces'))
+          (this.category.name === "Korrito" || option.type !== "sauces"))
       ) {
         this.advanceStep();
       }
@@ -113,51 +113,51 @@ export default {
       if (!this.checkMinSelected(option)) {
         this.$buefy.dialog.confirm({
           message:
-            'Are you sure you want to continue without selecting any options?',
+            "Are you sure you want to continue without selecting any options?",
           onConfirm: () => this.advanceStep(),
-          confirmText: 'Yes',
-          cancelText: 'No',
+          confirmText: "Yes",
+          cancelText: "No",
         });
       }
       if (
-        option.type === 'sauces' &&
-        this.category.name !== 'Korrito' &&
+        option.type === "sauces" &&
+        this.category.name !== "Korrito" &&
         this.checkMinSelected(option)
       ) {
         this.$buefy.dialog.confirm({
-          message: 'Do you want your sauce on the side?',
+          message: "Do you want your sauce on the side?",
           onConfirm: () => {
-            this.$emit('note', 'Sauce on the side');
+            this.$emit("note", "Sauce on the side");
             this.advanceStep();
           },
           onCancel: () => {
             // record sauce "on it"
             this.advanceStep();
           },
-          confirmText: 'Yes',
-          cancelText: 'No',
+          confirmText: "Yes",
+          cancelText: "No",
         });
       }
     },
     riceOnly() {
       return (
-        this.category.name === 'Korean Feast For 2' ||
-        this.category.name === 'Korean Feast For 4' ||
-        this.category.name === 'Korrito'
+        this.category.name === "Korean Feast For 2" ||
+        this.category.name === "Korean Feast For 4" ||
+        this.category.name === "Korrito"
       );
     },
     isKoreanFeast() {
       return (
-        this.category.name === 'Korean Feast For 2' ||
-        this.category.name === 'Korean Feast For 4'
+        this.category.name === "Korean Feast For 2" ||
+        this.category.name === "Korean Feast For 4"
       );
     },
     isKorrito() {
-      return this.category.name === 'Korrito';
+      return this.category.name === "Korrito";
     },
   },
-  name: 'OrderDetailsOptions',
-  props: ['options', 'price', 'category', 'combo'],
+  name: "OrderDetailsOptions",
+  props: ["options", "price", "category", "combo"],
 };
 </script>
 

@@ -1,6 +1,7 @@
 <template>
   <div class="card-container">
-    <location-card
+    <span class="title is-size-5">Choose your location</span>
+    <order-location-card
       class="location-card"
       v-for="(loc, index) in locations"
       :key="index"
@@ -11,26 +12,26 @@
           clicked();
         }
       "
-    ></location-card>
+    ></order-location-card>
   </div>
 </template>
 
 <script>
-import LocationCard from '../components/LocationCard';
-import locations from '../config/locations';
-import { createHelpers } from 'vuex-map-fields';
+import OrderLocationCard from "../components/OrderLocationCard";
+import locations from "../config/locations";
+import { createHelpers } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
-  getterType: 'getOrderField',
-  mutationType: 'updateOrderField',
+  getterType: "getOrderField",
+  mutationType: "updateOrderField",
 });
 
 export default {
   components: {
-    LocationCard,
+    OrderLocationCard,
   },
   computed: {
-    ...mapFields(['location']),
+    ...mapFields(["location"]),
   },
 
   data() {
@@ -40,15 +41,18 @@ export default {
   },
   methods: {
     clicked() {
-      this.$emit('location-selected');
+      this.$emit("location-selected");
     },
   },
-  name: 'OrderLocation',
+  name: "OrderLocations",
   props: [],
 };
 </script>
 
 <style scoped>
+.title {
+  margin-bottom: 24px;
+}
 .card-container {
   display: flex;
   flex-direction: column;
@@ -63,25 +67,6 @@ export default {
 
 .location-card:hover {
   box-shadow: 0 0 1px 2px rgb(249, 212, 0);
-}
-
-.yellow-button {
-  height: auto;
-  margin-right: 0rem !important; /* overring buefy */
-  border-radius: 10px;
-  width: 80%;
-  max-width: 600px;
-  background: rgb(249, 212, 0) !important;
-  border: 3px solid black !important; /* overring buefy */
-  margin: 20px;
-}
-
-.yellow-button:hover {
-  background: rgb(249, 225, 0);
-}
-
-.label-text {
-  text-align: center;
 }
 
 @media screen and (max-width: 767px) {

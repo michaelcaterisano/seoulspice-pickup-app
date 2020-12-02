@@ -23,16 +23,16 @@ export default {
   computed: {
     labelText() {
       let max =
-        this.category.name === 'Korean Feast For 2' ||
-        this.category.name === 'Korean Feast For 4'
+        this.category.name === "Korean Feast For 2" ||
+        this.category.name === "Korean Feast For 4"
           ? this.group.KFmax
             ? this.group.KFmax
             : this.group.max
           : this.group.max;
 
       return max === Infinity
-        ? 'Choose as many as you like'
-        : this.group.label + ' (Choose up to  ' + max + ')';
+        ? "Choose as many as you like"
+        : this.group.label + " (Choose up to  " + max + ")";
     },
     countSelectedOptions() {
       return this.group.choices.filter((choice) => choice.selected).length;
@@ -41,8 +41,8 @@ export default {
   methods: {
     checkboxIsDisabled(item) {
       let max =
-        this.category.name === 'Korean Feast For 2' ||
-        this.category.name === 'Korean Feast For 4'
+        this.category.name === "Korean Feast For 2" ||
+        this.category.name === "Korean Feast For 4"
           ? this.group.KFmax
             ? this.group.KFmax
             : this.group.max
@@ -52,7 +52,7 @@ export default {
     getChoiceName(choice) {
       let choiceName = choice.name;
       if (choice.price > 0) {
-        choiceName += ' (+' + choice.price + ')';
+        choiceName += " (+" + choice.price + ")";
       }
       return choiceName;
     },
@@ -63,7 +63,7 @@ export default {
       return choice.imageUrl;
     },
   },
-  name: 'OrderOptionCheckboxGroup',
+  name: "OrderOptionCheckboxGroup",
   props: {
     group: {
       type: Object,
@@ -83,7 +83,7 @@ img {
   max-width: 100%;
   width: auto;
   height: auto;
-  border: 3px solid black;
+  /* box-shadow: 0 0 1px 2px black; */
   border-radius: 15px;
 }
 .image-container {
@@ -100,7 +100,7 @@ img {
   left: 0;
   bottom: 0;
   border-radius: 15px;
-  background-image: url('~@/assets/check.png');
+  background-image: url("~@/assets/check.png");
   background-size: 80%;
   background-repeat: no-repeat;
   background-position: center;

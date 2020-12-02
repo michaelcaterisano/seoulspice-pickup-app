@@ -4,23 +4,24 @@
       <div class="container">
         <transition class="fade">
           <div v-if="!selectedLocation">
-            <order-location-component @location-selected="setLocation" />
+            <order-location @location-selected="setLocation" />
           </div>
-          <div
-            v-if="selectedLocation && !entree.category"
-            class="has-text-centered"
-          >
-            <h3>What would you like to order?</h3>
+          <div v-if="selectedLocation && !entree.category">
+            <entree-categories
+              :categories="menuData.categories"
+              @category-selected="setCategory"
+            ></entree-categories>
+            <!-- <h3>What would you like to order?</h3>
             <div class="button-group">
               <b-button
                 class="yellow-button"
-                v-for="category in entreeOptions.categories"
+                v-for="category in menuData.categories"
                 :key="category.name"
                 @click="setCategory(category)"
               >
                 {{ category.name }}
               </b-button>
-            </div>
+            </div> -->
           </div>
           <div v-if="showCombos" class="has-text-centered">
             <h3>
@@ -29,7 +30,7 @@
             <div class="button-group">
               <b-button
                 class="yellow-button"
-                v-for="combo in entreeOptions.combos"
+                v-for="combo in menuData.combos"
                 :key="combo.name"
                 @click="setCombo(combo)"
               >
@@ -37,15 +38,15 @@
               </b-button>
             </div>
           </div>
-          <entree-options-component
-            :options="entreeOptions"
+          <entree-options
+            :options="menuData"
             :price="price"
             :category="entree.category"
             :combo="entree.combo"
             v-if="showOptions"
             @note="addNote"
             @valid="addToCart"
-          ></entree-options-component>
+          ></entree-options>
         </transition>
       </div>
     </section>
@@ -53,24 +54,26 @@
 </template>
 
 <script>
-import entreeOptions from '../config/entree-options';
-import EntreeOptionsComponent from '../components/EntreeOptions';
-import OrderLocationComponent from '../components/OrderLocation';
-import { ADD_ITEM } from '../store/mutations.type';
+import menuData from "../config/menu-data";
+import EntreeCategories from "../components/EntreeCategories";
+import EntreeOptions from "../components/EntreeOptions";
+import OrderLocation from "../components/OrderLocation";
+import { ADD_ITEM } from "../store/mutations.type";
 
 export default {
   components: {
-    EntreeOptionsComponent,
-    OrderLocationComponent,
+    EntreeCategories,
+    EntreeOptions,
+    OrderLocation,
   },
-  name: 'EntreeBuilder',
+  name: "EntreeBuilder",
   computed: {
     price() {
       let price = 0;
       if (this.entree.category) {
         price += this.entree.category.price;
       }
-      this.entreeOptions.options.forEach((option) => {
+      this.menuData.options.forEach((option) => {
         option.choices.forEach((choice) => {
           if (choice.selected) {
             price += choice.price;
@@ -83,8 +86,8 @@ export default {
       if (this.entree.category) {
         return (
           this.entree.combo === null &&
-          this.entree.category.name !== 'Korean Feast For 2' &&
-          this.entree.category.name !== 'Korean Feast For 4'
+          this.entree.category.name !== "Korean Feast For 2" &&
+          this.entree.category.name !== "Korean Feast For 4"
         );
       }
       return false;
@@ -93,8 +96,8 @@ export default {
       if (this.entree.category) {
         return (
           this.entree.combo !== null ||
-          this.entree.category.name === 'Korean Feast For 2' ||
-          this.entree.category.name === 'Korean Feast For 4'
+          this.entree.category.name === "Korean Feast For 2" ||
+          this.entree.category.name === "Korean Feast For 4"
         );
       }
       return false;
@@ -106,15 +109,15 @@ export default {
       entree: {
         category: null,
         combo: null,
-        type: 'entree',
+        type: "entree",
       },
-      entreeOptions: entreeOptions,
+      menuData: menuData,
       notes: [],
     };
   },
   methods: {
     addToCart() {
-      let options = this.entreeOptions.options
+      let options = this.menuData.options
         .map((option) => {
           let choices = option.choices.filter((choice) => choice.selected);
           if (choices.length) {
@@ -145,20 +148,20 @@ export default {
     },
     confirmContinue() {
       this.$buefy.dialog.confirm({
-        message: 'Would you like to add another entree?',
+        message: "Would you like to add another entree?",
         onConfirm: () => this.clearEntree(),
         onCancel: () => {
-          this.$emit('update', 'addon');
+          this.$emit("update", "addon");
           this.clearEntree();
         },
-        confirmText: 'Yes',
-        cancelText: 'No',
+        confirmText: "Yes",
+        cancelText: "No",
       });
     },
     clearEntree() {
       this.entree.category = null;
       this.entree.combo = null;
-      this.entreeOptions.options.forEach((option) => {
+      this.menuData.options.forEach((option) => {
         option.choices.forEach((choice) => {
           choice.selected = false;
           choice.onTheSide ? choice.onTheSide === false : null;
