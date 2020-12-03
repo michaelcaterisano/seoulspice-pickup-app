@@ -42,18 +42,18 @@ import { createHelpers } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
-  mutationType: "updateOrderField"
+  mutationType: "updateOrderField",
 });
 export default {
   computed: {
     ...mapGetters(["total", "itemSubtotal", "tax", "items", "tip"]),
-    ...mapFields(["name", "location", "time", "email", "curbside"])
+    ...mapFields(["name", "location", "time", "email", "curbside"]),
   },
   data() {
     return {
       paymentForm: null,
       paymentErrors: [],
-      submitDisabled: false
+      submitDisabled: false,
     };
   },
   mounted() {
@@ -75,28 +75,28 @@ export default {
           lineHeight: "24px",
           padding: "16px",
           placeholderColor: "#a0a0a0",
-          backgroundColor: "transparent"
-        }
+          backgroundColor: "transparent",
+        },
       ],
       // Initialize the credit card placeholders
       cardNumber: {
         elementId: "sq-card-number",
-        placeholder: "Card Number"
+        placeholder: "Card Number",
       },
       cvv: {
         elementId: "sq-cvv",
-        placeholder: "CVV"
+        placeholder: "CVV",
       },
       expirationDate: {
         elementId: "sq-expiration-date",
-        placeholder: "MM/YY"
+        placeholder: "MM/YY",
       },
       postalCode: {
         elementId: "sq-postal-code",
-        placeholder: "Postal"
+        placeholder: "Postal",
       },
       applePay: {
-        elementId: "sq-apple-pay"
+        elementId: "sq-apple-pay",
       },
       // SqPaymentForm callback functions
       callbacks: {
@@ -108,15 +108,14 @@ export default {
           if (errors) {
             // Log errors from nonce generation to the browser developer console.
             errors.forEach(function(error) {
-              console.log("payment error: " + error);
               that.paymentErrors.push(error);
             });
             return;
           }
-          
+
           that.submitDisabled = true;
           const loadingComponent = that.$buefy.loading.open({
-            container: null
+            container: null,
           });
           let response = await orderService.post("/process-order.php", {
             nonce: nonce,
@@ -125,7 +124,7 @@ export default {
               tax: that.tax.toFixed(2),
               tip: that.tip.toFixed(2),
               taxRate: that.taxRate,
-              total: that.total.toFixed(2)
+              total: that.total.toFixed(2),
             },
             items: that.items,
             order: {
@@ -133,13 +132,12 @@ export default {
               email: that.email,
               location: that.location,
               time: that.time.toLocaleTimeString("en-US", {
-                timeStyle: "short"
+                timeStyle: "short",
               }),
-              curbside: that.curbside
-            }
+              curbside: that.curbside,
+            },
           });
           loadingComponent.close();
-
 
           if (response.status === 200) {
             if (response.data.success) {
@@ -147,7 +145,7 @@ export default {
                 transaction_id:
                   new Date().getTime() + Math.ceil(Math.random() * 1000),
                 value: that.total.toFixed(2),
-                tax: that.tax.toFixed(2)
+                tax: that.tax.toFixed(2),
               });
               that.$emit("update", "summary");
             } else {
@@ -158,7 +156,6 @@ export default {
         },
         methodsSupported: function(methods, unsupportedReason) {
           // eslint-disable-next-line
-          console.log(methods);
 
           var applePayBtn = document.getElementById("sq-apple-pay");
 
@@ -180,13 +177,13 @@ export default {
             total: {
               label: "Seoulspice",
               amount: that.total.toFixed(2),
-              pending: false
-            }
+              pending: false,
+            },
           };
 
           return paymentRequestJson;
-        }
-      }
+        },
+      },
     });
     this.paymentForm.build();
   },
@@ -196,9 +193,9 @@ export default {
       if (!this.submitDisabled) {
         this.paymentForm.requestCardNonce();
       }
-    }
+    },
   },
-  name: "OrderPayment"
+  name: "OrderPayment",
 };
 </script>
 
