@@ -20,7 +20,7 @@
         <span class="icon"><i class="fas fa-arrow-right"></i></span>
       </a>
       <a
-        class="button is-success"
+        class="button is-success add-to-cart-button"
         @click.prevent="addItem()"
         v-if="active === 'extras'"
       >
@@ -74,6 +74,7 @@ export default {
       this.$emit("valid");
     },
     advanceStep() {
+      window.scrollTo(0, 0);
       if (this.combo) {
         if (this.combo.name === "Build Your Own") {
           this.active = this.steps[
@@ -166,5 +167,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.add-to-cart-button {
+  margin-top: 12px;
 }
 </style>

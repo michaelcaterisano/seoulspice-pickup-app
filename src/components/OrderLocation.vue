@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <span class="title is-size-5">Choose your location</span>
+    <span class="location-title is-size-5">CHOOSE YOUR LOCATION</span>
     <order-location-card
       class="location-card"
       v-for="(loc, index) in locations"
@@ -50,7 +50,8 @@ export default {
 </script>
 
 <style scoped>
-.title {
+.location-title {
+  text-align: center;
   margin-bottom: 24px;
 }
 .card-container {

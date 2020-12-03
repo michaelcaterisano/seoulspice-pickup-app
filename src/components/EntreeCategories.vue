@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <span class="title is-size-5">CHOOSE YOUR ENTREE</span>
+  <section>
+    <div class="category-title is-size-5"><span>CHOOSE YOUR ENTREE</span></div>
     <div class="card-container">
       <entree-category-card
         class="category-card"
@@ -10,7 +10,7 @@
         @click.native="$emit('category-selected', category)"
       ></entree-category-card>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -26,23 +26,17 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 .card-container {
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
 
-.title {
-  margin-bottom: 24px;
+.category-title {
+  text-align: center;
+  margin-bottom: 12px;
 }
 
 .category-card {
@@ -63,10 +57,11 @@ export default {
 
 @media screen and (max-width: 599px) {
   .card-container {
+    margin: 0;
     width: 100%;
   }
   .category-card {
-    flex-basis: calc(100% - 24px);
+    flex-basis: calc(100%);
   }
 }
 </style>

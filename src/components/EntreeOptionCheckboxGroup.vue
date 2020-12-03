@@ -1,6 +1,10 @@
 <template>
-  <b-field class="label-text" :addons="false" :label="labelText.toUpperCase()">
+  <b-field class="label-text" :addons="false">
     <div class="container">
+      <div class="option-title is-size-5">
+        <span>{{ labelText.toUpperCase() }}</span>
+      </div>
+
       <div class="checkbox-container">
         <b-checkbox-button
           class="option"
@@ -14,7 +18,7 @@
             <img :src="getImageUrl(choice)" />
             <div v-bind:class="{ overlay: choice.selected }"></div>
           </div>
-          {{ getChoiceName(choice) }}
+          <span class="is-size-7">{{ getChoiceName(choice) }}</span>
         </b-checkbox-button>
       </div>
     </div>
@@ -34,7 +38,7 @@ export default {
           : this.group.max;
 
       return max === Infinity
-        ? "Choose as many as you like"
+        ? this.group.label
         : this.group.label + " (Choose up to  " + max + ")";
     },
     countSelectedOptions() {
@@ -57,7 +61,7 @@ export default {
       if (choice.price > 0) {
         choiceName += " (+" + choice.price + ")";
       }
-      return choiceName.toUpperCase();
+      return choiceName.toLowerCase();
     },
     updateOption() {
       return 1;
@@ -163,7 +167,7 @@ img {
   }
   .option {
     flex-basis: auto;
-    width: 90%;
+    width: 50%;
   }
 
   .overlay {

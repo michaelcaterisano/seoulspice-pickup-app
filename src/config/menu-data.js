@@ -311,12 +311,12 @@ const menuData = {
           selected: false,
           imageUrl: require("../assets/images/toppings-sesame-oil-1.jpg"),
         },
-        // {
-        //   name: "Scallions",
-        //   price: 0,
-        //   selected: false,
-        //   imageUrl: require("../assets/images/toppings-scallions.jpg"),
-        // },
+        {
+          name: "Scallions",
+          price: 0,
+          selected: false,
+          imageUrl: require("../assets/images/toppings-scallions.jpg"),
+        },
         {
           name: "Sesame Seeds",
           price: 0,

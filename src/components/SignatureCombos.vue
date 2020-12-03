@@ -1,8 +1,7 @@
 <template>
-  <div class="container">
-    <span class="title is-size-5"
-      >WOULD YOU LIKE A SIGNATURE COMBO OR TO BUILD YOUR OWN?</span
-    >
+  <section>
+    <div class="signature-title is-size-5"><span>CHOOSE YOUR ENTREE</span></div>
+
     <div class="card-container">
       <signature-combo-card
         class="combo-card"
@@ -12,7 +11,7 @@
         @click.native="$emit('combo-selected', combo)"
       ></signature-combo-card>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -43,8 +42,9 @@ export default {
   justify-content: flex-start;
 }
 
-.title {
-  margin-bottom: 24px;
+.signature-title {
+  text-align: center;
+  margin-bottom: 12px;
 }
 
 .combo-card {

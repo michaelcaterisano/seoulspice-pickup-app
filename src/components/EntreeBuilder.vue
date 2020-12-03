@@ -6,7 +6,7 @@
           <div v-if="!selectedLocation">
             <order-location @location-selected="setLocation" />
           </div>
-          <div v-if="selectedLocation && !entree.category">
+          <div v-if="showCategories">
             <entree-categories
               :categories="menuData.categories"
               @category-selected="setCategory"
@@ -75,8 +75,16 @@ export default {
       });
       return price;
     },
+    showCategories() {
+      if (this.selectedLocation && !this.entree.category) {
+        window.scrollTo(0, 0);
+        return true;
+      }
+      return false;
+    },
     showCombos() {
       if (this.entree.category) {
+        window.scrollTo(0, 0);
         return (
           this.entree.combo === null &&
           this.entree.category.name !== "Korean Feast For 2" &&
@@ -87,6 +95,7 @@ export default {
     },
     showOptions() {
       if (this.entree.category) {
+        window.scrollTo(0, 0);
         return (
           this.entree.combo !== null ||
           this.entree.category.name === "Korean Feast For 2" ||

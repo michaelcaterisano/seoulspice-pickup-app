@@ -19,11 +19,11 @@
           <img class="is-rounded" src="http://placekitten.com/200/200" />
         </figure>
       </div> -->
-      <footer class="card-footer">
+      <!-- <footer class="card-footer">
         <span
           ><strong>${{ combo.price }}</strong></span
         >
-      </footer>
+      </footer> -->
     </div>
   </div>
 </template>

@@ -36,13 +36,13 @@
 </template>
 
 <script>
-import OrderTotals from './components/OrderTotals';
-import EntreeBuilder from './components/EntreeBuilder';
-import OrderAddon from './components/OrderAddon';
-import OrderConfirmation from './components/OrderConfirmation';
-import OrderInformation from './components/OrderInformation';
-import OrderPayment from './components/OrderPayment';
-import OrderSummary from './components/OrderSummary';
+import OrderTotals from "./components/OrderTotals";
+import EntreeBuilder from "./components/EntreeBuilder";
+import OrderAddon from "./components/OrderAddon";
+import OrderConfirmation from "./components/OrderConfirmation";
+import OrderInformation from "./components/OrderInformation";
+import OrderPayment from "./components/OrderPayment";
+import OrderSummary from "./components/OrderSummary";
 export default {
   components: {
     OrderAddon,
@@ -55,14 +55,14 @@ export default {
   },
   data() {
     return {
-      active: 'entree', // current active module
+      active: "entree", // current active module
       edit: false,
     };
   },
   methods: {
     setActive(section) {
       if (this.edit) {
-        this.active = 'confirmation';
+        this.active = "confirmation";
       } else {
         this.active = section;
       }
@@ -75,14 +75,14 @@ export default {
       this.edit = true;
     },
   },
-  name: 'App',
+  name: "App",
 };
 </script>
 
 <style lang="scss">
 $body-size: 24px;
 
-@import '~bulma/sass/utilities/_all';
+@import "~bulma/sass/utilities/_all";
 
 $primary: #dd3333;
 $primary-invert: findColorInvert($primary);
@@ -92,35 +92,35 @@ $black: #0a0000;
 $black-invert: findColorInvert($black);
 
 $colors: (
-  'primary': (
+  "primary": (
     $primary,
     $primary-invert,
   ),
-  'warning': (
+  "warning": (
     $warning,
     $warning-invert,
   ),
-  'info': (
+  "info": (
     $info,
     $info-invert,
   ),
-  'success': (
+  "success": (
     $success,
     $success-invert,
   ),
-  'danger': (
+  "danger": (
     $danger,
     $danger-invert,
   ),
-  'black': (
+  "black": (
     $black,
     $black-invert,
   ),
-  'light': (
+  "light": (
     $light,
     $light-invert,
   ),
-  'dark': (
+  "dark": (
     $dark,
     $dark-invert,
   ),
@@ -131,8 +131,8 @@ $steps-previous-color: $warning;
 $radio-active-background-color: $warning;
 $navbar-breakpoint: 767px;
 
-@import '~bulma';
-@import '~buefy/src/scss/buefy';
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
 
 .fade-enter-active,
 .fade-leave-active {
@@ -187,7 +187,7 @@ $navbar-breakpoint: 767px;
 }
 
 .section {
-  padding: 3rem 20px 0 20px;
+  padding: 3rem 10px 0px 10px;
 }
 
 // bulma overrides
