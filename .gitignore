@@ -29,3 +29,6 @@ TODO.txt
 example.php
 example-payOrder.php
 
+
+# Local Netlify folder
+.netlify
