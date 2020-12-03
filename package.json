@@ -9,21 +9,21 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "buefy": "^0.8.13",
-    "cleave.js": "^1.5.8",
+    "buefy": "^0.8.20",
+    "cleave.js": "^1.6.0",
     "core-js": "^3.6.4",
-    "logrocket": "^1.0.6",
+    "logrocket": "^1.0.14",
     "vee-validate": "2.1.5",
-    "vue": "^2.6.11",
+    "vue": "^2.6.12",
     "vue-currency-filter": "^4.0.3",
-    "vue-gtag": "^1.6.2",
+    "vue-gtag": "^1.10.0",
     "vuex": "^3.1.2",
-    "vuex-map-fields": "^1.4.0"
+    "vuex-map-fields": "^1.4.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.2.0",
-    "@vue/cli-plugin-eslint": "^4.2.0",
-    "@vue/cli-service": "^4.2.0",
+    "@vue/cli-plugin-babel": "^4.5.9",
+    "@vue/cli-plugin-eslint": "^4.5.9",
+    "@vue/cli-service": "^4.5.9",
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
@@ -32,6 +32,6 @@
     "node-sass": "^4.12.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.12"
   }
 }
