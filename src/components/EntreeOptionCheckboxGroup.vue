@@ -106,6 +106,10 @@ export default {
   flex-basis: calc(100% / 4);
 }
 
+.option-title {
+  font-weight: 700;
+}
+
 img {
   display: block;
   /* max-width: 100%; */

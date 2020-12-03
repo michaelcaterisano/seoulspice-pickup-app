@@ -1,6 +1,8 @@
 <template>
   <section>
-    <div class="signature-title is-size-5"><span>CHOOSE YOUR ENTREE</span></div>
+    <div class="signature-title is-size-5">
+      <span>WOULD YOU LIKE A SIGNATURE COMBO OR TO BUILD YOUR OWN?</span>
+    </div>
 
     <div class="card-container">
       <signature-combo-card
@@ -45,6 +47,7 @@ export default {
 .signature-title {
   text-align: center;
   margin-bottom: 12px;
+  font-weight: 700;
 }
 
 .combo-card {

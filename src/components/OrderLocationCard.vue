@@ -7,8 +7,7 @@
     </div> -->
     <div class="card-content columns is-mobile">
       <div class="column is-two-thirds is-size-6">
-        <span
-          ><strong>{{ location.description }}</strong></span
+        <span class="location-description">{{ location.description }}</span
         ><br />
 
         <span>{{ location.address }}</span
@@ -28,8 +27,8 @@
 export default {
   computed: {},
   method: {},
-  name: 'OrderLocationCard',
-  props: ['location'],
+  name: "OrderLocationCard",
+  props: ["location"],
 };
 </script>
 
@@ -39,5 +38,8 @@ export default {
 }
 .column {
   padding: 0px !important;
+}
+.location-description {
+  font-weight: 700;
 }
 </style>

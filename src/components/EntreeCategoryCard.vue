@@ -7,11 +7,12 @@
     </div>
     <div class="card-content is-size-7">
       <div>
-        <span
-          ><strong>{{ category.name.toUpperCase() }}</strong></span
+        <span class="category-name">{{ category.name.toUpperCase() }}</span
         ><br />
 
-        <span>{{ category.description.toLowerCase() }}</span
+        <span class="category-description">{{
+          category.description.toLowerCase()
+        }}</span
         ><br />
       </div>
       <!-- <div class="column is-one-third" align="right">
@@ -42,6 +43,12 @@ export default {
   border-radius: 10px;
   margin-bottom: 24px !important;
   overflow: hidden;
+}
+.category-name {
+  font-weight: 700;
+}
+.category-description {
+  font-weight: 400;
 }
 .card-footer {
   margin: 12px 0 -24px 0;

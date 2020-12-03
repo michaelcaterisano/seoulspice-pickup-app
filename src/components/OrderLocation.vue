@@ -53,6 +53,7 @@ export default {
 .location-title {
   text-align: center;
   margin-bottom: 24px;
+  font-weight: 700;
 }
 .card-container {
   display: flex;

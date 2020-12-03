@@ -83,7 +83,7 @@ export default {
 $body-size: 24px;
 
 @import "~bulma/sass/utilities/_all";
-
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap");
 $primary: #dd3333;
 $primary-invert: findColorInvert($primary);
 $warning: #f9d400;
@@ -133,6 +133,15 @@ $navbar-breakpoint: 767px;
 
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
+
+html,
+body {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+#app {
+  font-family: "Source Sans Pro", sans-serif;
+}
 
 .fade-enter-active,
 .fade-leave-active {

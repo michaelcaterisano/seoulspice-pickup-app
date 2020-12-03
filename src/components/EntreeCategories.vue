@@ -37,6 +37,7 @@ export default {
 .category-title {
   text-align: center;
   margin-bottom: 12px;
+  font-weight: 700;
 }
 
 .category-card {
