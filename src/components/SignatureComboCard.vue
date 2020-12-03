@@ -2,16 +2,16 @@
   <div class="card">
     <div class="card-image">
       <figure class="image is-3x2">
-        <img v-bind:src="category.imageUrl" alt="image of entree" />
+        <img v-bind:src="combo.imageUrl" alt="image of entree" />
       </figure>
     </div>
     <div class="card-content is-size-7">
       <div>
         <span
-          ><strong>{{ category.name.toUpperCase() }}</strong></span
+          ><strong>{{ combo.name.toUpperCase() }}</strong></span
         ><br />
 
-        <span>{{ category.description.toLowerCase() }}</span
+        <span>{{ combo.description.toLowerCase() }}</span
         ><br />
       </div>
       <!-- <div class="column is-one-third" align="right">
@@ -21,7 +21,7 @@
       </div> -->
       <footer class="card-footer">
         <span
-          ><strong>${{ category.price }}</strong></span
+          ><strong>${{ combo.price }}</strong></span
         >
       </footer>
     </div>
@@ -32,8 +32,8 @@
 export default {
   computed: {},
   method: {},
-  name: "EntreeCategoryCard",
-  props: ["category"],
+  name: "SignatureComboCard",
+  props: ["combo"],
 };
 </script>
 

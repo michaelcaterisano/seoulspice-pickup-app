@@ -1,27 +1,29 @@
 <template>
   <div class="container">
-    <span class="title is-size-5">CHOOSE YOUR ENTREE</span>
+    <span class="title is-size-5"
+      >WOULD YOU LIKE A SIGNATURE COMBO OR TO BUILD YOUR OWN?</span
+    >
     <div class="card-container">
-      <entree-category-card
-        class="category-card"
-        v-for="(category, index) in categories"
+      <signature-combo-card
+        class="combo-card"
+        v-for="(combo, index) in combos"
         :key="index"
-        :category="category"
-        @click.native="$emit('category-selected', category)"
-      ></entree-category-card>
+        :combo="combo"
+        @click.native="$emit('combo-selected', combo)"
+      ></signature-combo-card>
     </div>
   </div>
 </template>
 
 <script>
-import EntreeCategoryCard from "../components/EntreeCategoryCard";
+import SignatureComboCard from "../components/SignatureComboCard";
 
 export default {
   components: {
-    EntreeCategoryCard,
+    SignatureComboCard,
   },
-  name: "EntreeCategories",
-  props: ["categories"],
+  name: "SignatureCombos",
+  props: ["combos"],
 };
 </script>
 
@@ -45,18 +47,18 @@ export default {
   margin-bottom: 24px;
 }
 
-.category-card {
+.combo-card {
   margin: 0 12px;
   flex-basis: calc(100% / 3 - 24px);
   cursor: pointer;
 }
 
-.category-card:hover {
+.combo-card:hover {
   box-shadow: 0 0 1px 2px rgb(249, 212, 0);
 }
 
 @media screen and (max-width: 900px) and (min-width: 600px) {
-  .category-card {
+  .combo-card {
     flex-basis: calc(100% / 2 - 24px);
   }
 }
@@ -65,7 +67,7 @@ export default {
   .card-container {
     width: 100%;
   }
-  .category-card {
+  .combo-card {
     flex-basis: calc(100% - 24px);
   }
 }

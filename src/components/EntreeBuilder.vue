@@ -23,20 +23,11 @@
               </b-button>
             </div> -->
           </div>
-          <div v-if="showCombos" class="has-text-centered">
-            <h3>
-              Would you like a Signature Combination or to Build Your Own?
-            </h3>
-            <div class="button-group">
-              <b-button
-                class="yellow-button"
-                v-for="combo in menuData.combos"
-                :key="combo.name"
-                @click="setCombo(combo)"
-              >
-                {{ combo.name }}
-              </b-button>
-            </div>
+          <div v-if="showCombos">
+            <signature-combos
+              :combos="menuData.combos"
+              @combo-selected="setCombo"
+            ></signature-combos>
           </div>
           <entree-options
             :options="menuData"
@@ -56,6 +47,7 @@
 <script>
 import menuData from "../config/menu-data";
 import EntreeCategories from "../components/EntreeCategories";
+import SignatureCombos from "../components/SignatureCombos";
 import EntreeOptions from "../components/EntreeOptions";
 import OrderLocation from "../components/OrderLocation";
 import { ADD_ITEM } from "../store/mutations.type";
@@ -63,6 +55,7 @@ import { ADD_ITEM } from "../store/mutations.type";
 export default {
   components: {
     EntreeCategories,
+    SignatureCombos,
     EntreeOptions,
     OrderLocation,
   },

@@ -1,19 +1,22 @@
 <template>
-  <b-field class="label-text" :addons="false" :label="labelText">
-    <div class="checkbox-container">
-      <b-checkbox-button
-        v-for="choice in group.choices"
-        :key="choice.name"
-        v-model="choice.selected"
-        :disabled="checkboxIsDisabled(choice)"
-        type="is-text"
-      >
-        <div class="image-container">
-          <img :src="getImageUrl(choice)" />
-          <div v-bind:class="{ overlay: choice.selected }"></div>
-        </div>
-        {{ getChoiceName(choice) }}
-      </b-checkbox-button>
+  <b-field class="label-text" :addons="false" :label="labelText.toUpperCase()">
+    <div class="container">
+      <div class="checkbox-container">
+        <b-checkbox-button
+          class="option"
+          v-for="choice in group.choices"
+          :key="choice.name"
+          v-model="choice.selected"
+          :disabled="checkboxIsDisabled(choice)"
+          type="is-text"
+        >
+          <div class="image-container">
+            <img :src="getImageUrl(choice)" />
+            <div v-bind:class="{ overlay: choice.selected }"></div>
+          </div>
+          {{ getChoiceName(choice) }}
+        </b-checkbox-button>
+      </div>
     </div>
   </b-field>
 </template>
@@ -54,7 +57,7 @@ export default {
       if (choice.price > 0) {
         choiceName += " (+" + choice.price + ")";
       }
-      return choiceName;
+      return choiceName.toUpperCase();
     },
     updateOption() {
       return 1;
@@ -78,9 +81,30 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox-container {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.option {
+  flex-basis: calc(100% / 4);
+}
+
 img {
   display: block;
-  max-width: 100%;
+  /* max-width: 100%; */
   width: auto;
   height: auto;
   /* box-shadow: 0 0 1px 2px black; */
@@ -88,11 +112,11 @@ img {
 }
 .image-container {
   position: relative;
-  width: 100px;
+  /* width: 100%; */
   border-radius: 15px;
 }
 .overlay {
-  width: 100px;
+  flex-basis: calc(100% / 4);
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
@@ -105,15 +129,56 @@ img {
   background-repeat: no-repeat;
   background-position: center;
 }
-.checkbox-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
 
 .label-text {
   text-align: center;
+}
+
+@media screen and (max-width: 900px) and (min-width: 600px) {
+  .option {
+    flex-basis: calc(100% / 2 - 24px);
+  }
+
+  .overlay {
+    flex-basis: calc(100% / 2 - 24px);
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border-radius: 15px;
+    background-image: url("~@/assets/check.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .checkbox-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .option {
+    flex-basis: auto;
+    width: 90%;
+  }
+
+  .overlay {
+    flex-basis: 30%;
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border-radius: 15px;
+    background-image: url("~@/assets/check.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }
 </style>
