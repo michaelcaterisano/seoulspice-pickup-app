@@ -17,7 +17,7 @@ const menuData = {
       name: "Bowl",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.",
-      imageUrl: require("../assets/images/entrees/build-your-own.jpg"),
+      imageUrl: require("../assets/images/entrees/bowl.jpg"),
       price: 9.0,
     },
     {
