@@ -196,7 +196,7 @@ body {
 }
 
 .section {
-  padding: 3rem 10px 0px 10px;
+  padding: 45px 10px 0px 10px;
 }
 
 // bulma overrides

@@ -20,12 +20,14 @@
           <img class="is-rounded" src="http://placekitten.com/200/200" />
         </figure>
       </div> -->
-      <footer class="card-footer">
+    </div>
+    <footer class="card-footer">
+      <div class="card-footer-item">
         <span
           ><strong>${{ category.price }}</strong></span
         >
-      </footer>
-    </div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -40,18 +42,27 @@ export default {
 
 <style scoped>
 .card {
+  display: flex;
+  flex-direction: column;
   border-radius: 10px;
   margin-bottom: 24px !important;
   overflow: hidden;
 }
-.category-name {
+
+.card-content {
+  flex-grow: 1;
+}
+.card .category-name {
   font-weight: 700;
 }
 .category-description {
   font-weight: 400;
 }
 .card-footer {
-  margin: 12px 0 -24px 0;
+  bottom: 0;
   border-top: none !important;
+}
+.card-footer-item {
+  justify-content: flex-start !important;
 }
 </style>

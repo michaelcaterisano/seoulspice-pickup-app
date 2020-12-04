@@ -37,7 +37,7 @@ export default {
   justify-content: center;
 }
 .card-container {
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
