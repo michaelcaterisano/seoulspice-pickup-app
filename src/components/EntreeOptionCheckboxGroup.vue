@@ -14,9 +14,14 @@
           :disabled="checkboxIsDisabled(choice)"
           type="is-text"
         >
-          <div class="image-container">
+          <div
+            class="image-container"
+            v-bind:class="{ selected: choice.selected }"
+          >
             <img :src="getImageUrl(choice)" />
-            <div v-bind:class="{ overlay: choice.selected }"></div>
+            <div
+              v-bind:class="{ overlay: true, selected: choice.selected }"
+            ></div>
           </div>
           <span class="is-size-7">{{ getChoiceName(choice) }}</span>
         </b-checkbox-button>
@@ -136,10 +141,18 @@ img {
   background-size: 80%;
   background-repeat: no-repeat;
   background-position: center;
+  opacity: 0;
 }
 
+.selected {
+  opacity: 1;
+}
 .label-text {
   text-align: center;
+}
+
+.selected {
+  box-shadow: 0 0 1px 5px rgb(249, 212, 0);
 }
 
 @media screen and (max-width: 900px) and (min-width: 600px) {
