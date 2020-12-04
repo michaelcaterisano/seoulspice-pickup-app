@@ -99,19 +99,22 @@ export default {
       }
     },
     checkMinSelected(option) {
+      if (option.type === "extraProteins") {
+        return true;
+      }
       return option.choices.some((choice) => choice.selected);
     },
     setActiveOrderStep() {
       const option = this.options.getOption(this.active);
       if (
-        option.type === "extraProteins" ||
-        (this.checkMinSelected(option) &&
-          (this.category.name === "Korrito" || option.type !== "sauces"))
+        this.checkMinSelected(option) &&
+        (this.category.name === "Korrito" || option.type !== "sauces")
       ) {
         this.advanceStep();
       }
 
-      if (!this.checkMinSelected(option)) {
+      // build your own -> choose your base is not optional fix
+      if (!this.checkMinSelected(option) && option.type !== "bases") {
         this.$buefy.dialog.confirm({
           message:
             "Are you sure you want to continue without selecting any options?",
