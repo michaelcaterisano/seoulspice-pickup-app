@@ -147,7 +147,7 @@ img {
 }
 .image-container {
   position: relative;
-  /* width: 100%; */
+  width: 100%;
   border-radius: 15px;
 }
 .overlay {

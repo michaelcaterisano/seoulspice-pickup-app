@@ -215,7 +215,9 @@ input:focus {
   color: black;
 }
 
-.b-checkbox.checkbox.button:active {
+.b-checkbox.checkbox.button {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
   background: transparent !important;
 }
 
@@ -232,6 +234,7 @@ label.b-checkbox.checkbox.button {
 
 .control {
   width: auto;
+  background: transparent !important;
 }
 
 .is-text {
