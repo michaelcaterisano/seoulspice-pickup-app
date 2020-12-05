@@ -2,29 +2,24 @@
   <div class="card" tabindex="0">
     <div class="card-image">
       <figure class="image is-3x2">
-        <img v-bind:src="category.imageUrl" alt="image of entree" />
+        <img v-bind:src="option.imageUrl" alt="image of entree" />
       </figure>
     </div>
     <div class="card-content is-size-7">
       <div>
-        <span class="category-name">{{ category.name.toUpperCase() }}</span
+        <span class="option-name">{{ option.name.toUpperCase() }}</span
         ><br />
 
-        <span class="category-description">{{
-          category.description.toLowerCase()
+        <span class="option-description">{{
+          option.description.toLowerCase()
         }}</span
         ><br />
       </div>
-      <!-- <div class="column is-one-third" align="right">
-        <figure class="image is-96x96">
-          <img class="is-rounded" src="http://placekitten.com/200/200" />
-        </figure>
-      </div> -->
     </div>
     <footer class="card-footer">
       <div class="card-footer-item">
         <span
-          ><strong>${{ category.price }}</strong></span
+          ><strong>{{ price }}</strong></span
         >
       </div>
     </footer>
@@ -33,10 +28,18 @@
 
 <script>
 export default {
-  computed: {},
+  computed: {
+    price() {
+      return this.option.price > 0
+        ? this.isCombo
+          ? "+$" + this.option.price
+          : "$" + this.option.price
+        : "";
+    },
+  },
   method: {},
-  name: "EntreeCategoryCard",
-  props: ["category"],
+  name: "EntreeCard",
+  props: ["option", "isCombo"],
 };
 </script>
 
@@ -50,12 +53,13 @@ export default {
 }
 
 .card-content {
+  padding: 20px 20px 0 20px !important;
   flex-grow: 1;
 }
-.card .category-name {
+.card .option-name {
   font-weight: 700;
 }
-.category-description {
+.option-description {
   font-weight: 400;
 }
 .card-footer {
@@ -63,6 +67,7 @@ export default {
   border-top: none !important;
 }
 .card-footer-item {
+  padding: 0 20px 20px 20px !important;
   justify-content: flex-start !important;
 }
 </style>

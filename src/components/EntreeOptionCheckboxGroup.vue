@@ -27,7 +27,7 @@
         </b-checkbox-button>
       </div>
 
-      <div class="has-text-centered buttons screen-bottom">
+      <div class="has-text-centered buttons">
         <b-button
           type="is-warning"
           @click.prevent="$emit('next')"
@@ -142,11 +142,11 @@ export default {
   font-weight: 700;
 }
 
-.screen-bottom {
+.buttons {
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 10px;
+  padding: 20px;
   box-shadow: 0 0 1px 0;
   background: white;
   position: fixed;

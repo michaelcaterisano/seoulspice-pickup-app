@@ -2,44 +2,42 @@ const menuData = {
   categories: [
     {
       name: "Korean Feast For 2",
-      description: "Lorem ipsum dolor sit amet.",
+      description:
+        "Let us do the heavy lifting and prepare a complete meal for you and your family! All orders come with an assortment of our four sauces. Serves 2. ",
       imageUrl: require("../assets/images/entrees/korean-feast.jpg"),
-      price: 9.0,
+      price: 25.0,
     },
     {
       name: "Korean Feast For 4",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.",
+        "Let us do the heavy lifting and prepare a complete meal for you and your family! All orders come with an assortment of our four sauces. Serves 4.",
       imageUrl: require("../assets/images/entrees/korean-feast.jpg"),
-      price: 9.0,
+      price: 40.0,
     },
     {
       name: "Bowl",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.",
+      description: "It is sure to #FEEDYOURSEOUL!",
       imageUrl: require("../assets/images/entrees/bowl.jpg"),
-      price: 9.0,
+      price: 8.5,
     },
     {
       name: "Korrito",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.",
+        "The ORIGINAL Korean-style sushi burrito! Your choice of ingredients wrapped in white or purple rice and nori (seaweed).",
       imageUrl: require("../assets/images/entrees/korrito.jpg"),
-      price: 9.0,
+      price: 7.75,
     },
     {
       name: "Kid's Bowl",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.",
+      description: "A perfectly sized meal for our smaller #SEOULMATES.",
       imageUrl: require("../assets/images/entrees/kids-bowl.jpg"),
-      price: 9.0,
+      price: 5.5,
     },
   ],
   combos: [
     {
       name: "Build Your Own",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.",
+      description: "Follow your heart...and your cravings.",
       imageUrl: require("../assets/images/signatures/build-your-own.jpg"),
       price: 0,
     },
@@ -48,7 +46,7 @@ const menuData = {
       description:
         "Beef, sprouts-carrots-cucumbers-kale, Korean Hot Sauce, scallions-sesame seeds-",
       imageUrl: require("../assets/images/signatures/klassic.jpg"),
-      price: 0,
+      price: 2,
     },
     {
       name: "Seoul Train",

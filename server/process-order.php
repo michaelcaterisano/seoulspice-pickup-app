@@ -8,7 +8,7 @@ require_once('models/OrderItem.php');
 
 $env = 'dev';
 
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: *'); // change to "https://pickup.seoulspice.com"
 header('Access-Control-Allow-Headers: *');
 
 $response = ['success' => false, 'message' => ''];

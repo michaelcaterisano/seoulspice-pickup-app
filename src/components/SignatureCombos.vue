@@ -5,24 +5,25 @@
     </div>
 
     <div class="card-container">
-      <signature-combo-card
+      <entree-card
         class="combo-card"
         v-for="(combo, index) in combos"
         :key="index"
-        :combo="combo"
+        :option="combo"
+        :isCombo="true"
         @click.native="$emit('combo-selected', combo)"
         @keyup.enter.native="$emit('combo-selected', combo)"
-      ></signature-combo-card>
+      ></entree-card>
     </div>
   </section>
 </template>
 
 <script>
-import SignatureComboCard from "../components/SignatureComboCard";
+import EntreeCard from "../components/EntreeCard";
 
 export default {
   components: {
-    SignatureComboCard,
+    EntreeCard,
   },
   name: "SignatureCombos",
   props: ["combos"],

@@ -2,24 +2,24 @@
   <section>
     <div class="category-title is-size-5"><span>CHOOSE YOUR ENTREE</span></div>
     <div class="card-container">
-      <entree-category-card
+      <entree-card
         class="category-card"
         v-for="(category, index) in categories"
         :key="index"
-        :category="category"
+        :option="category"
         @click.native="$emit('category-selected', category)"
         @keyup.enter.native="$emit('category-selected', category)"
-      ></entree-category-card>
+      ></entree-card>
     </div>
   </section>
 </template>
 
 <script>
-import EntreeCategoryCard from "../components/EntreeCategoryCard";
+import EntreeCard from "../components/EntreeCard";
 
 export default {
   components: {
-    EntreeCategoryCard,
+    EntreeCard,
   },
   name: "EntreeCategories",
   props: ["categories"],
