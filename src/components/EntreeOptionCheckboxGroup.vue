@@ -1,7 +1,7 @@
 <template>
   <b-field class="label-text" :addons="false">
     <div class="container">
-      <div class="option-title is-size-5">
+      <div class="option-title is-size-6">
         <span>{{ labelText.toUpperCase() }}</span>
       </div>
 
@@ -61,6 +61,9 @@ export default {
             : this.group.max
           : this.group.max;
 
+      if (max < 2) {
+        return this.group.label;
+      }
       return max === Infinity
         ? this.group.label
         : this.group.label + " (Choose up to  " + max + ")";

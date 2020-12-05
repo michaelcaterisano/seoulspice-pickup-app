@@ -32,7 +32,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .category-title {
@@ -54,12 +54,9 @@ export default {
 }
 
 @media screen and (max-width: 599px) {
-  .card-container {
-    margin: 0;
-    width: 100%;
-  }
   .category-card {
     flex-basis: calc(100%);
+    max-width: 350px;
   }
 }
 </style>
