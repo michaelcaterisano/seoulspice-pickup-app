@@ -54,18 +54,25 @@ export default {
     mobileButtonText() {
       return this.mobileMenuOpen ? "Hide Totals" : "View Totals";
     },
-    ...mapGetters(["subtotal", "tip", "tax", "taxRate", "taxRateHuman", "total"])
+    ...mapGetters([
+      "subtotal",
+      "tip",
+      "tax",
+      "taxRate",
+      "taxRateHuman",
+      "total",
+    ]),
   },
   data() {
     return {
-      mobileMenuOpen: false
+      mobileMenuOpen: false,
     };
   },
   methods: {
     toggleMobileMenu() {
       this.mobileMenuOpen = !this.mobileMenuOpen;
-    }
-  }
+    },
+  },
 };
 </script>
 

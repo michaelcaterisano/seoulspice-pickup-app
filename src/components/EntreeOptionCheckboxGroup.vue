@@ -27,7 +27,7 @@
         </b-checkbox-button>
       </div>
 
-      <div class="has-text-centered buttons">
+      <div class="has-text-centered buttons screen-bottom">
         <b-button
           type="is-warning"
           @click.prevent="$emit('next')"
@@ -125,16 +125,29 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
+  margin-bottom: 60px;
 }
 
 .option {
   flex-basis: calc(100% / 4);
+  min-width: 150px;
 }
 
 .option-title {
   font-weight: 700;
+}
+
+.screen-bottom {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  box-shadow: 0 0 1px 0;
+  background: white;
+  position: fixed;
+  bottom: 0;
 }
 
 img {
@@ -173,13 +186,14 @@ img {
   text-align: center;
 }
 
-@media screen and (max-width: 900px) and (min-width: 600px) {
+@media screen and (max-width: 900px) and (min-width: 376px) {
   .option {
-    flex-basis: calc(100% / 2 - 24px);
+    flex-basis: calc(100% / 3 - 24px);
+    min-width: 200px;
   }
 
   .overlay {
-    flex-basis: calc(100% / 2 - 24px);
+    flex-basis: calc(100% / 3 - 24px);
     background: rgba(0, 0, 0, 0.5);
     position: absolute;
     top: 0;
@@ -194,7 +208,7 @@ img {
   }
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 375px) {
   .checkbox-container {
     width: 100%;
     display: flex;
