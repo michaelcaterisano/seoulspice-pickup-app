@@ -38,7 +38,7 @@ export default {
     },
   },
   method: {},
-  name: "EntreeCard",
+  name: "OptionCard",
   props: ["option", "isCombo"],
 };
 </script>

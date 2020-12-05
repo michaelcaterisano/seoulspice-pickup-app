@@ -2,29 +2,40 @@
   <div class="container">
     <transition-group name="fade" mode="out-in">
       <entree-option-checkbox-group
-        v-for="step in steps"
+        v-for="step in optionSteps"
         :group="options.getOption(step)"
+        :price="price"
         v-show="active === step"
         :key="step"
         :category="category"
         :combo="combo"
-        :active="active"
         @next="setActiveOrderStep()"
         @add-item="addItem()"
       ></entree-option-checkbox-group>
+      <entree-option-extras
+        v-show="active === 'extras'"
+        :key="'extras'"
+        :extras="options.getOption('extras')"
+        @add-item="addItem()"
+      ></entree-option-extras>
     </transition-group>
   </div>
 </template>
 
 <script>
 import EntreeOptionCheckboxGroup from "./EntreeOptionCheckboxGroup";
+import EntreeOptionExtras from "./EntreeOptionExtras";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
     EntreeOptionCheckboxGroup,
+    EntreeOptionExtras,
   },
   computed: {
+    optionSteps() {
+      return this.steps.filter((step) => step !== "extras");
+    },
     ...mapGetters(["items"]),
   },
   data() {

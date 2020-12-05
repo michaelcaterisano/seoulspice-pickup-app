@@ -46,7 +46,7 @@ const menuData = {
       description:
         "Beef, sprouts-carrots-cucumbers-kale, Korean Hot Sauce, scallions-sesame seeds-",
       imageUrl: require("../assets/images/signatures/klassic.jpg"),
-      price: 2,
+      price: 0,
     },
     {
       name: "Seoul Train",
@@ -370,12 +370,14 @@ const menuData = {
           price: 1.99,
           selected: false,
           imageUrl: require("../assets/images/extras/the-egg.jpg"),
+          qty: 0,
         },
         {
           name: "Avocado",
           price: 1.59,
           selected: false,
           imageUrl: require("../assets/images/extras/avocado.jpg"),
+          qty: 0,
         },
       ],
     },

@@ -36,14 +36,6 @@
           Next
           <span class="icon"><i class="fas fa-arrow-right"></i></span>
         </b-button>
-        <b-button
-          type="is-success"
-          class="add-to-cart-button"
-          @click.prevent="$emit('add-item')"
-          v-if="active === 'extras'"
-        >
-          <span>Add to Cart ({{ price | currency }})</span>
-        </b-button>
       </div>
     </div>
   </b-field>
@@ -51,6 +43,7 @@
 
 <script>
 export default {
+  components: {},
   computed: {
     labelText() {
       let max =
@@ -97,8 +90,11 @@ export default {
       return choice.imageUrl;
     },
   },
-  name: "OrderOptionCheckboxGroup",
+  name: "EntreeOptionCheckboxGroup",
   props: {
+    options: {
+      type: Object,
+    },
     group: {
       type: Object,
       required: true,
@@ -108,6 +104,12 @@ export default {
       required: true,
     },
     active: {
+      type: String,
+    },
+    price: {
+      type: Number,
+    },
+    step: {
       type: String,
     },
   },
@@ -130,7 +132,7 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-bottom: 60px;
+  margin-bottom: 100px;
 }
 
 .option {

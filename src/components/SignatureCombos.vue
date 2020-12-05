@@ -5,7 +5,7 @@
     </div>
 
     <div class="card-container">
-      <entree-card
+      <option-card
         class="combo-card"
         v-for="(combo, index) in combos"
         :key="index"
@@ -13,17 +13,17 @@
         :isCombo="true"
         @click.native="$emit('combo-selected', combo)"
         @keyup.enter.native="$emit('combo-selected', combo)"
-      ></entree-card>
+      ></option-card>
     </div>
   </section>
 </template>
 
 <script>
-import EntreeCard from "../components/EntreeCard";
+import OptionCard from "../components/OptionCard";
 
 export default {
   components: {
-    EntreeCard,
+    OptionCard,
   },
   name: "SignatureCombos",
   props: ["combos"],

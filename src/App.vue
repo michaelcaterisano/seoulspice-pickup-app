@@ -245,6 +245,7 @@ label.b-checkbox.checkbox.button {
   overflow: hidden;
 }
 
+// accessibility
 .card:focus {
   outline: none;
   box-shadow: 0 0 2px 2px rgb(0, 100, 255);
@@ -252,5 +253,10 @@ label.b-checkbox.checkbox.button {
 .card:hover {
   outline: none;
   box-shadow: 0 0 2px 2px rgb(0, 100, 255);
+}
+
+.button.button:focus {
+  outline: none;
+  box-shadow: 0 0 2px 2px rgb(0, 100, 255) !important;
 }
 </style>
