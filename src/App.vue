@@ -220,6 +220,12 @@ label.b-checkbox.checkbox.button {
   border: none !important;
 }
 
+@media screen and (max-width: 500px) {
+  .b-checkbox.checkbox.button.is-focused {
+    box-shadow: none !important;
+  }
+}
+
 .control {
   width: auto;
 }
