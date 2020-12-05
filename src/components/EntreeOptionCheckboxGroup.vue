@@ -26,6 +26,25 @@
           <span class="is-size-7">{{ getChoiceName(choice) }}</span>
         </b-checkbox-button>
       </div>
+
+      <div class="has-text-centered buttons">
+        <b-button
+          type="is-warning"
+          @click.prevent="$emit('next')"
+          v-if="active !== 'extras'"
+        >
+          Next
+          <span class="icon"><i class="fas fa-arrow-right"></i></span>
+        </b-button>
+        <b-button
+          type="is-success"
+          class="add-to-cart-button"
+          @click.prevent="$emit('add-item')"
+          v-if="active === 'extras'"
+        >
+          <span>Add to Cart ({{ price | currency }})</span>
+        </b-button>
+      </div>
     </div>
   </b-field>
 </template>
@@ -84,6 +103,9 @@ export default {
     category: {
       type: Object,
       required: true,
+    },
+    active: {
+      type: String,
     },
   },
 };
@@ -149,10 +171,6 @@ img {
 }
 .label-text {
   text-align: center;
-}
-
-.selected {
-  box-shadow: 0 0 1px 5px rgb(249, 212, 0);
 }
 
 @media screen and (max-width: 900px) and (min-width: 600px) {

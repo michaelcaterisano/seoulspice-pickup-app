@@ -139,6 +139,10 @@ body {
   font-family: "Source Sans Pro", sans-serif;
 }
 
+input:focus {
+  color: yellow !important;
+}
+
 #app {
   font-family: "Source Sans Pro", sans-serif;
 }
@@ -211,6 +215,11 @@ body {
   color: black;
 }
 
+label.b-checkbox.checkbox.button {
+  outline: none !important;
+  border: none !important;
+}
+
 .control {
   width: auto;
 }
@@ -221,5 +230,14 @@ body {
 
 .media-content {
   overflow: hidden;
+}
+
+.card:focus {
+  outline: none;
+  box-shadow: 0 0 2px 2px rgb(0, 100, 255);
+}
+.card:hover {
+  outline: none;
+  box-shadow: 0 0 2px 2px rgb(0, 100, 255);
 }
 </style>

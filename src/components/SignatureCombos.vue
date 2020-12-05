@@ -11,6 +11,7 @@
         :key="index"
         :combo="combo"
         @click.native="$emit('combo-selected', combo)"
+        @keyup.enter.native="$emit('combo-selected', combo)"
       ></signature-combo-card>
     </div>
   </section>
@@ -54,10 +55,6 @@ export default {
   margin: 0 12px;
   flex-basis: calc(100% / 3 - 24px);
   cursor: pointer;
-}
-
-.combo-card:hover {
-  box-shadow: 0 0 1px 2px rgb(249, 212, 0);
 }
 
 @media screen and (max-width: 900px) and (min-width: 600px) {

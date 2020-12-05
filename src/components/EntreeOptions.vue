@@ -8,25 +8,11 @@
         :key="step"
         :category="category"
         :combo="combo"
+        :active="active"
+        @next="setActiveOrderStep()"
+        @add-item="addItem()"
       ></entree-option-checkbox-group>
     </transition-group>
-    <div class="has-text-centered buttons">
-      <a
-        class="button is-info"
-        @click.prevent="setActiveOrderStep()"
-        v-if="active !== 'extras'"
-      >
-        <span>Next</span>
-        <span class="icon"><i class="fas fa-arrow-right"></i></span>
-      </a>
-      <a
-        class="button is-success add-to-cart-button"
-        @click.prevent="addItem()"
-        v-if="active === 'extras'"
-      >
-        <span>Add to Cart ({{ price | currency }})</span>
-      </a>
-    </div>
   </div>
 </template>
 
@@ -113,8 +99,22 @@ export default {
         this.advanceStep();
       }
 
+      if (
+        !this.checkMinSelected(option) &&
+        (option.type === "bases" || option.type === "rices")
+      ) {
+        this.$buefy.dialog.confirm({
+          message: "Please select a base",
+          confirmText: "Ok",
+        });
+      }
+
       // build your own -> choose your base is not optional fix
-      if (!this.checkMinSelected(option) && option.type !== "bases") {
+      if (
+        !this.checkMinSelected(option) &&
+        option.type !== "bases" &&
+        option.type !== "rices"
+      ) {
         this.$buefy.dialog.confirm({
           message:
             "Are you sure you want to continue without selecting any options?",

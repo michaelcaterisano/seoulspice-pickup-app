@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" tabindex="0">
     <!-- <div class="card-image">
       <figure class="image is-16by9">
         <img src="http://placekitten.com/1600/900" alt="Placeholder image" />
