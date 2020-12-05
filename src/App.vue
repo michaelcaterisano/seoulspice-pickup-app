@@ -215,6 +215,10 @@ input:focus {
   color: black;
 }
 
+.b-checkbox.checkbox.button:active {
+  background: transparent !important;
+}
+
 label.b-checkbox.checkbox.button {
   outline: none !important;
   border: none !important;
