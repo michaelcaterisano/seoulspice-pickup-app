@@ -140,9 +140,9 @@ body {
   letter-spacing: 0.1rem;
 }
 
-input:focus {
-  color: yellow !important;
-}
+// input:focus {
+//   color: yellow !important;
+// }
 
 #app {
   font-family: "Source Sans Pro", sans-serif;
@@ -248,7 +248,7 @@ label.b-checkbox.checkbox.button {
 
 // number input override
 .field.has-numberinput {
-  // width: 100% !important;
+  width: 100% !important;
 }
 div.b-numberinput.field.is-grouped {
   width: 100% !important;
@@ -258,9 +258,9 @@ input.input {
   box-shadow: none !important;
 }
 
-// .control.is-clearfix {
-//   margin: 0 !important;
-// }
+.control.is-clearfix {
+  margin: 0 !important;
+}
 
 button.button.is-warning {
   width: 100%;
@@ -269,10 +269,12 @@ button.button.is-warning {
 
 p.control.minus {
   width: calc(100% / 3) !important;
+  margin: 0 !important;
 }
 
 p.control.plus {
   width: calc(100% / 3) !important;
+  margin: 0 !important;
 }
 
 // accessibility

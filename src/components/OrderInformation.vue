@@ -9,6 +9,7 @@
             :message="errors.first('name')"
           >
             <b-input
+              class="text-field"
               v-model="name"
               name="name"
               type="text"
@@ -22,6 +23,7 @@
             :message="errors.first('email')"
           >
             <b-input
+              class="text-field"
               v-model="email"
               name="email"
               type="email"
@@ -85,7 +87,11 @@
           <b-field
             message="Choose a percentage or enter a custom amount in the provided box."
           >
-            <b-input v-cleave="masks.numeral" v-model="tip"></b-input>
+            <b-input
+              class="text-field"
+              v-cleave="masks.numeral"
+              v-model="tip"
+            ></b-input>
           </b-field>
           <b-field>
             <b-checkbox type="is-warning" v-model="curbside">
@@ -105,21 +111,21 @@
 </template>
 
 <script>
-import { createHelpers } from 'vuex-map-fields';
-import { mapGetters } from 'vuex';
-import locations from '../config/locations';
-import LogRocket from 'logrocket';
-import cleave from '../utils/cleave-directive';
-import { orderStartTime, orderEndTime } from '../config/config';
+import { createHelpers } from "vuex-map-fields";
+import { mapGetters } from "vuex";
+import locations from "../config/locations";
+import LogRocket from "logrocket";
+import cleave from "../utils/cleave-directive";
+import { orderStartTime, orderEndTime } from "../config/config";
 
 const { mapFields } = createHelpers({
-  getterType: 'getOrderField',
-  mutationType: 'updateOrderField',
+  getterType: "getOrderField",
+  mutationType: "updateOrderField",
 });
 export default {
   computed: {
-    ...mapFields(['name', 'email', 'location', 'time', 'curbside', 'tip']),
-    ...mapGetters(['subtotal']),
+    ...mapFields(["name", "email", "location", "time", "curbside", "tip"]),
+    ...mapGetters(["subtotal"]),
     minTime() {
       let minTime = new Date();
       minTime.setHours(orderStartTime, 0, 0);
@@ -159,8 +165,8 @@ export default {
         numeral: {
           numeral: true,
           numeralDecimalScale: 2,
-          numeralThousandsGroupStyle: 'thousand',
-          prefix: '$ ',
+          numeralThousandsGroupStyle: "thousand",
+          prefix: "$ ",
         },
       },
     };
@@ -170,28 +176,35 @@ export default {
     pay() {
       this.$validator.validateAll().then((result) => {
         if (result) {
-          if (process.env.NODE_ENV === 'production') {
+          if (process.env.NODE_ENV === "production") {
             LogRocket.identify(this.email, {
               name: this.name,
             });
           }
-          this.$emit('update', 'payment'); // emits event to change active component
+          this.$emit("update", "payment"); // emits event to change active component
         }
       });
     },
     updateTip(val) {
-      this.tip = '$' + (this.subtotal * val).toFixed(2);
+      this.tip = "$" + (this.subtotal * val).toFixed(2);
     },
   },
-  name: 'OrderInformation',
+  name: "OrderInformation",
 };
 </script>
 
 <style scoped>
+.container {
+  max-width: 900px;
+}
 .columns {
   padding: 10px;
 }
 .b-checkbox {
   margin-top: 1em;
+}
+.text-field {
+  border: 1px solid black;
+  border-radius: 2px;
 }
 </style>
