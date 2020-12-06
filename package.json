@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "buefy": "^0.8.20",
+    "buefy": "^0.9.4",
     "cleave.js": "^1.6.0",
     "core-js": "^3.6.4",
     "logrocket": "^1.0.14",
