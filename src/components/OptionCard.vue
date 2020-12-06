@@ -38,7 +38,9 @@ export default {
     },
   },
   mounted() {
-    this.$refs.card.blur();
+    this.$nextTick(() => {
+      this.$refs.card.blur();
+    });
   },
   method: {},
   name: "OptionCard",
