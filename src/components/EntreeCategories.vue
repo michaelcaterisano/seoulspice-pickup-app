@@ -21,9 +21,6 @@ export default {
   components: {
     OptionCard,
   },
-  mounted() {
-    alert("entree categories mounted");
-  },
   name: "EntreeCategories",
   props: ["categories"],
 };

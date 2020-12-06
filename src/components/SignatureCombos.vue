@@ -25,9 +25,6 @@ export default {
   components: {
     OptionCard,
   },
-  mounted() {
-    alert("signatures mounted");
-  },
   name: "SignatureCombos",
   props: ["combos"],
 };
