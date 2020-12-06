@@ -250,10 +250,13 @@ label.b-checkbox.checkbox.button {
   outline: none;
   box-shadow: 0 0 2px 2px rgb(0, 100, 255);
 }
-// .card:hover {
-//   outline: none;
-//   box-shadow: 0 0 2px 2px rgb(0, 100, 255);
-// }
+
+@media (hover: hover) {
+  .card:hover {
+    outline: none;
+    box-shadow: 0 0 2px 2px rgb(0, 100, 255);
+  }
+}
 
 .button.button:focus {
   outline: none;
