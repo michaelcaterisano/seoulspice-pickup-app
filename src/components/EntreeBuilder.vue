@@ -1,47 +1,29 @@
 <template>
-  <div class="entree-builder">
-    <section class="section">
-      <div class="container">
-        <transition class="fade">
-          <div v-if="!selectedLocation">
-            <order-location @location-selected="setLocation" />
-          </div>
-          <div v-if="showCategories">
-            <entree-categories
-              :categories="menuData.categories"
-              @category-selected="setCategory"
-            ></entree-categories>
-            <!-- <h3>What would you like to order?</h3>
-            <div class="button-group">
-              <b-button
-                class="yellow-button"
-                v-for="category in menuData.categories"
-                :key="category.name"
-                @click="setCategory(category)"
-              >
-                {{ category.name }}
-              </b-button>
-            </div> -->
-          </div>
-          <div v-if="showCombos">
-            <signature-combos
-              :combos="menuData.combos"
-              @combo-selected="setCombo"
-            ></signature-combos>
-          </div>
-          <entree-options
-            :options="menuData"
-            :price="price"
-            :category="entree.category"
-            :combo="entree.combo"
-            v-if="showOptions"
-            @note="addNote"
-            @valid="addToCart"
-          ></entree-options>
-        </transition>
-      </div>
-    </section>
-  </div>
+  <section class="section">
+    <order-location v-if="!selectedLocation" @location-selected="setLocation" />
+
+    <entree-categories
+      v-if="showCategories"
+      :categories="menuData.categories"
+      @category-selected="setCategory"
+    ></entree-categories>
+
+    <signature-combos
+      v-if="showCombos"
+      :combos="menuData.combos"
+      @combo-selected="setCombo"
+    ></signature-combos>
+
+    <entree-options
+      :options="menuData"
+      :price="price"
+      :category="entree.category"
+      :combo="entree.combo"
+      v-if="showOptions"
+      @note="addNote"
+      @valid="addToCart"
+    ></entree-options>
+  </section>
 </template>
 
 <script>
@@ -211,5 +193,14 @@ export default {
 
 .yellow-button:hover {
   background: rgb(249, 225, 0);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

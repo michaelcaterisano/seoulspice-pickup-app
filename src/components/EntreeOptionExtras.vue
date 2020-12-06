@@ -37,6 +37,16 @@ export default {
 </script>
 
 <style scoped>
+.buttons {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 0 1px 0;
+  background: white;
+  position: fixed;
+  bottom: 0;
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -49,6 +59,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 100px;
 }
 
 .component-title {

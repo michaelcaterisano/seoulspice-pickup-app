@@ -1,5 +1,5 @@
 <template>
-  <div class="card" tabindex="0">
+  <div class="card">
     <div class="card-image">
       <figure class="image is-3x2">
         <img v-bind:src="choice.imageUrl" alt="image of entree" />
@@ -20,6 +20,7 @@
           type="is-warning"
           v-model="choice.qty"
           @input="setSelected"
+          @
         ></b-numberinput>
       </b-field>
     </footer>
