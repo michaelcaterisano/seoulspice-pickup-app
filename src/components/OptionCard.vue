@@ -61,6 +61,7 @@ export default {
 }
 .option-description {
   font-weight: 400;
+  letter-spacing: 0.03rem;
 }
 .card-footer {
   bottom: 0;

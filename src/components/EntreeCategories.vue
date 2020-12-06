@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <div class="category-title is-size-5"><span>CHOOSE YOUR ENTREE</span></div>
+  <section class="container">
+    <div class="category-title is-size-6"><span>CHOOSE YOUR ENTREE</span></div>
     <div class="card-container">
       <option-card
         class="category-card"
@@ -27,12 +27,18 @@ export default {
 </script>
 
 <style scoped>
-.card-container {
+.container {
+  display: flex;
   width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+.card-container {
+  width: 80%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .category-title {
@@ -43,7 +49,7 @@ export default {
 
 .category-card {
   margin: 0 12px;
-  flex-basis: calc(100% / 3 - 24px);
+  flex-basis: calc(100% / 2 - 24px);
   cursor: pointer;
 }
 
@@ -54,9 +60,11 @@ export default {
 }
 
 @media screen and (max-width: 599px) {
+  .card-container {
+    width: 100%;
+  }
   .category-card {
     flex-basis: calc(100%);
-    max-width: 350px;
   }
 }
 </style>

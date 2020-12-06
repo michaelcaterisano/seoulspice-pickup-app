@@ -17,6 +17,7 @@
     <footer class="card-footer">
       <b-field>
         <b-numberinput
+          class="counter-buttons"
           type="is-warning"
           :min="0"
           v-model="choice.qty"
@@ -52,14 +53,13 @@ export default {
 .card {
   display: flex;
   flex-direction: column;
-  border-radius: 0px !important;
   margin-bottom: 24px !important;
   overflow: hidden;
+  border-radius: 10px;
 }
 
 .counter-buttons {
-  width: 100% !important;
-  border: 1px solid blue;
+  width: 40px !important;
 }
 
 .card-content {
@@ -68,7 +68,7 @@ export default {
   flex-grow: 1;
   text-align: center;
 }
-.card .choice-name {
+.choice-name {
   font-weight: 700;
 }
 .choice-description {

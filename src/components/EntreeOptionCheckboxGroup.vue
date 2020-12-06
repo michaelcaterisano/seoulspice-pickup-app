@@ -2,7 +2,10 @@
   <b-field class="label-text" :addons="false">
     <div class="container">
       <div class="option-title is-size-6">
-        <span>{{ labelText.toUpperCase() }}</span>
+        <span
+          >{{ group.label.toUpperCase() }} <br />
+          {{ quantityText.toLowerCase() }}</span
+        >
       </div>
 
       <div class="checkbox-container">
@@ -23,7 +26,7 @@
               v-bind:class="{ overlay: true, selected: choice.selected }"
             ></div>
           </div>
-          <span class="is-size-7">{{ getChoiceName(choice) }}</span>
+          <span class="is-size-7 choice-name">{{ getChoiceName(choice) }}</span>
         </b-checkbox-button>
       </div>
 
@@ -45,7 +48,7 @@
 export default {
   components: {},
   computed: {
-    labelText() {
+    quantityText() {
       let max =
         this.category.name === "Korean Feast For 2" ||
         this.category.name === "Korean Feast For 4"
@@ -54,12 +57,10 @@ export default {
             : this.group.max
           : this.group.max;
 
-      if (max < 2) {
-        return this.group.label;
-      }
-      return max === Infinity
-        ? this.group.label
-        : this.group.label + " (Choose up to  " + max + ")";
+      // if (max < 2) {
+      //   return this.group.label;
+      // }
+      return max === Infinity ? "" : " \n(Choose up to  " + max + ")";
     },
     countSelectedOptions() {
       return this.group.choices.filter((choice) => choice.selected).length;
@@ -126,11 +127,11 @@ export default {
 }
 
 .checkbox-container {
-  width: 90%;
+  width: 80%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 100px;
 }
@@ -142,6 +143,10 @@ export default {
 
 .option-title {
   font-weight: 700;
+}
+
+.choice-name {
+  letter-spacing: 0.05rem;
 }
 
 .buttons {
@@ -191,14 +196,13 @@ img {
   text-align: center;
 }
 
-@media screen and (max-width: 900px) and (min-width: 376px) {
+@media screen and (max-width: 900px) and (min-width: 600px) {
   .option {
-    flex-basis: calc(100% / 3 - 24px);
-    min-width: 200px;
+    flex-basis: 33%;
   }
 
   .overlay {
-    flex-basis: calc(100% / 3 - 24px);
+    flex-basis: 33%;
     background: rgba(0, 0, 0, 0.5);
     position: absolute;
     top: 0;
@@ -213,19 +217,18 @@ img {
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 599px) {
   .checkbox-container {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
   }
   .option {
-    flex-basis: auto;
-    width: 50%;
+    flex-basis: calc(100% / 2);
+    min-width: 100px;
   }
 
   .overlay {
-    flex-basis: 30%;
     background: rgba(0, 0, 0, 0.5);
     position: absolute;
     top: 0;

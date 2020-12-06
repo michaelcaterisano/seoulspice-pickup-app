@@ -6,13 +6,17 @@
       </figure>
     </div> -->
     <div class="card-content columns is-mobile">
-      <div class="column is-two-thirds is-size-6">
-        <span class="location-description">{{ location.description }}</span
+      <div class="column is-two-thirds is-size-7">
+        <span class="location-description">{{
+          location.description.toUpperCase()
+        }}</span
         ><br />
 
-        <span>{{ location.address }}</span
-        ><br />
-        <span>{{ location.phone }}</span>
+        <div class="location-details">
+          <span>{{ location.address }}</span
+          ><br />
+          <span>{{ location.phone }}</span>
+        </div>
       </div>
       <div class="column is-one-third" align="right">
         <figure class="image is-96x96">
@@ -41,5 +45,9 @@ export default {
 }
 .location-description {
   font-weight: 700;
+  letter-spacing: 0.03rem;
+}
+.location-details {
+  letter-spacing: 0.03rem;
 }
 </style>

@@ -204,7 +204,7 @@ input:focus {
   padding: 45px 10px 0px 10px;
 }
 
-// bulma overrides
+/******** BULMA OVERRIDES *************/
 .b-checkbox.checkbox {
   height: auto;
   width: auto;
@@ -247,14 +247,20 @@ label.b-checkbox.checkbox.button {
 }
 
 // number input override
+.field.has-numberinput {
+  // width: 100% !important;
+}
 div.b-numberinput.field.is-grouped {
-  display: flex !important;
+  width: 100% !important;
 }
 input.input {
   border: none !important;
   box-shadow: none !important;
-  flex-basis: calc(100% / 3) !important;
 }
+
+// .control.is-clearfix {
+//   margin: 0 !important;
+// }
 
 button.button.is-warning {
   width: 100%;
@@ -262,11 +268,11 @@ button.button.is-warning {
 }
 
 p.control.minus {
-  flex-basis: calc(100% / 3);
+  width: calc(100% / 3) !important;
 }
 
 p.control.plus {
-  flex-basis: calc(100% / 3);
+  width: calc(100% / 3) !important;
 }
 
 // accessibility

@@ -70,8 +70,8 @@ export default {
 
 .component-card {
   margin: 0 12px;
-  flex-basis: calc(100% / 3 - 24px);
   cursor: pointer;
+  flex-basis: calc(100% / 3 - 24px);
 }
 
 @media screen and (max-width: 900px) and (min-width: 600px) {
@@ -82,8 +82,7 @@ export default {
 
 @media screen and (max-width: 599px) {
   .component-card {
-    flex-basis: calc(100%);
-    max-width: 350px;
+    flex-basis: 100%;
   }
 }
 </style>
