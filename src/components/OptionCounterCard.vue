@@ -18,6 +18,7 @@
       <b-field>
         <b-numberinput
           type="is-warning"
+          :min="0"
           v-model="choice.qty"
           @input="setSelected"
         ></b-numberinput>
