@@ -12,6 +12,7 @@
         @next="setActiveOrderStep()"
         @add-item="addItem()"
       ></entree-option-checkbox-group>
+
       <entree-option-extras
         v-show="active === 'extras'"
         :key="'extras'"

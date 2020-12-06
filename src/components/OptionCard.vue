@@ -1,5 +1,5 @@
 <template>
-  <div class="card" tabindex="0">
+  <div ref="card" class="card" tabindex="0">
     <div class="card-image">
       <figure class="image is-3x2">
         <img v-bind:src="option.imageUrl" alt="image of entree" />
@@ -36,6 +36,9 @@ export default {
           : "$" + this.option.price
         : "";
     },
+  },
+  mounted() {
+    this.$refs.card.blur();
   },
   method: {},
   name: "OptionCard",
