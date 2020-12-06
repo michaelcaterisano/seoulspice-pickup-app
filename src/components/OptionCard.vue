@@ -1,5 +1,5 @@
 <template>
-  <div ref="card" class="card" tabindex="0">
+  <div class="card" tabindex="0">
     <div class="card-image">
       <figure class="image is-3x2">
         <img v-bind:src="option.imageUrl" alt="image of entree" />
@@ -37,12 +37,7 @@ export default {
         : "";
     },
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.$refs.card.blur();
-    });
-  },
-  method: {},
+  methods: {},
   name: "OptionCard",
   props: ["option", "isCombo"],
 };
