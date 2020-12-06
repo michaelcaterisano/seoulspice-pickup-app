@@ -137,6 +137,7 @@ $navbar-breakpoint: 767px;
 html,
 body {
   font-family: "Source Sans Pro", sans-serif;
+  letter-spacing: 0.1rem;
 }
 
 input:focus {
@@ -245,21 +246,44 @@ label.b-checkbox.checkbox.button {
   overflow: hidden;
 }
 
+// number input override
+div.b-numberinput.field.is-grouped {
+  display: flex !important;
+}
+input.input {
+  border: none !important;
+  box-shadow: none !important;
+  flex-basis: calc(100% / 3) !important;
+}
+
+button.button.is-warning {
+  width: 100%;
+  border-radius: 0px !important;
+}
+
+p.control.minus {
+  flex-basis: calc(100% / 3);
+}
+
+p.control.plus {
+  flex-basis: calc(100% / 3);
+}
+
 // accessibility
 .card:focus {
   outline: none;
-  box-shadow: 0 0 2px 2px rgb(0, 100, 255);
+  box-shadow: 0 0 2px 2px yellow;
 }
 
 @media (hover: hover) {
   .card:hover {
     outline: none;
-    box-shadow: 0 0 2px 2px rgb(0, 100, 255);
+    box-shadow: 0 0 2px 2px yellow;
   }
 }
 
 .button.button:focus {
-  outline: none;
-  box-shadow: 0 0 2px 2px rgb(0, 100, 255) !important;
+  // outline: none;
+  // box-shadow: 0 0 2px 2px rgb(0, 100, 255) !important;
 }
 </style>

@@ -29,7 +29,7 @@
 
       <div class="has-text-centered buttons">
         <b-button
-          type="is-warning"
+          type="is-success"
           @click.prevent="$emit('next')"
           v-if="active !== 'extras'"
         >

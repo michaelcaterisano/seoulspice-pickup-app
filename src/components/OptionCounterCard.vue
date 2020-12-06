@@ -10,7 +10,7 @@
         <span class="choice-name">{{ choice.name.toUpperCase() }}</span
         ><br />
 
-        <span class="choice-description">+${{ choice.price }}</span
+        <span class="choice-description">${{ choice.price }}</span
         ><br />
       </div>
     </div>
@@ -20,7 +20,6 @@
           type="is-warning"
           v-model="choice.qty"
           @input="setSelected"
-          @
         ></b-numberinput>
       </b-field>
     </footer>
@@ -52,7 +51,7 @@ export default {
 .card {
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
+  border-radius: 0px !important;
   margin-bottom: 24px !important;
   overflow: hidden;
 }
@@ -66,6 +65,7 @@ export default {
   padding: 20px 20px 0 20px !important;
   margin-bottom: 12px;
   flex-grow: 1;
+  text-align: center;
 }
 .card .choice-name {
   font-weight: 700;
