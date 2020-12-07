@@ -37,7 +37,6 @@
           v-if="active !== 'extras'"
         >
           Next
-          <span class="icon"><i class="fas fa-arrow-right"></i></span>
         </b-button>
       </div>
     </div>
@@ -91,7 +90,7 @@ export default {
       return choice.imageUrl;
     },
   },
-  name: "OptionCheckboxGroup",
+  name: "EntreeOptionsCheckboxGroup",
   props: {
     options: {
       type: Object,

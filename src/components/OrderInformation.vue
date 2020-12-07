@@ -101,7 +101,6 @@
           <div class="has-text-centered buttons">
             <a class="button is-success" @click.prevent="pay">
               <span>Finish and Pay</span>
-              <span class="icon"><i class="fas fa-arrow-right"></i></span>
             </a>
           </div>
         </div>

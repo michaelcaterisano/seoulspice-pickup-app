@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <transition-group name="fade" mode="out-in">
-      <OptionCheckboxGroup
+      <EntreeOptionsCheckboxGroup
         v-for="step in optionSteps"
         :group="options.getOption(step)"
         :price="price"
@@ -11,27 +11,27 @@
         :signature="signature"
         @next="setActiveOrderStep()"
         @add-item="addItem()"
-      ></OptionCheckboxGroup>
+      />
 
-      <OptionExtras
+      <EntreeOptionsExtras
         v-show="active === 'extras'"
         :key="'extras'"
         :extras="options.getOption('extras')"
         @add-item="addItem()"
-      ></OptionExtras>
+      />
     </transition-group>
   </div>
 </template>
 
 <script>
-import OptionCheckboxGroup from "./OptionCheckboxGroup";
-import OptionExtras from "./OptionExtras";
+import EntreeOptionsCheckboxGroup from "./EntreeOptionsCheckboxGroup";
+import EntreeOptionsExtras from "./EntreeOptionsExtras";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
-    OptionCheckboxGroup,
-    OptionExtras,
+    EntreeOptionsCheckboxGroup,
+    EntreeOptionsExtras,
   },
   computed: {
     optionSteps() {

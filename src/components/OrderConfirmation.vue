@@ -14,8 +14,7 @@
         <span>Add Drink/Dessert</span>
       </a>
       <a class="button is-success" @click.prevent="confirmItems()">
-        <span>Continue</span>
-        <span class="icon"><i class="fas fa-arrow-right"></i></span>
+        <span>Next</span>
       </a>
     </div>
   </div>

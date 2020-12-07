@@ -16,7 +16,7 @@
         @click.prevent="$emit('add-item')"
       >
         <!-- <span>Add to Cart ({{ price | currency }})</span> -->
-        <span>Add to Cart </span>
+        <span>Next</span>
       </b-button>
     </div>
   </div>
@@ -29,7 +29,7 @@ export default {
   components: {
     OptionCounterCard,
   },
-  name: "OptionExtras",
+  name: "EntreeOptionsExtras",
   props: ["extras"],
 };
 </script>

@@ -16,7 +16,7 @@
     </transition-group>
     <div class="has-text-centered buttons">
       <a class="button is-success" @click.prevent="addItems()">
-        <span>Continue</span>
+        <span>Next</span>
       </a>
     </div>
   </section>
