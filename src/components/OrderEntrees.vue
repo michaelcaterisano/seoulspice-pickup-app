@@ -117,6 +117,7 @@ export default {
     clearEntree() {
       this.entree.category = null;
       this.entree.signature = null;
+      this.notes = [];
       this.menuData.options.forEach((option) => {
         option.choices.forEach((choice) => {
           choice.selected = false;
@@ -138,6 +139,7 @@ export default {
     },
     addNote(value) {
       this.notes.push(value);
+      console.log(this.notes);
     },
   },
 };

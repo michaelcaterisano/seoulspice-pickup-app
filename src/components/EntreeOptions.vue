@@ -35,7 +35,6 @@ export default {
   },
   computed: {
     optionSteps() {
-      console.log(this.steps);
       return this.steps.filter((step) => step !== "extras");
     },
     ...mapGetters(["items"]),
