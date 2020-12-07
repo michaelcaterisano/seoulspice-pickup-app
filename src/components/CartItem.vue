@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <div>
+    <div class="item-body">
       <div class="delete-button">
         <button class="delete is-large" @click.prevent="removeItem()"></button>
       </div>
@@ -8,30 +8,31 @@
         <p>{{ item.signature }} {{ item.name }}</p>
         <p>{{ price | currency }}</p>
       </div>
-      <div>
-        <b-field>
-          <b-numberinput
-            :value="item.qty"
-            @input="updateQty"
-            min="1"
-            type="is-warning"
-          ></b-numberinput>
-        </b-field>
-      </div>
-    </div>
-    <ul v-if="item.type === 'entree'" class="options is-size-7">
-      <li
-        v-for="(option, index) in item.options"
-        v-html="printOptions(option)"
-        :key="index"
-      ></li>
-    </ul>
+      <ul v-if="item.type === 'entree'" class="options is-size-7">
+        <li
+          v-for="(option, index) in item.options"
+          v-html="printOptions(option)"
+          :key="index"
+        ></li>
+      </ul>
 
-    <ul v-if="item.notes.length > 0" class="notes is-size-7">
-      <li v-for="note in item.notes" :key="note">
-        <strong>Order Notes:</strong> {{ note }}
-      </li>
-    </ul>
+      <ul class="notes is-size-7">
+        <li v-for="note in item.notes" :key="note">
+          <strong>Order Notes:</strong> {{ note }}
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <b-field>
+        <b-numberinput
+          :value="item.qty"
+          @input="updateQty"
+          min="1"
+          type="is-warning"
+        ></b-numberinput>
+      </b-field>
+    </div>
   </div>
 </template>
 
@@ -86,6 +87,12 @@ export default {
 </script>
 
 <style scoped>
+.box {
+  padding: 0 !important;
+}
+.item-body {
+  padding: 30px;
+}
 .options {
   border-top: 1px solid #ccc;
   margin-top: 15px;
@@ -100,9 +107,13 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-bottom: -40px;
+  margin-bottom: -30px;
 }
 .item-name {
   font-weight: 700;
+}
+
+ul {
+  border: none !important;
 }
 </style>
