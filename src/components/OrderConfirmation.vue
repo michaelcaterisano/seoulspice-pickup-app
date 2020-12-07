@@ -46,7 +46,17 @@ export default {
 
 <style scoped>
 .container {
+  width: 500px;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.button {
   width: 100%;
+  margin: 0;
 }
 
 @media screen and (max-width: 599px) {

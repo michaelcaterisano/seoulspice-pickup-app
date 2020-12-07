@@ -60,7 +60,7 @@ export default {
       // if (max < 2) {
       //   return this.group.label;
       // }
-      return max === Infinity ? "" : " \n(Choose up to  " + max + ")";
+      return max === Infinity ? "(unlimited)" : " (Choose up to  " + max + ")";
     },
     countSelectedOptions() {
       return this.group.choices.filter((choice) => choice.selected).length;

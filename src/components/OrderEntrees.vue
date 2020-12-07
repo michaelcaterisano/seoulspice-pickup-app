@@ -18,7 +18,7 @@
       :options="menuData"
       :price="price"
       :category="entree.category"
-      :combo="entree.combo"
+      :signature="entree.signature"
       v-if="active === 'entree-options'"
       @note="addNote"
       @valid="addToCart"
@@ -44,7 +44,7 @@ export default {
       active: "entree-categories",
       entree: {
         category: null,
-        combo: null,
+        signature: null,
         type: "entree",
       },
       menuData: menuData,
@@ -88,7 +88,7 @@ export default {
 
       const entreeToAdd = {
         name: this.entree.category.name,
-        combo: this.entree.combo ? this.entree.combo.name : null,
+        signature: this.entree.signature ? this.entree.signature.name : null,
         price: this.price,
         qty: 1,
         type: this.entree.type,
@@ -113,11 +113,12 @@ export default {
     },
     clearEntree() {
       this.entree.category = null;
-      this.entree.combo = null;
+      this.entree.signature = null;
       this.menuData.options.forEach((option) => {
         option.choices.forEach((choice) => {
           choice.selected = false;
-          choice.onTheSide ? choice.onTheSide === false : null;
+          // choice.onTheSide ? (choice.onTheSide = false) : null;
+          choice.qty ? (choice.qty = 0) : null;
         });
       });
     },

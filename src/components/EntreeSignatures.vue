@@ -11,8 +11,8 @@
         :key="index"
         :option="signature"
         :isCombo="true"
-        @click.native="setActive"
-        @keyup.enter.native="setActive"
+        @click.native="setActive(signature)"
+        @keyup.enter.native="setActive(signature)"
       />
     </div>
   </div>

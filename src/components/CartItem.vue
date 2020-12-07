@@ -1,12 +1,14 @@
 <template>
   <div class="box">
-    <div class="columns">
-      <div class="column is-12 delete-button">
+    <div>
+      <div class="delete-button">
         <button class="delete is-large" @click.prevent="removeItem()"></button>
       </div>
-      <div class="column is-12 item-name">{{ item.combo }} {{ item.name }}</div>
-      <div class="column is-12">{{ price | currency }}</div>
-      <div class="column is-12">
+      <div class="item-name">
+        <p>{{ item.signature }} {{ item.name }}</p>
+        <p>{{ price | currency }}</p>
+      </div>
+      <div>
         <b-field>
           <b-numberinput
             :value="item.qty"
@@ -25,7 +27,7 @@
       ></li>
     </ul>
 
-    <ul class="notes is-size-7">
+    <ul v-if="item.notes.length > 0" class="notes is-size-7">
       <li v-for="note in item.notes" :key="note">
         <strong>Order Notes:</strong> {{ note }}
       </li>

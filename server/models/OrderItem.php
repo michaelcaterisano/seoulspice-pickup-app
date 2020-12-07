@@ -27,7 +27,7 @@ class OrderItem {
 				'amount' => (int)($this->_data->price * 100),
 				'currency' => 'USD'
 			],
-      'name' => $this->_data->combo . ' ' . $this->_data->name,
+      'name' => $this->_data->signature . ' ' . $this->_data->name,
       'note' => implode('. ', $this->_data->notes),
 		];
 

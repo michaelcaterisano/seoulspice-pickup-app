@@ -8,7 +8,7 @@
         v-show="active === step"
         :key="step"
         :category="category"
-        :combo="combo"
+        :signature="signature"
         @next="setActiveOrderStep()"
         @add-item="addItem()"
       ></OptionCheckboxGroup>
@@ -63,8 +63,8 @@ export default {
             "toppings",
             "extras",
           ],
-      comboSteps: ["bases", "extraProteins", "extras"],
-      korritoComboSteps: ["rices", "extras"],
+      signatureSteps: ["bases", "extraProteins", "extras"],
+      korritoSignatureSteps: ["rices", "extras"],
     };
   },
   methods: {
@@ -73,20 +73,21 @@ export default {
     },
     advanceStep() {
       window.scrollTo(0, 0);
-      if (this.combo) {
-        if (this.combo.name === "Build Your Own") {
+      if (this.signature) {
+        if (this.signature.name === "Build Your Own") {
           this.active = this.steps[
             this.steps.findIndex((step) => step === this.active) + 1
           ];
         } else {
           if (this.isKorrito()) {
-            this.active = this.korritoComboSteps[
-              this.korritoComboSteps.findIndex((step) => step === this.active) +
-                1
+            this.active = this.korritoSignatureSteps[
+              this.korritoSignatureSteps.findIndex(
+                (step) => step === this.active
+              ) + 1
             ];
           } else {
-            this.active = this.comboSteps[
-              this.comboSteps.findIndex((step) => step === this.active) + 1
+            this.active = this.signatureSteps[
+              this.signatureSteps.findIndex((step) => step === this.active) + 1
             ];
           }
         }
@@ -173,7 +174,7 @@ export default {
     },
   },
   name: "EntreeOptions",
-  props: ["options", "price", "category", "combo"],
+  props: ["options", "price", "category", "signature"],
 };
 </script>
 
