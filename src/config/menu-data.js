@@ -287,7 +287,7 @@ const menuData = {
       type: "toppings",
       label: "Pick your toppings",
       cartLabel: "Toppings",
-      max: Infinity,
+      max: 6,
       choices: [
         {
           name: "Crispy Garlic",
@@ -331,7 +331,7 @@ const menuData = {
       type: "korean feast toppings",
       label: "Pick your toppings",
       cartLabel: "Toppings",
-      max: Infinity,
+      max: 4,
       choices: [
         {
           name: "Crispy Garlic",

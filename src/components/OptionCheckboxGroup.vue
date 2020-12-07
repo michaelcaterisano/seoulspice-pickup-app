@@ -57,9 +57,9 @@ export default {
             : this.group.max
           : this.group.max;
 
-      // if (max < 2) {
-      //   return this.group.label;
-      // }
+      if (max < 2) {
+        return "(choose one)";
+      }
       return max === Infinity ? "(unlimited)" : " (Choose up to  " + max + ")";
     },
     countSelectedOptions() {

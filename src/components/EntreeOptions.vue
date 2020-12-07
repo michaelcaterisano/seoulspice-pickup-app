@@ -35,36 +35,15 @@ export default {
   },
   computed: {
     optionSteps() {
+      console.log(this.steps);
       return this.steps.filter((step) => step !== "extras");
     },
     ...mapGetters(["items"]),
   },
   data() {
     return {
-      active: this.riceOnly() ? "rices" : "bases",
-      steps: this.riceOnly()
-        ? this.isKoreanFeast()
-          ? ["rices", "proteins", "veggies", "korean feast toppings", "extras"]
-          : [
-              "rices",
-              "proteins",
-              "extraProteins",
-              "veggies",
-              "sauces",
-              "toppings",
-              "extras",
-            ]
-        : [
-            "bases",
-            "proteins",
-            "extraProteins",
-            "veggies",
-            "sauces",
-            "toppings",
-            "extras",
-          ],
-      signatureSteps: ["bases", "extraProteins", "extras"],
-      korritoSignatureSteps: ["rices", "extras"],
+      active: this.isRiceOnly() ? "rices" : "bases",
+      steps: this.getSteps(),
     };
   },
   methods: {
@@ -73,29 +52,10 @@ export default {
     },
     advanceStep() {
       window.scrollTo(0, 0);
-      if (this.signature) {
-        if (this.signature.name === "Build Your Own") {
-          this.active = this.steps[
-            this.steps.findIndex((step) => step === this.active) + 1
-          ];
-        } else {
-          if (this.isKorrito()) {
-            this.active = this.korritoSignatureSteps[
-              this.korritoSignatureSteps.findIndex(
-                (step) => step === this.active
-              ) + 1
-            ];
-          } else {
-            this.active = this.signatureSteps[
-              this.signatureSteps.findIndex((step) => step === this.active) + 1
-            ];
-          }
-        }
-      } else {
-        this.active = this.steps[
-          this.steps.findIndex((step) => step === this.active) + 1
-        ];
-      }
+      this.active = this.steps[
+        this.steps.findIndex((step) => step === this.active) + 1
+      ];
+      alert(this.active);
     },
     checkMinSelected(option) {
       if (option.type === "extraProteins") {
@@ -106,12 +66,30 @@ export default {
     setActiveOrderStep() {
       const option = this.options.getOption(this.active);
       if (
+        option.type === "sauces" &&
+        this.category.name !== "Korrito" &&
+        this.checkMinSelected(option)
+      ) {
+        this.$buefy.dialog.confirm({
+          message: "Do you want your sauce on the side?",
+          onConfirm: () => {
+            this.$emit("note", "Sauce on the side");
+            this.advanceStep();
+          },
+          onCancel: () => {
+            this.advanceStep();
+          },
+          confirmText: "Yes",
+          cancelText: "No",
+        });
+      }
+      if (
         this.checkMinSelected(option) &&
-        (this.category.name === "Korrito" || option.type !== "sauces")
+        (option.type !== "sauces" || this.category.name === "Korrito")
       ) {
         this.advanceStep();
       }
-
+      // base is mandatory
       if (
         !this.checkMinSelected(option) &&
         (option.type === "bases" || option.type === "rices")
@@ -121,8 +99,6 @@ export default {
           confirmText: "Ok",
         });
       }
-
-      // build your own -> choose your base is not optional fix
       if (
         !this.checkMinSelected(option) &&
         option.type !== "bases" &&
@@ -136,33 +112,80 @@ export default {
           cancelText: "No",
         });
       }
-      if (
-        option.type === "sauces" &&
-        this.category.name !== "Korrito" &&
-        this.checkMinSelected(option)
-      ) {
-        this.$buefy.dialog.confirm({
-          message: "Do you want your sauce on the side?",
-          onConfirm: () => {
-            this.$emit("note", "Sauce on the side");
-            this.advanceStep();
-          },
-          onCancel: () => {
-            // record sauce "on it"
-            this.advanceStep();
-          },
-          confirmText: "Yes",
-          cancelText: "No",
-        });
-      }
     },
-    riceOnly() {
+    getSteps() {
+      let steps;
+      if (this.isRiceOnly()) {
+        if (this.isKoreanFeast()) {
+          steps = [
+            "rices",
+            "proteins",
+            "veggies",
+            "korean feast toppings",
+            "extras",
+          ];
+        }
+        if (this.isKorrito()) {
+          if (this.isSignature()) {
+            steps = ["rices", "extraProteins", "extras"];
+          }
+          if (this.isBuildYourOwn()) {
+            steps = [
+              "rices",
+              "proteins",
+              "extraProteins",
+              "veggies",
+              "sauces",
+              "toppings",
+              "extras",
+            ];
+          }
+        }
+      } else {
+        if (this.isBowl()) {
+          if (this.isSignature()) {
+            steps = ["bases", "extraProteins", "extras"];
+          }
+          if (this.isBuildYourOwn()) {
+            steps = [
+              "bases",
+              "proteins",
+              "extraProteins",
+              "veggies",
+              "sauces",
+              "toppings",
+              "extras",
+            ];
+          }
+        }
+        if (this.isKidsBowl()) {
+          if (this.isSignature()) {
+            steps = ["bases", "extras"];
+          }
+          if (this.isBuildYourOwn()) {
+            steps = [
+              "bases",
+              "proteins",
+              "veggies",
+              "sauces",
+              "toppings",
+              "extras",
+            ];
+          }
+        }
+      }
+
+      return steps;
+    },
+
+    isRiceOnly() {
       return (
         this.category.name === "Korean Feast For 2" ||
         this.category.name === "Korean Feast For 4" ||
         this.category.name === "Korrito"
       );
     },
+
     isKoreanFeast() {
       return (
         this.category.name === "Korean Feast For 2" ||
@@ -171,6 +194,18 @@ export default {
     },
     isKorrito() {
       return this.category.name === "Korrito";
+    },
+    isBowl() {
+      return this.category.name === "Bowl";
+    },
+    isKidsBowl() {
+      return this.category.name === "Kid's Bowl";
+    },
+    isSignature() {
+      return this.signature.name !== "Build Your Own";
+    },
+    isBuildYourOwn() {
+      return this.signature.name === "Build Your Own";
     },
   },
   name: "EntreeOptions",
