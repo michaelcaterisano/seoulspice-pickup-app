@@ -49,14 +49,20 @@ export default {
     addItem() {
       this.$emit("valid");
     },
-    advanceStep() {
+    advanceStep(numSteps) {
       window.scrollTo(0, 0);
-      this.active = this.steps[
-        this.steps.findIndex((step) => step === this.active) + 1
-      ];
+      if (!numSteps) {
+        this.active = this.steps[
+          this.steps.findIndex((step) => step === this.active) + 1
+        ];
+      } else {
+        this.active = this.steps[
+          this.steps.findIndex((step) => step === this.active) + numSteps
+        ];
+      }
     },
     checkMinSelected(option) {
-      if (option.type === "extraProteins") {
+      if (option.type === "extra proteins") {
         return true;
       }
       return option.choices.some((choice) => choice.selected);
@@ -72,7 +78,11 @@ export default {
       if (this.hasNoneSelectedDialog(option)) {
         this.showNoneSelectedDialog();
       }
-      this.advanceStep();
+      if (this.hasExtraProteinDialog(option)) {
+        this.showExtraProteinDialog();
+      } else {
+        this.advanceStep();
+      }
     },
     getSteps() {
       let steps;
@@ -88,13 +98,13 @@ export default {
         }
         if (this.isKorrito()) {
           if (this.isSignature()) {
-            steps = ["rices", "extraProteins", "extras"];
+            steps = ["rices", "extra proteins", "extras"];
           }
           if (this.isBuildYourOwn()) {
             steps = [
               "rices",
               "proteins",
-              "extraProteins",
+              "extra proteins",
               "veggies",
               "sauces",
               "toppings",
@@ -105,13 +115,13 @@ export default {
       } else {
         if (this.isBowl()) {
           if (this.isSignature()) {
-            steps = ["bases", "extraProteins", "extras"];
+            steps = ["bases", "extra proteins", "extras"];
           }
           if (this.isBuildYourOwn()) {
             steps = [
               "bases",
               "proteins",
-              "extraProteins",
+              "extra proteins",
               "veggies",
               "sauces",
               "toppings",
@@ -183,6 +193,26 @@ export default {
         option.type !== "bases" &&
         option.type !== "rices"
       );
+    },
+    hasExtraProteinDialog(option) {
+      return (
+        this.checkMinSelected(option) &&
+        this.steps[this.steps.findIndex((step) => step === this.active) + 1] ===
+          "extra proteins"
+      );
+    },
+    showExtraProteinDialog() {
+      this.$buefy.dialog.confirm({
+        message: "Do you want extra proteins?",
+        onConfirm: () => {
+          this.advanceStep();
+        },
+        onCancel: () => {
+          this.advanceStep(2);
+        },
+        confirmText: "Yes",
+        cancelText: "No",
+      });
     },
     showSauceDialog() {
       this.$buefy.dialog.confirm({

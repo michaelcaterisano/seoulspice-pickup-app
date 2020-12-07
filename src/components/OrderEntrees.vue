@@ -139,7 +139,6 @@ export default {
     },
     addNote(value) {
       this.notes.push(value);
-      console.log(this.notes);
     },
   },
 };
