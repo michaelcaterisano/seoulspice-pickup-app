@@ -107,7 +107,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-bottom: -30px;
+  margin: 0 0 10px 0px;
+  margin-right: -10px;
 }
 .item-name {
   font-weight: 700;
