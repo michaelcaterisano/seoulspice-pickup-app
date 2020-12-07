@@ -56,7 +56,7 @@ export default {
 }
 .button {
   width: 100%;
-  margin: 0;
+  margin-right: 0px !important;
 }
 
 @media screen and (max-width: 599px) {
