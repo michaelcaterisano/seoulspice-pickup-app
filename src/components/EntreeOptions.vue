@@ -55,7 +55,6 @@ export default {
       this.active = this.steps[
         this.steps.findIndex((step) => step === this.active) + 1
       ];
-      alert(this.active);
     },
     checkMinSelected(option) {
       if (option.type === "extraProteins") {
@@ -65,53 +64,16 @@ export default {
     },
     setActiveOrderStep() {
       const option = this.options.getOption(this.active);
-      if (
-        option.type === "sauces" &&
-        this.category.name !== "Korrito" &&
-        this.checkMinSelected(option)
-      ) {
-        this.$buefy.dialog.confirm({
-          message: "Do you want your sauce on the side?",
-          onConfirm: () => {
-            this.$emit("note", "Sauce on the side");
-            this.advanceStep();
-          },
-          onCancel: () => {
-            this.advanceStep();
-          },
-          confirmText: "Yes",
-          cancelText: "No",
-        });
+      if (this.hasSauceDialog(option)) {
+        this.showSauceDialog();
       }
-      if (
-        this.checkMinSelected(option) &&
-        (option.type !== "sauces" || this.category.name === "Korrito")
-      ) {
-        this.advanceStep();
+      if (this.hasBasesDialog(option)) {
+        this.showBasesDialog();
       }
-      // base is mandatory
-      if (
-        !this.checkMinSelected(option) &&
-        (option.type === "bases" || option.type === "rices")
-      ) {
-        this.$buefy.dialog.confirm({
-          message: "Please select a base",
-          confirmText: "Ok",
-        });
+      if (this.hasNoneSelectedDialog(option)) {
+        this.showNoneSelectedDialog();
       }
-      if (
-        !this.checkMinSelected(option) &&
-        option.type !== "bases" &&
-        option.type !== "rices"
-      ) {
-        this.$buefy.dialog.confirm({
-          message:
-            "Are you sure you want to continue without selecting any options?",
-          onConfirm: () => this.advanceStep(),
-          confirmText: "Yes",
-          cancelText: "No",
-        });
-      }
+      this.advanceStep();
     },
     getSteps() {
       let steps;
@@ -177,7 +139,6 @@ export default {
 
       return steps;
     },
-
     isRiceOnly() {
       return (
         this.category.name === "Korean Feast For 2" ||
@@ -185,7 +146,6 @@ export default {
         this.category.name === "Korrito"
       );
     },
-
     isKoreanFeast() {
       return (
         this.category.name === "Korean Feast For 2" ||
@@ -206,6 +166,53 @@ export default {
     },
     isBuildYourOwn() {
       return this.signature.name === "Build Your Own";
+    },
+    hasSauceDialog(option) {
+      return (
+        this.checkMinSelected(option) &&
+        option.type === "sauces" &&
+        this.category.name !== "Korrito"
+      );
+    },
+    hasBasesDialog(option) {
+      !this.checkMinSelected(option) &&
+        (option.type === "bases" || option.type === "rices");
+    },
+    hasNoneSelectedDialog(option) {
+      return (
+        !this.checkMinSelected(option) &&
+        option.type !== "bases" &&
+        option.type !== "rices"
+      );
+    },
+    showSauceDialog() {
+      this.$buefy.dialog.confirm({
+        message: "Do you want your sauce on the side?",
+        onConfirm: () => {
+          this.$emit("note", "Sauce on the side");
+          this.advanceStep();
+        },
+        onCancel: () => {
+          this.advanceStep();
+        },
+        confirmText: "Yes",
+        cancelText: "No",
+      });
+    },
+    showBasesDialog() {
+      this.$buefy.dialog.confirm({
+        message: "Please select a base",
+        confirmText: "Ok",
+      });
+    },
+    showNoneSelectedDialog() {
+      this.$buefy.dialog.confirm({
+        message:
+          "Are you sure you want to continue without selecting any options?",
+        onConfirm: () => this.advanceStep(),
+        confirmText: "Yes",
+        cancelText: "No",
+      });
     },
   },
   name: "EntreeOptions",
