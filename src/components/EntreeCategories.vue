@@ -1,17 +1,17 @@
 <template>
-  <section class="container">
+  <div class="container">
     <div class="category-title is-size-6"><span>CHOOSE YOUR ENTREE</span></div>
     <div class="card-container">
-      <option-card
+      <OptionCard
         class="category-card"
-        v-for="(category, index) in categories"
-        :key="index"
+        v-for="category in categories"
+        :key="category.name"
         :option="category"
-        @click.native="$emit('category-selected', category)"
-        @keyup.enter.native="$emit('category-selected', category)"
-      ></option-card>
+        @click.native="setActive(category)"
+        @keyup.enter.native="setActive(category)"
+      />
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -20,6 +20,18 @@ import OptionCard from "../components/OptionCard";
 export default {
   components: {
     OptionCard,
+  },
+  methods: {
+    setActive(category) {
+      let message =
+        category.name === "Korean Feast For 2" ||
+        category.name === "Korean Feast For 4"
+          ? "entree-options"
+          : "entree-signatures";
+
+      this.$emit("category-selected", category);
+      this.$emit("update", message);
+    },
   },
   name: "EntreeCategories",
   props: ["categories"],
@@ -34,7 +46,7 @@ export default {
   align-items: center;
 }
 .card-container {
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -48,8 +60,8 @@ export default {
 }
 
 .category-card {
-  margin: 0 12px;
-  flex-basis: calc(100% / 2 - 24px);
+  margin: 0 12px 24px 12px;
+  flex-basis: calc(100% / 3 - 24px);
   cursor: pointer;
 }
 
@@ -61,10 +73,11 @@ export default {
 
 @media screen and (max-width: 599px) {
   .card-container {
-    width: 100%;
+    width: 85%;
   }
   .category-card {
-    flex-basis: calc(100%);
+    margin: 0 0 24px 0;
+    flex-basis: 100%;
   }
 }
 </style>

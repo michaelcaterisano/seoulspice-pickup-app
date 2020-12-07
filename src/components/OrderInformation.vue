@@ -1,5 +1,5 @@
 <template>
-  <section class="section">
+  <section>
     <div class="container">
       <div class="columns">
         <div class="column is-12">
@@ -72,7 +72,7 @@
             ></b-timepicker>
           </b-field>
           <b-field label="Would you like to add a tip?">
-            <div class="block">
+            <div class="tip-buttons is-size-7">
               <b-radio name="name" native-value=".1" @input="updateTip">
                 10%
               </b-radio>
@@ -195,7 +195,8 @@ export default {
 
 <style scoped>
 .container {
-  max-width: 900px;
+  width: 100%;
+  max-width: 800px !important;
 }
 .columns {
   padding: 10px;
@@ -206,5 +207,16 @@ export default {
 .text-field {
   border: 1px solid black;
   border-radius: 2px;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 599px) {
+  .container {
+    width: 90%;
+  }
 }
 </style>

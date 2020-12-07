@@ -1,21 +1,21 @@
 <template>
-  <section class="container">
+  <div class="container">
     <div class="signature-title is-size-6">
       <span>WOULD YOU LIKE A SIGNATURE COMBO OR TO BUILD YOUR OWN?</span>
     </div>
 
     <div class="card-container">
-      <option-card
-        class="combo-card"
-        v-for="(combo, index) in combos"
+      <OptionCard
+        class="signature-card"
+        v-for="(signature, index) in signatures"
         :key="index"
-        :option="combo"
+        :option="signature"
         :isCombo="true"
-        @click.native="$emit('combo-selected', combo)"
-        @keyup.enter.native="$emit('combo-selected', combo)"
-      ></option-card>
+        @click.native="setActive"
+        @keyup.enter.native="setActive"
+      />
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -25,8 +25,14 @@ export default {
   components: {
     OptionCard,
   },
-  name: "SignatureCombos",
-  props: ["combos"],
+  methods: {
+    setActive(signature) {
+      this.$emit("signature-selected", signature);
+      this.$emit("update", "entree-options");
+    },
+  },
+  name: "EntreeSignatures",
+  props: ["signatures"],
 };
 </script>
 
@@ -38,7 +44,7 @@ export default {
   align-items: center;
 }
 .card-container {
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -51,24 +57,25 @@ export default {
   font-weight: 700;
 }
 
-.combo-card {
-  margin: 0 12px;
+.signature-card {
+  margin: 0 12px 24px 12px;
   flex-basis: calc(100% / 3 - 24px);
   cursor: pointer;
 }
 
 @media screen and (max-width: 900px) and (min-width: 600px) {
-  .combo-card {
+  .signature-card {
     flex-basis: calc(100% / 2 - 24px);
   }
 }
 
 @media screen and (max-width: 599px) {
   .card-container {
-    width: 100%;
+    width: 85%;
   }
-  .combo-card {
-    flex-basis: calc(100% - 24px);
+  .signature-card {
+    margin: 0 0 24px 0;
+    flex-basis: 100%;
   }
 }
 </style>

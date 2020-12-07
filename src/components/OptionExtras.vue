@@ -1,27 +1,25 @@
 <template>
-  <section>
-    <div class="container">
-      <div class="component-title is-size-5"><span>EXTRAS</span></div>
-      <div class="card-container">
-        <option-counter-card
-          v-for="(choice, index) in extras.choices"
-          :choice="choice"
-          :key="index"
-          class="component-card"
-        ></option-counter-card>
-      </div>
-      <div class="buttons">
-        <b-button
-          type="is-success"
-          class="add-to-cart-button"
-          @click.prevent="$emit('add-item')"
-        >
-          <!-- <span>Add to Cart ({{ price | currency }})</span> -->
-          <span>Add to Cart </span>
-        </b-button>
-      </div>
+  <div class="container">
+    <div class="component-title is-size-6"><span>EXTRAS</span></div>
+    <div class="card-container">
+      <OptionCounterCard
+        class="component-card"
+        v-for="(choice, index) in extras.choices"
+        :option="choice"
+        :key="index"
+      ></OptionCounterCard>
     </div>
-  </section>
+    <div class="buttons">
+      <b-button
+        type="is-success"
+        class="add-to-cart-button"
+        @click.prevent="$emit('add-item')"
+      >
+        <!-- <span>Add to Cart ({{ price | currency }})</span> -->
+        <span>Add to Cart </span>
+      </b-button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -31,7 +29,7 @@ export default {
   components: {
     OptionCounterCard,
   },
-  name: "EntreeOptionExtras",
+  name: "OptionExtras",
   props: ["extras"],
 };
 </script>
@@ -69,7 +67,7 @@ export default {
 }
 
 .component-card {
-  margin: 0 12px;
+  margin: 0 12px 24px 12px;
   cursor: pointer;
   flex-basis: calc(100% / 3 - 24px);
 }
@@ -81,7 +79,11 @@ export default {
 }
 
 @media screen and (max-width: 599px) {
+  .card-container {
+    width: 85%;
+  }
   .component-card {
+    margin: 0 0 24px 0;
     flex-basis: 100%;
   }
 }

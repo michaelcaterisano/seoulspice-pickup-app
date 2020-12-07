@@ -1,5 +1,5 @@
 <template>
-  <section class="section">
+  <section>
     <div class="container">
       <div class="box">
         <p class="thanks">
@@ -71,36 +71,36 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { createHelpers } from 'vuex-map-fields';
+import { mapGetters } from "vuex";
+import { createHelpers } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
-  getterType: 'getOrderField',
-  mutationType: 'updateOrderField',
+  getterType: "getOrderField",
+  mutationType: "updateOrderField",
 });
 export default {
   computed: {
-    ...mapGetters(['total', 'itemSubtotal', 'tax', 'items', 'tip']),
-    ...mapFields(['name', 'location', 'time', 'email', 'curbside']),
+    ...mapGetters(["total", "itemSubtotal", "tax", "items", "tip"]),
+    ...mapFields(["name", "location", "time", "email", "curbside"]),
     shortTime() {
-      return this.time.toLocaleTimeString('en-US', {
-        timeStyle: 'short',
+      return this.time.toLocaleTimeString("en-US", {
+        timeStyle: "short",
       });
     },
   },
   methods: {
     printOptions(option) {
-      let optionText = '';
-      optionText += '<strong>' + option.cartLabel + ': </strong>';
+      let optionText = "";
+      optionText += "<strong>" + option.cartLabel + ": </strong>";
       optionText += option.choices
         .map((choice) => {
           return choice.name;
         })
-        .join(', ');
+        .join(", ");
       return optionText;
     },
   },
-  name: 'OrderSummary',
+  name: "OrderSummary",
 };
 </script>
 

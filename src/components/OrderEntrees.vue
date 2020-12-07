@@ -1,47 +1,57 @@
 <template>
-  <section class="section">
-    <order-location v-if="!selectedLocation" @location-selected="setLocation" />
-
-    <entree-categories
-      v-if="showCategories"
+  <section>
+    <EntreeCategories
       :categories="menuData.categories"
+      v-if="active === 'entree-categories'"
       @category-selected="setCategory"
-    ></entree-categories>
+      @update="setActive"
+    />
 
-    <signature-combos
-      v-if="showCombos"
-      :combos="menuData.combos"
-      @combo-selected="setCombo"
-    ></signature-combos>
+    <EntreeSignatures
+      v-if="active === 'entree-signatures'"
+      :signatures="menuData.signatures"
+      @signature-selected="setSignature"
+      @update="setActive"
+    />
 
-    <entree-options
+    <EntreeOptions
       :options="menuData"
       :price="price"
       :category="entree.category"
       :combo="entree.combo"
-      v-if="showOptions"
+      v-if="active === 'entree-options'"
       @note="addNote"
       @valid="addToCart"
-    ></entree-options>
+    />
   </section>
 </template>
 
 <script>
 import menuData from "../config/menu-data";
 import EntreeCategories from "../components/EntreeCategories";
-import SignatureCombos from "../components/SignatureCombos";
+import EntreeSignatures from "../components/EntreeSignatures";
 import EntreeOptions from "../components/EntreeOptions";
-import OrderLocation from "../components/OrderLocation";
 import { ADD_ITEM } from "../store/mutations.type";
 
 export default {
   components: {
     EntreeCategories,
-    SignatureCombos,
+    EntreeSignatures,
     EntreeOptions,
-    OrderLocation,
   },
-  name: "EntreeBuilder",
+  data() {
+    return {
+      active: "entree-categories",
+      entree: {
+        category: null,
+        combo: null,
+        type: "entree",
+      },
+      menuData: menuData,
+      notes: [],
+    };
+  },
+  name: "OrderEntrees",
   computed: {
     price() {
       let price = 0;
@@ -57,47 +67,6 @@ export default {
       });
       return price;
     },
-    showCategories() {
-      if (this.selectedLocation && !this.entree.category) {
-        window.scrollTo(0, 0);
-        return true;
-      }
-      return false;
-    },
-    showCombos() {
-      if (this.entree.category) {
-        window.scrollTo(0, 0);
-        return (
-          this.entree.combo === null &&
-          this.entree.category.name !== "Korean Feast For 2" &&
-          this.entree.category.name !== "Korean Feast For 4"
-        );
-      }
-      return false;
-    },
-    showOptions() {
-      if (this.entree.category) {
-        window.scrollTo(0, 0);
-        return (
-          this.entree.combo !== null ||
-          this.entree.category.name === "Korean Feast For 2" ||
-          this.entree.category.name === "Korean Feast For 4"
-        );
-      }
-      return false;
-    },
-  },
-  data() {
-    return {
-      selectedLocation: null,
-      entree: {
-        category: null,
-        combo: null,
-        type: "entree",
-      },
-      menuData: menuData,
-      notes: [],
-    };
   },
   methods: {
     addToCart() {
@@ -152,14 +121,16 @@ export default {
         });
       });
     },
+    setActive(section) {
+      this.active = section;
+    },
     setCategory(category) {
+      window.scrollTo(0, 0);
       this.entree.category = category;
     },
-    setCombo(combo) {
-      this.entree.combo = combo;
-    },
-    setLocation() {
-      this.selectedLocation = true;
+    setSignature(signature) {
+      window.scrollTo(0, 0);
+      this.entree.signature = signature;
     },
     addNote(value) {
       this.notes.push(value);

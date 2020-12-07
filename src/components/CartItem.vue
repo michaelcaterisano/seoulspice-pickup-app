@@ -1,27 +1,23 @@
 <template>
   <div class="box">
     <div class="columns">
-      <div class="column is-6">{{ item.combo }} {{ item.name }}</div>
-      <div class="column is-2">{{ price | currency }}</div>
-      <div class="column is=4">
-        <div class="columns">
-          <div class="column is-10">
-            <b-field>
-              <b-numberinput
-                :value="item.qty"
-                @input="updateQty"
-                min="1"
-                type="is-black"
-              ></b-numberinput>
-            </b-field>
-          </div>
-          <div class="column is-2">
-            <a class="delete is-large" @click.prevent="removeItem()"></a>
-          </div>
-        </div>
+      <div class="column is-12 delete-button">
+        <button class="delete is-large" @click.prevent="removeItem()"></button>
+      </div>
+      <div class="column is-12 item-name">{{ item.combo }} {{ item.name }}</div>
+      <div class="column is-12">{{ price | currency }}</div>
+      <div class="column is-12">
+        <b-field>
+          <b-numberinput
+            :value="item.qty"
+            @input="updateQty"
+            min="1"
+            type="is-warning"
+          ></b-numberinput>
+        </b-field>
       </div>
     </div>
-    <ul v-if="item.type === 'entree'" class="options">
+    <ul v-if="item.type === 'entree'" class="options is-size-7">
       <li
         v-for="(option, index) in item.options"
         v-html="printOptions(option)"
@@ -29,7 +25,7 @@
       ></li>
     </ul>
 
-    <ul class="notes">
+    <ul class="notes is-size-7">
       <li v-for="note in item.notes" :key="note">
         <strong>Order Notes:</strong> {{ note }}
       </li>
@@ -97,5 +93,14 @@ export default {
   border-top: 1px solid #ccc;
   margin-top: 15px;
   padding-top: 15px;
+}
+.delete-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: -40px;
+}
+.item-name {
+  font-weight: 700;
 }
 </style>

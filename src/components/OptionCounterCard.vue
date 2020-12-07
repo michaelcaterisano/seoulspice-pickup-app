@@ -2,17 +2,15 @@
   <div class="card">
     <div class="card-image">
       <figure class="image is-3x2">
-        <img v-bind:src="choice.imageUrl" alt="image of entree" />
+        <img v-bind:src="option.imageUrl" alt="image of entree" />
       </figure>
     </div>
     <div class="card-content is-size-7">
-      <div>
-        <span class="choice-name">{{ choice.name.toUpperCase() }}</span
-        ><br />
+      <span class="option-name">{{ option.name.toUpperCase() }}</span
+      ><br />
 
-        <span class="choice-description">${{ choice.price }}</span
-        ><br />
-      </div>
+      <span class="option-description">${{ option.price }}</span
+      ><br />
     </div>
     <footer class="card-footer">
       <b-field>
@@ -20,7 +18,7 @@
           class="counter-buttons"
           type="is-warning"
           :min="0"
-          v-model="choice.qty"
+          v-model="option.qty"
           @input="setSelected"
         ></b-numberinput>
       </b-field>
@@ -32,20 +30,20 @@
 export default {
   computed: {
     // price() {
-    //   return "$" + this.choice.price;
+    //   return "$" + this.option.price;
     // },
   },
   methods: {
     setSelected(value) {
       if (value > 0) {
-        this.choice.selected = true;
+        this.option.selected = true;
       } else {
-        this.choice.selected = false;
+        this.option.selected = false;
       }
     },
   },
   name: "OptionCounterCard",
-  props: ["choice"],
+  props: ["option"],
 };
 </script>
 
@@ -68,10 +66,10 @@ export default {
   flex-grow: 1;
   text-align: center;
 }
-.choice-name {
+.option-name {
   font-weight: 700;
 }
-.choice-description {
+.option-description {
   font-weight: 400;
 }
 .card-footer {

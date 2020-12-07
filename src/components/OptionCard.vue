@@ -48,7 +48,6 @@ export default {
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  margin-bottom: 24px !important;
   overflow: hidden;
 }
 
@@ -56,7 +55,7 @@ export default {
   padding: 20px 20px 0 20px !important;
   flex-grow: 1;
 }
-.card .option-name {
+.option-name {
   font-weight: 700;
 }
 .option-description {

@@ -34,7 +34,7 @@ const menuData = {
       price: 5.5,
     },
   ],
-  combos: [
+  signatures: [
     {
       name: "Build Your Own",
       description: "Follow your heart...and your cravings.",

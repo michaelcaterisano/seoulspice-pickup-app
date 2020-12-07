@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <transition-group name="fade" mode="out-in">
-      <entree-option-checkbox-group
+      <OptionCheckboxGroup
         v-for="step in optionSteps"
         :group="options.getOption(step)"
         :price="price"
@@ -11,27 +11,27 @@
         :combo="combo"
         @next="setActiveOrderStep()"
         @add-item="addItem()"
-      ></entree-option-checkbox-group>
+      ></OptionCheckboxGroup>
 
-      <entree-option-extras
+      <OptionExtras
         v-show="active === 'extras'"
         :key="'extras'"
         :extras="options.getOption('extras')"
         @add-item="addItem()"
-      ></entree-option-extras>
+      ></OptionExtras>
     </transition-group>
   </div>
 </template>
 
 <script>
-import EntreeOptionCheckboxGroup from "./EntreeOptionCheckboxGroup";
-import EntreeOptionExtras from "./EntreeOptionExtras";
+import OptionCheckboxGroup from "./OptionCheckboxGroup";
+import OptionExtras from "./OptionExtras";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
-    EntreeOptionCheckboxGroup,
-    EntreeOptionExtras,
+    OptionCheckboxGroup,
+    OptionExtras,
   },
   computed: {
     optionSteps() {
@@ -172,7 +172,7 @@ export default {
       return this.category.name === "Korrito";
     },
   },
-  name: "OrderDetailsOptions",
+  name: "EntreeOptions",
   props: ["options", "price", "category", "combo"],
 };
 </script>

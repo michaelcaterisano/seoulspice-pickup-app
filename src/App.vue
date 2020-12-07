@@ -1,52 +1,38 @@
 <template>
   <div id="app">
-    <section class="section">
-      <div class="container">
-        <order-totals></order-totals>
-        <transition name="fade">
-          <EntreeBuilder
-            v-if="active === 'entree'"
-            @update="setActive"
-          ></EntreeBuilder>
-          <OrderAddon
-            v-if="active === 'addon'"
-            @update="setActive"
-          ></OrderAddon>
-          <OrderConfirmation
-            v-if="active === 'confirmation'"
-            @update="setActive"
-            @edit="setEdit"
-          ></OrderConfirmation>
-          <OrderInformation
-            v-if="active === 'order-info'"
-            @update="setActive"
-          ></OrderInformation>
-          <OrderPayment
-            v-if="active === 'payment'"
-            @update="setActive"
-          ></OrderPayment>
-          <OrderSummary
-            v-if="active === 'summary'"
-            @update="setActive"
-          ></OrderSummary>
-        </transition>
-      </div>
+    <OrderTotals></OrderTotals>
+    <section class="site-wrapper">
+      <transition name="fade">
+        <OrderLocation v-if="active === 'location'" @update="setActive" />
+        <OrderEntrees v-if="active === 'entree'" @update="setActive" />
+        <OrderAddons v-if="active === 'addon'" @update="setActive" />
+        <OrderConfirmation
+          v-if="active === 'confirmation'"
+          @update="setActive"
+          @edit="setEdit"
+        />
+        <OrderInformation v-if="active === 'order-info'" @update="setActive" />
+        <OrderPayment v-if="active === 'payment'" @update="setActive" />
+        <OrderSummary v-if="active === 'summary'" @update="setActive" />
+      </transition>
     </section>
   </div>
 </template>
 
 <script>
 import OrderTotals from "./components/OrderTotals";
-import EntreeBuilder from "./components/EntreeBuilder";
-import OrderAddon from "./components/OrderAddon";
+import OrderLocation from "./components/OrderLocation";
+import OrderEntrees from "./components/OrderEntrees";
+import OrderAddons from "./components/OrderAddons";
 import OrderConfirmation from "./components/OrderConfirmation";
 import OrderInformation from "./components/OrderInformation";
 import OrderPayment from "./components/OrderPayment";
 import OrderSummary from "./components/OrderSummary";
 export default {
   components: {
-    OrderAddon,
-    EntreeBuilder,
+    OrderAddons,
+    OrderLocation,
+    OrderEntrees,
     OrderTotals,
     OrderConfirmation,
     OrderInformation,
@@ -55,7 +41,7 @@ export default {
   },
   data() {
     return {
-      active: "entree", // current active module
+      active: "location", // current active module
       edit: false,
     };
   },
@@ -200,8 +186,8 @@ body {
   max-height: 0;
 }
 
-.section {
-  padding: 45px 10px 0px 10px;
+.site-wrapper {
+  padding: 100px 0 0 0;
 }
 
 /******** BULMA OVERRIDES *************/

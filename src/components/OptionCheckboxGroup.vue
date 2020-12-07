@@ -91,7 +91,7 @@ export default {
       return choice.imageUrl;
     },
   },
-  name: "EntreeOptionCheckboxGroup",
+  name: "OptionCheckboxGroup",
   props: {
     options: {
       type: Object,
@@ -127,7 +127,7 @@ export default {
 }
 
 .checkbox-container {
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -143,6 +143,7 @@ export default {
 
 .option-title {
   font-weight: 700;
+  margin-bottom: 20px;
 }
 
 .choice-name {

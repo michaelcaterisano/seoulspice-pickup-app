@@ -1,5 +1,5 @@
 <template>
-  <section class="section">
+  <section>
     <div class="container">
       <b-message
         type="is-danger"
