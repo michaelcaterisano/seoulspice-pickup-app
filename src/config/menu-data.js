@@ -170,9 +170,9 @@ const menuData = {
     },
     {
       type: "extraProteins",
-      label: "Would you like to add extra protein?",
+      label: "Choose your extra protein",
       cartLabel: "Double Proteins",
-      max: Infinity,
+      max: 4,
       choices: [
         {
           name: "Beef",
