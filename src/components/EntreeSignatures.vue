@@ -1,4 +1,4 @@
-<template>
+q<template>
   <div class="container">
     <div class="signature-title is-size-6">
       <span>WOULD YOU LIKE A SIGNATURE COMBO OR TO BUILD YOUR OWN?</span>
@@ -10,7 +10,7 @@
         v-for="(signature, index) in signatures"
         :key="index"
         :option="signature"
-        :isCombo="true"
+        :isSignature="true"
         @click.native="setActive(signature)"
         @keyup.enter.native="setActive(signature)"
       />

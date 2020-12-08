@@ -31,12 +31,16 @@
 export default {
   computed: {
     price() {
-      return this.option.price > 0 ? "$" + this.option.price : "";
+      return this.option.price > 0
+        ? this.isSignature
+          ? "+$" + this.option.price
+          : "$" + this.option.price
+        : "";
     },
   },
   methods: {},
   name: "OptionCard",
-  props: ["option", "isCombo"],
+  props: ["option", "isSignature"],
 };
 </script>
 
