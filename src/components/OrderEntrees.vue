@@ -58,10 +58,24 @@ export default {
       if (this.entree.category) {
         price += this.entree.category.price;
       }
+      if (this.entree.signature) {
+        if (this.entree.category.name === "Kid's Bowl") {
+          price += 0;
+        } else {
+          price += this.entree.signature.price;
+        }
+      }
       this.menuData.options.forEach((option) => {
         option.choices.forEach((choice) => {
           if (choice.selected) {
-            price += choice.price;
+            if (
+              this.entree.category.name === "Kid's Bowl" &&
+              option.type === "proteins"
+            ) {
+              price += 0;
+            } else {
+              price += choice.qty ? choice.price * choice.qty : choice.price;
+            }
           }
         });
       });

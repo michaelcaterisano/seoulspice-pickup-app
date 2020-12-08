@@ -5,7 +5,7 @@ const locations = [
     phone: "202-555-1234",
     id: "sandbox-sq0idb-_gAzYQA9OHUgkkhh1zAJoA", // location ID from Square
     email: "",
-    taxRate: 0.3,
+    taxRate: 0.0,
   },
   {
     description: "Restaurant Name 2",
@@ -13,7 +13,7 @@ const locations = [
     phone: "202-555-1234",
     id: "sandbox-sq0idb-_gAzYQA9OHUgkkhh1zAJoA", // location ID from Square
     email: "",
-    taxRate: 0.1,
+    taxRate: 0.0,
   },
   {
     description: "Restaurant Name 3",
@@ -21,7 +21,7 @@ const locations = [
     phone: "202-555-1234",
     id: "sandbox-sq0idb-_gAzYQA9OHUgkkhh1zAJoA", // location ID from Square
     email: "",
-    taxRate: 0.1,
+    taxRate: 0.0,
   },
 ];
 

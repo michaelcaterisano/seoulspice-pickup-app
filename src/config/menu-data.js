@@ -43,44 +43,46 @@ const menuData = {
     },
     {
       name: "Klassic",
+      subtitle: "TRADITIONAL KOREAN FLAVORS: ",
       description:
-        "Beef, sprouts-carrots-cucumbers-kale, Korean Hot Sauce, scallions-sesame seeds-",
+        "BEEF, sprouts-carrots-cucumbers, kale, KOREAN HOT SAUCE, scallions-sesame seeds-sesame oil",
       imageUrl: require("../assets/images/signatures/klassic.jpg"),
-      price: 0,
+      price: 2.99,
     },
     {
       name: "Seoul Train",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.",
+        "EAST MEETS WEST: BEEF, corn-cucumbers-kale-kimchi, CREAMY SRIRACHA SAUCE, crispy garlic-cilantro-scallions-sesame seeds",
       imageUrl: require("../assets/images/signatures/seoul-train.jpg"),
-      price: 0,
+      price: 2.99,
     },
     {
       name: "Kimchi Krunch",
-      description: "Lorem ipsum dolor sit amet.",
+      description:
+        "CRUNCHY, PICKLEY, FUNKY: CHICKEN, sprouts-carrots-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-cilantro-sesame seeds",
       imageUrl: require("../assets/images/signatures/kimchi-krunch.jpg"),
-      price: 0,
+      price: 2.49,
     },
     {
       name: "Southwest",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.",
+        "SOUTHWESTERN FLAVORS: CHICKEN, corn-carrots-kale, CILANTRO-LIME-RANCH SAUCE, crispy garlic-cilantro-scallions",
       imageUrl: require("../assets/images/signatures/southwest.jpg"),
-      price: 0,
+      price: 2.49,
     },
     {
       name: "Fireball",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.",
+        "UNAPOLOGETICALLY SPICY: SPICY PORK, corn-radish-kale-kimchi, KOREAN HOT SAUCE, CREAMY SRIRACHA SAUCE, crispy garlic-scallions-sesame seeds-fire powder",
       imageUrl: require("../assets/images/signatures/fireball.jpg"),
-      price: 0,
+      price: 2.79,
     },
     {
       name: "Herbivore",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.",
+        "A VEGAN DELIGHT: TOFU, sprouts-corn-carrots-cucumbers-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-scallions-sesame seeds",
       imageUrl: require("../assets/images/signatures/herbivore.jpg"),
-      price: 0,
+      price: 2.29,
     },
   ],
   options: [
@@ -144,25 +146,25 @@ const menuData = {
       choices: [
         {
           name: "Beef",
-          price: 1.99,
+          price: 2.99,
           selected: false,
           imageUrl: require("../assets/images/proteins/beef.jpg"),
         },
         {
           name: "Chicken",
-          price: 0,
+          price: 2.49,
           selected: false,
           imageUrl: require("../assets/images/proteins/chicken.jpg"),
         },
         {
           name: "Spicy Pork",
-          price: 0,
+          price: 2.79,
           selected: false,
           imageUrl: require("../assets/images/proteins/spicy-pork.jpg"),
         },
         {
           name: "Tofu",
-          price: 0,
+          price: 2.29,
           selected: false,
           imageUrl: require("../assets/images/proteins/tofu.jpg"),
         },
@@ -176,25 +178,25 @@ const menuData = {
       choices: [
         {
           name: "Beef",
-          price: 1.99,
+          price: 2.99,
           selected: false,
           imageUrl: require("../assets/images/proteins/beef.jpg"),
         },
         {
           name: "Chicken",
-          price: 0,
+          price: 2.49,
           selected: false,
           imageUrl: require("../assets/images/proteins/chicken.jpg"),
         },
         {
           name: "Spicy Pork",
-          price: 0,
+          price: 2.79,
           selected: false,
           imageUrl: require("../assets/images/proteins/spicy-pork.jpg"),
         },
         {
           name: "Tofu",
-          price: 0,
+          price: 2.29,
           selected: false,
           imageUrl: require("../assets/images/proteins/tofu.jpg"),
         },
@@ -374,7 +376,7 @@ const menuData = {
         },
         {
           name: "Avocado",
-          price: 1.59,
+          price: 1.89,
           selected: false,
           imageUrl: require("../assets/images/extras/avocado.jpg"),
           qty: 0,

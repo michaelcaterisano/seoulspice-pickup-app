@@ -71,10 +71,10 @@ export default {
       const option = this.options.getOption(this.active);
 
       if (this.hasNoneSelected(option)) {
-        if (this.hasBasesRequiredDialog(option)) {
+        if (this.isBasesOption(option)) {
           this.showBasesRequiredDialog();
         } else {
-          this.showNoneSelectedDialog();
+          this.showNoneSelectedDialog(option);
         }
       } else if (this.hasSauceDialog(option)) {
         this.showSauceDialog();
@@ -173,15 +173,15 @@ export default {
     isBuildYourOwn() {
       return this.signature.name === "Build Your Own";
     },
+    isBasesOption(option) {
+      return option.type === "bases" || option.type === "rices";
+    },
     hasSauceDialog(option) {
       return (
         this.checkMinSelected(option) &&
         option.type === "sauces" &&
         this.category.name !== "Korrito"
       );
-    },
-    hasBasesRequiredDialog(option) {
-      return option.type === "bases" || option.type === "rices";
     },
     hasNoneSelected(option) {
       return !this.checkMinSelected(option);
@@ -226,12 +226,12 @@ export default {
         confirmText: "Ok",
       });
     },
-    showNoneSelectedDialog() {
+    showNoneSelectedDialog(option) {
       this.$buefy.dialog.confirm({
         message:
           "Are you sure you want to continue without selecting any options?",
         onConfirm: () => {
-          this.advanceStep();
+          option.type === "proteins" ? this.advanceStep(2) : this.advanceStep();
         },
         confirmText: "Yes",
         cancelText: "No",
