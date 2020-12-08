@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-      active: this.isRiceOnly() ? "rices" : "bases",
+      active: this.isKorrito() ? "rices" : "bases",
       steps: this.getSteps(),
     };
   },
@@ -69,16 +69,16 @@ export default {
     },
     setActiveOrderStep() {
       const option = this.options.getOption(this.active);
-      if (this.hasSauceDialog(option)) {
+
+      if (this.hasNoneSelected(option)) {
+        if (this.hasBasesRequiredDialog(option)) {
+          this.showBasesRequiredDialog();
+        } else {
+          this.showNoneSelectedDialog();
+        }
+      } else if (this.hasSauceDialog(option)) {
         this.showSauceDialog();
-      }
-      if (this.hasBasesDialog(option)) {
-        this.showBasesDialog();
-      }
-      if (this.hasNoneSelectedDialog(option)) {
-        this.showNoneSelectedDialog();
-      }
-      if (this.hasExtraProteinDialog(option)) {
+      } else if (this.hasExtraProteinDialog(option)) {
         this.showExtraProteinDialog();
       } else {
         this.advanceStep();
@@ -86,63 +86,60 @@ export default {
     },
     getSteps() {
       let steps;
-      if (this.isRiceOnly()) {
-        if (this.isKoreanFeast()) {
+      if (this.isKorrito()) {
+        if (this.isSignature()) {
+          steps = ["rices", "extra proteins", "extras"];
+        }
+        if (this.isBuildYourOwn()) {
           steps = [
             "rices",
             "proteins",
+            "extra proteins",
             "veggies",
-            "korean feast toppings",
+            "sauces",
+            "toppings",
             "extras",
           ];
         }
-        if (this.isKorrito()) {
-          if (this.isSignature()) {
-            steps = ["rices", "extra proteins", "extras"];
-          }
-          if (this.isBuildYourOwn()) {
-            steps = [
-              "rices",
-              "proteins",
-              "extra proteins",
-              "veggies",
-              "sauces",
-              "toppings",
-              "extras",
-            ];
-          }
+      }
+      if (this.isKoreanFeast()) {
+        steps = [
+          "bases",
+          "proteins",
+          "veggies",
+          "korean feast toppings",
+          "extras",
+        ];
+      }
+      if (this.isBowl()) {
+        if (this.isSignature()) {
+          steps = ["bases", "extra proteins", "extras"];
         }
-      } else {
-        if (this.isBowl()) {
-          if (this.isSignature()) {
-            steps = ["bases", "extra proteins", "extras"];
-          }
-          if (this.isBuildYourOwn()) {
-            steps = [
-              "bases",
-              "proteins",
-              "extra proteins",
-              "veggies",
-              "sauces",
-              "toppings",
-              "extras",
-            ];
-          }
+        if (this.isBuildYourOwn()) {
+          steps = [
+            "bases",
+            "proteins",
+            "extra proteins",
+            "veggies",
+            "sauces",
+            "toppings",
+            "extras",
+          ];
         }
-        if (this.isKidsBowl()) {
-          if (this.isSignature()) {
-            steps = ["bases", "extras"];
-          }
-          if (this.isBuildYourOwn()) {
-            steps = [
-              "bases",
-              "proteins",
-              "veggies",
-              "sauces",
-              "toppings",
-              "extras",
-            ];
-          }
+      }
+      if (this.isKidsBowl()) {
+        if (this.isSignature()) {
+          steps = ["bases", "extras"];
+        }
+        if (this.isBuildYourOwn()) {
+          steps = [
+            "bases",
+            "proteins",
+            "veggies",
+            "sauces",
+            "toppings",
+            "extras",
+          ];
         }
       }
 
@@ -183,16 +180,11 @@ export default {
         this.category.name !== "Korrito"
       );
     },
-    hasBasesDialog(option) {
-      !this.checkMinSelected(option) &&
-        (option.type === "bases" || option.type === "rices");
+    hasBasesRequiredDialog(option) {
+      return option.type === "bases" || option.type === "rices";
     },
-    hasNoneSelectedDialog(option) {
-      return (
-        !this.checkMinSelected(option) &&
-        option.type !== "bases" &&
-        option.type !== "rices"
-      );
+    hasNoneSelected(option) {
+      return !this.checkMinSelected(option);
     },
     hasExtraProteinDialog(option) {
       return (
@@ -228,7 +220,7 @@ export default {
         cancelText: "No",
       });
     },
-    showBasesDialog() {
+    showBasesRequiredDialog() {
       this.$buefy.dialog.confirm({
         message: "Please select a base",
         confirmText: "Ok",
@@ -238,7 +230,9 @@ export default {
       this.$buefy.dialog.confirm({
         message:
           "Are you sure you want to continue without selecting any options?",
-        onConfirm: () => this.advanceStep(),
+        onConfirm: () => {
+          this.advanceStep();
+        },
         confirmText: "Yes",
         cancelText: "No",
       });
