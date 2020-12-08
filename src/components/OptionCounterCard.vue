@@ -6,11 +6,13 @@
       </figure>
     </div>
     <div class="card-content is-size-7">
-      <span class="option-name">{{ option.name.toUpperCase() }}</span
-      ><br />
+      <span class="option-name">{{ option.name.toUpperCase() }}</span>
+      <br v-if="option.description" />
+      <span v-if="option.description" class="option-description">{{
+        option.description.toLowerCase()
+      }}</span>
 
-      <span class="option-description">${{ option.price }}</span
-      ><br />
+      <span class="option-price">${{ option.price }}</span>
     </div>
     <footer class="card-footer">
       <b-field>
@@ -69,8 +71,15 @@ export default {
 .option-name {
   font-weight: 700;
 }
-.option-description {
+.option-price {
   font-weight: 400;
+}
+.option-description {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.02rem;
+  line-height: 0.8rem;
 }
 .card-footer {
   bottom: 0;

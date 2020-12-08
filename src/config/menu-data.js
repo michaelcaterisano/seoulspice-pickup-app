@@ -45,7 +45,7 @@ const menuData = {
       name: "Klassic",
       subtitle: "TRADITIONAL KOREAN FLAVORS",
       description:
-        "BEEF, sprouts-carrots-cucumbers, kale, KOREAN HOT SAUCE, scallions-sesame seeds-sesame oil",
+        "BEEF, sprouts-carrots-cucumbers, kale, KOREAN HOT SAUCE, scallions-sesame seeds-sesame oil.",
       imageUrl: require("../assets/images/signatures/klassic.jpg"),
       price: 2.99,
     },
@@ -53,7 +53,7 @@ const menuData = {
       name: "Seoul Train",
       subtitle: "EAST MEETS WEST",
       description:
-        "BEEF, corn-cucumbers-kale-kimchi, CREAMY SRIRACHA SAUCE, crispy garlic-cilantro-scallions-sesame seeds",
+        "BEEF, corn-cucumbers-kale-kimchi, CREAMY SRIRACHA SAUCE, crispy garlic-cilantro-scallions-sesame seeds.",
       imageUrl: require("../assets/images/signatures/seoul-train.jpg"),
       price: 2.99,
     },
@@ -61,7 +61,7 @@ const menuData = {
       name: "Kimchi Krunch",
       subtitle: "CRUNCHY, PICKLEY, FUNKY",
       description:
-        "CHICKEN, sprouts-carrots-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-cilantro-sesame seeds",
+        "CHICKEN, sprouts-carrots-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-cilantro-sesame seeds.",
       imageUrl: require("../assets/images/signatures/kimchi-krunch.jpg"),
       price: 2.49,
     },
@@ -69,7 +69,7 @@ const menuData = {
       name: "Southwest",
       subtitle: "SOUTHWESTERN FLAVORS",
       description:
-        "CHICKEN, corn-carrots-kale, CILANTRO-LIME-RANCH SAUCE, crispy garlic-cilantro-scallions",
+        "CHICKEN, corn-carrots-kale, CILANTRO-LIME-RANCH SAUCE, crispy garlic-cilantro-scallions.",
       imageUrl: require("../assets/images/signatures/southwest.jpg"),
       price: 2.49,
     },
@@ -77,7 +77,7 @@ const menuData = {
       name: "Fireball",
       subtitle: "UNAPOLOGETICALLY SPICY",
       description:
-        "SPICY PORK, corn-radish-kale-kimchi, KOREAN HOT SAUCE, CREAMY SRIRACHA SAUCE, crispy garlic-scallions-sesame seeds-fire powder",
+        "SPICY PORK, corn-radish-kale-kimchi, KOREAN HOT SAUCE, CREAMY SRIRACHA SAUCE, crispy garlic-scallions-sesame seeds-fire powder.",
       imageUrl: require("../assets/images/signatures/fireball.jpg"),
       price: 2.79,
     },
@@ -85,7 +85,7 @@ const menuData = {
       name: "Herbivore",
       subtitle: "A VEGAN DELIGHT",
       description:
-        "TOFU, sprouts-corn-carrots-cucumbers-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-scallions-sesame seeds",
+        "TOFU, sprouts-corn-carrots-cucumbers-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-scallions-sesame seeds.",
       imageUrl: require("../assets/images/signatures/herbivore.jpg"),
       price: 2.29,
     },
@@ -374,6 +374,8 @@ const menuData = {
       choices: [
         {
           name: "The Egg",
+          description:
+            "perfectly set white, liquid-gold yolk marinated in a sweet-soy base.",
           price: 1.99,
           selected: false,
           imageUrl: require("../assets/images/extras/the-egg.jpg"),
@@ -381,6 +383,8 @@ const menuData = {
         },
         {
           name: "Avocado",
+          description:
+            "this nutrient-packed superfood adds a rich, buttery flavor to anything.",
           price: 1.89,
           selected: false,
           imageUrl: require("../assets/images/extras/avocado.jpg"),

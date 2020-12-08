@@ -15,8 +15,7 @@
 
       <span class="option-description">{{
         option.description.toLowerCase()
-      }}</span
-      ><br />
+      }}</span>
     </div>
     <footer class="card-footer">
       <div class="card-footer-item">
@@ -50,8 +49,7 @@ export default {
 }
 
 .card-content {
-  padding: 20px 20px 0 20px !important;
-  margin-bottom: -25px;
+  padding: 20px 20px 5px 20px !important;
   flex-grow: 1;
 }
 .option-name {
