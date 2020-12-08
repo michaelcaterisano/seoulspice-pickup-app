@@ -55,42 +55,42 @@ export default {
   computed: {
     price() {
       let price = 0;
-      if (this.isKoreanFeast()) {
+      // if (this.isKoreanFeast()) {
+      //   alert("1");
+      //   price += this.entree.category.price;
+      //   this.menuData.options.forEach((option) => {
+      //     option.choices.forEach((choice) => {
+      //       if (choice.selected && choice.qty) {
+      //         price += choice.price * choice.qty;
+      //       }
+      //     });
+      //   });
+      // }
+      if (this.entree.category) {
         price += this.entree.category.price;
-        this.menuData.options.forEach((option) => {
-          option.choices.forEach((choice) => {
-            if (choice.selected && choice.qty) {
-              price += choice.price * choice.qty;
-            }
-          });
-        });
-      } else {
-        if (this.entree.category) {
-          price += this.entree.category.price;
-        }
-        if (this.entree.signature) {
-          if (this.entree.category.name === "Kid's Bowl") {
-            price += 0;
-          } else {
-            price += this.entree.signature.price;
-          }
-        }
-        this.menuData.options.forEach((option) => {
-          option.choices.forEach((choice) => {
-            if (choice.selected) {
-              if (
-                this.entree.category.name === "Kid's Bowl" &&
-                option.type === "proteins"
-              ) {
-                price += 0;
-              } else {
-                // is extras
-                price += choice.qty ? choice.price * choice.qty : choice.price;
-              }
-            }
-          });
-        });
       }
+      if (this.entree.signature) {
+        if (this.isKidsBowl()) {
+          price += 0;
+        } else {
+          price += this.entree.signature.price;
+        }
+      }
+      this.menuData.options.forEach((option) => {
+        option.choices.forEach((choice) => {
+          if (choice.selected) {
+            if (
+              (this.isKidsBowl() || this.isKoreanFeast()) &&
+              option.type === "proteins"
+            ) {
+              price += 0;
+            } else {
+              price += choice.qty ? choice.price * choice.qty : choice.price;
+            }
+          }
+        });
+      });
+
       return price;
     },
   },
@@ -166,6 +166,9 @@ export default {
     },
     addNote(value) {
       this.notes.push(value);
+    },
+    isKidsBowl() {
+      return this.entree.category.name === "Kid's Bowl";
     },
     isKoreanFeast() {
       return (
