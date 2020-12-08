@@ -55,19 +55,29 @@ export default {
   computed: {
     price() {
       let price = 0;
-      if (this.entree.category) {
+      if (this.isKoreanFeast()) {
         price += this.entree.category.price;
-      }
-      if (this.entree.signature) {
-        if (this.entree.category.name === "Kid's Bowl") {
-          price += 0;
-        } else {
-          price += this.entree.signature.price;
-        }
-      } else {
         this.menuData.options.forEach((option) => {
           option.choices.forEach((choice) => {
-            if (choice.selected && !this.isKoreanFeast()) {
+            if (choice.selected && choice.qty) {
+              price += choice.price * choice.qty;
+            }
+          });
+        });
+      } else {
+        if (this.entree.category) {
+          price += this.entree.category.price;
+        }
+        if (this.entree.signature) {
+          if (this.entree.category.name === "Kid's Bowl") {
+            price += 0;
+          } else {
+            price += this.entree.signature.price;
+          }
+        }
+        this.menuData.options.forEach((option) => {
+          option.choices.forEach((choice) => {
+            if (choice.selected) {
               if (
                 this.entree.category.name === "Kid's Bowl" &&
                 option.type === "proteins"
@@ -142,6 +152,7 @@ export default {
         });
       });
     },
+
     setActive(section) {
       this.active = section;
     },
