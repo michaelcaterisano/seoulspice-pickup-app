@@ -64,21 +64,23 @@ export default {
         } else {
           price += this.entree.signature.price;
         }
-      }
-      this.menuData.options.forEach((option) => {
-        option.choices.forEach((choice) => {
-          if (choice.selected) {
-            if (
-              this.entree.category.name === "Kid's Bowl" &&
-              option.type === "proteins"
-            ) {
-              price += 0;
-            } else {
-              price += choice.qty ? choice.price * choice.qty : choice.price;
+      } else {
+        this.menuData.options.forEach((option) => {
+          option.choices.forEach((choice) => {
+            if (choice.selected && !this.isKoreanFeast()) {
+              if (
+                this.entree.category.name === "Kid's Bowl" &&
+                option.type === "proteins"
+              ) {
+                price += 0;
+              } else {
+                // is extras
+                price += choice.qty ? choice.price * choice.qty : choice.price;
+              }
             }
-          }
+          });
         });
-      });
+      }
       return price;
     },
   },
@@ -153,6 +155,12 @@ export default {
     },
     addNote(value) {
       this.notes.push(value);
+    },
+    isKoreanFeast() {
+      return (
+        this.entree.category.name === "Korean Feast For 2" ||
+        this.entree.category.name === "Korean Feast For 4"
+      );
     },
   },
 };

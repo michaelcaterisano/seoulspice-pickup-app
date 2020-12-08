@@ -43,7 +43,7 @@ const menuData = {
     },
     {
       name: "Klassic",
-      subtitle: "TRADITIONAL KOREAN FLAVORS: ",
+      subtitle: "TRADITIONAL KOREAN FLAVORS",
       description:
         "BEEF, sprouts-carrots-cucumbers, kale, KOREAN HOT SAUCE, scallions-sesame seeds-sesame oil",
       imageUrl: require("../assets/images/signatures/klassic.jpg"),
@@ -51,36 +51,41 @@ const menuData = {
     },
     {
       name: "Seoul Train",
+      subtitle: "EAST MEETS WEST",
       description:
-        "EAST MEETS WEST: BEEF, corn-cucumbers-kale-kimchi, CREAMY SRIRACHA SAUCE, crispy garlic-cilantro-scallions-sesame seeds",
+        "BEEF, corn-cucumbers-kale-kimchi, CREAMY SRIRACHA SAUCE, crispy garlic-cilantro-scallions-sesame seeds",
       imageUrl: require("../assets/images/signatures/seoul-train.jpg"),
       price: 2.99,
     },
     {
       name: "Kimchi Krunch",
+      subtitle: "CRUNCHY, PICKLEY, FUNKY",
       description:
-        "CRUNCHY, PICKLEY, FUNKY: CHICKEN, sprouts-carrots-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-cilantro-sesame seeds",
+        "CHICKEN, sprouts-carrots-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-cilantro-sesame seeds",
       imageUrl: require("../assets/images/signatures/kimchi-krunch.jpg"),
       price: 2.49,
     },
     {
       name: "Southwest",
+      subtitle: "SOUTHWESTERN FLAVORS",
       description:
-        "SOUTHWESTERN FLAVORS: CHICKEN, corn-carrots-kale, CILANTRO-LIME-RANCH SAUCE, crispy garlic-cilantro-scallions",
+        "CHICKEN, corn-carrots-kale, CILANTRO-LIME-RANCH SAUCE, crispy garlic-cilantro-scallions",
       imageUrl: require("../assets/images/signatures/southwest.jpg"),
       price: 2.49,
     },
     {
       name: "Fireball",
+      subtitle: "UNAPOLOGETICALLY SPICY",
       description:
-        "UNAPOLOGETICALLY SPICY: SPICY PORK, corn-radish-kale-kimchi, KOREAN HOT SAUCE, CREAMY SRIRACHA SAUCE, crispy garlic-scallions-sesame seeds-fire powder",
+        "SPICY PORK, corn-radish-kale-kimchi, KOREAN HOT SAUCE, CREAMY SRIRACHA SAUCE, crispy garlic-scallions-sesame seeds-fire powder",
       imageUrl: require("../assets/images/signatures/fireball.jpg"),
       price: 2.79,
     },
     {
       name: "Herbivore",
+      subtitle: "A VEGAN DELIGHT",
       description:
-        "A VEGAN DELIGHT: TOFU, sprouts-corn-carrots-cucumbers-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-scallions-sesame seeds",
+        "TOFU, sprouts-corn-carrots-cucumbers-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-scallions-sesame seeds",
       imageUrl: require("../assets/images/signatures/herbivore.jpg"),
       price: 2.29,
     },
