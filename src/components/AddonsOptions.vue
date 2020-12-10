@@ -30,6 +30,7 @@ export default {
 .container {
   display: flex;
   width: 100%;
+  max-width: 900px !important;
   flex-direction: column;
   align-items: center;
 }

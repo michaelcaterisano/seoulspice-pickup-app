@@ -22,18 +22,18 @@ const getters = {
   },
   total(state, getters) {
     return getters.subtotal + getters.tip + getters.tax;
-  }
+  },
 };
 const actions = {};
 const mutations = {
   [SET_TAX_EXEMPT](state, val) {
     state.taxExempt = val;
-  }
+  },
 };
 
 export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 };

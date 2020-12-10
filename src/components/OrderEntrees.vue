@@ -55,17 +55,6 @@ export default {
   computed: {
     price() {
       let price = 0;
-      // if (this.isKoreanFeast()) {
-      //   alert("1");
-      //   price += this.entree.category.price;
-      //   this.menuData.options.forEach((option) => {
-      //     option.choices.forEach((choice) => {
-      //       if (choice.selected && choice.qty) {
-      //         price += choice.price * choice.qty;
-      //       }
-      //     });
-      //   });
-      // }
       if (this.entree.category) {
         price += this.entree.category.price;
       }

@@ -246,6 +246,7 @@ export default {
 <style scoped>
 .container {
   display: flex;
+  max-width: 900px !important;
   flex-direction: column;
   align-items: center;
 }

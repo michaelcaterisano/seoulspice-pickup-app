@@ -195,7 +195,7 @@ export default {
 <style scoped>
 .container {
   width: 100%;
-  max-width: 800px !important;
+  max-width: 600px !important;
 }
 .columns {
   padding: 10px;

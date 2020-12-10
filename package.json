@@ -12,6 +12,7 @@
     "buefy": "^0.9.4",
     "cleave.js": "^1.6.0",
     "core-js": "^3.6.4",
+    "currency.js": "^2.0.3",
     "logrocket": "^1.0.14",
     "vee-validate": "2.1.5",
     "vue": "^2.6.12",

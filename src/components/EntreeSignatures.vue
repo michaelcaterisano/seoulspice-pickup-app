@@ -39,6 +39,7 @@ export default {
 <style scoped>
 .container {
   width: 100%;
+  max-width: 900px !important;
   display: flex;
   flex-direction: column;
   align-items: center;
