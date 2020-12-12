@@ -91,6 +91,7 @@
               class="text-field"
               v-cleave="masks.numeral"
               v-model="tipDollars"
+              @change.native="setCustomTip"
             ></b-input>
           </b-field>
           <b-field>
@@ -187,11 +188,15 @@ export default {
       });
     },
     updateTip(val) {
+      console.log(val);
       let tipAmountCents = Math.round(this.subtotal * val);
       this.tip = tipAmountCents;
       this.tipDollars = money(tipAmountCents, { pattern: `! #` })
         .divide(100)
         .format();
+    },
+    setCustomTip(e) {
+      this.tip = money(e.target.value).multiply(100).value;
     },
   },
   name: "OrderInformation",

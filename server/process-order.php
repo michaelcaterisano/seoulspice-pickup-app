@@ -14,9 +14,6 @@ header('Access-Control-Allow-Headers: *');
 $response = ['success' => false, 'message' => ''];
 $formData = file_get_contents( 'php://input' );
 $data = json_decode( $formData, false); // false is "associative" array argument
-$payment_log->info("data->notes: ", array($data->notes));
-$payment_log->info("data->notes: ", array($data->items));
-
 
 include('./_inc/config.php');
 include('./_inc/_create-order.php');

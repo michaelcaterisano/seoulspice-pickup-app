@@ -58,7 +58,7 @@ class OrderItem {
 
 	protected function _getModifierName($modifier) {
     $choiceNames = array_map(function($choice) {
-			return $choice->name;
+			return $choice->qty ? $choice->name . " (" . $choice->qty . ")" : $choice->name;
 		}, $modifier->choices);
 
 		return $modifier->cartLabel . ': ' . implode(', ', $choiceNames); 

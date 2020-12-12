@@ -32,37 +32,36 @@
           </p>
           <h3>Items Ordered</h3>
           <div v-for="(item, index) in items" :key="index">
-            <p>
-              {{ item.qty }} X {{ item.signature }} {{ item.name }} [{{
-                (item.price * item.qty) | currency
-              }}]
-            </p>
-            <ul v-if="item.type === 'entree'">
+            <span>
+              {{ item.qty }} {{ item.signature }} {{ item.name }} -
+              {{ ((item.price * item.qty) / 100) | currency }}
+            </span>
+            <ul v-if="item.type === 'entree'" class="options is-size-7">
               <li
                 v-for="(option, index) in item.options"
                 v-html="printOptions(option)"
                 :key="index"
               ></li>
               <li v-for="note in item.notes" :key="note">
-                <strong>Order Notes:</strong> {{ note }}
+                Order Note: {{ note }}
               </li>
             </ul>
           </div>
           <h3>Order Totals</h3>
           <p>
             <strong>Subtotal:</strong>
-            {{ itemSubtotal | currency }}
+            {{ (itemSubtotal / 100) | currency }}
             <br />
             <strong>Tax:</strong>
-            {{ tax | currency }}
+            {{ (tax / 100) | currency }}
             <br />
             <span v-if="tip > 0">
               <strong>Tip:</strong>
-              {{ tip | currency }}
+              {{ (tip / 100) | currency }}
               <br />
             </span>
             <strong>Totals:</strong>
-            {{ total | currency }}
+            {{ (total / 100) | currency }}
           </p>
         </div>
       </div>
@@ -91,10 +90,13 @@ export default {
   methods: {
     printOptions(option) {
       let optionText = "";
-      optionText += "<strong>" + option.cartLabel + ": </strong>";
+      optionText += option.cartLabel + ": ";
       optionText += option.choices
         .map((choice) => {
-          return choice.name;
+          let choiceText = choice.qty
+            ? choice.name + ` (${choice.qty})`
+            : choice.name;
+          return choiceText;
         })
         .join(", ");
       return optionText;
@@ -107,9 +109,20 @@ export default {
 <style scoped>
 .container {
   width: 80%;
-  max-width: 800px;
+  max-width: 600px !important;
 }
 h3 {
   margin-top: 20px;
+}
+.options {
+  margin-top: 0px !important;
+}
+
+.box {
+  margin-bottom: 20px !important;
+}
+
+li {
+  list-style-type: "- ";
 }
 </style>
