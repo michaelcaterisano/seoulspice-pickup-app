@@ -79,7 +79,7 @@ export default {
     getChoiceName(choice) {
       let choiceName = choice.name;
       if (choice.price > 0) {
-        choiceName += " (+" + choice.price + ")";
+        choiceName += " (+" + choice.price / 100 + ")";
       }
       return choiceName.toLowerCase();
     },

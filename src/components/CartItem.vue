@@ -44,7 +44,7 @@ export default {
   computed: {
     ...mapGetters(["countEntrees"]),
     price() {
-      return this.item.price * this.item.qty;
+      return (this.item.price / 100) * this.item.qty;
     },
   },
   methods: {

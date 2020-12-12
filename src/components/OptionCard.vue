@@ -33,8 +33,8 @@ export default {
     price() {
       return this.option.price > 0
         ? this.isSignature
-          ? "+$" + this.option.price
-          : "$" + this.option.price
+          ? "+$" + this.option.price / 100
+          : "$" + this.option.price / 100
         : "";
     },
   },

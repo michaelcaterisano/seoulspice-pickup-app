@@ -45,7 +45,6 @@ class OrderBuilder {
 		);
 
 		// pickupTime is set to false on the first try. why is this being called twice?
-		if ($pickupTime) {
 			$this->_order['fulfillments'][0] = [
 				'pickup_details' => [
 					'pickup_at' => $pickupTime->format(DATE_RFC3339),
@@ -56,7 +55,6 @@ class OrderBuilder {
 				],
 				'type' => 'PICKUP'
 			];
-		}
 
 		if ($this->_data->order->curbside) {
 			$this->_order['fulfillments'][0]['note'] = 'The customer has requested curbside delivery';
@@ -70,7 +68,7 @@ class OrderBuilder {
 				'name' => 'Sales Tax',
 				'type' => 'ADDITIVE',
 				'scope' => 'ORDER',
-				'percentage' => (string)($this->_data->order->location->taxRate * 100)
+				'percentage' => (string)($this->_data->order->location->taxRate)
 			]
 		];
 
@@ -79,7 +77,7 @@ class OrderBuilder {
 				[
 					'name' => 'Tip',
 					'amount_money' => [
-						'amount' => (int) ($this->_data->totals->tip * 100),
+						'amount' => (int) ($this->_data->totals->tip),
 						'currency' => 'USD',
 					],
 					'taxable' => false,

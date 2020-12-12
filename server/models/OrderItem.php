@@ -24,11 +24,11 @@ class OrderItem {
 		$this->_item = [
 			'quantity' => (string)$this->_data->qty,
 			'base_price_money' => [
-				'amount' => (int)($this->_data->price * 100),
+				'amount' => (int)($this->_data->price),
 				'currency' => 'USD'
 			],
       'name' => $this->_data->signature . ' ' . $this->_data->name,
-      'note' => implode('. ', $this->_data->notes),
+      'note' => $this->_data->notes ? implode('. ', array_filter($this->_data->notes)) : "",
 		];
 
 		if ($this->_data->type === 'entree') {

@@ -90,7 +90,7 @@
             <b-input
               class="text-field"
               v-cleave="masks.numeral"
-              v-model="tip"
+              v-model="tipDollars"
             ></b-input>
           </b-field>
           <b-field>
@@ -116,6 +116,7 @@ import locations from "../config/locations";
 import LogRocket from "logrocket";
 import cleave from "../utils/cleave-directive";
 import { orderStartTime, orderEndTime } from "../config/config";
+import money from "currency.js";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
@@ -160,6 +161,7 @@ export default {
   data() {
     return {
       locations: locations,
+      tipDollars: "",
       masks: {
         numeral: {
           numeral: true,
@@ -185,7 +187,11 @@ export default {
       });
     },
     updateTip(val) {
-      this.tip = "$" + (this.subtotal * val).toFixed(2);
+      let tipAmountCents = Math.round(this.subtotal * val);
+      this.tip = tipAmountCents;
+      this.tipDollars = money(tipAmountCents, { pattern: `! #` })
+        .divide(100)
+        .format();
     },
   },
   name: "OrderInformation",

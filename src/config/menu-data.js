@@ -5,33 +5,33 @@ const menuData = {
       description:
         "Let us do the heavy lifting and prepare a complete meal for you and your family! All orders come with an assortment of our four sauces. Serves 2. ",
       imageUrl: require("../assets/images/entrees/korean-feast.jpg"),
-      price: 25.0,
+      price: 2500,
     },
     {
       name: "Korean Feast For 4",
       description:
         "Let us do the heavy lifting and prepare a complete meal for you and your family! All orders come with an assortment of our four sauces. Serves 4.",
       imageUrl: require("../assets/images/entrees/korean-feast.jpg"),
-      price: 40.0,
+      price: 4000,
     },
     {
       name: "Bowl",
       description: "It is sure to #FEEDYOURSEOUL!",
       imageUrl: require("../assets/images/entrees/bowl.jpg"),
-      price: 8.5,
+      price: 850,
     },
     {
       name: "Korrito",
       description:
         "The ORIGINAL Korean-style sushi burrito! Your choice of ingredients wrapped in white or purple rice and nori (seaweed).",
       imageUrl: require("../assets/images/entrees/korrito.jpg"),
-      price: 7.75,
+      price: 775,
     },
     {
       name: "Kid's Bowl",
       description: "A perfectly sized meal for our smaller #SEOULMATES.",
       imageUrl: require("../assets/images/entrees/kids-bowl.jpg"),
-      price: 5.5,
+      price: 550,
     },
   ],
   signatures: [
@@ -47,7 +47,7 @@ const menuData = {
       description:
         "BEEF, sprouts-carrots-cucumbers, kale, KOREAN HOT SAUCE, scallions-sesame seeds-sesame oil.",
       imageUrl: require("../assets/images/signatures/klassic.jpg"),
-      price: 2.99,
+      price: 299,
     },
     {
       name: "Seoul Train",
@@ -55,7 +55,7 @@ const menuData = {
       description:
         "BEEF, corn-cucumbers-kale-kimchi, CREAMY SRIRACHA SAUCE, crispy garlic-cilantro-scallions-sesame seeds.",
       imageUrl: require("../assets/images/signatures/seoul-train.jpg"),
-      price: 2.99,
+      price: 299,
     },
     {
       name: "Kimchi Krunch",
@@ -63,7 +63,7 @@ const menuData = {
       description:
         "CHICKEN, sprouts-carrots-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-cilantro-sesame seeds.",
       imageUrl: require("../assets/images/signatures/kimchi-krunch.jpg"),
-      price: 2.49,
+      price: 249,
     },
     {
       name: "Southwest",
@@ -71,7 +71,7 @@ const menuData = {
       description:
         "CHICKEN, corn-carrots-kale, CILANTRO-LIME-RANCH SAUCE, crispy garlic-cilantro-scallions.",
       imageUrl: require("../assets/images/signatures/southwest.jpg"),
-      price: 2.49,
+      price: 249,
     },
     {
       name: "Fireball",
@@ -79,7 +79,7 @@ const menuData = {
       description:
         "SPICY PORK, corn-radish-kale-kimchi, KOREAN HOT SAUCE, CREAMY SRIRACHA SAUCE, crispy garlic-scallions-sesame seeds-fire powder.",
       imageUrl: require("../assets/images/signatures/fireball.jpg"),
-      price: 2.79,
+      price: 279,
     },
     {
       name: "Herbivore",
@@ -87,7 +87,7 @@ const menuData = {
       description:
         "TOFU, sprouts-corn-carrots-cucumbers-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-scallions-sesame seeds.",
       imageUrl: require("../assets/images/signatures/herbivore.jpg"),
-      price: 2.29,
+      price: 229,
     },
   ],
   options: [
@@ -151,25 +151,25 @@ const menuData = {
       choices: [
         {
           name: "Beef",
-          price: 2.99,
+          price: 299,
           selected: false,
           imageUrl: require("../assets/images/proteins/beef.jpg"),
         },
         {
           name: "Chicken",
-          price: 2.49,
+          price: 249,
           selected: false,
           imageUrl: require("../assets/images/proteins/chicken.jpg"),
         },
         {
           name: "Spicy Pork",
-          price: 2.79,
+          price: 279,
           selected: false,
           imageUrl: require("../assets/images/proteins/spicy-pork.jpg"),
         },
         {
           name: "Tofu",
-          price: 2.29,
+          price: 229,
           selected: false,
           imageUrl: require("../assets/images/proteins/tofu.jpg"),
         },
@@ -183,25 +183,25 @@ const menuData = {
       choices: [
         {
           name: "Beef",
-          price: 2.99,
+          price: 299,
           selected: false,
           imageUrl: require("../assets/images/proteins/beef.jpg"),
         },
         {
           name: "Chicken",
-          price: 2.49,
+          price: 249,
           selected: false,
           imageUrl: require("../assets/images/proteins/chicken.jpg"),
         },
         {
           name: "Spicy Pork",
-          price: 2.79,
+          price: 279,
           selected: false,
           imageUrl: require("../assets/images/proteins/spicy-pork.jpg"),
         },
         {
           name: "Tofu",
-          price: 2.29,
+          price: 229,
           selected: false,
           imageUrl: require("../assets/images/proteins/tofu.jpg"),
         },
@@ -376,7 +376,7 @@ const menuData = {
           name: "The Egg",
           description:
             "perfectly set white, liquid-gold yolk marinated in a sweet-soy base.",
-          price: 1.99,
+          price: 199,
           selected: false,
           imageUrl: require("../assets/images/extras/the-egg.jpg"),
           qty: 0,
@@ -385,7 +385,7 @@ const menuData = {
           name: "Avocado",
           description:
             "this nutrient-packed superfood adds a rich, buttery flavor to anything.",
-          price: 1.89,
+          price: 189,
           selected: false,
           imageUrl: require("../assets/images/extras/avocado.jpg"),
           qty: 0,

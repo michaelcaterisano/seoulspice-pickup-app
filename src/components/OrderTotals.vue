@@ -25,21 +25,21 @@
       <div class="navbar-start">
         <p class="navbar-item">
           <span class="has-text-warning has-text-weight-bold">Subtotal: </span>
-          {{ subtotal | currency }}
+          {{ subtotalDollars | currency }}
         </p>
         <p class="navbar-item" v-if="tip > 0">
           <span class="has-text-warning has-text-weight-bold">Tip: </span>
-          {{ tip | currency }}
+          {{ tipDollars | currency }}
         </p>
         <p class="navbar-item" v-if="taxRate > 0">
           <span class="has-text-warning has-text-weight-bold"
-            >Tax ({{ taxRateHuman }}%):
+            >Tax ({{ taxRate }}%):
           </span>
-          {{ tax | currency }}
+          {{ taxDollars | currency }}
         </p>
         <p class="navbar-item">
           <span class="has-text-warning has-text-weight-bold">Total: </span>
-          {{ total | currency }}
+          {{ totalDollars | currency }}
         </p>
       </div>
     </div>
@@ -51,17 +51,22 @@ import { mapGetters } from "vuex";
 export default {
   name: "Totals",
   computed: {
+    subtotalDollars() {
+      return this.subtotal / 100;
+    },
+    tipDollars() {
+      return this.tip / 100;
+    },
+    taxDollars() {
+      return this.tax / 100;
+    },
+    totalDollars() {
+      return this.total / 100;
+    },
     mobileButtonText() {
       return this.mobileMenuOpen ? "Hide Totals" : "View Totals";
     },
-    ...mapGetters([
-      "subtotal",
-      "tip",
-      "tax",
-      "taxRate",
-      "taxRateHuman",
-      "total",
-    ]),
+    ...mapGetters(["subtotal", "tip", "tax", "taxRate", "total"]),
   },
   data() {
     return {

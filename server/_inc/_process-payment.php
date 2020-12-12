@@ -29,8 +29,8 @@ $payments_api = new \SquareConnect\Api\PaymentsApi($api_client);
 $body = new\SquareConnect\Model\CreatePaymentRequest();
 $amountMoney = new \SquareConnect\Model\Money();
 
-// amount needs to be in cents
-$amountMoney->setAmount((int)($data->totals->total * 100));
+// amount arrives from client in cents
+$amountMoney->setAmount((int)($data->totals->total));
 $amountMoney->setCurrency('USD');
 
 $body->setSourceId($data->nonce);

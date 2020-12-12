@@ -12,7 +12,7 @@
         option.description.toLowerCase()
       }}</span>
 
-      <span class="option-price">${{ option.price }}</span>
+      <span class="option-price">{{ price }}</span>
     </div>
     <footer class="card-footer">
       <b-field>
@@ -31,9 +31,9 @@
 <script>
 export default {
   computed: {
-    // price() {
-    //   return "$" + this.option.price;
-    // },
+    price() {
+      return "$" + this.option.price / 100;
+    },
   },
   methods: {
     setSelected(value) {

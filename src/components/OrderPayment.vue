@@ -25,7 +25,7 @@
           class="button-credit-card"
           @click.prevent="processPayment"
         >
-          Pay with card {{ total | currency }}
+          Pay with card {{ priceDollars | currency }}
         </button>
         <button id="sq-apple-pay"></button>
       </div>
@@ -46,8 +46,11 @@ const { mapFields } = createHelpers({
 });
 export default {
   computed: {
-    ...mapGetters(["total", "itemSubtotal", "tax", "items", "tip"]),
+    ...mapGetters(["total", "itemSubtotal", "tax", "taxRate", "items", "tip"]),
     ...mapFields(["name", "location", "time", "email", "curbside"]),
+    priceDollars() {
+      return this.total / 100;
+    },
   },
   data() {
     return {
@@ -120,11 +123,11 @@ export default {
           let response = await orderService.post("/process-order.php", {
             nonce: nonce,
             totals: {
-              subtotal: that.itemSubtotal.toFixed(2),
-              tax: that.tax.toFixed(2),
-              tip: that.tip.toFixed(2),
+              subtotal: that.itemSubtotal,
+              tax: that.tax,
+              tip: that.tip,
               taxRate: that.taxRate,
-              total: that.total.toFixed(2),
+              total: that.total,
             },
             items: that.items,
             order: {
@@ -176,7 +179,7 @@ export default {
             countryCode: "US",
             total: {
               label: "Seoulspice",
-              amount: that.total.toFixed(2),
+              amount: that.total,
               pending: false,
             },
           };
