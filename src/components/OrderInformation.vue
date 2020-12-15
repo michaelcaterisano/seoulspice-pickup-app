@@ -188,7 +188,6 @@ export default {
       });
     },
     updateTip(val) {
-      console.log(val);
       let tipAmountCents = Math.round(this.subtotal * val);
       this.tip = tipAmountCents;
       this.tipDollars = money(tipAmountCents, { pattern: `! #` })
