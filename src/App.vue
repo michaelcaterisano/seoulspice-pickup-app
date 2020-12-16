@@ -209,7 +209,7 @@ body {
 }
 
 .site-wrapper {
-  padding: 0;
+  padding: 20px 0 0 0;
 }
 
 /******** BULMA OVERRIDES *************/
