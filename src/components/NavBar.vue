@@ -9,23 +9,24 @@
       </b-navbar-item>
     </template>
     <template slot="end">
-      <b-navbar-item tabindex="0">
-        <button class="button" @click="toggleCartOpen">
+      <b-navbar-item>
+        <b-button @click="openCart" tabindex="0">
           <span class="icon is-small">
             <i class="fas fa-shopping-cart"></i>
           </span>
-        </button>
+        </b-button>
       </b-navbar-item>
     </template>
   </b-navbar>
 </template>
 
 <script>
+import { SET_CART_OPEN } from "../store/mutations.type";
 export default {
   name: "NavBar",
   methods: {
-    toggleCartOpen() {
-      this.$emit("toggle-cart-open");
+    openCart() {
+      this.$store.commit(SET_CART_OPEN, true);
     },
   },
 };

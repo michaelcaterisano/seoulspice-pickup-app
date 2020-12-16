@@ -11,12 +11,11 @@
         :key="dessertOptions.type"
         :group="dessertOptions"
         v-if="active === 'desserts'"
-        Add
       />
     </transition-group>
     <div class="has-text-centered buttons">
       <a class="button is-success" @click.prevent="addItems()">
-        <span>Next</span>
+        <span>{{ buttonText }}</span>
       </a>
     </div>
   </section>
@@ -37,6 +36,11 @@ export default {
       dessertOptions: dessertOptions,
       active: "drinks",
     };
+  },
+  computed: {
+    buttonText() {
+      return this.active === "drinks" ? "Next" : "Checkout";
+    },
   },
   methods: {
     addItems() {

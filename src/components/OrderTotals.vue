@@ -1,48 +1,21 @@
 <template>
-  <div class="navbar is-fixed-top is-dark is-transparent">
-    <div class="navbar-brand">
-      <a class="navbar-item"
-        ><img
-          class="starting-logo"
-          alt="SEOULSPICE"
-          src="https://www.seoulspice.com/wp-content/uploads/2017/05/logo1-1.png"
-          srcset="
-            https://www.seoulspice.com/wp-content/uploads/2017/05/logo1-1.png  1x,
-            https://www.seoulspice.com/wp-content/uploads/2017/05/logo1r-1.png 2x
-          "
-      /></a>
-      <a
-        role="button"
-        class="button is-medium is-outlined is-warning"
-        :class="mobileMenuOpen ? 'is-active' : ''"
-        aria-label="menu"
-        aria-expanded="false"
-        @click.prevent="toggleMobileMenu"
-        ><span>{{ mobileButtonText }}</span></a
-      >
-    </div>
-    <div class="navbar-menu" :class="mobileMenuOpen ? 'is-active' : ''">
-      <div class="navbar-start">
-        <p class="navbar-item">
-          <span class="has-text-warning has-text-weight-bold">Subtotal: </span>
-          {{ subtotalDollars | currency }}
-        </p>
-        <p class="navbar-item" v-if="tip > 0">
-          <span class="has-text-warning has-text-weight-bold">Tip: </span>
-          {{ tipDollars | currency }}
-        </p>
-        <p class="navbar-item" v-if="taxRate > 0">
-          <span class="has-text-warning has-text-weight-bold"
-            >Tax ({{ taxRate }}%):
-          </span>
-          {{ taxDollars | currency }}
-        </p>
-        <p class="navbar-item">
-          <span class="has-text-warning has-text-weight-bold">Total: </span>
-          {{ totalDollars | currency }}
-        </p>
-      </div>
-    </div>
+  <div class="box is-size-7">
+    <p>
+      <span>Subtotal: </span>
+      {{ subtotalDollars | currency }}
+    </p>
+    <p v-if="tip > 0">
+      <span>Tip: </span>
+      {{ tipDollars | currency }}
+    </p>
+    <p v-if="taxRate > 0">
+      <span>Tax:</span>
+      {{ taxDollars | currency }}
+    </p>
+    <p>
+      <span>Total: </span>
+      {{ totalDollars | currency }}
+    </p>
   </div>
 </template>
 
@@ -78,6 +51,7 @@ export default {
       this.mobileMenuOpen = !this.mobileMenuOpen;
     },
   },
+  props: ["type"],
 };
 </script>
 

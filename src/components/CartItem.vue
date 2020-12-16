@@ -2,11 +2,12 @@
   <div class="box">
     <div class="item-body">
       <div class="delete-button">
-        <button class="delete is-large" @click.prevent="removeItem()"></button>
+        <button class="delete is-small" @click.prevent="removeItem()"></button>
       </div>
-      <div class="item-name">
-        <p>{{ item.signature }} {{ item.name }}</p>
-        <p>{{ price | currency }}</p>
+      <div class="item-name is-size-7">
+        <span>{{ item.signature }} {{ item.name }}</span
+        ><br />
+        <span>{{ price | currency }}</span>
       </div>
       <ul v-if="item.type === 'entree'" class="options is-size-7">
         <li
@@ -30,6 +31,7 @@
           @input="updateQty"
           min="1"
           type="is-warning"
+          size="is-small"
         ></b-numberinput>
       </b-field>
     </div>
@@ -71,7 +73,7 @@ export default {
     removeItem() {
       if (this.item.type === "entree" && this.countEntrees === 1) {
         this.$buefy.toast.open({
-          duration: 5000,
+          duration: 2000,
           message:
             "You must have at least one entree in your cart to place an order.",
           type: "is-danger",
@@ -82,7 +84,7 @@ export default {
     },
   },
   name: "CartItem",
-  props: ["item", "index"],
+  props: ["items", "item", "index"],
 };
 </script>
 
@@ -91,12 +93,10 @@ export default {
   padding: 0 !important;
 }
 .item-body {
-  padding: 30px;
+  padding: 10px;
 }
 .options {
   border-top: 1px solid #ccc;
-  margin-top: 15px;
-  padding-top: 15px;
 }
 .notes {
   border-top: 1px solid #ccc;
@@ -107,11 +107,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin: 0 0 10px 0px;
-  margin-right: -10px;
 }
+
 .item-name {
   font-weight: 700;
+  margin-bottom: 10px;
 }
 
 ul {

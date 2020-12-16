@@ -1,56 +1,67 @@
-import { ADD_ITEM, UPDATE_QTY, REMOVE_ITEM } from "./mutations.type";
+import {
+  ADD_ITEM,
+  UPDATE_QTY,
+  REMOVE_ITEM,
+  SET_CART_OPEN,
+} from "./mutations.type";
 
 const state = {
-    items: [],
+  items: [],
+  cartIsOpen: false,
 };
 
 const getters = {
-    itemSubtotal(state) {
-        return state.items.reduce(
-            (carry, item) => carry + item.price * item.qty,
-            0
-        );
-    },
-    items(state) {
-        return state.items;
-    },
-    countEntrees() {
-        return state.items.filter((item) => item.type === "entree").length;
-    },
+  itemSubtotal(state) {
+    return state.items.reduce(
+      (carry, item) => carry + item.price * item.qty,
+      0
+    );
+  },
+  items(state) {
+    return state.items;
+  },
+  countEntrees() {
+    return state.items.filter((item) => item.type === "entree").length;
+  },
+  cartIsOpen(state) {
+    return state.cartIsOpen;
+  },
 };
 
 const mutations = {
-    [ADD_ITEM](state, item) {
-        const orderTypeArray = ["entree", "drink", "dessert"];
-        let cartIndex;
-        if (item.type !== "entree") {
-            cartIndex = state.items.findIndex(
-                (cartItem) =>
-                    item.type === cartItem.type && cartItem.name === item.name
-            );
-        }
-        if (cartIndex > 0) {
-            state.items[cartIndex].qty += item.qty;
-        } else {
-            state.items.push(item);
-        }
-        state.items.sort((a, b) =>
-            orderTypeArray.findIndex((type) => type === a.type) >
-            orderTypeArray.findIndex((type) => type === b.type)
-                ? 1
-                : -1
-        );
-    },
-    [UPDATE_QTY](state, payload) {
-        state.items[payload.index].qty = payload.qty;
-    },
-    [REMOVE_ITEM](state, index) {
-        state.items.splice(index, 1);
-    },
+  [ADD_ITEM](state, item) {
+    const orderTypeArray = ["entree", "drink", "dessert"];
+    let cartIndex;
+    if (item.type !== "entree") {
+      cartIndex = state.items.findIndex(
+        (cartItem) => item.type === cartItem.type && cartItem.name === item.name
+      );
+    }
+    if (cartIndex > 0) {
+      state.items[cartIndex].qty += item.qty;
+    } else {
+      state.items.push(item);
+    }
+    state.items.sort((a, b) =>
+      orderTypeArray.findIndex((type) => type === a.type) >
+      orderTypeArray.findIndex((type) => type === b.type)
+        ? 1
+        : -1
+    );
+  },
+  [UPDATE_QTY](state, payload) {
+    state.items[payload.index].qty = payload.qty;
+  },
+  [REMOVE_ITEM](state, index) {
+    state.items.splice(index, 1);
+  },
+  [SET_CART_OPEN](state, val) {
+    state.cartIsOpen = val;
+  },
 };
 
 export default {
-    state,
-    getters,
-    mutations,
+  state,
+  getters,
+  mutations,
 };

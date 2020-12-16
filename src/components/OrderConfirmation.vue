@@ -1,21 +1,42 @@
 <template>
   <div class="container">
+    <div class="page-title">
+      <span> {{ title }} </span>
+    </div>
+    <OrderTotals v-if="items.length" type="sidebar" />
+
     <CartItem
       v-for="(item, index) in items"
       :key="index"
+      :items="items"
       :item="item"
       :index="index"
     />
-    <div class="has-text-centered buttons">
-      <a class="button is-danger" @click.prevent="editOrder('entree')">
-        <span>Add Entree</span>
-      </a>
-      <a class="button is-danger" @click.prevent="editOrder('addon')">
-        <span>Add Drink/Dessert</span>
-      </a>
-      <a class="button is-success" @click.prevent="confirmItems()">
-        <span>Next</span>
-      </a>
+    <div v-if="items.length" class="has-text-centered buttons">
+      <b-button
+        size="is-small"
+        class="is-warning"
+        @click.prevent="editOrder('entree')"
+      >
+        <span class="is-size-7">Add Entree</span>
+      </b-button>
+      <b-button
+        size="is-small"
+        class=" is-warning"
+        @click.prevent="editOrder('addon')"
+      >
+        <span class="is-size-7">Add Drink/Dessert</span>
+      </b-button>
+      <b-button
+        size="is-small"
+        class="is-success"
+        @click.prevent="confirmItems()"
+      >
+        <span class="is-size-7">Checkout</span>
+      </b-button>
+    </div>
+    <div v-if="!items.length">
+      <span class="is-size-7">Your cart is empty</span>
     </div>
   </div>
 </template>
@@ -23,44 +44,62 @@
 <script>
 import { mapGetters } from "vuex";
 import CartItem from "./CartItem";
+import OrderTotals from "./OrderTotals";
+import { SET_CART_OPEN } from "../store/mutations.type";
 export default {
   components: {
     CartItem,
+    OrderTotals,
   },
   computed: {
     ...mapGetters(["items"]),
+    title() {
+      return this.type === "page" ? "ORDER CONFIRMATION" : "";
+    },
   },
   name: "OrderConfirmation",
   methods: {
     editOrder(type) {
+      this.$store.commit(SET_CART_OPEN, false);
       this.$emit("edit", type);
     },
     confirmItems() {
+      this.$store.commit(SET_CART_OPEN, false);
       this.$gtag.event("begin-checkout");
       this.$emit("update", "order-info");
     },
   },
+  props: ["type"],
 };
 </script>
 
 <style scoped>
 .container {
-  width: 500px;
+  width: 95%;
+  max-width: 400px !important;
+  margin-top: 12px;
 }
 .buttons {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 24px !important;
 }
 .button {
   width: 100%;
   margin-right: 0px !important;
 }
 
-@media screen and (max-width: 599px) {
+.page-title {
+  text-align: center;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+/* @media screen and (max-width: 599px) {
   .container {
     width: 85%;
   }
-}
+} */
 </style>

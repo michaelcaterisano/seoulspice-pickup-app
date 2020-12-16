@@ -95,8 +95,12 @@
             ></b-input>
           </b-field>
           <b-field>
-            <b-checkbox type="is-warning" v-model="curbside">
-              I would like to pick up my order at the curb
+            <b-checkbox
+              class="curbside-checkbox"
+              type="is-warning"
+              v-model="curbside"
+            >
+              Curbside pickup
             </b-checkbox>
           </b-field>
           <div class="has-text-centered buttons">
@@ -221,6 +225,21 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.button {
+  width: 100%;
+}
+
+.b-checkbox.checkbox {
+  height: auto;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background: transparent !important;
+  outline: none;
+  color: black;
 }
 
 @media screen and (max-width: 599px) {

@@ -6,17 +6,34 @@
       :fullwidth="false"
       :overlay="true"
       :right="true"
-      v-model="open"
+      :open="isOpen"
+      @close="close"
     >
-      <div>sidebar</div>
+      <OrderConfirmation @edit="edit" @update="update" type="cart" />
     </b-sidebar>
   </section>
 </template>
 
 <script>
+import OrderConfirmation from "./OrderConfirmation";
+
 export default {
   name: "CartSideBar",
-  props: ["open"],
+  props: ["isOpen"],
+  components: {
+    OrderConfirmation,
+  },
+  methods: {
+    edit(val) {
+      this.$emit("edit", val);
+    },
+    update(val) {
+      this.$emit("update", val);
+    },
+    close() {
+      this.$emit("close-cart");
+    },
+  },
 };
 </script>
 

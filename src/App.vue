@@ -1,17 +1,27 @@
 <template>
   <div id="app">
     <!-- <OrderTotals></OrderTotals> -->
-    <NavBar @toggle-cart-open="toggleCartOpen" />
-    <CartSideBar :open="cartOpen" />
+    <NavBar />
+    <CartSideBar
+      :isOpen="cartIsOpen"
+      @update="setActive"
+      @edit="setEdit"
+      @close-cart="closeCart"
+    />
     <section class="site-wrapper">
       <transition name="fade">
         <OrderLocation v-if="active === 'location'" @update="setActive" />
-        <OrderEntrees v-if="active === 'entree'" @update="setActive" />
+        <OrderEntrees
+          v-if="active === 'entree'"
+          @update="setActive"
+          :edit="edit"
+        />
         <OrderAddons v-if="active === 'addon'" @update="setActive" />
         <OrderConfirmation
           v-if="active === 'confirmation'"
           @update="setActive"
           @edit="setEdit"
+          type="page"
         />
         <OrderInformation v-if="active === 'order-info'" @update="setActive" />
         <OrderPayment v-if="active === 'payment'" @update="setActive" />
@@ -33,6 +43,9 @@ import OrderConfirmation from "./components/OrderConfirmation";
 import OrderInformation from "./components/OrderInformation";
 import OrderPayment from "./components/OrderPayment";
 import OrderSummary from "./components/OrderSummary";
+
+import { SET_CART_OPEN } from "./store/mutations.type";
+import { mapGetters } from "vuex";
 export default {
   components: {
     NavBar,
@@ -46,20 +59,18 @@ export default {
     OrderPayment,
     OrderSummary,
   },
+  computed: {
+    ...mapGetters(["cartIsOpen"]),
+  },
   data() {
     return {
       active: "location", // current active module
       edit: false,
-      cartOpen: false,
     };
   },
   methods: {
     setActive(section) {
-      if (this.edit) {
-        this.active = "confirmation";
-      } else {
-        this.active = section;
-      }
+      this.active = section;
       this.edit = false;
       document.documentElement.scrollTop = 0;
       document.scrollTop = 0;
@@ -68,8 +79,8 @@ export default {
       this.setActive(section);
       this.edit = true;
     },
-    toggleCartOpen() {
-      this.cartOpen = !this.cartOpen;
+    closeCart() {
+      this.$store.commit(SET_CART_OPEN, false);
     },
   },
   name: "App",
@@ -198,7 +209,7 @@ body {
 }
 
 .site-wrapper {
-  padding: 100px 0 0 0;
+  padding: 0;
 }
 
 /******** BULMA OVERRIDES *************/

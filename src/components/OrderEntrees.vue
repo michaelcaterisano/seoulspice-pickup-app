@@ -39,6 +39,8 @@ export default {
     EntreeSignatures,
     EntreeOptions,
   },
+  props: ["edit"],
+
   data() {
     return {
       active: "entree-categories",
@@ -115,19 +117,23 @@ export default {
       this.confirmContinue();
     },
     confirmContinue() {
-      this.$buefy.dialog.confirm({
-        message: "Would you like to add another entree?",
-        onConfirm: () => {
-          this.clearEntree();
-          this.setActive("entree-categories");
-        },
-        onCancel: () => {
-          this.$emit("update", "addon");
-          this.clearEntree();
-        },
-        confirmText: "Yes",
-        cancelText: "No",
-      });
+      if (this.edit) {
+        this.$emit("update", "confirmation");
+      } else {
+        this.$buefy.dialog.confirm({
+          message: "Would you like to add another entree?",
+          onConfirm: () => {
+            this.clearEntree();
+            this.setActive("entree-categories");
+          },
+          onCancel: () => {
+            this.$emit("update", "addon");
+            this.clearEntree();
+          },
+          confirmText: "Yes",
+          cancelText: "No",
+        });
+      }
     },
     clearEntree() {
       this.entree.category = null;
