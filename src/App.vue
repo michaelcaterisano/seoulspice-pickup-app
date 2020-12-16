@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <OrderTotals></OrderTotals>
+    <!-- <OrderTotals></OrderTotals> -->
+    <NavBar @toggle-cart-open="toggleCartOpen" />
+    <CartSideBar :open="cartOpen" />
     <section class="site-wrapper">
       <transition name="fade">
         <OrderLocation v-if="active === 'location'" @update="setActive" />
@@ -20,7 +22,10 @@
 </template>
 
 <script>
-import OrderTotals from "./components/OrderTotals";
+import NavBar from "./components/NavBar";
+import CartSideBar from "./components/CartSideBar";
+
+// import OrderTotals from "./components/OrderTotals";
 import OrderLocation from "./components/OrderLocation";
 import OrderEntrees from "./components/OrderEntrees";
 import OrderAddons from "./components/OrderAddons";
@@ -30,10 +35,12 @@ import OrderPayment from "./components/OrderPayment";
 import OrderSummary from "./components/OrderSummary";
 export default {
   components: {
+    NavBar,
+    CartSideBar,
     OrderAddons,
     OrderLocation,
     OrderEntrees,
-    OrderTotals,
+    // OrderTotals,
     OrderConfirmation,
     OrderInformation,
     OrderPayment,
@@ -43,6 +50,7 @@ export default {
     return {
       active: "location", // current active module
       edit: false,
+      cartOpen: false,
     };
   },
   methods: {
@@ -59,6 +67,9 @@ export default {
     setEdit(section) {
       this.setActive(section);
       this.edit = true;
+    },
+    toggleCartOpen() {
+      this.cartOpen = !this.cartOpen;
     },
   },
   name: "App",
@@ -115,7 +126,7 @@ $colors: (
 $steps-active-color: $warning;
 $steps-previous-color: $warning;
 $radio-active-background-color: $warning;
-$navbar-breakpoint: 767px;
+$navbar-breakpoint: 0;
 
 @import "~bulma";
 @import "~buefy/src/scss/buefy";

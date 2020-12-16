@@ -10,7 +10,7 @@ import VueGtag from "vue-gtag";
 
 // Configuration VueAnalytics
 Vue.use(VueGtag, {
-  config: { id: "UA-161150004-1" }
+  config: { id: "UA-161150004-1" },
 });
 
 if (process.env.NODE_ENV === "production") {
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === "production") {
 Vue.config.productionTip = false;
 
 Vue.use(Buefy, {
-  defaultIconPack: "fas"
+  defaultIconPack: "fas",
 });
 
 Vue.use(VueCurrencyFilter, {
@@ -29,7 +29,7 @@ Vue.use(VueCurrencyFilter, {
   fractionCount: 2,
   fractionSeparator: ".",
   symbolPosition: "front",
-  symbolSpacing: false
+  symbolSpacing: false,
 });
 
 VeeValidate.Validator.extend("hours", hours);
@@ -37,5 +37,5 @@ Vue.use(VeeValidate);
 
 new Vue({
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");
