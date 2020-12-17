@@ -14,7 +14,7 @@ Vue.use(VueGtag, {
 });
 
 if (process.env.NODE_ENV === "production") {
-  LogRocket.init("ae9bjy/seoulspice-pickup");
+  LogRocket.init("fe5lxt/seoulspice");
 }
 
 Vue.config.productionTip = false;
