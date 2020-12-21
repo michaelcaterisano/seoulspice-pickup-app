@@ -1,0 +1,8 @@
+[build]
+publish="dist"
+  VUE_APP_API="default api"
+
+[context.dev.environment]
+  VUE_APP_API="toml dev api"
+  VUE_APP_SQUAREUP_APPLICATION_ID="sandbox-sq0idb-NpT7hhU92fIF2OeEgtozxA"
+  VUE_APP_SQUAREUP_FORM_BUILDER_URL="https://js.squareupsandbox.com/v2/paymentform"

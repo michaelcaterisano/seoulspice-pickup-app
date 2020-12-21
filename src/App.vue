@@ -68,6 +68,10 @@ export default {
       edit: false,
     };
   },
+  mounted() {
+    const apiUrl = process.env.VUE_APP_API;
+    console.log("api: ", apiUrl);
+  },
   methods: {
     setActive(section) {
       this.active = section;
