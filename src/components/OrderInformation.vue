@@ -31,28 +31,6 @@
               v-validate="'required|email'"
             ></b-input>
           </b-field>
-          <!-- <b-field
-            label="Pickup Location"
-            :type="{ 'is-danger': errors.has('location') }"
-            :message="errors.first('location')"
-          >
-            <b-select
-              v-model="location"
-              name="location"
-              placeholder="Select a store"
-              icon="map-marker"
-              key="location-input"
-              v-validate="'required'"
-            >
-              <option
-                v-for="location in locations"
-                :key="location.id"
-                :value="location"
-              >
-                {{ location.description }} ({{ location.address }})
-              </option>
-            </b-select>
-          </b-field> -->
           <b-field
             label="Time"
             :type="{ 'is-danger': errors.has('time') }"
@@ -130,7 +108,7 @@ const { mapFields } = createHelpers({
 export default {
   computed: {
     ...mapFields(["name", "email", "location", "time", "curbside", "tip"]),
-    ...mapGetters(["subtotal"]),
+    ...mapGetters(["subtotal", "items", "taxRate"]),
     minTime() {
       let minTime = new Date();
       minTime.setHours(orderStartTime, 0, 0);

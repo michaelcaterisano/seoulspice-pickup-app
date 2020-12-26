@@ -32,3 +32,6 @@ example-payOrder.php
 
 # Local Netlify folder
 .netlify
+
+#ignore files prepended with ignore.
+ignore.*
