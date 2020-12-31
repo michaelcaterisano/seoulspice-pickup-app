@@ -53,8 +53,11 @@
       </div>
       <div class="box is-size-7">
         <p>
+          <strong>Discount:</strong>
+          {{ -(discount / 100) | currency }}
+          <br />
           <strong>Subtotal:</strong>
-          {{ ((total + discount - (tax + tip)) / 100) | currency }}
+          {{ ((total - (tax + tip)) / 100) | currency }}
           <br />
           <strong>Tax:</strong>
           {{ (tax / 100) | currency }}
@@ -64,9 +67,7 @@
             {{ (tip / 100) | currency }}
             <br />
           </span>
-          <strong>Discount:</strong>
-          {{ -(discount / 100) | currency }}
-          <br />
+
           <strong>Total:</strong>
           {{ (total / 100) | currency }}
         </p>
