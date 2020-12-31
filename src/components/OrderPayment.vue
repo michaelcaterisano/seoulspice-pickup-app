@@ -41,6 +41,7 @@
             Order discounted {{ rewardDiscount | currency }}
           </div>
         </div>
+
         <div id="sq-card-number"></div>
         <div class="third" id="sq-expiration-date"></div>
         <div class="third" id="sq-cvv"></div>
@@ -91,9 +92,11 @@ export default {
       hasReward: false,
       rewardName: null,
       rewardRedeemed: false,
+      loadingComponent: null,
     };
   },
   async mounted() {
+    this.loadingComponent = this.$buefy.loading.open();
     // create order
     const order = await this.createOrder();
     if (!order.data.success) {
@@ -150,6 +153,9 @@ export default {
         },
         // SqPaymentForm callback functions
         callbacks: {
+          paymentFormLoaded: () => {
+            this.loadingComponent.close();
+          },
           /*
            * callback function: cardNonceResponseReceived
            * Triggered when: SqPaymentForm completes a card nonce request
@@ -274,6 +280,7 @@ export default {
 #form-container {
   position: relative;
   width: 380px;
+  height: 100vh;
   margin: 0 auto;
 }
 
