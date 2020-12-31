@@ -38,7 +38,7 @@
             >
           </div>
           <div v-if="rewardRedeemed">
-            Order discounted ${{ rewardDiscount }}
+            Order discounted {{ rewardDiscount | currency }}
           </div>
         </div>
         <div id="sq-card-number"></div>
