@@ -2,7 +2,13 @@
   <div class="card">
     <div class="card-image">
       <figure class="image is-3x2">
-        <img v-bind:src="option.imageUrl" alt="image of entree" />
+        <img
+          v-bind:src="option.imageUrl"
+          width="300"
+          height="200"
+          style="width: 100%; height: auto;"
+          alt="image of option"
+        />
       </figure>
     </div>
     <div class="card-content is-size-7">
