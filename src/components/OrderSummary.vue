@@ -54,7 +54,7 @@
       <div class="box is-size-7">
         <p>
           <strong>Subtotal:</strong>
-          {{ (itemSubtotal / 100) | currency }}
+          {{ ((total + discount - (tax + tip)) / 100) | currency }}
           <br />
           <strong>Tax:</strong>
           {{ (tax / 100) | currency }}
@@ -64,6 +64,9 @@
             {{ (tip / 100) | currency }}
             <br />
           </span>
+          <strong>Discount:</strong>
+          {{ -(discount / 100) | currency }}
+          <br />
           <strong>Total:</strong>
           {{ (total / 100) | currency }}
         </p>
@@ -75,6 +78,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { createHelpers } from "vuex-map-fields";
+import { orderService } from "../config/api.service";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
@@ -82,13 +86,37 @@ const { mapFields } = createHelpers({
 });
 export default {
   computed: {
-    ...mapGetters(["total", "itemSubtotal", "tax", "items", "tip"]),
-    ...mapFields(["name", "location", "time", "email", "curbside"]),
+    ...mapGetters(["items"]),
+    ...mapFields(["name", "location", "time", "email", "curbside", "orderId"]),
     shortTime() {
       return this.time.toLocaleTimeString("en-US", {
         timeStyle: "short",
       });
     },
+  },
+  async mounted() {
+    const orderSummary = await this.getOrderSummary();
+    if (orderSummary.data.success) {
+      const {
+        totalMoney,
+        totalTaxMoney,
+        totalDiscountMoney,
+        totalTipMoney,
+      } = orderSummary.data.totals;
+
+      this.total = totalMoney.amount;
+      this.tax = totalTaxMoney.amount;
+      this.tip = totalTipMoney.amount;
+      this.discount = totalDiscountMoney.amount;
+    }
+  },
+  data() {
+    return {
+      tax: null,
+      tip: null,
+      total: null,
+      discount: null,
+    };
   },
   methods: {
     printOptions(option) {
@@ -103,6 +131,14 @@ export default {
         })
         .join(", ");
       return optionText;
+    },
+    async getOrderSummary() {
+      const orderSummary = await orderService.get("/order-summary", {
+        params: {
+          orderId: this.orderId,
+        },
+      });
+      return orderSummary;
     },
   },
   name: "OrderSummary",

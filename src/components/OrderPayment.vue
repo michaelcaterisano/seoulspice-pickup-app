@@ -26,6 +26,21 @@
         </div>
       </b-message>
       <div id="form-container">
+        <div v-if="hasReward" class="loyalty box is-size-7">
+          <div v-if="!rewardRedeemed">
+            <span>You have a reward!</span><br />
+            <span>{{ rewardName }}</span
+            ><br />
+            <b-button
+              class="redeem is-size-7"
+              @click.native="createLoyaltyReward"
+              >Redeem loyalty reward</b-button
+            >
+          </div>
+          <div v-if="rewardRedeemed">
+            Order discounted ${{ rewardDiscount }}
+          </div>
+        </div>
         <div id="sq-card-number"></div>
         <div class="third" id="sq-expiration-date"></div>
         <div class="third" id="sq-cvv"></div>
@@ -35,7 +50,7 @@
           class="button-credit-card"
           @click.prevent="processPayment"
         >
-          Pay with card {{ priceDollars | currency }}
+          Pay with card {{ (orderTotal / 100) | currency }}
         </button>
         <button id="sq-apple-pay"></button>
       </div>
@@ -57,7 +72,7 @@ const { mapFields } = createHelpers({
 export default {
   computed: {
     ...mapGetters(["total", "itemSubtotal", "tax", "taxRate", "items", "tip"]),
-    ...mapFields(["name", "location", "time", "email", "curbside"]),
+    ...mapFields(["name", "location", "time", "email", "curbside", "orderId"]),
     priceDollars() {
       return this.total / 100;
     },
@@ -71,18 +86,31 @@ export default {
       paymentErrors: [],
       orderErrors: [],
       submitDisabled: false,
-      orderId: null,
+      // orderId: null,
       orderTotal: null,
+      hasReward: false,
+      rewardName: null,
+      rewardRedeemed: false,
     };
   },
   async mounted() {
+    // create order
     const order = await this.createOrder();
-
     if (!order.data.success) {
       this.orderErrors.push({ message: order.data.message });
     } else {
       this.orderId = order.data.orderId;
       this.orderTotal = order.data.orderTotal;
+
+      // handle loyalty reward lookup
+      const rewards = await this.getRewards();
+      if (rewards.data.success && rewards.data.hasReward) {
+        // add button
+        this.hasReward = true;
+        this.rewardName = rewards.data.name;
+      }
+
+      // payment
       // eslint-disable-next-line no-undef
       this.paymentForm = new SqPaymentForm({
         // Initialize the payment form elements
@@ -141,9 +169,12 @@ export default {
             });
             // change this to hit /create-payment
             let response = await orderService.post("/create-payment", {
+              phoneNumber: "+12143950129",
+              locationId: this.location.id,
               sourceId: nonce,
               orderId: this.orderId,
               amount: this.orderTotal,
+              tip: this.tip,
             });
             loadingComponent.close();
 
@@ -205,11 +236,28 @@ export default {
         name: this.name,
         email: this.email,
         curbside: this.curbside,
-        tip: this.tip,
+        // tip: this.tip,
         taxRate: this.taxRate,
         time: this.time,
       });
       return result;
+    },
+    async getRewards() {
+      const result = await orderService.post("/get-loyalty-account", {
+        phoneNumber: "+12143950129",
+      });
+      return result;
+    },
+    async createLoyaltyReward() {
+      const result = await orderService.post("/create-loyalty-reward", {
+        phoneNumber: "+12143950129",
+        orderId: this.orderId,
+      });
+      if (result.data.success) {
+        this.orderTotal = result.data.updatedOrderTotal;
+        this.rewardRedeemed = true;
+        this.rewardDiscount = result.data.discount / 100;
+      }
     },
     processPayment() {
       this.paymentErrors = [];
@@ -312,5 +360,12 @@ export default {
   border-radius: 4px;
   cursor: pointer;
   display: none;
+}
+
+.loyalty {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

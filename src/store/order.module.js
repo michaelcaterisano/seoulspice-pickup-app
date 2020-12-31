@@ -13,6 +13,7 @@ const state = {
   curbside: false,
   tip: null,
   notes: null,
+  orderId: null,
 };
 
 const getters = {
