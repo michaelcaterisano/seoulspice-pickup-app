@@ -50,7 +50,7 @@
           class="button-credit-card"
           @click.prevent="processPayment"
         >
-          Pay with card {{ (orderTotal / 100) | currency }}
+          Pay with card {{ ((orderTotal + tip) / 100) | currency }}
         </button>
         <button id="sq-apple-pay"></button>
       </div>
