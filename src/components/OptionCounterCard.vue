@@ -6,7 +6,8 @@
           v-bind:src="option.imageUrl"
           width="300"
           height="200"
-          style="width: 100%; height: auto;"
+          loading="lazy"
+          style="width: 100%; height: auto; background-color: rgb(220, 220, 220);"
           alt="image of option"
         />
       </figure>

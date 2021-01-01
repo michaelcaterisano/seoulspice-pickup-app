@@ -30,7 +30,7 @@ export default {
 .container {
   display: flex;
   width: 100%;
-  max-width: 900px !important;
+  max-width: 600px !important;
   flex-direction: column;
   align-items: center;
 }
@@ -52,18 +52,18 @@ export default {
 .component-card {
   margin: 0 12px;
   cursor: pointer;
-  flex-basis: calc(100% / 3 - 24px);
+  flex-basis: calc(100% / 2 - 24px);
 }
-
+/* 
 @media screen and (max-width: 900px) and (min-width: 600px) {
   .component-card {
     flex-basis: calc(100% / 2 - 24px);
   }
-}
+} */
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 480px) {
   .card-container {
-    width: 85%;
+    width: 75%;
   }
   .component-card {
     flex-basis: 100%;

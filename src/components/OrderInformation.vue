@@ -220,7 +220,7 @@ export default {
   color: black;
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 480px) {
   .container {
     width: 90%;
   }

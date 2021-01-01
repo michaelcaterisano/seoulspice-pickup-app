@@ -76,7 +76,7 @@ export default {
 <style scoped>
 .container {
   width: 95%;
-  max-width: 400px !important;
+  max-width: 600px !important;
   margin-top: 12px;
 }
 .buttons {
@@ -97,9 +97,9 @@ export default {
   font-weight: 700;
 }
 
-/* @media screen and (max-width: 599px) {
+@media screen and (max-width: 480px) {
   .container {
     width: 85%;
   }
-} */
+}
 </style>

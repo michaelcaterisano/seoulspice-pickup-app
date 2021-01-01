@@ -21,12 +21,7 @@
             class="image-container"
             v-bind:class="{ selected: choice.selected }"
           >
-            <img
-              :src="getImageUrl(choice)"
-              width="100"
-              height="100"
-              style="width: 100%; height: auto;"
-            />
+            <img :src="getImageUrl(choice)" width="625" height="625" />
             <div
               v-bind:class="{ overlay: true, selected: choice.selected }"
             ></div>
@@ -124,6 +119,7 @@ export default {
 <style scoped>
 .container {
   width: 100%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,7 +137,7 @@ export default {
 }
 
 .option {
-  flex-basis: calc(100% / 4);
+  flex-basis: calc(100% / 2);
   min-width: 150px;
 }
 
@@ -167,19 +163,15 @@ export default {
 
 img {
   display: block;
-  /* max-width: 100%; */
-  width: auto;
-  height: auto;
-  /* box-shadow: 0 0 1px 2px black; */
+  width: 140px;
+  background-color: rgb(220, 220, 220);
   border-radius: 15px;
 }
 .image-container {
   position: relative;
-  width: 100%;
   border-radius: 15px;
 }
 .overlay {
-  flex-basis: calc(100% / 4);
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
@@ -201,7 +193,7 @@ img {
   text-align: center;
 }
 
-@media screen and (max-width: 900px) and (min-width: 600px) {
+/* @media screen and (max-width: 900px) and (min-width: 600px) {
   .option {
     flex-basis: 33%;
   }
@@ -220,9 +212,9 @@ img {
     background-repeat: no-repeat;
     background-position: center;
   }
-}
+} */
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 480px) {
   .checkbox-container {
     width: 100%;
     display: flex;

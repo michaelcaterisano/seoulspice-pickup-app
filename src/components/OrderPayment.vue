@@ -255,10 +255,12 @@ export default {
       return result;
     },
     async createLoyaltyReward() {
+      const loadingComponent = this.$buefy.loading.open();
       const result = await orderService.post("/create-loyalty-reward", {
         phoneNumber: "+12143950129",
         orderId: this.orderId,
       });
+      loadingComponent.close();
       if (result.data.success) {
         this.orderTotal = result.data.updatedOrderTotal;
         this.rewardRedeemed = true;

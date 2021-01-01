@@ -42,7 +42,7 @@ export default {
 .container {
   display: flex;
   width: 100%;
-  max-width: 900px !important;
+  max-width: 600px !important;
   flex-direction: column;
   align-items: center;
 }
@@ -62,19 +62,19 @@ export default {
 
 .category-card {
   margin: 0 12px 24px 12px;
-  flex-basis: calc(100% / 3 - 24px);
+  flex-basis: calc(100% / 2 - 24px);
   cursor: pointer;
 }
 
-@media screen and (max-width: 900px) and (min-width: 600px) {
+/* @media screen and (max-width: 900px) and (min-width: 600px) {
   .category-card {
     flex-basis: calc(100% / 2 - 24px);
   }
-}
+} */
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 480px) {
   .card-container {
-    width: 85%;
+    width: 75%;
   }
   .category-card {
     margin: 0 0 24px 0;
