@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="component-container">
     <div class="component-title is-size-6">
       <span>{{ group.type.toUpperCase() }}</span>
     </div>
@@ -27,15 +27,15 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.component-container {
   display: flex;
   width: 100%;
-  max-width: 600px !important;
   flex-direction: column;
   align-items: center;
 }
 .card-container {
-  width: 100%;
+  width: 600px;
+
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

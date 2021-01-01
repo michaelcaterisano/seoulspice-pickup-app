@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="component-container">
     <div class="component-title is-size-6"><span>EXTRAS</span></div>
     <div class="card-container">
       <OptionCounterCard
@@ -45,14 +45,15 @@ export default {
   position: fixed;
   bottom: 0;
 }
-.container {
+.component-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .card-container {
-  width: 100%;
+  width: 600px;
+
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -69,7 +70,7 @@ export default {
 .component-card {
   margin: 0 12px 24px 12px;
   cursor: pointer;
-  flex-basis: calc(100% / 3 - 24px);
+  flex-basis: calc(100% / 2 - 24px);
 }
 
 /* @media screen and (max-width: 900px) and (min-width: 600px) {

@@ -1,5 +1,5 @@
-q<template>
-  <div class="container">
+<template>
+  <div class="component-container">
     <div class="signature-title is-size-6">
       <span>WOULD YOU LIKE A SIGNATURE COMBO OR TO BUILD YOUR OWN?</span>
     </div>
@@ -37,15 +37,15 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  width: 100%;
-  max-width: 900px !important;
+.component-container {
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
 }
 .card-container {
   width: 100%;
+  width: 600px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -53,6 +53,8 @@ export default {
 }
 
 .signature-title {
+  width: 100%;
+  max-width: 600px;
   text-align: center;
   margin-bottom: 12px;
   font-weight: 700;
@@ -60,19 +62,13 @@ export default {
 
 .signature-card {
   margin: 0 12px 24px 12px;
-  flex-basis: calc(100% / 3 - 24px);
+  flex-basis: calc(100% / 2 - 24px);
   cursor: pointer;
 }
 
-@media screen and (max-width: 900px) and (min-width: 600px) {
-  .signature-card {
-    flex-basis: calc(100% / 2 - 24px);
-  }
-}
-
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 480px) {
   .card-container {
-    width: 85%;
+    width: 75%;
   }
   .signature-card {
     margin: 0 0 24px 0;

@@ -3,6 +3,7 @@ import {
   UPDATE_QTY,
   REMOVE_ITEM,
   SET_CART_OPEN,
+  EMPTY_CART,
 } from "./mutations.type";
 
 const state = {
@@ -54,6 +55,9 @@ const mutations = {
   },
   [REMOVE_ITEM](state, index) {
     state.items.splice(index, 1);
+  },
+  [EMPTY_CART](state) {
+    state.items = [];
   },
   [SET_CART_OPEN](state, val) {
     state.cartIsOpen = val;

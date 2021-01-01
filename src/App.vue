@@ -154,6 +154,10 @@ body {
 
 #app {
   font-family: "Source Sans Pro", sans-serif;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .fade-enter-active,
@@ -210,6 +214,7 @@ body {
 
 .site-wrapper {
   padding: 20px 0 0 0;
+  width: 100%;
 }
 
 /******** BULMA OVERRIDES *************/
@@ -220,8 +225,9 @@ body {
   flex-direction: column;
   justify-content: center;
   background: transparent !important;
-  outline: none;
-  color: black;
+  padding: 20px;
+  // outline: none;
+  // color: black;
 }
 
 .b-checkbox.checkbox.button {

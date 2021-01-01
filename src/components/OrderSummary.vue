@@ -80,6 +80,7 @@
 import { mapGetters } from "vuex";
 import { createHelpers } from "vuex-map-fields";
 import { orderService } from "../config/api.service";
+import { EMPTY_CART } from "../store/mutations.type";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
@@ -96,6 +97,7 @@ export default {
     },
   },
   async mounted() {
+    this.$store.commit(EMPTY_CART);
     const orderSummary = await this.getOrderSummary();
     if (orderSummary.data.success) {
       const {

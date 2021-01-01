@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="component-container">
     <div class="category-title is-size-6"><span>CHOOSE YOUR ENTREE</span></div>
     <div class="card-container">
       <OptionCard
@@ -39,15 +39,15 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.component-container {
   display: flex;
   width: 100%;
-  max-width: 600px !important;
   flex-direction: column;
   align-items: center;
 }
 .card-container {
   width: 100%;
+  width: 600px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -55,6 +55,8 @@ export default {
 }
 
 .category-title {
+  width: 600px;
+
   text-align: center;
   margin-bottom: 12px;
   font-weight: 700;

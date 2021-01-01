@@ -13,25 +13,13 @@
       :index="index"
     />
     <div v-if="items.length" class="has-text-centered buttons">
-      <b-button
-        size="is-small"
-        class="is-warning"
-        @click.prevent="editOrder('entree')"
-      >
+      <b-button class="is-warning" @click.prevent="editOrder('entree')">
         <span class="is-size-7">Add Entree</span>
       </b-button>
-      <b-button
-        size="is-small"
-        class=" is-warning"
-        @click.prevent="editOrder('addon')"
-      >
+      <b-button class=" is-warning" @click.prevent="editOrder('addon')">
         <span class="is-size-7">Add Drink/Dessert</span>
       </b-button>
-      <b-button
-        size="is-small"
-        class="is-success"
-        @click.prevent="confirmItems()"
-      >
+      <b-button class="is-success" @click.prevent="confirmItems()">
         <span class="is-size-7">Checkout</span>
       </b-button>
     </div>

@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <transition-group name="fade" mode="out-in">
+  <div class="component-container">
+    <transition-group class="transition-group" name="fade" mode="out-in">
       <EntreeOptionsCheckboxGroup
         v-for="step in optionSteps"
         :group="options.getOption(step)"
@@ -244,11 +244,15 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.component-container {
+  width: 100%;
   display: flex;
-  max-width: 900px !important;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+}
+.transition-group {
+  width: 100%;
 }
 .add-to-cart-button {
   margin-top: 12px;

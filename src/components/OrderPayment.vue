@@ -192,6 +192,7 @@ export default {
                   value: this.total.toFixed(2),
                   tax: this.tax.toFixed(2),
                 });
+
                 this.$emit("update", "summary");
               } else {
                 this.submitDisabled = false;
