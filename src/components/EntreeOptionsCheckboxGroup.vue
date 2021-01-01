@@ -174,8 +174,8 @@ export default {
 }
 
 img {
-  display: block;
-  width: 100%;
+  /* width: 100%;
+  height: auto; */
   background-color: rgb(220, 220, 220);
   border-radius: 15px;
 }
@@ -183,6 +183,7 @@ img {
   position: relative;
   border-radius: 15px;
   max-width: 120px;
+  max-height: 120px;
 }
 .overlay {
   background: rgba(0, 0, 0, 0.5);
