@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 import { createHelpers } from "vuex-map-fields";
 import { orderService } from "../config/api.service";
 import { EMPTY_CART } from "../store/mutations.type";
@@ -88,7 +88,7 @@ const { mapFields } = createHelpers({
 });
 export default {
   computed: {
-    ...mapGetters(["items"]),
+    // ...mapGetters(["items"]),
     ...mapFields(["name", "location", "time", "email", "curbside", "orderId"]),
     shortTime() {
       return this.time.toLocaleTimeString("en-US", {
@@ -96,8 +96,11 @@ export default {
       });
     },
   },
-  async mounted() {
+  beforeMount() {
+    this.items = [...this.$store.getters.items];
     this.$store.commit(EMPTY_CART);
+  },
+  async mounted() {
     const orderSummary = await this.getOrderSummary();
     if (orderSummary.data.success) {
       const {
@@ -119,6 +122,7 @@ export default {
       tip: null,
       total: null,
       discount: null,
+      items: [],
     };
   },
   methods: {
