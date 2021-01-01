@@ -51,6 +51,10 @@ export default {
   },
   mounted() {
     window.scrollTo(0, 0);
+    // resets tab focus to top of page
+    document.body.setAttribute("tabindex", "-1");
+    document.body.focus();
+    document.body.removeAttribute("tabindex");
   },
   methods: {
     clicked() {

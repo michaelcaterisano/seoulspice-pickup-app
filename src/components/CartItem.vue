@@ -2,7 +2,12 @@
   <div class="box" tabindex="0">
     <div class="item-body">
       <div class="delete-button">
-        <button class="delete is-small" @click.prevent="removeItem()"></button>
+        <b-button
+          size="is-small"
+          icon-left="fas fa-times-circle"
+          @click.native="removeItem"
+        >
+        </b-button>
       </div>
       <div class="item-name is-size-7">
         <span>{{ item.signature }} {{ item.name }}</span
@@ -104,14 +109,15 @@ export default {
   padding-top: 15px;
 }
 .delete-button {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  text-align: right;
 }
 
 .item-name {
   font-weight: 700;
   margin-bottom: 10px;
+}
+.button.button {
+  border: none !important;
 }
 
 ul {

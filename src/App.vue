@@ -313,7 +313,7 @@ p.control.plus {
 }
 
 .button.button:focus {
-  // outline: none;
-  // box-shadow: 0 0 2px 2px rgb(0, 100, 255) !important;
+  outline: none;
+  box-shadow: 0 0 2px 2px rgb(0, 100, 255) !important;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" tabindex="0">
     <div class="card-image">
       <figure class="image is-3x2">
         <img

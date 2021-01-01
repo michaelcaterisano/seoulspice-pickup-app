@@ -3,8 +3,6 @@
     <div class="page-title">
       <span> {{ title }} </span>
     </div>
-    <OrderTotals v-if="items.length" type="sidebar" />
-
     <CartItem
       v-for="(item, index) in items"
       :key="index"
@@ -12,6 +10,8 @@
       :item="item"
       :index="index"
     />
+    <OrderTotals v-if="items.length" type="sidebar" />
+
     <div v-if="items.length" class="has-text-centered buttons">
       <b-button class="is-warning" @click.prevent="editOrder('entree')">
         <span class="is-size-7">Add Entree</span>
@@ -64,7 +64,7 @@ export default {
 <style scoped>
 .container {
   width: 95%;
-  max-width: 600px !important;
+  max-width: 400px !important;
   margin-top: 12px;
 }
 .buttons {

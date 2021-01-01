@@ -10,10 +10,10 @@
     </template>
     <template slot="end">
       <b-navbar-item>
-        <b-button @click="openCart" class="cart-button">
-          <span class="icon is-small">
-            <i class="fas fa-shopping-cart"></i>
-          </span>
+        <b-button @click="openCart" icon-left="fas fa-shopping-cart">
+          <!-- <span class="icon is-small">
+                <i class="fas fa-shopping-cart"></i>
+              </span> -->
           <span class="cart-count">{{ cartCount }}</span>
         </b-button>
       </b-navbar-item>
@@ -47,6 +47,9 @@ export default {
 .button {
   border-color: transparent !important;
 }
+.button.button {
+  padding: 10px;
+}
 .navbar-item {
   background-color: transparent !important;
 }
@@ -60,9 +63,10 @@ export default {
   height: 19px;
   border-radius: 19px;
   position: absolute;
-  left: 30px;
+  /* left: 30px;
+  top: 10px; */
+  left: 20px;
   top: 10px;
-
   color: white;
   font-size: 11px;
 }
