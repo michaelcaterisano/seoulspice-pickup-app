@@ -1,23 +1,23 @@
 <template>
   <section>
     <div class="component-container">
-      <transition-group name="fade">
-        <AddonsOptions
-          :key="drinkOptions.type"
-          :group="drinkOptions"
-          v-if="active === 'drinks'"
-        />
+      <!-- <transition-group name="fade"> -->
+      <AddonsOptions
+        :key="drinkOptions.type"
+        :group="drinkOptions"
+        v-if="active === 'drinks'"
+      />
 
-        <AddonsOptions
-          :key="dessertOptions.type"
-          :group="dessertOptions"
-          v-if="active === 'desserts'"
-        />
-      </transition-group>
+      <AddonsOptions
+        :key="dessertOptions.type"
+        :group="dessertOptions"
+        v-if="active === 'desserts'"
+      />
+      <!-- </transition-group> -->
       <div class="has-text-centered buttons">
-        <a class="button is-success" @click.prevent="addItems()">
+        <b-button class="is-success" @click.prevent="addItems()">
           <span>{{ buttonText }}</span>
-        </a>
+        </b-button>
       </div>
     </div>
   </section>

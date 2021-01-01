@@ -10,7 +10,7 @@
     </template>
     <template slot="end">
       <b-navbar-item>
-        <b-button @click="openCart" tabindex="0" class="cart-button">
+        <b-button @click="openCart" class="cart-button">
           <span class="icon is-small">
             <i class="fas fa-shopping-cart"></i>
           </span>

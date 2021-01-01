@@ -296,9 +296,17 @@ p.control.plus {
   outline: none;
   box-shadow: 0 0 2px 2px yellow;
 }
+.box:focus {
+  outline: none;
+  box-shadow: 0 0 2px 2px yellow;
+}
 
 @media (hover: hover) {
   .card:hover {
+    outline: none;
+    box-shadow: 0 0 2px 2px yellow;
+  }
+  .box:focus {
     outline: none;
     box-shadow: 0 0 2px 2px yellow;
   }

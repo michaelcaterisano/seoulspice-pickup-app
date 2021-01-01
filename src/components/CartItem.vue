@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box" tabindex="0">
     <div class="item-body">
       <div class="delete-button">
         <button class="delete is-small" @click.prevent="removeItem()"></button>

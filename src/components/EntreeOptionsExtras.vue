@@ -7,6 +7,7 @@
         v-for="(choice, index) in extras.choices"
         :option="choice"
         :key="index"
+        tabindex="0"
       ></OptionCounterCard>
     </div>
     <div class="buttons">

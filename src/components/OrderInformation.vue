@@ -82,9 +82,9 @@
             </b-checkbox>
           </b-field>
           <div class="has-text-centered buttons">
-            <a class="button is-success" @click.prevent="pay">
+            <b-button class="button is-success" @click.prevent="pay">
               <span>Finish and Pay</span>
-            </a>
+            </b-button>
           </div>
         </div>
       </div>

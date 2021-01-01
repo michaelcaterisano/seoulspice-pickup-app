@@ -9,6 +9,7 @@
         v-for="(choice, index) in group.choices"
         :option="choice"
         :key="index"
+        tabindex="0"
       />
     </div>
   </div>
@@ -20,6 +21,12 @@ import OptionCounterCard from "./OptionCounterCard";
 export default {
   components: {
     OptionCounterCard,
+  },
+  mounted() {
+    // resets tab focus to top of page
+    document.body.setAttribute("tabindex", "-1");
+    document.body.focus();
+    document.body.removeAttribute("tabindex");
   },
   name: "AddonsOptions",
   props: ["name", "group"],
