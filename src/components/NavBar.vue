@@ -2,13 +2,10 @@
   <b-navbar :mobile-burger="false" fixed-top shadow>
     <template slot="brand">
       <b-navbar-item>
-        <img
-          src="https://www.seoulspice.com/wp-content/uploads/2017/05/logo1-1.png"
-          alt="seoulspice restaurant logo"
-        />
+        <img src="../assets/logo.png" alt="seoulspice restaurant logo" />
       </b-navbar-item>
     </template>
-    <template slot="end">
+    <template slot="end" v-if="showCart">
       <b-navbar-item>
         <b-button @click="openCart" icon-left="fas fa-shopping-cart">
           <!-- <span class="icon is-small">
@@ -34,12 +31,20 @@ export default {
         return acc;
       }, 0);
     },
+    showCart() {
+      return (
+        this.active !== "order-info" &&
+        this.active !== "payment" &&
+        this.active !== "summary"
+      );
+    },
   },
   methods: {
     openCart() {
       this.$store.commit(SET_CART_OPEN, true);
     },
   },
+  props: ["active"],
 };
 </script>
 

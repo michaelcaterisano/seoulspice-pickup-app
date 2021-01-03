@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <OrderTotals></OrderTotals> -->
-    <NavBar />
+    <NavBar :active="active" />
     <CartSideBar
       :isOpen="cartIsOpen"
       @update="setActive"
@@ -272,7 +272,7 @@ body {
 }
 
 .site-wrapper {
-  padding: 20px 0 0 0;
+  padding: 30px 0 0 0;
   width: 100%;
 }
 
