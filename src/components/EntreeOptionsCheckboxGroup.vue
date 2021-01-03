@@ -18,7 +18,12 @@
               class="image-container"
               v-bind:class="{ selected: choice.selected }"
             >
-              <img :src="getImageUrl(choice)" width="625" height="625" />
+              <img
+                :src="getImageUrl(choice)"
+                width="625"
+                height="625"
+                loading="lazy"
+              />
               <div
                 v-bind:class="{ overlay: true, selected: choice.selected }"
               ></div>
