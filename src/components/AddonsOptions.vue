@@ -1,6 +1,6 @@
 <template>
   <div class="component-container">
-    <div class="component-title is-size-6">
+    <div class="component-title page-title">
       <span>{{ group.type.toUpperCase() }}</span>
     </div>
     <div class="card-container">

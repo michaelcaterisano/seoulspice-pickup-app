@@ -91,7 +91,7 @@ export default {
 $body-size: 24px;
 
 @import "~bulma/sass/utilities/_all";
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Rubik:wght@700&display=swap&family=Source+Sans+Pro:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Rubik:wght@700&family=Source+Sans+Pro:wght@300;400;600;700&family=Inter&display=swap");
 
 $primary: #dd3333;
 $primary-invert: findColorInvert($primary);
@@ -162,6 +162,7 @@ body {
   font-family: "Rubik", sans-serif;
   width: 90%;
   max-width: 500px;
+  font-size: 27px;
   margin-bottom: 12px;
   text-align: center;
   letter-spacing: -0.025rem;
@@ -188,8 +189,8 @@ body {
 
 .card-description {
   display: block;
-  font-family: "Source Sans Pro";
-  font-weight: 600;
+  font-family: "Inter";
+  // font-weight: 600;
   font-size: 15px;
   letter-spacing: 0.01rem;
   // line-height: 0.7rem;
@@ -207,10 +208,13 @@ body {
 
 .body-text {
   display: block;
-  font-family: "Source Sans Pro";
-  font-weight: 500;
-  font-size: 16px;
-  // letter-spacing: 0.01rem;
+  font-family: "Inter";
+  // font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01rem;
+  // line-height: 0.7rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /* END TYPOGRAPHY */

@@ -26,19 +26,20 @@
         </div>
       </b-message>
       <div id="form-container">
-        <div v-if="hasReward" class="loyalty box is-size-7">
-          <div v-if="!rewardRedeemed">
-            <span>You have a reward!</span><br />
-            <span>{{ rewardName }}</span
-            ><br />
+        <div v-if="hasReward" class="box">
+          <div v-if="!rewardRedeemed" class="loyalty">
+            <span class="card-title">YOU HAVE A REWARD!</span>
+            <span class="card-subtitle">{{ rewardName.toUpperCase() }}</span>
             <b-button
-              class="redeem is-size-7"
+              class="redeem body-text"
               @click.native="createLoyaltyReward"
-              >Redeem loyalty reward</b-button
+              >REDEEM LOYALTY REWARD</b-button
             >
           </div>
-          <div v-if="rewardRedeemed">
-            Order discounted {{ rewardDiscount | currency }}
+          <div v-if="rewardRedeemed" class="loyalty">
+            <span class="body-text"
+              >Order discounted {{ rewardDiscount | currency }}</span
+            >
           </div>
         </div>
 
@@ -385,5 +386,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 </style>

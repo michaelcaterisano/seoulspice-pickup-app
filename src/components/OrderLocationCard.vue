@@ -11,7 +11,7 @@
           location.description.toUpperCase()
         }}</span>
 
-        <div class="body-text location-details">
+        <div class="card-description location-details">
           <span>{{ location.address }}</span
           ><br />
           <span>{{ location.phone }}</span>

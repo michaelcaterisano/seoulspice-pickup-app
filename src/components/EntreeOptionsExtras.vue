@@ -1,6 +1,6 @@
 <template>
   <div class="component-container">
-    <div class="page-title is-size-6"><span>EXTRAS</span></div>
+    <div class="page-title"><span>EXTRAS</span></div>
     <div class="card-container">
       <OptionCounterCard
         class="extras-card"
@@ -17,7 +17,7 @@
         @click.prevent="$emit('add-item')"
       >
         <!-- <span>Add to Cart ({{ price | currency }})</span> -->
-        <span>Next</span>
+        <span>NEXT</span>
       </b-button>
     </div>
   </div>

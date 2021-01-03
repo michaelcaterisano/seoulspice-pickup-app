@@ -12,7 +12,7 @@
         />
       </figure>
     </div>
-    <div class="card-content is-size-7">
+    <div class="card-content">
       <span class="card-title">{{ option.name.toUpperCase() }}</span>
       <span v-if="option.description" class="card-description">{{
         option.description.charAt(0).toUpperCase() +

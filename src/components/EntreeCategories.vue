@@ -1,6 +1,6 @@
 <template>
   <div class="component-container">
-    <div class="page-title category-title is-size-6">
+    <div class="page-title category-title">
       <span>CHOOSE YOUR ENTREE</span>
     </div>
     <div class="card-container">

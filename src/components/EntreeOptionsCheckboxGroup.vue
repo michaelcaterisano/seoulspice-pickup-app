@@ -1,8 +1,8 @@
 <template>
   <div class="options-checkbox-group-container">
-    <div class="page-title is-size-6">
+    <div class="page-title">
       <span>{{ group.label.toUpperCase() }} </span><br />
-      <span>{{ quantityText.toLowerCase() }}</span>
+      <span class="card-title">{{ quantityText.toUpperCase() }}</span>
     </div>
     <b-field class="label-text" :addons="false">
       <div class="checkbox-container">
@@ -23,9 +23,10 @@
                 v-bind:class="{ overlay: true, selected: choice.selected }"
               ></div>
             </div>
-            <span class="card-description"
-              >{{ getChoiceName(choice) }} {{ getChoicePrice(choice) }}</span
-            >
+            <span class="choice-name body-text"
+              >{{ getChoiceName(choice) }}
+            </span>
+            <span class="body-text">{{ getChoicePrice(choice) }}</span>
           </div>
         </b-checkbox-button>
       </div>
@@ -36,7 +37,7 @@
         @click.prevent="$emit('next')"
         v-if="active !== 'extras'"
       >
-        Next
+        NEXT
       </b-button>
     </div>
   </div>
@@ -56,9 +57,9 @@ export default {
           : this.group.max;
 
       if (max < 2) {
-        return "(choose one)";
+        return "choose one";
       }
-      return max === Infinity ? "(unlimited)" : " (Choose up to  " + max + ")";
+      return max === Infinity ? "unlimited" : " Choose up to  " + max + "";
     },
     countSelectedOptions() {
       return this.group.choices.filter((choice) => choice.selected).length;
@@ -147,9 +148,12 @@ export default {
   min-width: 150px; */
 }
 
-.card-description {
-  margin-top: 15px;
-  line-height: 0rem !important;
+.choice-name {
+  margin-bottom: -10px;
+}
+
+.body-text {
+  font-size: 13px !important;
 }
 
 .buttons {

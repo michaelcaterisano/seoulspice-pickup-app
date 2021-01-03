@@ -1,6 +1,6 @@
 <template>
   <div class="component-container">
-    <div class="page-title is-size-6">
+    <div class="page-title">
       <span>WOULD YOU LIKE A SIGNATURE COMBO OR TO BUILD YOUR OWN?</span>
     </div>
 

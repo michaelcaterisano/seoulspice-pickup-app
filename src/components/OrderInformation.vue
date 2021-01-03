@@ -97,7 +97,7 @@
           </b-field>
           <div class="has-text-centered buttons">
             <b-button class="button is-success" @click.prevent="pay">
-              <span>Finish and Pay</span>
+              <span>FINISH AND PAY</span>
             </b-button>
           </div>
         </div>
