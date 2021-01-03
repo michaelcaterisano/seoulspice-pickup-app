@@ -15,12 +15,13 @@
     <div class="card-content is-size-7">
       <span class="card-title">{{ option.name.toUpperCase() }}</span>
       <span v-if="option.description" class="card-description">{{
-        option.description.toLowerCase()
+        option.description.charAt(0).toUpperCase() +
+          option.description.slice(1).toLowerCase()
       }}</span>
-
-      <span class="card-price">{{ price }}</span>
     </div>
     <footer class="card-footer">
+      <span class="card-price">{{ price }}</span>
+
       <b-field>
         <b-numberinput
           class="counter-buttons"
@@ -88,6 +89,9 @@ export default {
   line-height: 0.8rem;
 }
 .card-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   bottom: 0;
   border-top: none !important;
 }

@@ -146,7 +146,7 @@ $navbar-breakpoint: 0;
 html,
 body {
   font-family: "Source Sans Pro", sans-serif;
-  letter-spacing: 0.1rem;
+  // letter-spacing: 0.1rem;
 }
 
 #app {
@@ -164,6 +164,7 @@ body {
   max-width: 500px;
   margin-bottom: 12px;
   text-align: center;
+  letter-spacing: -0.025rem;
 }
 
 .card-title {
@@ -173,6 +174,7 @@ body {
   font-weight: 700;
   line-height: 1rem;
   font-size: 20px;
+  letter-spacing: -0.025rem;
 }
 
 .card-subtitle {
@@ -208,7 +210,7 @@ body {
   font-family: "Source Sans Pro";
   font-weight: 500;
   font-size: 16px;
-  letter-spacing: 0.01rem;
+  // letter-spacing: 0.01rem;
 }
 
 /* END TYPOGRAPHY */

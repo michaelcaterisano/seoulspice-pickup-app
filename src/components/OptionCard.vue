@@ -21,7 +21,8 @@
       <!-- <br v-if="!option.subtitle" /> -->
 
       <span class="card-description">{{
-        option.description.toLowerCase()
+        option.description.charAt(0).toUpperCase() +
+          option.description.slice(1).toLowerCase()
       }}</span>
     </div>
     <footer class="card-footer">
