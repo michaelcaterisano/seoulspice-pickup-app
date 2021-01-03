@@ -2,12 +2,16 @@
   <section>
     <div class="container body-text">
       <div class="box">
-        <p>
-          Thank you for choosing SEOULSPICE!
+        <span>
+          <strong>
+            Thank you for choosing SEOULSPICE!
+          </strong>
           <br />
+        </span>
+        <span>
           We are so excited to #FEEDYOURSEOUL with delicious Korean comfort food
           💪 🇰🇷
-        </p>
+        </span>
         <p v-if="curbside" class="curbside">
           <em>
             Please call {{ location.phone }} upon arriving at the restaurant and
@@ -16,7 +20,7 @@
         </p>
       </div>
       <div class="box">
-        <span class=""><strong>Order Information</strong></span>
+        <span><strong>Order Information</strong></span>
         <p>
           Name:
           {{ name }}
@@ -32,8 +36,8 @@
           <br />
         </p>
       </div>
-      <div class="box is-size-7">
-        <span class="is-size-7"><strong>Items Ordered</strong></span>
+      <div class="box">
+        <span><strong>Items Ordered</strong></span>
         <div class="items-ordered" v-for="(item, index) in items" :key="index">
           <span>
             {{ item.qty }} {{ item.signature }} {{ item.name }} -
