@@ -73,7 +73,15 @@ const { mapFields } = createHelpers({
 export default {
   computed: {
     ...mapGetters(["total", "itemSubtotal", "tax", "taxRate", "items", "tip"]),
-    ...mapFields(["name", "location", "time", "email", "curbside", "orderId"]),
+    ...mapFields([
+      "name",
+      "location",
+      "time",
+      "email",
+      "phone",
+      "curbside",
+      "orderId",
+    ]),
     priceDollars() {
       return this.total / 100;
     },
@@ -175,7 +183,7 @@ export default {
             });
             // change this to hit /create-payment
             let response = await orderService.post("/create-payment", {
-              phoneNumber: "+12143950129",
+              phoneNumber: "+1" + this.phone,
               locationId: this.location.id,
               sourceId: nonce,
               orderId: this.orderId,
@@ -251,14 +259,14 @@ export default {
     },
     async getRewards() {
       const result = await orderService.post("/get-loyalty-account", {
-        phoneNumber: "+12143950129",
+        phoneNumber: "+1" + this.phone,
       });
       return result;
     },
     async createLoyaltyReward() {
       const loadingComponent = this.$buefy.loading.open();
       const result = await orderService.post("/create-loyalty-reward", {
-        phoneNumber: "+12143950129",
+        phoneNumber: "+1" + this.phone,
         orderId: this.orderId,
       });
       loadingComponent.close();

@@ -32,6 +32,20 @@
             ></b-input>
           </b-field>
           <b-field
+            label="Phone Number"
+            :type="{ 'is-danger': errors.has('phone') }"
+            :message="errors.first('phone')"
+          >
+            <b-input
+              class="text-field"
+              v-model="phone"
+              name="phone"
+              type="phone"
+              icon="phone"
+              v-validate="'required|phoneNumber'"
+            ></b-input>
+          </b-field>
+          <b-field
             label="Time"
             :type="{ 'is-danger': errors.has('time') }"
             :message="errors.first('time')"
@@ -107,7 +121,15 @@ const { mapFields } = createHelpers({
 });
 export default {
   computed: {
-    ...mapFields(["name", "email", "location", "time", "curbside", "tip"]),
+    ...mapFields([
+      "name",
+      "email",
+      "phone",
+      "location",
+      "time",
+      "curbside",
+      "tip",
+    ]),
     ...mapGetters(["subtotal", "items", "taxRate"]),
     minTime() {
       let minTime = new Date();
