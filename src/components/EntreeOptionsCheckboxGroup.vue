@@ -1,6 +1,6 @@
 <template>
   <div class="options-checkbox-group-container">
-    <div class="option-title is-size-6">
+    <div class="page-title is-size-6">
       <span>{{ group.label.toUpperCase() }} </span><br />
       <span>{{ quantityText.toLowerCase() }}</span>
     </div>
@@ -23,11 +23,9 @@
                 v-bind:class="{ overlay: true, selected: choice.selected }"
               ></div>
             </div>
-            <div class="choice-name">
-              <span>{{ getChoiceName(choice) }}</span
-              ><br />
-              <span>{{ getChoicePrice(choice) }}</span>
-            </div>
+            <span class="card-description"
+              >{{ getChoiceName(choice) }} {{ getChoicePrice(choice) }}</span
+            >
           </div>
         </b-checkbox-button>
       </div>
@@ -130,7 +128,7 @@ export default {
 }
 .checkbox-container {
   width: 100%;
-  width: 600px;
+  max-width: 600px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   margin-bottom: 200px;
@@ -144,22 +142,14 @@ export default {
   align-items: center;
   flex-wrap: wrap;
   overflow: hidden;
+  margin-bottom: -35px;
   /* flex-basis: calc(100% / 2);
   min-width: 150px; */
 }
 
-.option-title {
-  text-align: center;
-  width: 100%;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-.choice-name {
-  margin-top: 5px;
-  letter-spacing: 0.05rem;
-  width: 100%;
-  font-size: 15px;
+.card-description {
+  margin-top: 15px;
+  line-height: 0rem !important;
 }
 
 .buttons {
@@ -174,16 +164,16 @@ export default {
 }
 
 img {
-  /* width: 100%;
-  height: auto; */
+  width: 100%;
+  height: auto;
   background-color: rgb(220, 220, 220);
   border-radius: 15px;
 }
 .image-container {
   position: relative;
   border-radius: 15px;
-  max-width: 120px;
-  max-height: 120px;
+  width: 120px;
+  height: 120px;
 }
 .overlay {
   background: rgba(0, 0, 0, 0.5);

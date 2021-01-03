@@ -1,6 +1,6 @@
 <template>
   <div class="component-container">
-    <div class="signature-title is-size-6">
+    <div class="page-title is-size-6">
       <span>WOULD YOU LIKE A SIGNATURE COMBO OR TO BUILD YOUR OWN?</span>
     </div>
 
@@ -45,19 +45,11 @@ export default {
 }
 .card-container {
   width: 100%;
-  width: 600px;
+  max-width: 600px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-}
-
-.signature-title {
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
-  margin-bottom: 12px;
-  font-weight: 700;
 }
 
 .signature-card {

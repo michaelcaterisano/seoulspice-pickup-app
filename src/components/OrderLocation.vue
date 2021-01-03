@@ -1,8 +1,8 @@
 <template>
   <section>
-    <div class="container">
+    <div class="location-container">
       <div class="card-container">
-        <span class="location-title is-size-6">CHOOSE YOUR LOCATION</span>
+        <span class="page-title location-title">CHOOSE YOUR LOCATION</span>
         <order-location-card
           class="location-card"
           v-for="(loc, index) in locations"
@@ -67,20 +67,16 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.location-container {
   display: flex;
   width: 100%;
   flex-direction: column;
   align-items: center;
 }
 
-.location-title {
-  text-align: center;
-  margin-bottom: 24px;
-  font-weight: 700;
-}
 .card-container {
-  width: 100%;
+  width: 90%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -88,16 +84,16 @@ export default {
 
 .location-card {
   margin-bottom: 30px;
-  width: 600px;
   cursor: pointer;
+  width: 100%;
 }
 
-@media screen and (max-width: 599px) {
+/* @media screen and (max-width: 480px) {
   .card-container {
-    width: 85%;
+    width: 90%;
   }
   .location-card {
     width: 100%;
   }
-}
+} */
 </style>

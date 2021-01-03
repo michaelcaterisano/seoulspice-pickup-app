@@ -91,7 +91,8 @@ export default {
 $body-size: 24px;
 
 @import "~bulma/sass/utilities/_all";
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Rubik:wght@700&display=swap&family=Source+Sans+Pro:wght@300;400;600;700&display=swap");
+
 $primary: #dd3333;
 $primary-invert: findColorInvert($primary);
 $warning: #f9d400;
@@ -148,17 +149,69 @@ body {
   letter-spacing: 0.1rem;
 }
 
-// input:focus {
-//   color: yellow !important;
-// }
-
 #app {
-  font-family: "Source Sans Pro", sans-serif;
+  // font-family: "Source Sans Pro", sans-serif;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+/* GLOBAL TYPOGRAPHY */
+.page-title {
+  font-family: "Rubik", sans-serif;
+  width: 90%;
+  max-width: 500px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.card-title {
+  display: block;
+  // margin-bottom: -35px;
+  font-family: "Nunito";
+  font-weight: 700;
+  line-height: 1rem;
+  font-size: 20px;
+}
+
+.card-subtitle {
+  display: block;
+  font-family: "Nunito";
+  line-height: 0.7rem;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.card-description {
+  display: block;
+  font-family: "Source Sans Pro";
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01rem;
+  // line-height: 0.7rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.card-price {
+  margin-bottom: 5px;
+  font-family: "Nunito";
+  line-height: 0.7rem;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.body-text {
+  display: block;
+  font-family: "Source Sans Pro";
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.01rem;
+}
+
+/* END TYPOGRAPHY */
 
 .fade-enter-active,
 .fade-leave-active {
@@ -252,7 +305,7 @@ label.b-checkbox.checkbox.button {
   background: transparent !important;
 }
 
-.is-text {
+.b-checkbox.checkbox.button.is-text {
   text-decoration: none !important;
 }
 

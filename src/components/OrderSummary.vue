@@ -1,7 +1,7 @@
 <template>
   <section>
-    <div class="container">
-      <div class="box is-size-7">
+    <div class="container body-text">
+      <div class="box">
         <p>
           Thank you for choosing SEOULSPICE!
           <br />
@@ -15,8 +15,8 @@
           </em>
         </p>
       </div>
-      <div class="box is-size-7">
-        <span class="is-size-7"><strong>Order Information</strong></span>
+      <div class="box">
+        <span class=""><strong>Order Information</strong></span>
         <p>
           Name:
           {{ name }}
@@ -173,9 +173,5 @@ h3 {
 }
 .curbside {
   font-size: 13px;
-}
-
-li {
-  list-style-type: "- ";
 }
 </style>

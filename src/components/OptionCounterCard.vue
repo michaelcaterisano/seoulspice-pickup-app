@@ -13,13 +13,12 @@
       </figure>
     </div>
     <div class="card-content is-size-7">
-      <span class="option-name">{{ option.name.toUpperCase() }}</span>
-      <br v-if="option.description" />
-      <span v-if="option.description" class="option-description">{{
+      <span class="card-title">{{ option.name.toUpperCase() }}</span>
+      <span v-if="option.description" class="card-description">{{
         option.description.toLowerCase()
       }}</span>
 
-      <span class="option-price">{{ price }}</span>
+      <span class="card-price">{{ price }}</span>
     </div>
     <footer class="card-footer">
       <b-field>

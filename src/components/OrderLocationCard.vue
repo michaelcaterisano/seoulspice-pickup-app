@@ -7,12 +7,11 @@
     </div> -->
     <div class="card-content columns is-mobile">
       <div class="column is-two-thirds is-size-7">
-        <span class="location-description">{{
+        <span class="card-title location-description">{{
           location.description.toUpperCase()
-        }}</span
-        ><br />
+        }}</span>
 
-        <div class="location-details">
+        <div class="body-text location-details">
           <span>{{ location.address }}</span
           ><br />
           <span>{{ location.phone }}</span>
@@ -49,10 +48,9 @@ export default {
 .column {
   padding: 0px !important;
 }
-.location-description {
-  font-weight: 700;
-  letter-spacing: 0.03rem;
-}
+/* .location-description {
+  margin-bottom: -25px;
+} */
 .location-details {
   letter-spacing: 0.03rem;
 }

@@ -1,6 +1,8 @@
 <template>
   <div class="component-container">
-    <div class="category-title is-size-6"><span>CHOOSE YOUR ENTREE</span></div>
+    <div class="page-title category-title is-size-6">
+      <span>CHOOSE YOUR ENTREE</span>
+    </div>
     <div class="card-container">
       <OptionCard
         class="category-card"
@@ -47,19 +49,11 @@ export default {
 }
 .card-container {
   width: 100%;
-  width: 600px;
+  max-width: 600px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-}
-
-.category-title {
-  width: 600px;
-
-  text-align: center;
-  margin-bottom: 12px;
-  font-weight: 700;
 }
 
 .category-card {
@@ -67,12 +61,6 @@ export default {
   flex-basis: calc(100% / 2 - 24px);
   cursor: pointer;
 }
-
-/* @media screen and (max-width: 900px) and (min-width: 600px) {
-  .category-card {
-    flex-basis: calc(100% / 2 - 24px);
-  }
-} */
 
 @media screen and (max-width: 480px) {
   .card-container {

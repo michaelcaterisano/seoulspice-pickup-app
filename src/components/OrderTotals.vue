@@ -1,5 +1,5 @@
 <template>
-  <div class="box is-size-7">
+  <div class="box body-text">
     <p>
       <span>Subtotal: </span>
       {{ subtotalDollars | currency }}
