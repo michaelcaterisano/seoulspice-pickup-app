@@ -32,6 +32,20 @@
             ></b-input>
           </b-field>
           <b-field
+            label="Phone Number"
+            :type="{ 'is-danger': errors.has('phone') }"
+            :message="errors.first('phone')"
+          >
+            <b-input
+              class="text-field"
+              v-model="phone"
+              name="phone"
+              type="phone"
+              icon="phone"
+              v-validate="'required|phoneNumber'"
+            ></b-input>
+          </b-field>
+          <b-field
             label="Time"
             :type="{ 'is-danger': errors.has('time') }"
             :message="errors.first('time')"
@@ -82,9 +96,9 @@
             </b-checkbox>
           </b-field>
           <div class="has-text-centered buttons">
-            <a class="button is-success" @click.prevent="pay">
-              <span>Finish and Pay</span>
-            </a>
+            <b-button class="button is-success" @click.prevent="pay">
+              <span>FINISH AND PAY</span>
+            </b-button>
           </div>
         </div>
       </div>
@@ -107,7 +121,15 @@ const { mapFields } = createHelpers({
 });
 export default {
   computed: {
-    ...mapFields(["name", "email", "location", "time", "curbside", "tip"]),
+    ...mapFields([
+      "name",
+      "email",
+      "phone",
+      "location",
+      "time",
+      "curbside",
+      "tip",
+    ]),
     ...mapGetters(["subtotal", "items", "taxRate"]),
     minTime() {
       let minTime = new Date();
@@ -220,7 +242,7 @@ export default {
   color: black;
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 480px) {
   .container {
     width: 90%;
   }

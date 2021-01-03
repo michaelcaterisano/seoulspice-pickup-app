@@ -1,20 +1,27 @@
 <template>
-  <div class="card">
+  <div class="card" tabindex="0">
     <div class="card-image">
       <figure class="image is-3x2">
-        <img v-bind:src="option.imageUrl" alt="image of entree" />
+        <img
+          v-bind:src="option.imageUrl"
+          width="300"
+          height="200"
+          loading="lazy"
+          style="width: 100%; height: auto; background-color: rgb(220, 220, 220);"
+          alt="image of option"
+        />
       </figure>
     </div>
-    <div class="card-content is-size-7">
-      <span class="option-name">{{ option.name.toUpperCase() }}</span>
-      <br v-if="option.description" />
-      <span v-if="option.description" class="option-description">{{
-        option.description.toLowerCase()
+    <div class="card-content">
+      <span class="card-title">{{ option.name.toUpperCase() }}</span>
+      <span v-if="option.description" class="card-description">{{
+        option.description.charAt(0).toUpperCase() +
+          option.description.slice(1).toLowerCase()
       }}</span>
-
-      <span class="option-price">{{ price }}</span>
     </div>
     <footer class="card-footer">
+      <span class="card-price">{{ price }}</span>
+
       <b-field>
         <b-numberinput
           class="counter-buttons"
@@ -82,6 +89,9 @@ export default {
   line-height: 0.8rem;
 }
 .card-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   bottom: 0;
   border-top: none !important;
 }

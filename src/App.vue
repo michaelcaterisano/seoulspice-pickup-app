@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <OrderTotals></OrderTotals> -->
-    <NavBar />
+    <NavBar :active="active" />
     <CartSideBar
       :isOpen="cartIsOpen"
       @update="setActive"
@@ -91,7 +91,8 @@ export default {
 $body-size: 24px;
 
 @import "~bulma/sass/utilities/_all";
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Rubik:wght@700&family=Source+Sans+Pro:wght@300;400;600;700&family=Inter&display=swap");
+
 $primary: #dd3333;
 $primary-invert: findColorInvert($primary);
 $warning: #f9d400;
@@ -145,16 +146,78 @@ $navbar-breakpoint: 0;
 html,
 body {
   font-family: "Source Sans Pro", sans-serif;
-  letter-spacing: 0.1rem;
+  // letter-spacing: 0.1rem;
 }
-
-// input:focus {
-//   color: yellow !important;
-// }
 
 #app {
-  font-family: "Source Sans Pro", sans-serif;
+  // font-family: "Source Sans Pro", sans-serif;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+/* GLOBAL TYPOGRAPHY */
+.page-title {
+  font-family: "Rubik", sans-serif;
+  width: 90%;
+  max-width: 500px;
+  font-size: 27px;
+  margin-bottom: 12px;
+  text-align: center;
+  letter-spacing: -0.025rem;
+}
+
+.card-title {
+  display: block;
+  // margin-bottom: -35px;
+  font-family: "Nunito";
+  font-weight: 700;
+  line-height: 1rem;
+  font-size: 20px;
+  letter-spacing: -0.025rem;
+}
+
+.card-subtitle {
+  display: block;
+  font-family: "Nunito";
+  line-height: 0.7rem;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.card-description {
+  display: block;
+  font-family: "Inter";
+  // font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01rem;
+  // line-height: 0.7rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.card-price {
+  margin-bottom: 5px;
+  font-family: "Nunito";
+  line-height: 0.7rem;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.body-text {
+  display: block;
+  font-family: "Inter";
+  // font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01rem;
+  // line-height: 0.7rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* END TYPOGRAPHY */
 
 .fade-enter-active,
 .fade-leave-active {
@@ -209,7 +272,8 @@ body {
 }
 
 .site-wrapper {
-  padding: 20px 0 0 0;
+  padding: 30px 0 0 0;
+  width: 100%;
 }
 
 /******** BULMA OVERRIDES *************/
@@ -220,8 +284,9 @@ body {
   flex-direction: column;
   justify-content: center;
   background: transparent !important;
-  outline: none;
-  color: black;
+  padding: 20px;
+  // outline: none;
+  // color: black;
 }
 
 .b-checkbox.checkbox.button {
@@ -246,7 +311,7 @@ label.b-checkbox.checkbox.button {
   background: transparent !important;
 }
 
-.is-text {
+.b-checkbox.checkbox.button.is-text {
   text-decoration: none !important;
 }
 
@@ -290,16 +355,24 @@ p.control.plus {
   outline: none;
   box-shadow: 0 0 2px 2px yellow;
 }
+.box:focus {
+  outline: none;
+  box-shadow: 0 0 2px 2px yellow;
+}
 
 @media (hover: hover) {
   .card:hover {
     outline: none;
     box-shadow: 0 0 2px 2px yellow;
   }
+  .box:focus {
+    outline: none;
+    box-shadow: 0 0 2px 2px yellow;
+  }
 }
 
 .button.button:focus {
-  // outline: none;
-  // box-shadow: 0 0 2px 2px rgb(0, 100, 255) !important;
+  outline: none;
+  box-shadow: 0 0 2px 2px rgb(0, 100, 255) !important;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div class="component-title is-size-6">
+  <div class="component-container">
+    <div class="component-title page-title">
       <span>{{ group.type.toUpperCase() }}</span>
     </div>
     <div class="card-container">
@@ -9,6 +9,7 @@
         v-for="(choice, index) in group.choices"
         :option="choice"
         :key="index"
+        tabindex="0"
       />
     </div>
   </div>
@@ -21,21 +22,27 @@ export default {
   components: {
     OptionCounterCard,
   },
+  mounted() {
+    // resets tab focus to top of page
+    document.body.setAttribute("tabindex", "-1");
+    document.body.focus();
+    document.body.removeAttribute("tabindex");
+  },
   name: "AddonsOptions",
   props: ["name", "group"],
 };
 </script>
 
 <style scoped>
-.container {
+.component-container {
   display: flex;
   width: 100%;
-  max-width: 900px !important;
   flex-direction: column;
   align-items: center;
 }
 .card-container {
-  width: 100%;
+  width: 600px;
+
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -52,18 +59,18 @@ export default {
 .component-card {
   margin: 0 12px;
   cursor: pointer;
-  flex-basis: calc(100% / 3 - 24px);
+  flex-basis: calc(100% / 2 - 24px);
 }
-
+/* 
 @media screen and (max-width: 900px) and (min-width: 600px) {
   .component-card {
     flex-basis: calc(100% / 2 - 24px);
   }
-}
+} */
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 480px) {
   .card-container {
-    width: 85%;
+    width: 75%;
   }
   .component-card {
     flex-basis: 100%;

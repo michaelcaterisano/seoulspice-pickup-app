@@ -9,7 +9,7 @@
       :open="isOpen"
       @close="close"
     >
-      <OrderConfirmation @edit="edit" @update="update" type="cart" />
+      <OrderConfirmation @edit="edit" @update="update" type="sidebar" />
     </b-sidebar>
   </section>
 </template>

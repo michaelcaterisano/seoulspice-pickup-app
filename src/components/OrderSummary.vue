@@ -1,13 +1,17 @@
 <template>
   <section>
-    <div class="container">
-      <div class="box is-size-7">
-        <p>
-          Thank you for choosing SEOULSPICE!
+    <div class="container body-text">
+      <div class="box">
+        <span>
+          <strong>
+            Thank you for choosing SEOULSPICE!
+          </strong>
           <br />
+        </span>
+        <span>
           We are so excited to #FEEDYOURSEOUL with delicious Korean comfort food
           💪 🇰🇷
-        </p>
+        </span>
         <p v-if="curbside" class="curbside">
           <em>
             Please call {{ location.phone }} upon arriving at the restaurant and
@@ -15,14 +19,17 @@
           </em>
         </p>
       </div>
-      <div class="box is-size-7">
-        <span class="is-size-7"><strong>Order Information</strong></span>
+      <div class="box">
+        <span><strong>Order Information</strong></span>
         <p>
           Name:
           {{ name }}
           <br />
           Email:
           {{ email }}
+          <br />
+          Phone:
+          {{ formattedPhoneNumber }}
           <br />
           Location:
           {{ location.description }} ({{ location.address }})
@@ -32,29 +39,30 @@
           <br />
         </p>
       </div>
-      <div class="box is-size-7">
-        <span class="is-size-7"><strong>Items Ordered</strong></span>
+      <div class="box">
+        <span><strong>Items Ordered</strong></span>
         <div class="items-ordered" v-for="(item, index) in items" :key="index">
           <span>
             {{ item.qty }} {{ item.signature }} {{ item.name }} -
             {{ ((item.price * item.qty) / 100) | currency }}
           </span>
-          <ul v-if="item.type === 'entree'" class="options is-size-7">
-            <li
+          <div v-if="item.type === 'entree'" class="item-list">
+            <p
               v-for="(option, index) in item.options"
               v-html="printOptions(option)"
               :key="index"
-            ></li>
-            <li v-for="note in item.notes" :key="note">
-              Order Note: {{ note }}
-            </li>
-          </ul>
+            ></p>
+            <p v-for="note in item.notes" :key="note">Order Note: {{ note }}</p>
+          </div>
         </div>
       </div>
-      <div class="box is-size-7">
+      <div class="box">
         <p>
+          <strong>Discount:</strong>
+          {{ -(discount / 100) | currency }}
+          <br />
           <strong>Subtotal:</strong>
-          {{ (itemSubtotal / 100) | currency }}
+          {{ ((total - (tax + tip)) / 100) | currency }}
           <br />
           <strong>Tax:</strong>
           {{ (tax / 100) | currency }}
@@ -64,6 +72,7 @@
             {{ (tip / 100) | currency }}
             <br />
           </span>
+
           <strong>Total:</strong>
           {{ (total / 100) | currency }}
         </p>
@@ -73,8 +82,11 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 import { createHelpers } from "vuex-map-fields";
+import { orderService } from "../config/api.service";
+import { EMPTY_CART } from "../store/mutations.type";
+import PhoneNumber from "awesome-phonenumber";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
@@ -82,13 +94,54 @@ const { mapFields } = createHelpers({
 });
 export default {
   computed: {
-    ...mapGetters(["total", "itemSubtotal", "tax", "items", "tip"]),
-    ...mapFields(["name", "location", "time", "email", "curbside"]),
+    // ...mapGetters(["items"]),
+    ...mapFields([
+      "name",
+      "location",
+      "time",
+      "email",
+      "phone",
+      "curbside",
+      "orderId",
+    ]),
     shortTime() {
       return this.time.toLocaleTimeString("en-US", {
         timeStyle: "short",
       });
     },
+    formattedPhoneNumber() {
+      const formattedPhoneNumber = new PhoneNumber(this.phone, "US");
+      return formattedPhoneNumber.getNumber("national");
+    },
+  },
+  beforeMount() {
+    this.items = [...this.$store.getters.items];
+    this.$store.commit(EMPTY_CART);
+  },
+  async mounted() {
+    const orderSummary = await this.getOrderSummary();
+    if (orderSummary.data.success) {
+      const {
+        totalMoney,
+        totalTaxMoney,
+        totalDiscountMoney,
+        totalTipMoney,
+      } = orderSummary.data.totals;
+
+      this.total = totalMoney.amount;
+      this.tax = totalTaxMoney.amount;
+      this.tip = totalTipMoney.amount;
+      this.discount = totalDiscountMoney.amount;
+    }
+  },
+  data() {
+    return {
+      tax: null,
+      tip: null,
+      total: null,
+      discount: null,
+      items: [],
+    };
   },
   methods: {
     printOptions(option) {
@@ -104,6 +157,14 @@ export default {
         .join(", ");
       return optionText;
     },
+    async getOrderSummary() {
+      const orderSummary = await orderService.get("/order-summary", {
+        params: {
+          orderId: this.orderId,
+        },
+      });
+      return orderSummary;
+    },
   },
   name: "OrderSummary",
 };
@@ -117,8 +178,10 @@ export default {
 h3 {
   margin-top: 20px;
 }
-.options {
-  margin-top: 0px !important;
+
+.item-list {
+  font-size: 12px;
+  margin-left: 12px;
 }
 
 .box {
@@ -130,9 +193,5 @@ h3 {
 }
 .curbside {
   font-size: 13px;
-}
-
-li {
-  list-style-type: "- ";
 }
 </style>

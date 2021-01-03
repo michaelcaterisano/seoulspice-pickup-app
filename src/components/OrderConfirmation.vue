@@ -3,40 +3,30 @@
     <div class="page-title">
       <span> {{ title }} </span>
     </div>
-    <OrderTotals v-if="items.length" type="sidebar" />
+    <div class="cart-item-card">
+      <OrderTotals v-if="items.length" type="sidebar" />
+      <CartItem
+        v-for="(item, index) in items"
+        :key="index"
+        :items="items"
+        :item="item"
+        :index="index"
+      />
+    </div>
 
-    <CartItem
-      v-for="(item, index) in items"
-      :key="index"
-      :items="items"
-      :item="item"
-      :index="index"
-    />
-    <div v-if="items.length" class="has-text-centered buttons">
-      <b-button
-        size="is-small"
-        class="is-warning"
-        @click.prevent="editOrder('entree')"
-      >
-        <span class="is-size-7">Add Entree</span>
+    <div v-if="items.length && showButtons" class="has-text-centered buttons">
+      <b-button class="is-warning" @click.prevent="editOrder('entree')">
+        <span class="is-size-7">ADD ENTREE</span>
       </b-button>
-      <b-button
-        size="is-small"
-        class=" is-warning"
-        @click.prevent="editOrder('addon')"
-      >
-        <span class="is-size-7">Add Drink/Dessert</span>
+      <b-button class=" is-warning" @click.prevent="editOrder('addon')">
+        <span class="is-size-7">ADD DRINK/DESERT</span>
       </b-button>
-      <b-button
-        size="is-small"
-        class="is-success"
-        @click.prevent="confirmItems()"
-      >
-        <span class="is-size-7">Checkout</span>
+      <b-button class="is-success" @click.prevent="confirmItems()">
+        <span class="is-size-7">CHECKOUT</span>
       </b-button>
     </div>
     <div v-if="!items.length">
-      <span class="is-size-7">Your cart is empty</span>
+      <span class="body-text">Your cart is empty</span>
     </div>
   </div>
 </template>
@@ -55,6 +45,9 @@ export default {
     ...mapGetters(["items"]),
     title() {
       return this.type === "page" ? "ORDER CONFIRMATION" : "";
+    },
+    showButtons() {
+      return this.type !== "sidebar";
     },
   },
   name: "OrderConfirmation",
@@ -79,6 +72,12 @@ export default {
   max-width: 400px !important;
   margin-top: 12px;
 }
+
+.cart-item-card {
+  margin: 0 12px 24px 12px;
+  flex-basis: calc(100% / 2 - 24px);
+  cursor: pointer;
+}
 .buttons {
   display: flex;
   flex-direction: column;
@@ -97,9 +96,9 @@ export default {
   font-weight: 700;
 }
 
-/* @media screen and (max-width: 599px) {
+@media screen and (max-width: 480px) {
   .container {
     width: 85%;
   }
-} */
+}
 </style>

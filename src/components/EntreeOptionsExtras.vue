@@ -1,12 +1,13 @@
 <template>
-  <div class="container">
-    <div class="component-title is-size-6"><span>EXTRAS</span></div>
+  <div class="component-container">
+    <div class="page-title"><span>EXTRAS</span></div>
     <div class="card-container">
       <OptionCounterCard
-        class="component-card"
+        class="extras-card"
         v-for="(choice, index) in extras.choices"
         :option="choice"
         :key="index"
+        tabindex="0"
       ></OptionCounterCard>
     </div>
     <div class="buttons">
@@ -16,7 +17,7 @@
         @click.prevent="$emit('add-item')"
       >
         <!-- <span>Add to Cart ({{ price | currency }})</span> -->
-        <span>Next</span>
+        <span>NEXT</span>
       </b-button>
     </div>
   </div>
@@ -35,6 +36,28 @@ export default {
 </script>
 
 <style scoped>
+.component-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+.card-container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 100px;
+}
+
+.extras-card {
+  margin: 0 12px 24px 12px;
+  flex-basis: calc(100% / 2 - 24px);
+  cursor: pointer;
+}
+
 .buttons {
   display: flex;
   justify-content: center;
@@ -45,44 +68,18 @@ export default {
   position: fixed;
   bottom: 0;
 }
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.card-container {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 100px;
-}
 
-.component-title {
-  text-align: center;
-  margin-bottom: 12px;
-  font-weight: 700;
-}
-
-.component-card {
-  margin: 0 12px 24px 12px;
-  cursor: pointer;
-  flex-basis: calc(100% / 3 - 24px);
-}
-
-@media screen and (max-width: 900px) and (min-width: 600px) {
+/* @media screen and (max-width: 900px) and (min-width: 600px) {
   .component-card {
     flex-basis: calc(100% / 2 - 24px);
   }
-}
+} */
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 480px) {
   .card-container {
-    width: 85%;
+    width: 75%;
   }
-  .component-card {
+  .extras-card {
     margin: 0 0 24px 0;
     flex-basis: 100%;
   }

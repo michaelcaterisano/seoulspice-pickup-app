@@ -1,6 +1,7 @@
 <template>
   <section>
-    <transition-group name="fade">
+    <div class="component-container">
+      <!-- <transition-group name="fade"> -->
       <AddonsOptions
         :key="drinkOptions.type"
         :group="drinkOptions"
@@ -12,11 +13,12 @@
         :group="dessertOptions"
         v-if="active === 'desserts'"
       />
-    </transition-group>
-    <div class="has-text-centered buttons">
-      <a class="button is-success" @click.prevent="addItems()">
-        <span>{{ buttonText }}</span>
-      </a>
+      <!-- </transition-group> -->
+      <div class="has-text-centered buttons">
+        <b-button class="is-success" @click.prevent="addItems()">
+          <span>{{ buttonText }}</span>
+        </b-button>
+      </div>
     </div>
   </section>
 </template>
@@ -39,7 +41,7 @@ export default {
   },
   computed: {
     buttonText() {
-      return this.active === "drinks" ? "Next" : "Checkout";
+      return this.active === "drinks" ? "NEXT" : "CONFIRM ORDER";
     },
   },
   methods: {
@@ -76,6 +78,9 @@ export default {
 </script>
 
 <style scoped>
+.component-container {
+  width: 100%;
+}
 .buttons {
   display: flex;
   justify-content: center;

@@ -2,18 +2,15 @@
   <b-navbar :mobile-burger="false" fixed-top shadow>
     <template slot="brand">
       <b-navbar-item>
-        <img
-          src="https://www.seoulspice.com/wp-content/uploads/2017/05/logo1-1.png"
-          alt="seoulspice restaurant logo"
-        />
+        <img src="../assets/logo.png" alt="seoulspice restaurant logo" />
       </b-navbar-item>
     </template>
-    <template slot="end">
+    <template slot="end" v-if="showCart">
       <b-navbar-item>
-        <b-button @click="openCart" tabindex="0" class="cart-button">
-          <span class="icon is-small">
-            <i class="fas fa-shopping-cart"></i>
-          </span>
+        <b-button @click="openCart" icon-left="fas fa-shopping-cart">
+          <!-- <span class="icon is-small">
+                <i class="fas fa-shopping-cart"></i>
+              </span> -->
           <span class="cart-count">{{ cartCount }}</span>
         </b-button>
       </b-navbar-item>
@@ -34,18 +31,29 @@ export default {
         return acc;
       }, 0);
     },
+    showCart() {
+      return (
+        this.active !== "order-info" &&
+        this.active !== "payment" &&
+        this.active !== "summary"
+      );
+    },
   },
   methods: {
     openCart() {
       this.$store.commit(SET_CART_OPEN, true);
     },
   },
+  props: ["active"],
 };
 </script>
 
 <style scoped>
 .button {
   border-color: transparent !important;
+}
+.button.button {
+  padding: 10px;
 }
 .navbar-item {
   background-color: transparent !important;
@@ -60,9 +68,10 @@ export default {
   height: 19px;
   border-radius: 19px;
   position: absolute;
-  left: 30px;
+  /* left: 30px;
+  top: 10px; */
+  left: 20px;
   top: 10px;
-
   color: white;
   font-size: 11px;
 }

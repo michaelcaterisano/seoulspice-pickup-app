@@ -1,15 +1,23 @@
 <template>
-  <div class="box">
+  <div class="box" tabindex="0">
     <div class="item-body">
       <div class="delete-button">
-        <button class="delete is-small" @click.prevent="removeItem()"></button>
+        <b-button
+          size="is-small"
+          icon-left="fas fa-times-circle"
+          @click.native="removeItem"
+        >
+        </b-button>
       </div>
-      <div class="item-name is-size-7">
+      <div class="card-title">
         <span>{{ item.signature }} {{ item.name }}</span
         ><br />
-        <span>{{ price | currency }}</span>
+        <!-- <span>{{ price | currency }}</span> -->
       </div>
-      <ul v-if="item.type === 'entree'" class="options is-size-7">
+      <ul
+        v-if="item.type === 'entree'"
+        class="card-description cart-item-description"
+      >
         <li
           v-for="(option, index) in item.options"
           v-html="printOptions(option)"
@@ -104,14 +112,18 @@ export default {
   padding-top: 15px;
 }
 .delete-button {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  text-align: right;
 }
 
 .item-name {
   font-weight: 700;
   margin-bottom: 10px;
+}
+.button.button {
+  border: none !important;
+}
+.cart-item-description {
+  margin-left: 10px;
 }
 
 ul {

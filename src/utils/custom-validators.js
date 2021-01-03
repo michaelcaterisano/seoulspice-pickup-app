@@ -1,3 +1,5 @@
+import PhoneNumber from "awesome-phonenumber";
+
 function formatTime(date) {
   let hours = date.getHours();
   let minutes = date.getMinutes();
@@ -12,6 +14,14 @@ function formatMinutes(minutes) {
   return minutes < 10 ? "0" + minutes : minutes;
 }
 
+export const phoneNumber = {
+  getMessage: (field) => `${field} is not a valid US phone number`,
+  validate(value) {
+    let phone = new PhoneNumber(value, "US");
+    return phone.isValid();
+  },
+};
+
 export const tomorrow = {
   getMessage() {
     return "Online catering orders require a minimum of 24 hours notice.";
@@ -20,7 +30,7 @@ export const tomorrow = {
     value.setHours(0, 0, 0, 0);
     args[0].setHours(0, 0, 0, 0);
     return value.getTime() >= args[0].getTime();
-  }
+  },
 };
 
 export const hours = {
@@ -44,10 +54,11 @@ export const hours = {
       formatMinutes(value.getMinutes()).toString();
 
     return submittedTime >= minTime && submittedTime <= maxTime;
-  }
+  },
 };
 
 export default {
   tomorrow,
-  hours
+  hours,
+  phoneNumber,
 };

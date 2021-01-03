@@ -1,5 +1,5 @@
 <template>
-  <div class="box is-size-7">
+  <div class="box body-text">
     <p>
       <span>Subtotal: </span>
       {{ subtotalDollars | currency }}
@@ -56,58 +56,45 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.navbar-start {
-  margin: 0 auto;
-  padding-right: 280px;
-}
+// .navbar-start {
+//   margin: 0 auto;
+//   padding-right: 280px;
+// }
 
-.navbar-item img {
-  max-height: 2.75em;
-}
+// .navbar-item img {
+//   max-height: 2.75em;
+// }
 
-.starting-logo {
-  padding-left: 20px;
-  max-width: 250px;
-}
+// /* mobile and tablet */
+// @media screen and (max-width: 768px) {
+//   .navbar-start {
+//     padding-right: 0;
+//     .navbar-item {
+//       padding-right: 0;
+//     }
+//   }
 
-/* mobile and tablet */
-@media screen and (max-width: 768px) {
-  .navbar-start {
-    padding-right: 0;
-    .navbar-item {
-      padding-right: 0;
-    }
-  }
+//   .navbar {
+//     font-size: 80%;
+//   }
+// }
 
-  .navbar {
-    font-size: 80%;
-  }
-}
+// /* tablet and bigger */
+// @media screen and (min-width: 768px) {
+//   .button.is-medium {
+//     display: none;
+//   }
+// }
+// /* mobile */
+// @media screen and (max-width: 767px) {
+//   .navbar-brand {
+//     .button {
+//       margin: 0 auto;
+//     }
 
-/* tablet and bigger */
-@media screen and (min-width: 768px) {
-  .button.is-medium {
-    display: none;
-  }
-
-  .starting-logo {
-    max-width: 150px;
-  }
-}
-/* mobile */
-@media screen and (max-width: 767px) {
-  .starting-logo {
-    display: none;
-  }
-
-  .navbar-brand {
-    .button {
-      margin: 0 auto;
-    }
-
-    .navbar-item {
-      padding: 0;
-    }
-  }
-}
+//     .navbar-item {
+//       padding: 0;
+//     }
+//   }
+// }
 </style>

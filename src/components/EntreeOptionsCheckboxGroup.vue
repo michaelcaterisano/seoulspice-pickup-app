@@ -1,46 +1,51 @@
 <template>
-  <b-field class="label-text" :addons="false">
-    <div class="container">
-      <div class="option-title is-size-6">
-        <span
-          >{{ group.label.toUpperCase() }} <br />
-          {{ quantityText.toLowerCase() }}</span
-        >
-      </div>
-
+  <div class="options-checkbox-group-container">
+    <div class="page-title">
+      <span>{{ group.label.toUpperCase() }} </span><br />
+      <span class="card-title">{{ quantityText.toUpperCase() }}</span>
+    </div>
+    <b-field class="label-text" :addons="false">
       <div class="checkbox-container">
         <b-checkbox-button
-          class="option"
           v-for="choice in group.choices"
           :key="choice.name"
           v-model="choice.selected"
           :disabled="checkboxIsDisabled(choice)"
           type="is-text"
         >
-          <div
-            class="image-container"
-            v-bind:class="{ selected: choice.selected }"
-          >
-            <img :src="getImageUrl(choice)" />
+          <div class="option-container">
             <div
-              v-bind:class="{ overlay: true, selected: choice.selected }"
-            ></div>
+              class="image-container"
+              v-bind:class="{ selected: choice.selected }"
+            >
+              <img
+                :src="getImageUrl(choice)"
+                width="625"
+                height="625"
+                loading="lazy"
+              />
+              <div
+                v-bind:class="{ overlay: true, selected: choice.selected }"
+              ></div>
+            </div>
+            <span class="choice-name body-text"
+              >{{ getChoiceName(choice) }}
+            </span>
+            <span class="body-text">{{ getChoicePrice(choice) }}</span>
           </div>
-          <span class="is-size-7 choice-name">{{ getChoiceName(choice) }}</span>
         </b-checkbox-button>
       </div>
-
-      <div class="has-text-centered buttons">
-        <b-button
-          type="is-success"
-          @click.prevent="$emit('next')"
-          v-if="active !== 'extras'"
-        >
-          Next
-        </b-button>
-      </div>
+    </b-field>
+    <div class="has-text-centered buttons">
+      <b-button
+        type="is-success"
+        @click.prevent="$emit('next')"
+        v-if="active !== 'extras'"
+      >
+        NEXT
+      </b-button>
     </div>
-  </b-field>
+  </div>
 </template>
 
 <script>
@@ -57,9 +62,9 @@ export default {
           : this.group.max;
 
       if (max < 2) {
-        return "(choose one)";
+        return "choose one";
       }
-      return max === Infinity ? "(unlimited)" : " (Choose up to  " + max + ")";
+      return max === Infinity ? "unlimited" : " Choose up to  " + max + "";
     },
     countSelectedOptions() {
       return this.group.choices.filter((choice) => choice.selected).length;
@@ -78,10 +83,14 @@ export default {
     },
     getChoiceName(choice) {
       let choiceName = choice.name;
-      if (choice.price > 0) {
-        choiceName += " (+" + choice.price / 100 + ")";
-      }
       return choiceName.toLowerCase();
+    },
+    getChoicePrice(choice) {
+      if (choice.price > 0) {
+        return " (+" + choice.price / 100 + ")";
+      } else {
+        return "";
+      }
     },
     updateOption() {
       return 1;
@@ -117,36 +126,39 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.options-checkbox-group-container {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
-
 .checkbox-container {
   width: 100%;
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-bottom: 200px;
+}
+
+.option-container {
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 100px;
-}
-
-.option {
-  flex-basis: calc(100% / 4);
-  min-width: 150px;
-}
-
-.option-title {
-  font-weight: 700;
-  margin-bottom: 20px;
+  flex-wrap: wrap;
+  overflow: hidden;
+  margin-bottom: -35px;
+  /* flex-basis: calc(100% / 2);
+  min-width: 150px; */
 }
 
 .choice-name {
-  letter-spacing: 0.05rem;
+  margin-bottom: -10px;
+}
+
+.body-text {
+  font-size: 13px !important;
 }
 
 .buttons {
@@ -161,20 +173,18 @@ export default {
 }
 
 img {
-  display: block;
-  /* max-width: 100%; */
-  width: auto;
+  width: 100%;
   height: auto;
-  /* box-shadow: 0 0 1px 2px black; */
+  background-color: rgb(220, 220, 220);
   border-radius: 15px;
 }
 .image-container {
   position: relative;
-  width: 100%;
   border-radius: 15px;
+  width: 120px;
+  height: 120px;
 }
 .overlay {
-  flex-basis: calc(100% / 4);
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
@@ -196,40 +206,15 @@ img {
   text-align: center;
 }
 
-@media screen and (max-width: 900px) and (min-width: 600px) {
-  .option {
-    flex-basis: 33%;
-  }
-
-  .overlay {
-    flex-basis: 33%;
-    background: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    border-radius: 15px;
-    background-image: url("~@/assets/check.png");
-    background-size: 80%;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-}
-
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 480px) {
   .checkbox-container {
     width: 100%;
-    display: flex;
-    justify-content: flex-start;
-  }
-  .option {
-    flex-basis: calc(100% / 2);
-    min-width: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   .overlay {
-    background: rgba(0, 0, 0, 0.5);
+    /* background: rgba(0, 0, 0, 0.5);
     position: absolute;
     top: 0;
     right: 0;
@@ -239,7 +224,7 @@ img {
     background-image: url("~@/assets/check.png");
     background-size: 80%;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center; */
   }
 }
 </style>

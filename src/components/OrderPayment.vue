@@ -26,6 +26,23 @@
         </div>
       </b-message>
       <div id="form-container">
+        <div v-if="hasReward" class="box">
+          <div v-if="!rewardRedeemed" class="loyalty">
+            <span class="card-title">YOU HAVE A REWARD!</span>
+            <span class="card-subtitle">{{ rewardName.toUpperCase() }}</span>
+            <b-button
+              class="redeem body-text"
+              @click.native="createLoyaltyReward"
+              >REDEEM LOYALTY REWARD</b-button
+            >
+          </div>
+          <div v-if="rewardRedeemed" class="loyalty">
+            <span class="body-text"
+              >Order discounted {{ rewardDiscount | currency }}</span
+            >
+          </div>
+        </div>
+
         <div id="sq-card-number"></div>
         <div class="third" id="sq-expiration-date"></div>
         <div class="third" id="sq-cvv"></div>
@@ -35,7 +52,7 @@
           class="button-credit-card"
           @click.prevent="processPayment"
         >
-          Pay with card {{ priceDollars | currency }}
+          Pay with card {{ ((orderTotal + tip) / 100) | currency }}
         </button>
         <button id="sq-apple-pay"></button>
       </div>
@@ -57,7 +74,15 @@ const { mapFields } = createHelpers({
 export default {
   computed: {
     ...mapGetters(["total", "itemSubtotal", "tax", "taxRate", "items", "tip"]),
-    ...mapFields(["name", "location", "time", "email", "curbside"]),
+    ...mapFields([
+      "name",
+      "location",
+      "time",
+      "email",
+      "phone",
+      "curbside",
+      "orderId",
+    ]),
     priceDollars() {
       return this.total / 100;
     },
@@ -71,18 +96,33 @@ export default {
       paymentErrors: [],
       orderErrors: [],
       submitDisabled: false,
-      orderId: null,
+      // orderId: null,
       orderTotal: null,
+      hasReward: false,
+      rewardName: null,
+      rewardRedeemed: false,
+      loadingComponent: null,
     };
   },
   async mounted() {
+    this.loadingComponent = this.$buefy.loading.open();
+    // create order
     const order = await this.createOrder();
-
     if (!order.data.success) {
       this.orderErrors.push({ message: order.data.message });
     } else {
       this.orderId = order.data.orderId;
       this.orderTotal = order.data.orderTotal;
+
+      // handle loyalty reward lookup
+      const rewards = await this.getRewards();
+      if (rewards.data.success && rewards.data.hasReward) {
+        // add button
+        this.hasReward = true;
+        this.rewardName = rewards.data.name;
+      }
+
+      // payment
       // eslint-disable-next-line no-undef
       this.paymentForm = new SqPaymentForm({
         // Initialize the payment form elements
@@ -122,6 +162,9 @@ export default {
         },
         // SqPaymentForm callback functions
         callbacks: {
+          paymentFormLoaded: () => {
+            this.loadingComponent.close();
+          },
           /*
            * callback function: cardNonceResponseReceived
            * Triggered when: SqPaymentForm completes a card nonce request
@@ -141,9 +184,12 @@ export default {
             });
             // change this to hit /create-payment
             let response = await orderService.post("/create-payment", {
+              phoneNumber: "+1" + this.phone,
+              locationId: this.location.id,
               sourceId: nonce,
               orderId: this.orderId,
               amount: this.orderTotal,
+              tip: this.tip,
             });
             loadingComponent.close();
 
@@ -155,6 +201,7 @@ export default {
                   value: this.total.toFixed(2),
                   tax: this.tax.toFixed(2),
                 });
+
                 this.$emit("update", "summary");
               } else {
                 this.submitDisabled = false;
@@ -205,11 +252,30 @@ export default {
         name: this.name,
         email: this.email,
         curbside: this.curbside,
-        tip: this.tip,
+        // tip: this.tip,
         taxRate: this.taxRate,
         time: this.time,
       });
       return result;
+    },
+    async getRewards() {
+      const result = await orderService.post("/get-loyalty-account", {
+        phoneNumber: "+1" + this.phone,
+      });
+      return result;
+    },
+    async createLoyaltyReward() {
+      const loadingComponent = this.$buefy.loading.open();
+      const result = await orderService.post("/create-loyalty-reward", {
+        phoneNumber: "+1" + this.phone,
+        orderId: this.orderId,
+      });
+      loadingComponent.close();
+      if (result.data.success) {
+        this.orderTotal = result.data.updatedOrderTotal;
+        this.rewardRedeemed = true;
+        this.rewardDiscount = result.data.discount / 100;
+      }
     },
     processPayment() {
       this.paymentErrors = [];
@@ -226,6 +292,7 @@ export default {
 #form-container {
   position: relative;
   width: 380px;
+  height: 100vh;
   margin: 0 auto;
 }
 
@@ -312,5 +379,13 @@ export default {
   border-radius: 4px;
   cursor: pointer;
   display: none;
+}
+
+.loyalty {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>
