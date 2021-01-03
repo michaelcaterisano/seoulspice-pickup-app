@@ -28,6 +28,9 @@
           Email:
           {{ email }}
           <br />
+          Phone:
+          {{ formattedPhoneNumber }}
+          <br />
           Location:
           {{ location.description }} ({{ location.address }})
           <br />
@@ -83,6 +86,7 @@
 import { createHelpers } from "vuex-map-fields";
 import { orderService } from "../config/api.service";
 import { EMPTY_CART } from "../store/mutations.type";
+import PhoneNumber from "awesome-phonenumber";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
@@ -91,11 +95,23 @@ const { mapFields } = createHelpers({
 export default {
   computed: {
     // ...mapGetters(["items"]),
-    ...mapFields(["name", "location", "time", "email", "curbside", "orderId"]),
+    ...mapFields([
+      "name",
+      "location",
+      "time",
+      "email",
+      "phone",
+      "curbside",
+      "orderId",
+    ]),
     shortTime() {
       return this.time.toLocaleTimeString("en-US", {
         timeStyle: "short",
       });
+    },
+    formattedPhoneNumber() {
+      const formattedPhoneNumber = new PhoneNumber(this.phone, "US");
+      return formattedPhoneNumber.getNumber("national");
     },
   },
   beforeMount() {
