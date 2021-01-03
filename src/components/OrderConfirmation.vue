@@ -3,14 +3,16 @@
     <div class="page-title">
       <span> {{ title }} </span>
     </div>
-    <OrderTotals v-if="items.length" type="sidebar" />
-    <CartItem
-      v-for="(item, index) in items"
-      :key="index"
-      :items="items"
-      :item="item"
-      :index="index"
-    />
+    <div class="cart-item-card">
+      <OrderTotals v-if="items.length" type="sidebar" />
+      <CartItem
+        v-for="(item, index) in items"
+        :key="index"
+        :items="items"
+        :item="item"
+        :index="index"
+      />
+    </div>
 
     <div v-if="items.length && showButtons" class="has-text-centered buttons">
       <b-button class="is-warning" @click.prevent="editOrder('entree')">
@@ -69,6 +71,12 @@ export default {
   width: 95%;
   max-width: 400px !important;
   margin-top: 12px;
+}
+
+.cart-item-card {
+  margin: 0 12px 24px 12px;
+  flex-basis: calc(100% / 2 - 24px);
+  cursor: pointer;
 }
 .buttons {
   display: flex;
