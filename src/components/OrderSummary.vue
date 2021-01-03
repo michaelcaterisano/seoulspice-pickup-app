@@ -43,19 +43,17 @@
             {{ item.qty }} {{ item.signature }} {{ item.name }} -
             {{ ((item.price * item.qty) / 100) | currency }}
           </span>
-          <ul v-if="item.type === 'entree'" class="options is-size-7">
-            <li
+          <div v-if="item.type === 'entree'" class="item-list">
+            <p
               v-for="(option, index) in item.options"
               v-html="printOptions(option)"
               :key="index"
-            ></li>
-            <li v-for="note in item.notes" :key="note">
-              Order Note: {{ note }}
-            </li>
-          </ul>
+            ></p>
+            <p v-for="note in item.notes" :key="note">Order Note: {{ note }}</p>
+          </div>
         </div>
       </div>
-      <div class="box is-size-7">
+      <div class="box">
         <p>
           <strong>Discount:</strong>
           {{ -(discount / 100) | currency }}
@@ -164,8 +162,10 @@ export default {
 h3 {
   margin-top: 20px;
 }
-.options {
-  margin-top: 0px !important;
+
+.item-list {
+  font-size: 12px;
+  margin-left: 12px;
 }
 
 .box {
