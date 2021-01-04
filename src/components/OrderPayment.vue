@@ -66,6 +66,7 @@
 import { mapGetters } from "vuex";
 import { orderService } from "../config/api.service";
 import { createHelpers } from "vuex-map-fields";
+import PhoneNumber from "awesome-phonenumber";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
@@ -184,7 +185,7 @@ export default {
             });
             // change this to hit /create-payment
             let response = await orderService.post("/create-payment", {
-              phoneNumber: "+1" + this.phone,
+              phoneNumber: this.getFormattedPhoneNumber(),
               locationId: this.location.id,
               sourceId: nonce,
               orderId: this.orderId,
@@ -245,6 +246,9 @@ export default {
     this.paymentForm.build();
   },
   methods: {
+    getFormattedPhoneNumber() {
+      return new PhoneNumber(this.phone, "US").getNumber();
+    },
     async createOrder() {
       const result = await orderService.post("/create-order", {
         items: this.items,
@@ -260,14 +264,14 @@ export default {
     },
     async getRewards() {
       const result = await orderService.post("/get-loyalty-account", {
-        phoneNumber: "+1" + this.phone,
+        phoneNumber: this.getFormattedPhoneNumber(),
       });
       return result;
     },
     async createLoyaltyReward() {
       const loadingComponent = this.$buefy.loading.open();
       const result = await orderService.post("/create-loyalty-reward", {
-        phoneNumber: "+1" + this.phone,
+        phoneNumber: this.getFormattedPhoneNumber(),
         orderId: this.orderId,
       });
       loadingComponent.close();
