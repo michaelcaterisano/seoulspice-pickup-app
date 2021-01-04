@@ -136,6 +136,7 @@ export default {
   display: grid;
   grid-template-rows: auto 1fr auto;
   justify-content: center;
+  border: 5px solid red;
 }
 .checkbox-container {
   width: 100%;
