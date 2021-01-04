@@ -14,7 +14,7 @@
       />
     </div>
 
-    <div v-if="items.length && showButtons" class="has-text-centered buttons">
+    <div v-if="items.length" class="has-text-centered buttons">
       <b-button class="is-warning" @click.prevent="editOrder('entree')">
         <span class="is-size-7">ADD ENTREE</span>
       </b-button>
@@ -46,9 +46,9 @@ export default {
     title() {
       return this.type === "page" ? "ORDER CONFIRMATION" : "";
     },
-    showButtons() {
-      return this.type !== "sidebar";
-    },
+    // showButtons() {
+    //   return this.type !== "sidebar";
+    // },
   },
   name: "OrderConfirmation",
   methods: {
