@@ -41,13 +41,10 @@ export default {
   align-items: center;
 }
 .card-container {
-  width: 600px;
-
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-bottom: 100px;
 }
 
 .component-title {
@@ -69,9 +66,9 @@ export default {
 } */
 
 @media screen and (max-width: 480px) {
-  .card-container {
+  /* .card-container {
     width: 75%;
-  }
+  } */
   .component-card {
     flex-basis: 100%;
   }

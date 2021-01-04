@@ -1,10 +1,10 @@
 <template>
-  <div class="options-checkbox-group-container">
+  <div class="component-container">
     <div class="page-title">
-      <span>{{ group.label.toUpperCase() }} </span><br />
+      <span>{{ group.label.toUpperCase() }} </span>
       <span class="card-title">{{ quantityText.toUpperCase() }}</span>
     </div>
-    <b-field class="label-text" :addons="false">
+    <div class="options-and-button">
       <div class="checkbox-container">
         <b-checkbox-button
           v-for="choice in group.choices"
@@ -35,9 +35,8 @@
           </div>
         </b-checkbox-button>
       </div>
-    </b-field>
-    <div class="has-text-centered buttons">
       <b-button
+        class="next-button"
         type="is-success"
         @click.prevent="$emit('next')"
         v-if="active !== 'extras'"
@@ -133,18 +132,21 @@ export default {
 </script>
 
 <style scoped>
-.options-checkbox-group-container {
+.component-container {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+.options-and-button {
+  text-align: center;
+  max-width: 600px;
+}
 .checkbox-container {
   width: 100%;
-  max-width: 600px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  /* margin-bottom: 200px; */
+  margin-bottom: 40px;
 }
 
 .option-container {
@@ -160,23 +162,16 @@ export default {
   min-width: 150px; */
 }
 
+.next-button {
+  margin-bottom: 30px;
+}
+
 .choice-name {
   margin-bottom: -10px;
 }
 
 .body-text {
   font-size: 13px !important;
-}
-
-.buttons {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 20px;
-  box-shadow: 0 0 1px 0;
-  background: white;
-  position: fixed;
-  bottom: 0;
 }
 
 img {

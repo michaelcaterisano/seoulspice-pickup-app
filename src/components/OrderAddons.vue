@@ -2,23 +2,23 @@
   <section>
     <div class="component-container">
       <!-- <transition-group name="fade"> -->
-      <AddonsOptions
-        :key="drinkOptions.type"
-        :group="drinkOptions"
-        v-if="active === 'drinks'"
-      />
+      <div class="addons-container">
+        <AddonsOptions
+          :key="drinkOptions.type"
+          :group="drinkOptions"
+          v-if="active === 'drinks'"
+        />
 
-      <AddonsOptions
-        :key="dessertOptions.type"
-        :group="dessertOptions"
-        v-if="active === 'desserts'"
-      />
-      <!-- </transition-group> -->
-      <div class="has-text-centered buttons">
-        <b-button class="is-success" @click.prevent="addItems()">
-          <span>{{ buttonText }}</span>
-        </b-button>
+        <AddonsOptions
+          :key="dessertOptions.type"
+          :group="dessertOptions"
+          v-if="active === 'desserts'"
+        />
+        <!-- </transition-group> -->
       </div>
+      <b-button class="next-button is-success" @click.prevent="addItems()">
+        <span>{{ buttonText }}</span>
+      </b-button>
     </div>
   </section>
 </template>
@@ -79,20 +79,25 @@ export default {
 
 <style scoped>
 .component-container {
-  width: 100%;
-}
-.buttons {
   display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 20px;
-  box-shadow: 0 0 1px 0;
-  background: white;
-  position: fixed;
-  bottom: 0;
+  flex-direction: column;
+  align-items: center;
+}
+
+.addons-container {
+  max-width: 600px;
+}
+.next-button {
+  margin-bottom: 30px;
 }
 
 .buttons {
   margin-top: 1em;
+}
+
+@media screen and (max-width: 480px) {
+  .addons-container {
+    width: 75%;
+  }
 }
 </style>
