@@ -143,10 +143,15 @@ $navbar-breakpoint: 0;
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
 
-html,
+html {
+  height: -webkit-fill-available;
+}
+
 body {
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
   font-family: "Source Sans Pro", sans-serif;
-  // letter-spacing: 0.1rem;
 }
 
 #app {
