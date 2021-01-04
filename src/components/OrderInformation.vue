@@ -87,11 +87,7 @@
             ></b-input>
           </b-field>
           <b-field>
-            <b-checkbox
-              class="curbside-checkbox"
-              type="is-warning"
-              v-model="curbside"
-            >
+            <b-checkbox type="is-warning" v-model="curbside">
               Curbside pickup
             </b-checkbox>
           </b-field>
@@ -226,9 +222,6 @@ export default {
 .columns {
   padding: 10px;
 }
-.b-checkbox {
-  margin-top: 1em;
-}
 .text-field {
   border: 1px solid black;
   border-radius: 2px;
@@ -252,6 +245,8 @@ export default {
   background: transparent !important;
   outline: none;
   color: black;
+  margin: 0px !important;
+  padding: 10px 0 10px 0;
 }
 
 @media screen and (max-width: 480px) {
