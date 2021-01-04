@@ -188,6 +188,9 @@ export default {
             });
           }
           this.$emit("update", "payment"); // emits event to change active component
+        } else {
+          this.formError();
+          // window.scrollTo(0, 0);
         }
       });
     },
@@ -200,6 +203,15 @@ export default {
     },
     setCustomTip(e) {
       this.tip = money(e.target.value).multiply(100).value;
+    },
+    formError() {
+      console.log("form error");
+      this.$buefy.toast.open({
+        duration: 1000,
+        message: `Please correct the form errors`,
+        position: "is-top",
+        type: "is-danger",
+      });
     },
   },
   name: "OrderInformation",
