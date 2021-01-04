@@ -69,6 +69,13 @@ export default {
     countSelectedOptions() {
       return this.group.choices.filter((choice) => choice.selected).length;
     },
+    showPrice() {
+      return (
+        this.category.name !== "Korean Feast For 2" &&
+        this.category.name !== "Korean Feast For 4" &&
+        this.category.name !== "Kid's Bowl"
+      );
+    },
   },
   methods: {
     checkboxIsDisabled(item) {
@@ -86,7 +93,7 @@ export default {
       return choiceName.toLowerCase();
     },
     getChoicePrice(choice) {
-      if (choice.price > 0) {
+      if (this.showPrice && choice.price > 0) {
         return " (+" + choice.price / 100 + ")";
       } else {
         return "";
