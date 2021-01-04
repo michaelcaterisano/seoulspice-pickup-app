@@ -128,19 +128,14 @@ export default {
         }
       }
       if (this.isKidsBowl()) {
-        if (this.isSignature()) {
-          steps = ["bases", "extras"];
-        }
-        if (this.isBuildYourOwn()) {
-          steps = [
-            "bases",
-            "proteins",
-            "veggies",
-            "sauces",
-            "toppings",
-            "extras",
-          ];
-        }
+        steps = [
+          "bases",
+          "proteins",
+          "veggies",
+          "sauces",
+          "toppings",
+          "extras",
+        ];
       }
 
       return steps;

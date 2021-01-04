@@ -85,6 +85,9 @@ export default {
       return price;
     },
   },
+  mounted() {
+    this.clearEntree();
+  },
   methods: {
     addToCart() {
       let options = this.menuData.options

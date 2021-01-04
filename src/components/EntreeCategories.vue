@@ -27,7 +27,8 @@ export default {
     setActive(category) {
       let message =
         category.name === "Korean Feast For 2" ||
-        category.name === "Korean Feast For 4"
+        category.name === "Korean Feast For 4" ||
+        category.name === "Kid's Bowl"
           ? "entree-options"
           : "entree-signatures";
 
