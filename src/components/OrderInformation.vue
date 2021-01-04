@@ -86,7 +86,7 @@
               @change.native="setCustomTip"
             ></b-input>
           </b-field>
-          <b-field>
+          <!-- <b-field>
             <b-checkbox
               class="curbside-checkbox"
               type="is-warning"
@@ -94,7 +94,7 @@
             >
               Curbside pickup
             </b-checkbox>
-          </b-field>
+          </b-field> -->
           <div class="has-text-centered buttons">
             <b-button class="button is-success" @click.prevent="pay">
               <span>FINISH AND PAY</span>
