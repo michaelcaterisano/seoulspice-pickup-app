@@ -15,10 +15,10 @@
           v-if="active === 'desserts'"
         />
         <!-- </transition-group> -->
-        <b-button class="next-button is-success" @click.prevent="addItems()">
-          <span>{{ buttonText }}</span>
-        </b-button>
       </div>
+      <b-button class="next-button is-success" @click.prevent="addItems()">
+        <span>{{ buttonText }}</span>
+      </b-button>
     </div>
   </section>
 </template>
@@ -88,7 +88,6 @@ export default {
   max-width: 600px;
 }
 .next-button {
-  width: 100%;
   margin-bottom: 30px;
 }
 
@@ -99,10 +98,6 @@ export default {
 @media screen and (max-width: 480px) {
   .addons-container {
     width: 75%;
-  }
-  .next-button {
-    width: calc(100% - 24px);
-    margin: 0 12px 24px 12px;
   }
 }
 </style>

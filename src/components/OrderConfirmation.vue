@@ -84,6 +84,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin-bottom: 24px !important;
+  padding: 0 12px;
 }
 .button {
   width: 100%;

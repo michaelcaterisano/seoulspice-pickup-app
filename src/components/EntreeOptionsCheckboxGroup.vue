@@ -163,7 +163,6 @@ export default {
 }
 
 .next-button {
-  width: calc(100% - 40px);
   margin-bottom: 30px;
 }
 
@@ -173,17 +172,6 @@ export default {
 
 .body-text {
   font-size: 13px !important;
-}
-
-.buttons {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 20px;
-  box-shadow: 0 0 1px 0;
-  background: white;
-  position: fixed;
-  bottom: 0;
 }
 
 img {

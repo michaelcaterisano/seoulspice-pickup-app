@@ -9,15 +9,15 @@
         :key="index"
         tabindex="0"
       ></OptionCounterCard>
-      <b-button
-        class="next-button"
-        type="is-success"
-        @click.prevent="$emit('add-item')"
-      >
-        <!-- <span>Add to Cart ({{ price | currency }})</span> -->
-        <span>NEXT</span>
-      </b-button>
     </div>
+    <b-button
+      class="next-button"
+      type="is-success"
+      @click.prevent="$emit('add-item')"
+    >
+      <!-- <span>Add to Cart ({{ price | currency }})</span> -->
+      <span>NEXT</span>
+    </b-button>
   </div>
 </template>
 
@@ -41,17 +41,14 @@ export default {
   align-items: center;
 }
 .card-container {
-  width: 100%;
   max-width: 600px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-bottom: 100px;
 }
 
 .next-button {
-  width: 100%;
   margin-bottom: 30px;
 }
 
