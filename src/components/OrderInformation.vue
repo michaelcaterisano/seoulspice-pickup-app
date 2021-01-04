@@ -3,6 +3,13 @@
     <div class="container">
       <div class="columns">
         <div class="column is-12">
+          <b-message
+            type="is-danger"
+            aria-close-label="Form Error"
+            v-if="formError"
+          >
+            Please correct the form errors.
+          </b-message>
           <b-field
             label="Enter Name for Pickup"
             :type="{ 'is-danger': errors.has('name') }"
@@ -167,6 +174,7 @@ export default {
     return {
       locations: locations,
       tipDollars: "",
+      formError: false,
       masks: {
         numeral: {
           numeral: true,
@@ -188,6 +196,9 @@ export default {
             });
           }
           this.$emit("update", "payment"); // emits event to change active component
+        } else {
+          this.formError = true;
+          window.scrollTo(0, 0);
         }
       });
     },
