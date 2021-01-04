@@ -33,6 +33,7 @@ export default {
     },
     showCart() {
       return (
+        this.active !== "confirmation" &&
         this.active !== "order-info" &&
         this.active !== "payment" &&
         this.active !== "summary"

@@ -10,7 +10,9 @@
         </b-button>
       </div>
       <div class="card-title">
-        <span>{{ item.signature }} {{ item.name }}</span
+        <span
+          >{{ item.name.toUpperCase() }}
+          {{ signatureText.toUpperCase() }} </span
         ><br />
         <!-- <span>{{ price | currency }}</span> -->
       </div>
@@ -55,6 +57,11 @@ export default {
     ...mapGetters(["countEntrees"]),
     price() {
       return (this.item.price / 100) * this.item.qty;
+    },
+    signatureText() {
+      return !this.item.signature || this.item.signature === "Build Your Own"
+        ? ""
+        : "- " + this.item.signature;
     },
   },
   methods: {
