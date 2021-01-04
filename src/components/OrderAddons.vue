@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     buttonText() {
-      return this.active === "drinks" ? "NEXT" : "CONFIRM ORDER";
+      return "NEXT";
     },
   },
   methods: {
