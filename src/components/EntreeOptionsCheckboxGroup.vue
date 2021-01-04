@@ -1,41 +1,42 @@
 <template>
-  <div class="options-checkbox-group-container">
+  <div class="component-container">
     <div class="page-title">
       <span>{{ group.label.toUpperCase() }} </span>
       <span class="card-title">{{ quantityText.toUpperCase() }}</span>
     </div>
-    <div class="checkbox-container">
-      <b-checkbox-button
-        v-for="choice in group.choices"
-        :key="choice.name"
-        v-model="choice.selected"
-        :disabled="checkboxIsDisabled(choice)"
-        type="is-text"
-      >
-        <div class="option-container">
-          <div
-            class="image-container"
-            v-bind:class="{ selected: choice.selected }"
-          >
-            <img
-              :src="getImageUrl(choice)"
-              width="625"
-              height="625"
-              loading="lazy"
-            />
+    <div class="options-and-button">
+      <div class="checkbox-container">
+        <b-checkbox-button
+          v-for="choice in group.choices"
+          :key="choice.name"
+          v-model="choice.selected"
+          :disabled="checkboxIsDisabled(choice)"
+          type="is-text"
+        >
+          <div class="option-container">
             <div
-              v-bind:class="{ overlay: true, selected: choice.selected }"
-            ></div>
+              class="image-container"
+              v-bind:class="{ selected: choice.selected }"
+            >
+              <img
+                :src="getImageUrl(choice)"
+                width="625"
+                height="625"
+                loading="lazy"
+              />
+              <div
+                v-bind:class="{ overlay: true, selected: choice.selected }"
+              ></div>
+            </div>
+            <span class="choice-name body-text"
+              >{{ getChoiceName(choice) }}
+            </span>
+            <span class="body-text">{{ getChoicePrice(choice) }}</span>
           </div>
-          <span class="choice-name body-text"
-            >{{ getChoiceName(choice) }}
-          </span>
-          <span class="body-text">{{ getChoicePrice(choice) }}</span>
-        </div>
-      </b-checkbox-button>
-    </div>
-    <div class="has-text-centered buttons">
+        </b-checkbox-button>
+      </div>
       <b-button
+        class="next-button"
         type="is-success"
         @click.prevent="$emit('next')"
         v-if="active !== 'extras'"
@@ -131,19 +132,21 @@ export default {
 </script>
 
 <style scoped>
-.options-checkbox-group-container {
-  min-height: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  justify-content: center;
-  border: 5px solid red;
+.component-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.options-and-button {
+  text-align: center;
+  max-width: 600px;
 }
 .checkbox-container {
   width: 100%;
-  max-width: 600px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  margin-bottom: 200px;
+  margin-bottom: 40px;
 }
 
 .option-container {
@@ -157,6 +160,11 @@ export default {
   margin-bottom: -35px;
   /* flex-basis: calc(100% / 2);
   min-width: 150px; */
+}
+
+.next-button {
+  width: calc(100% - 40px);
+  margin-bottom: 30px;
 }
 
 .choice-name {

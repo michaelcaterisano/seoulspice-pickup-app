@@ -9,11 +9,9 @@
         :key="index"
         tabindex="0"
       ></OptionCounterCard>
-    </div>
-    <div class="buttons">
       <b-button
+        class="next-button"
         type="is-success"
-        class="add-to-cart-button"
         @click.prevent="$emit('add-item')"
       >
         <!-- <span>Add to Cart ({{ price | currency }})</span> -->
@@ -50,6 +48,11 @@ export default {
   flex-wrap: wrap;
   justify-content: flex-start;
   margin-bottom: 100px;
+}
+
+.next-button {
+  width: 100%;
+  margin-bottom: 30px;
 }
 
 .extras-card {
