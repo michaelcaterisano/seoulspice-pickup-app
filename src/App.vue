@@ -165,7 +165,7 @@ body {
 /* GLOBAL TYPOGRAPHY */
 .page-title {
   font-family: "Rubik", sans-serif;
-  width: 90%;
+  width: 100%;
   max-width: 500px;
   font-size: 27px;
   margin-bottom: 12px;

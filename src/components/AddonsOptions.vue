@@ -41,7 +41,7 @@ export default {
   align-items: center;
 }
 .card-container {
-  width: 600px;
+  max-width: 600px;
 
   display: flex;
   flex-direction: row;
