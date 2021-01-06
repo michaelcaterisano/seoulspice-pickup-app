@@ -110,7 +110,8 @@ export default {
     // create order
     const order = await this.createOrder();
     if (!order.data.success) {
-      this.orderErrors.push({ message: order.data.message });
+      this.orderErrors.push({ error: order.data.error });
+      this.loadingComponent.close();
     } else {
       this.orderId = order.data.orderId;
       this.orderTotal = order.data.orderTotal;

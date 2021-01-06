@@ -5,18 +5,18 @@
         <span class="page-title location-title">CHOOSE YOUR LOCATION</span>
         <order-location-card
           class="location-card"
-          v-for="(loc, index) in locations"
+          v-for="(locationInfo, index) in locations"
           :key="index"
-          :location="loc"
+          :location="locationInfo"
           @click.native="
             () => {
-              location = loc;
+              location = locationInfo;
               clicked();
             }
           "
           @keyup.enter.native="
             () => {
-              location = loc;
+              location = locationInfo;
               clicked();
             }
           "
@@ -28,7 +28,8 @@
 
 <script>
 import OrderLocationCard from "./OrderLocationCard";
-import locations from "../config/locations";
+import { orderService } from "../config/api.service";
+
 import { createHelpers } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
@@ -46,10 +47,37 @@ export default {
 
   data() {
     return {
-      locations: locations,
+      locations: null,
     };
   },
-  mounted() {
+  async mounted() {
+    // have to add info to location in dev because square sandbox has limited info here
+    if (process.env.NODE_ENV === "development") {
+      const result = await orderService.get("/locations");
+      const locationData = result.data.reduce((acc, curr) => {
+        const {
+          address: { addressLine1 },
+          id,
+          name,
+        } = curr;
+        acc.push({
+          address: addressLine1,
+          id,
+          name,
+          phone: "2125551111",
+          taxRate: 10,
+        });
+        return acc;
+      }, []);
+      console.log(locationData);
+      this.locations = locationData;
+      // get location from square production
+    } else {
+      // const result = await orderService.get("/locations");
+      // const locationData = result.data.reduce((acc, curr) => {
+      //   const { address, id, name}
+      // }, [])
+    }
     window.scrollTo(0, 0);
     // resets tab focus to top of page
     document.body.setAttribute("tabindex", "-1");

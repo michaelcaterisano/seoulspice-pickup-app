@@ -8,7 +8,7 @@
     <div class="card-content columns is-mobile">
       <div class="column is-two-thirds is-size-7">
         <span class="card-title location-description">{{
-          location.description.toUpperCase()
+          location.name.toUpperCase()
         }}</span>
 
         <div class="card-description location-details">
