@@ -201,7 +201,6 @@ export default {
       this.tip = money(e.target.value).multiply(100).value;
     },
     formError() {
-      console.log("form error");
       this.$buefy.toast.open({
         duration: 1000,
         message: `Please correct the form errors`,

@@ -69,14 +69,26 @@ export default {
         });
         return acc;
       }, []);
-      console.log(locationData);
       this.locations = locationData;
       // get location from square production
     } else {
-      // const result = await orderService.get("/locations");
-      // const locationData = result.data.reduce((acc, curr) => {
-      //   const { address, id, name}
-      // }, [])
+      const result = await orderService.get("/locations");
+      const locationData = result.data.reduce((acc, curr) => {
+        const {
+          address: { addressLine1 },
+          id,
+          name,
+        } = curr;
+        acc.push({
+          address: addressLine1,
+          id,
+          name,
+          phone: "2125551111",
+          taxRate: 10,
+        });
+        return acc;
+      }, []);
+      this.locations = locationData;
     }
     window.scrollTo(0, 0);
     // resets tab focus to top of page
@@ -114,6 +126,7 @@ export default {
   margin-bottom: 30px;
   cursor: pointer;
   width: 100%;
+  max-width: 300px;
 }
 
 /* @media screen and (max-width: 480px) {
