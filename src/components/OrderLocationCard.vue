@@ -38,13 +38,13 @@ export default {
     locationImageUrl() {
       let url;
       switch (this.location.name.toLowerCase()) {
-        case "seoulspice noma":
+        case "dc noma":
           url = require("../assets/images/locations/noma.jpg");
           break;
-        case "seoulspice tenley":
+        case "dc tenleytown":
           url = require("../assets/images/locations/tenley.jpg");
           break;
-        case "seoulspice umd":
+        case "md college park":
           url = require("../assets/images/locations/umd.jpg");
           break;
         default:
