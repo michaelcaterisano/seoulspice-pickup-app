@@ -6,7 +6,7 @@
         title="Payment Error"
         v-if="paymentErrors.length"
       >
-        <p>Please correct the following errors:</p>
+        <p>We were unable to process your payment.</p>
         <div class="content">
           <ul>
             <li v-for="(error, index) in paymentErrors" :key="index">
@@ -207,7 +207,7 @@ export default {
                 this.$emit("update", "summary");
               } else {
                 this.submitDisabled = false;
-                this.paymentErrors.push({ message: response.data.message });
+                this.paymentErrors.push({ message: response.data.error });
               }
             }
           },

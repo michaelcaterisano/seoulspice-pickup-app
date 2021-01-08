@@ -59,12 +59,13 @@ export default {
           address: { addressLine1 },
           id,
           name,
+          phoneNumber,
         } = curr;
         acc.push({
           address: addressLine1,
           id,
           name,
-          phone: "2125551111",
+          phone: phoneNumber ? phoneNumber : "2125551111",
           taxRate: 10,
         });
         return acc;

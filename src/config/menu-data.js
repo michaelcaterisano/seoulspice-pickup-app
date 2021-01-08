@@ -127,7 +127,7 @@ const menuData = {
       type: "rices",
       label: "Choose your rice",
       max: 1,
-      cartLabel: "Rice",
+      cartLabel: "Bases",
       choices: [
         {
           name: "White Rice",
