@@ -97,7 +97,7 @@ $primary: #dd3333;
 $primary-invert: findColorInvert($primary);
 $warning: #f9d400;
 $warning-invert: findColorInvert($warning);
-$black: #0a0000;
+$black: #000000;
 $black-invert: findColorInvert($black);
 
 $colors: (
@@ -152,6 +152,7 @@ body {
   /* mobile viewport bug fix */
   min-height: -webkit-fill-available;
   font-family: "Source Sans Pro", sans-serif;
+  color: black;
 }
 
 #app {

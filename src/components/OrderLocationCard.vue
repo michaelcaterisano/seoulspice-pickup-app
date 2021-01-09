@@ -5,17 +5,15 @@
         <img :src="locationImageUrl" alt="Image of Seoulspice location" />
       </figure>
     </div>
-    <div class="card-content columns is-mobile">
-      <div class="column is-two-thirds is-size-7">
-        <span class="card-title location-description">{{
-          location.name.toUpperCase()
-        }}</span>
+    <div class="card-content">
+      <span class="card-title location-description">{{
+        location.name.toUpperCase()
+      }}</span>
 
-        <div class="card-description location-details">
-          <span>{{ location.address }}</span
-          ><br />
-          <span>{{ formattedPhoneNumber }}</span>
-        </div>
+      <div class="card-description location-details">
+        <span>{{ location.address }}</span
+        ><br />
+        <span>{{ formattedPhoneNumber }}</span>
       </div>
       <!-- <div class="column is-one-third" align="right">
         <figure class="image is-96x96">
@@ -66,6 +64,9 @@ export default {
 <style scoped>
 .card {
   border-radius: 5px;
+}
+.card-content {
+  flex-grow: 1;
 }
 .column {
   padding: 0px !important;
