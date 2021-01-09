@@ -122,6 +122,7 @@ export default {
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 24px;
   grid-row-gap: 24px;
+  margin-bottom: 24px;
 }
 
 .location-card {
