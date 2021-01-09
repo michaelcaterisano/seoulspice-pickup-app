@@ -7,7 +7,11 @@
     </template>
     <template slot="end" v-if="showCart">
       <b-navbar-item>
-        <b-button @click="openCart" icon-left="fas fa-shopping-cart">
+        <b-button
+          @click="openCart"
+          icon-left="fas fa-shopping-cart"
+          class="cart-icon"
+        >
           <!-- <span class="icon is-small">
                 <i class="fas fa-shopping-cart"></i>
               </span> -->
@@ -58,6 +62,9 @@ export default {
 }
 .navbar-item {
   background-color: transparent !important;
+}
+.cart-icon {
+  color: black;
 }
 .cart-count {
   background-color: red;

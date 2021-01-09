@@ -225,6 +225,7 @@ export default {
   border: 1px solid black;
   border-radius: 2px;
 }
+
 .buttons {
   display: flex;
   flex-direction: column;

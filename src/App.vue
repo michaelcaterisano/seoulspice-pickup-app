@@ -152,7 +152,7 @@ body {
   /* mobile viewport bug fix */
   min-height: -webkit-fill-available;
   font-family: "Source Sans Pro", sans-serif;
-  color: black;
+  color: red !important;
 }
 
 #app {
@@ -172,6 +172,7 @@ body {
   margin-bottom: 12px;
   text-align: center;
   letter-spacing: -0.025rem;
+  color: black;
 }
 
 .card-title {
@@ -182,6 +183,7 @@ body {
   line-height: 1rem;
   font-size: 20px;
   letter-spacing: -0.025rem;
+  color: black;
 }
 
 .card-subtitle {
@@ -191,6 +193,7 @@ body {
   font-weight: 700;
   font-size: 14px;
   margin-top: 5px;
+  color: black;
 }
 
 .card-description {
@@ -202,6 +205,7 @@ body {
   // line-height: 0.7rem;
   margin-top: 10px;
   margin-bottom: 10px;
+  color: black;
 }
 
 .card-price {
@@ -210,6 +214,7 @@ body {
   line-height: 0.7rem;
   font-weight: 700;
   font-size: 20px;
+  color: black;
 }
 
 .body-text {
@@ -221,6 +226,7 @@ body {
   // line-height: 0.7rem;
   margin-top: 10px;
   margin-bottom: 10px;
+  color: black;
 }
 
 /* END TYPOGRAPHY */
@@ -301,6 +307,27 @@ body {
   background: transparent !important;
 }
 
+// changing icons to black
+i {
+  color: black !important;
+}
+
+// changing text field label font color
+label {
+  color: black !important;
+}
+
+input.input {
+  color: black !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+// changing dialog font color
+.media-content {
+  color: black;
+}
+
 label.b-checkbox.checkbox.button {
   outline: none !important;
   border: none !important;
@@ -331,10 +358,6 @@ label.b-checkbox.checkbox.button {
 }
 div.b-numberinput.field.is-grouped {
   width: 100% !important;
-}
-input.input {
-  border: none !important;
-  box-shadow: none !important;
 }
 
 .control.is-clearfix {

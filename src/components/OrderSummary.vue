@@ -1,7 +1,7 @@
 <template>
   <section>
-    <div class="container body-text">
-      <div class="box">
+    <div class="container">
+      <div class="box body-text">
         <span>
           <strong>
             Thank you for choosing SEOULSPICE!
@@ -14,12 +14,12 @@
         </span>
         <p v-if="curbside" class="curbside">
           <em>
-            Please call {{ location.phone }} upon arriving at the restaurant and
-            we will bring your order out to you.
+            Please call {{ formattedPhoneNumber }} upon arriving at the
+            restaurant and we will bring your order out to you.
           </em>
         </p>
       </div>
-      <div class="box">
+      <div class="box body-text">
         <span><strong>Order Information</strong></span>
         <p>
           Name:
@@ -39,7 +39,7 @@
           <br />
         </p>
       </div>
-      <div class="box">
+      <div class="box body-text">
         <span><strong>Items Ordered</strong></span>
         <div class="items-ordered" v-for="(item, index) in items" :key="index">
           <span>
@@ -56,7 +56,7 @@
           </div>
         </div>
       </div>
-      <div class="box">
+      <div class="box body-text">
         <p>
           <strong>Discount:</strong>
           {{ -(discount / 100) | currency }}
