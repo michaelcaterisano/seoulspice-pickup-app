@@ -51,46 +51,26 @@ export default {
     };
   },
   async mounted() {
-    // have to add info to location in dev because square sandbox has limited info here
-    if (process.env.NODE_ENV === "development") {
-      const result = await orderService.get("/locations");
-      const locationData = result.data.reduce((acc, curr) => {
-        const {
-          address: { addressLine1 },
-          id,
-          name,
-          phoneNumber,
-        } = curr;
-        acc.push({
-          address: addressLine1,
-          id,
-          name,
-          phone: phoneNumber ? phoneNumber : "2125551111",
-          taxRate: 10,
-        });
-        return acc;
-      }, []);
-      this.locations = locationData;
-      // get location from square production
-    } else {
-      const result = await orderService.get("/locations");
-      const locationData = result.data.reduce((acc, curr) => {
-        const {
-          address: { addressLine1 },
-          id,
-          name,
-        } = curr;
-        acc.push({
-          address: addressLine1,
-          id,
-          name,
-          phone: "2125551111",
-          taxRate: 10,
-        });
-        return acc;
-      }, []);
-      this.locations = locationData;
-    }
+    // get location data
+    const result = await orderService.get("/locations");
+    const locationData = result.data.reduce((acc, curr) => {
+      const {
+        address: { addressLine1 },
+        id,
+        name,
+        phoneNumber,
+      } = curr;
+      acc.push({
+        address: addressLine1,
+        id,
+        name,
+        phone: phoneNumber ? phoneNumber : "2125551111",
+        taxRate: 10,
+      });
+      return acc;
+    }, []);
+    this.locations = locationData;
+    // }
     window.scrollTo(0, 0);
     // resets tab focus to top of page
     document.body.setAttribute("tabindex", "-1");
