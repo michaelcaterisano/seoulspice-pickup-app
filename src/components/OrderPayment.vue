@@ -7,7 +7,7 @@
         v-if="paymentErrors.length"
       >
         <p>We were unable to process your payment.</p>
-        <div class="content">
+        <div v-if="development" class="content">
           <ul>
             <li v-for="(error, index) in paymentErrors" :key="index">
               {{ error.message }}
