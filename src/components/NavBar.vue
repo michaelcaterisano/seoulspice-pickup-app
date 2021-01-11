@@ -4,6 +4,9 @@
       <b-navbar-item>
         <img src="../assets/logo.png" alt="seoulspice restaurant logo" />
       </b-navbar-item>
+      <b-navbar-item v-if="showNodeEnv">
+        <span>{{ nodeEnv }}</span>
+      </b-navbar-item>
     </template>
     <template slot="end" v-if="showCart">
       <b-navbar-item>
@@ -12,13 +15,19 @@
           icon-left="fas fa-shopping-cart"
           class="cart-icon"
         >
-          <!-- <span class="icon is-small">
-                <i class="fas fa-shopping-cart"></i>
-              </span> -->
           <span class="cart-count">{{ cartCount }}</span>
         </b-button>
       </b-navbar-item>
     </template>
+    <b-message
+      title="Default"
+      v-model="isActive"
+      aria-close-label="Close message"
+    >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id
+      fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien
+      laoreet elit
+    </b-message>
   </b-navbar>
 </template>
 
@@ -42,6 +51,12 @@ export default {
         this.active !== "payment" &&
         this.active !== "summary"
       );
+    },
+    showNodeEnv() {
+      return process.env.NODE_ENV !== "production";
+    },
+    nodeEnv() {
+      return process.env.NODE_ENV;
     },
   },
   methods: {

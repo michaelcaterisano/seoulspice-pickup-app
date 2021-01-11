@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- <OrderTotals></OrderTotals> -->
     <NavBar :active="active" />
     <CartSideBar
       :isOpen="cartIsOpen"
