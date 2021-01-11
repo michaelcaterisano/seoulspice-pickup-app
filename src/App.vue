@@ -152,7 +152,6 @@ body {
   /* mobile viewport bug fix */
   min-height: -webkit-fill-available;
   font-family: "Source Sans Pro", sans-serif;
-  color: red !important;
 }
 
 #app {
