@@ -21,15 +21,6 @@
         </b-button>
       </b-navbar-item>
     </template>
-    <b-message
-      title="Default"
-      v-model="isActive"
-      aria-close-label="Close message"
-    >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id
-      fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien
-      laoreet elit
-    </b-message>
   </b-navbar>
 </template>
 
