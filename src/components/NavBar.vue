@@ -2,10 +2,12 @@
   <b-navbar :mobile-burger="false" fixed-top shadow>
     <template slot="brand">
       <b-navbar-item>
-        <img src="../assets/logo.png" alt="seoulspice restaurant logo" />
-      </b-navbar-item>
-      <b-navbar-item v-if="showNodeEnv">
-        <span>{{ nodeEnv }}</span>
+        <div class="logo">
+          <img src="../assets/logo.png" alt="seoulspice restaurant logo" />
+          <span v-if="showNodeEnv" class="env-message">
+            NODE_ENV=DEVELOPMENT
+          </span>
+        </div>
       </b-navbar-item>
     </template>
     <template slot="end" v-if="showCart">
@@ -97,5 +99,13 @@ export default {
   top: 10px;
   color: white;
   font-size: 11px;
+}
+.logo {
+  display: flex;
+  flex-direction: column;
+}
+.env-message {
+  font-size: 10px;
+  color: red;
 }
 </style>
