@@ -49,17 +49,9 @@
 
 <script>
 export default {
-  components: {},
   computed: {
     quantityText() {
-      let max =
-        this.category.name === "Korean Feast For 2" ||
-        this.category.name === "Korean Feast For 4"
-          ? this.group.KFmax
-            ? this.group.KFmax
-            : this.group.max
-          : this.group.max;
-
+      let max = this.getOptionMax(this.category, this.group);
       if (max < 2) {
         return "choose one";
       }
@@ -78,13 +70,7 @@ export default {
   },
   methods: {
     checkboxIsDisabled(item) {
-      let max =
-        this.category.name === "Korean Feast For 2" ||
-        this.category.name === "Korean Feast For 4"
-          ? this.group.KFmax
-            ? this.group.KFmax
-            : this.group.max
-          : this.group.max;
+      let max = this.getOptionMax(this.category, this.group);
       return this.countSelectedOptions >= max && !item.selected;
     },
     getChoiceName(choice) {
@@ -98,11 +84,17 @@ export default {
         return "";
       }
     },
-    updateOption() {
-      return 1;
-    },
     getImageUrl(choice) {
       return choice.imageUrl;
+    },
+    getOptionMax(category, group) {
+      return category.name === "Korean Feast For 2" ||
+        category.name === "Korean Feast For 4" ||
+        category.name === "Kid's Bowl"
+        ? group.KFmax
+          ? group.KFmax
+          : group.max
+        : group.max;
     },
   },
   name: "EntreeOptionsCheckboxGroup",
@@ -158,8 +150,6 @@ export default {
   flex-wrap: wrap;
   overflow: hidden;
   margin-bottom: -35px;
-  /* flex-basis: calc(100% / 2);
-  min-width: 150px; */
 }
 
 .next-button {
@@ -213,20 +203,6 @@ img {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-  }
-
-  .overlay {
-    /* background: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    border-radius: 15px;
-    background-image: url("~@/assets/check.png");
-    background-size: 80%;
-    background-repeat: no-repeat;
-    background-position: center; */
   }
 }
 </style>
