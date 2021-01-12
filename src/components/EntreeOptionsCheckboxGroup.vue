@@ -150,8 +150,6 @@ export default {
   flex-wrap: wrap;
   overflow: hidden;
   margin-bottom: -35px;
-  /* flex-basis: calc(100% / 2);
-  min-width: 150px; */
 }
 
 .next-button {
@@ -205,20 +203,6 @@ img {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-  }
-
-  .overlay {
-    /* background: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    border-radius: 15px;
-    background-image: url("~@/assets/check.png");
-    background-size: 80%;
-    background-repeat: no-repeat;
-    background-position: center; */
   }
 }
 </style>
