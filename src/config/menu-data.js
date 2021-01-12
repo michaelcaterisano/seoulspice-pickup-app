@@ -95,6 +95,7 @@ const menuData = {
       type: "bases",
       label: "Choose your base",
       max: 2,
+      KFmax: 1,
       cartLabel: "Bases",
       choices: [
         {
