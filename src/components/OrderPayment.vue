@@ -236,7 +236,9 @@ export default {
               countryCode: "US",
               total: {
                 label: "Seoulspice",
-                amount: (this.orderTotal / 100).toFixed(2).toString(),
+                amount: ((this.orderTotal + this.tip) / 100)
+                  .toFixed(2)
+                  .toString(),
                 pending: false,
               },
             };
