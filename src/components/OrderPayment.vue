@@ -405,8 +405,7 @@ export default {
     width: 100%;
     min-width: 200px;
     min-height: 48px;
-    padding: 11px 24px;
-
+    padding: 13px 24px !important;
     margin: 24px 0 0 0;
   }
   .apple-pay-button-black {
