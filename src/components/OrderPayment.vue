@@ -55,7 +55,7 @@
           Pay with card {{ ((orderTotal + tip) / 100) | currency }}
         </button>
         <button
-          class="apple-pay-button apple-pay-button-white"
+          class="apple-pay-button apple-pay-button-black"
           id="sq-apple-pay"
         ></button>
         <button id="sq-google-pay" class="button-google-pay"></button>
