@@ -402,6 +402,9 @@ export default {
   .apple-pay-button {
     display: inline-block;
     -webkit-appearance: -apple-pay-button;
+    width: 100%;
+    min-width: 200px;
+    min-height: 48px;
     margin: 24px 0 0 0;
   }
   .apple-pay-button-black {
@@ -424,9 +427,10 @@ export default {
     border-radius: 5px;
     padding: 0px;
     box-sizing: border-box;
+    width: 100%;
     min-width: 200px;
-    min-height: 32px;
-    max-height: 64px;
+    min-height: 48px;
+    margin: 24px 0 0 0;
   }
   .apple-pay-button-black {
     background-image: -webkit-named-image(apple-pay-logo-white);
