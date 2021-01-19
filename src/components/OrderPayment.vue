@@ -220,6 +220,7 @@ export default {
           },
           methodsSupported: (methods, unsupportedReason) => {
             // eslint-disable-next-line
+            console.log(methods);
 
             var applePayBtn = document.getElementById("sq-apple-pay");
             var googlePayBtn = document.getElementById("sq-google-pay");
@@ -400,7 +401,7 @@ export default {
 
 @supports (-webkit-appearance: -apple-pay-button) {
   .apple-pay-button {
-    display: inline-block;
+    display: none;
     -webkit-appearance: -apple-pay-button;
     width: 100%;
     min-width: 200px;
@@ -409,7 +410,7 @@ export default {
     margin: 24px 0 0 0;
   }
   .apple-pay-button-black {
-    -apple-pay-button-style: black;
+    -apple-pay-button-style: red;
   }
   .apple-pay-button-white {
     -apple-pay-button-style: white;
@@ -421,7 +422,7 @@ export default {
 
 @supports not (-webkit-appearance: -apple-pay-button) {
   .apple-pay-button {
-    display: inline-block;
+    display: none;
     background-size: 100% 60%;
     background-repeat: no-repeat;
     background-position: 50% 50%;
