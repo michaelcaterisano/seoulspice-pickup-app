@@ -1,15 +1,17 @@
 <template>
   <section>
     <div class="component-container">
-      <!-- <transition-group name="fade"> -->
       <div class="addons-container">
-        <AddonsOptions :group="menuData.drinks" v-if="active === 'drinks'" />
-
+        <AddonsOptions
+          :group="menuData.drinks"
+          title="drinks"
+          v-if="active === 'drinks'"
+        />
         <AddonsOptions
           :group="menuData.desserts"
+          title="desserts"
           v-if="active === 'desserts'"
         />
-        <!-- </transition-group> -->
       </div>
       <b-button class="next-button is-success" @click.prevent="addItems()">
         <span>{{ buttonText }}</span>
@@ -21,30 +23,51 @@
 <script>
 import { ADD_ITEM } from "../store/mutations.type";
 import AddonsOptions from "./AddonsOptions";
-// import drinkOptions from "../config/drink-options";
-// import dessertOptions from "../config/dessert-options";
-import menuData from "../config/menu-data";
+import { createHelpers } from "vuex-map-fields";
+const { mapFields } = createHelpers({
+  getterType: "getOrderField",
+  mutationType: "updateOrderField",
+});
 export default {
   components: {
     AddonsOptions,
   },
-  data() {
-    return {
-      menuData,
-      active: "drinks",
-    };
-  },
   computed: {
+    ...mapFields(["location"]),
+
     buttonText() {
       return "NEXT";
     },
+  },
+  beforeMount() {
+    switch (this.location.name.toLowerCase()) {
+      case "dc noma":
+        this.menuData = require("../config/noma-menu.js");
+        break;
+      case "dc tenleytown":
+        this.menuData = require("../config/tenleytown-menu.js");
+        break;
+      case "md college park":
+        this.menuData = require("../config/college-park-menu.js");
+        break;
+      case "md westfield":
+        this.menuData = require("../config/westfield-menu.js");
+        break;
+      default:
+        this.menuData = require("../config/menu-data.js");
+    }
+  },
+  data() {
+    return {
+      active: "drinks",
+    };
   },
   methods: {
     addItems() {
       const choices =
         this.active === "drinks"
-          ? this.menuData.drinks.choices
-          : this.menuData.desserts.choices;
+          ? this.menuData.drinks
+          : this.menuData.desserts;
       const choicesToAdd = choices.filter((choice) => choice.qty > 0);
 
       if (choicesToAdd.length) {

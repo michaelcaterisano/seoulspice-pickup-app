@@ -105,7 +105,6 @@
 <script>
 import { createHelpers } from "vuex-map-fields";
 import { mapGetters } from "vuex";
-import locations from "../config/locations";
 import LogRocket from "logrocket";
 import cleave from "../utils/cleave-directive";
 import { orderStartTime, orderEndTime } from "../config/config";
@@ -161,7 +160,6 @@ export default {
   },
   data() {
     return {
-      locations: locations,
       tipDollars: "",
       masks: {
         numeral: {

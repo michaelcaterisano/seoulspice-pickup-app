@@ -27,11 +27,15 @@
 </template>
 
 <script>
-import menuData from "../config/menu-data";
 import EntreeCategories from "../components/EntreeCategories";
 import EntreeSignatures from "../components/EntreeSignatures";
 import EntreeOptions from "../components/EntreeOptions";
 import { ADD_ITEM } from "../store/mutations.type";
+import { createHelpers } from "vuex-map-fields";
+const { mapFields } = createHelpers({
+  getterType: "getOrderField",
+  mutationType: "updateOrderField",
+});
 
 export default {
   components: {
@@ -39,22 +43,9 @@ export default {
     EntreeSignatures,
     EntreeOptions,
   },
-  props: ["edit"],
-
-  data() {
-    return {
-      active: "entree-categories",
-      entree: {
-        category: null,
-        signature: null,
-        type: "entree",
-      },
-      menuData: menuData,
-      notes: [],
-    };
-  },
   name: "OrderEntrees",
   computed: {
+    ...mapFields(["location"]),
     price() {
       let price = 0;
       if (this.entree.category) {
@@ -85,6 +76,38 @@ export default {
       return price;
     },
   },
+
+  data() {
+    return {
+      active: "entree-categories",
+      entree: {
+        category: null,
+        signature: null,
+        type: "entree",
+      },
+      menuData: null,
+      notes: [],
+    };
+  },
+  beforeMount() {
+    switch (this.location.name.toLowerCase()) {
+      case "dc noma":
+        this.menuData = require("../config/noma-menu.js");
+        break;
+      case "dc tenleytown":
+        this.menuData = require("../config/tenleytown-menu.js");
+        break;
+      case "md college park":
+        this.menuData = require("../config/college-park-menu.js");
+        break;
+      case "md westfield":
+        this.menuData = require("../config/westfield-menu.js");
+        break;
+      default:
+        this.menuData = require("../config/menu-data.js");
+    }
+  },
+
   mounted() {
     this.clearEntree();
   },
@@ -142,10 +165,10 @@ export default {
       this.entree.category = null;
       this.entree.signature = null;
       this.notes = [];
+      console.log(this.menuData);
       this.menuData.options.forEach((option) => {
         option.choices.forEach((choice) => {
           choice.selected = false;
-          // choice.onTheSide ? (choice.onTheSide = false) : null;
           choice.qty ? (choice.qty = 0) : null;
         });
       });
@@ -175,6 +198,7 @@ export default {
       );
     },
   },
+  props: ["edit"],
 };
 </script>
 
