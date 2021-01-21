@@ -394,6 +394,63 @@ const menuData = {
       ],
     },
   ],
+  drinks: {
+    type: "drinks",
+    choices: [
+      {
+        name: "Kale Apple",
+        description: "fresh pressed apples and kale.",
+        price: 199,
+        qty: 0,
+        imageUrl: require("../assets/images/drinks/kale-apple.jpg"),
+      },
+      {
+        name: "Sac-Sac Grape",
+        description: "nostalgic Korean juice beverage with real fruit.",
+        price: 199,
+        qty: 0,
+        imageUrl: require("../assets/images/drinks/sac-sac.jpg"),
+      },
+
+      {
+        name: "Bubly",
+        description:
+          "crisp, sparkling water with natural fruit flavors. zero calories, zero sweeteners, all smiles.",
+        price: 99,
+        qty: 0,
+        imageUrl: require("../assets/images/drinks/bubly.jpg"),
+      },
+      {
+        name: "Yuzu Lime",
+        description: "yuzu + lime juice, sweetened with a touch of honey.",
+        price: 99,
+        qty: 0,
+        imageUrl: require("../assets/images/drinks/yuzu-lime.jpg"),
+      },
+    ],
+  },
+  desserts: {
+    type: "desserts",
+    choices: [
+      {
+        name: "Chewy Chocolate Chip Cookie",
+        description:
+          "soft, chewy, and buttery gluten-free chocolate chip cookies from our friends at Rise Bakery in Adams Morgan.",
+        price: 259,
+        qty: 0,
+        imageUrl: require("../assets/images/desserts/cookie.jpg"),
+      },
+      {
+        name: "Rice Krispie Treat",
+        description:
+          "delightfully sweet and chewy gluten-free rice krispie treats from our friends at Rise Bakery in Adams Morgan.",
+        price: 299,
+        qty: 0,
+        imageUrl: require("../assets/images/desserts/rice-krispie-treat.jpg"),
+      },
+    ],
+  },
+
   getOption(type) {
     return this.options.find((option) => option.type === type);
   },

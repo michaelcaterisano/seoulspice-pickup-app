@@ -3,15 +3,10 @@
     <div class="component-container">
       <!-- <transition-group name="fade"> -->
       <div class="addons-container">
-        <AddonsOptions
-          :key="drinkOptions.type"
-          :group="drinkOptions"
-          v-if="active === 'drinks'"
-        />
+        <AddonsOptions :group="menuData.drinks" v-if="active === 'drinks'" />
 
         <AddonsOptions
-          :key="dessertOptions.type"
-          :group="dessertOptions"
+          :group="menuData.desserts"
           v-if="active === 'desserts'"
         />
         <!-- </transition-group> -->
@@ -26,16 +21,16 @@
 <script>
 import { ADD_ITEM } from "../store/mutations.type";
 import AddonsOptions from "./AddonsOptions";
-import drinkOptions from "../config/drink-options";
-import dessertOptions from "../config/dessert-options";
+// import drinkOptions from "../config/drink-options";
+// import dessertOptions from "../config/dessert-options";
+import menuData from "../config/menu-data";
 export default {
   components: {
     AddonsOptions,
   },
   data() {
     return {
-      drinkOptions: drinkOptions,
-      dessertOptions: dessertOptions,
+      menuData,
       active: "drinks",
     };
   },
@@ -48,8 +43,8 @@ export default {
     addItems() {
       const choices =
         this.active === "drinks"
-          ? this.drinkOptions.choices
-          : this.dessertOptions.choices;
+          ? this.menuData.drinks.choices
+          : this.menuData.desserts.choices;
       const choicesToAdd = choices.filter((choice) => choice.qty > 0);
 
       if (choicesToAdd.length) {
