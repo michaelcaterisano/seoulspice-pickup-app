@@ -1,13 +1,13 @@
 <template>
   <div class="component-container">
     <div class="component-title page-title">
-      <span>{{ group.type.toUpperCase() }}</span>
+      <span>{{ title.toUpperCase() }}</span>
     </div>
     <div class="card-container">
       <OptionCounterCard
         class="component-card"
-        v-for="(choice, index) in group.choices"
-        :option="choice"
+        v-for="(option, index) in group"
+        :option="option"
         :key="index"
         tabindex="0"
       />
@@ -29,7 +29,7 @@ export default {
     document.body.removeAttribute("tabindex");
   },
   name: "AddonsOptions",
-  props: ["name", "group"],
+  props: ["name", "group", "title"],
 };
 </script>
 
@@ -58,17 +58,8 @@ export default {
   cursor: pointer;
   flex-basis: calc(100% / 2 - 24px);
 }
-/* 
-@media screen and (max-width: 900px) and (min-width: 600px) {
-  .component-card {
-    flex-basis: calc(100% / 2 - 24px);
-  }
-} */
 
 @media screen and (max-width: 480px) {
-  /* .card-container {
-    width: 75%;
-  } */
   .component-card {
     flex-basis: 100%;
   }

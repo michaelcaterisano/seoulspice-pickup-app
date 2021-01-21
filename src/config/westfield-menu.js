@@ -409,7 +409,6 @@ const menuData = {
       qty: 0,
       imageUrl: require("../assets/images/drinks/sac-sac.jpg"),
     },
-
     {
       name: "Bubly",
       description:
