@@ -4,7 +4,7 @@
       <span> {{ title }} </span>
     </div>
     <div class="cart-item-card">
-      <OrderTotals v-if="items.length" type="sidebar" />
+      <OrderTotals v-if="items.length" :type="type" />
       <CartItem
         v-for="(item, index) in items"
         :key="index"

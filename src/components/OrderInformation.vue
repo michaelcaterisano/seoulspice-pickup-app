@@ -76,6 +76,7 @@
               </b-radio>
             </div>
           </b-field>
+
           <b-field
             message="Choose a percentage or enter a custom amount in the provided box."
           >
@@ -91,6 +92,7 @@
               Curbside pickup
             </b-checkbox>
           </b-field>
+
           <div class="has-text-centered buttons">
             <b-button class="button is-success" @click.prevent="pay">
               <span>FINISH AND PAY</span>

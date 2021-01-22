@@ -1,21 +1,64 @@
 <template>
   <div class="box body-text">
-    <p>
-      <span>Subtotal: </span>
-      {{ subtotalDollars | currency }}
-    </p>
-    <p v-if="tip > 0">
-      <span>Tip: </span>
-      {{ tipDollars | currency }}
-    </p>
-    <p v-if="taxRate > 0">
-      <span>Tax:</span>
-      {{ taxDollars | currency }}
-    </p>
-    <p>
-      <span>Total: </span>
-      {{ totalDollars | currency }}
-    </p>
+    <div v-if="type !== 'checkout'">
+      <p>
+        <span>Subtotal: </span>
+        {{ subtotalDollars | currency }}
+      </p>
+      <p v-if="tip > 0">
+        <span>Tip: </span>
+        {{ tipDollars | currency }}
+      </p>
+      <p v-if="taxRate > 0">
+        <span>Tax:</span>
+        {{ taxDollars | currency }}
+      </p>
+      <p>
+        <span>Total: </span>
+        {{ totalDollars | currency }}
+      </p>
+    </div>
+    <div v-if="type == 'checkout'">
+      <p>
+        <span>Subtotal: </span>
+        {{ 5 | currency }}
+      </p>
+      <p v-if="tip > 0">
+        <span>Tip: </span>
+        {{ 5 | currency }}
+      </p>
+      <p v-if="taxRate > 0">
+        <span>Tax:</span>
+        {{ 5 | currency }}
+      </p>
+      <p>
+        <span>Total: </span>
+        {{ (orderTotal / 100) | currency }}
+      </p>
+    </div>
+    <div v-if="type == 'checkout'">
+      <p class="discount-code-label">Discount Code</p>
+      <b-field
+        :type="{ 'is-danger': invalidDiscountCode }"
+        :message="discountCodeMessage"
+        class="discount-code-field"
+      >
+        <b-input
+          v-model="discountCode"
+          name="discount-code"
+          placeholder="(optional)"
+          size="is-small"
+          class="discount-code"
+        ></b-input>
+        <p class="control">
+          <b-button
+            class="button is-success is-small"
+            @click.native="applyDiscountCode"
+            >Apply</b-button
+          >
+        </p>
+      </b-field>
+    </div>
   </div>
 </template>
 
@@ -51,11 +94,40 @@ export default {
       this.mobileMenuOpen = !this.mobileMenuOpen;
     },
   },
-  props: ["type"],
+  props: ["type", "orderTotal"],
 };
 </script>
 
 <style lang="scss" scoped>
+.discount-code {
+  display: block;
+  border: 1px solid #dbdbdb !important;
+  border-radius: 4px;
+}
+.discount-code-field {
+  margin-top: 24px;
+}
+.discount-code-label {
+  margin: 24px 0 -24px 2px;
+}
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.4) !important;
+  font-size: 12px !important;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  font-weight: 330;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  font-weight: 330;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  font-weight: 330;
+}
 // .navbar-start {
 //   margin: 0 auto;
 //   padding-right: 280px;

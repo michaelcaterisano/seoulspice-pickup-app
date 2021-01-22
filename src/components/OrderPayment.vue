@@ -26,6 +26,7 @@
         </div>
       </b-message>
       <div id="form-container">
+        <OrderTotals type="checkout" :orderTotal="orderTotal" />
         <div v-if="hasReward" class="box">
           <div v-if="!rewardRedeemed" class="loyalty">
             <span class="card-title">YOU HAVE A REWARD!</span>
@@ -43,29 +44,11 @@
           </div>
         </div>
 
-        <b-field
-          :type="{ 'is-danger': invalidDiscountCode }"
-          :message="discountCodeMessage"
-        >
-          <b-input
-            v-model="discountCode"
-            name="discount-code"
-            placeholder="Discount Code"
-            class="discount-code"
-          ></b-input>
-          <p class="control">
-            <b-button
-              class="button is-success"
-              @click.native="applyDiscountCode"
-              >Apply</b-button
-            >
-          </p>
-        </b-field>
-
         <div id="sq-card-number"></div>
         <div class="third" id="sq-expiration-date"></div>
         <div class="third" id="sq-cvv"></div>
         <div class="third" id="sq-postal-code"></div>
+
         <button
           id="sq-creditcard"
           class="button-credit-card"
@@ -86,17 +69,21 @@
 </template>
 
 <script>
+import OrderTotals from "./OrderTotals";
+
 import { mapGetters } from "vuex";
 import { orderService } from "../config/api.service";
 import { createHelpers } from "vuex-map-fields";
 import PhoneNumber from "awesome-phonenumber";
-import discountCodes from "../config/discount-codes.js";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
   mutationType: "updateOrderField",
 });
 export default {
+  components: {
+    OrderTotals,
+  },
   computed: {
     ...mapGetters(["total", "itemSubtotal", "tax", "taxRate", "items", "tip"]),
     ...mapFields([
@@ -127,10 +114,6 @@ export default {
       rewardName: null,
       rewardRedeemed: false,
       loadingComponent: null,
-      discountCode: null,
-      invalidDiscountCode: false,
-      discountCodeMessage: "",
-      messageType: "is-danger",
     };
   },
   async mounted() {
@@ -328,18 +311,6 @@ export default {
         this.paymentForm.requestCardNonce();
       }
     },
-    applyDiscountCode() {
-      if (
-        discountCodes.some(
-          (discountCode) => discountCode.code === this.discountCode
-        )
-      ) {
-        this.invalidDiscountCode = false;
-      } else {
-        this.discountCodeMessage = "invalid discount code";
-        this.invalidDiscountCode = true;
-      }
-    },
   },
   name: "OrderPayment",
 };
@@ -351,29 +322,6 @@ export default {
   width: 380px;
   height: 100vh;
   margin: 0 auto;
-}
-
-.discount-code {
-  border: 1px solid #dbdbdb !important;
-  border-radius: 6px !important;
-}
-
-::-webkit-input-placeholder {
-  /* Chrome/Opera/Safari */
-  font-weight: 300;
-  color: rgba(0, 0, 0, 0.4) !important;
-}
-::-moz-placeholder {
-  /* Firefox 19+ */
-  font-weight: 330;
-}
-:-ms-input-placeholder {
-  /* IE 10+ */
-  font-weight: 330;
-}
-:-moz-placeholder {
-  /* Firefox 18- */
-  font-weight: 330;
 }
 
 .third {
