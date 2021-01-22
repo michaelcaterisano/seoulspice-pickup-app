@@ -11,4 +11,4 @@ const codes = [
   },
 ];
 
-module.exports = codes;
+export default codes;

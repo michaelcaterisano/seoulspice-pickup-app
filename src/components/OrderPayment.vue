@@ -43,10 +43,22 @@
           </div>
         </div>
 
-        <b-field>
-          <b-input placeholder="Discount Code" class="discount-code"></b-input>
+        <b-field
+          :type="{ 'is-danger': invalidDiscountCode }"
+          :message="discountCodeMessage"
+        >
+          <b-input
+            v-model="discountCode"
+            name="discount-code"
+            placeholder="Discount Code"
+            class="discount-code"
+          ></b-input>
           <p class="control">
-            <b-button class="button is-success">Search</b-button>
+            <b-button
+              class="button is-success"
+              @click.native="applyDiscountCode"
+              >Apply</b-button
+            >
           </p>
         </b-field>
 
@@ -78,6 +90,7 @@ import { mapGetters } from "vuex";
 import { orderService } from "../config/api.service";
 import { createHelpers } from "vuex-map-fields";
 import PhoneNumber from "awesome-phonenumber";
+import discountCodes from "../config/discount-codes.js";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
@@ -114,6 +127,10 @@ export default {
       rewardName: null,
       rewardRedeemed: false,
       loadingComponent: null,
+      discountCode: null,
+      invalidDiscountCode: false,
+      discountCodeMessage: "",
+      messageType: "is-danger",
     };
   },
   async mounted() {
@@ -309,6 +326,18 @@ export default {
       this.paymentErrors = [];
       if (!this.submitDisabled) {
         this.paymentForm.requestCardNonce();
+      }
+    },
+    applyDiscountCode() {
+      if (
+        discountCodes.some(
+          (discountCode) => discountCode.code === this.discountCode
+        )
+      ) {
+        this.invalidDiscountCode = false;
+      } else {
+        this.discountCodeMessage = "invalid discount code";
+        this.invalidDiscountCode = true;
       }
     },
   },
