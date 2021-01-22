@@ -43,6 +43,13 @@
           </div>
         </div>
 
+        <b-field>
+          <b-input placeholder="Discount Code" class="discount-code"></b-input>
+          <p class="control">
+            <b-button class="button is-success">Search</b-button>
+          </p>
+        </b-field>
+
         <div id="sq-card-number"></div>
         <div class="third" id="sq-expiration-date"></div>
         <div class="third" id="sq-cvv"></div>
@@ -139,8 +146,10 @@ export default {
         // Customize the CSS for SqPaymentForm iframe elements
         inputStyles: [
           {
-            fontSize: "16px",
+            fontSize: "23px",
+            fontFamily: "helvetica",
             lineHeight: "24px",
+            placeholderFontWeight: 300,
             padding: "16px",
             placeholderColor: "#a0a0a0",
             backgroundColor: "transparent",
@@ -313,6 +322,29 @@ export default {
   width: 380px;
   height: 100vh;
   margin: 0 auto;
+}
+
+.discount-code {
+  border: 1px solid #dbdbdb !important;
+  border-radius: 6px !important;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  font-weight: 330;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  font-weight: 330;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  font-weight: 330;
 }
 
 .third {
