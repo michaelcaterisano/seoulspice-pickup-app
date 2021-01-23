@@ -26,13 +26,6 @@
         </div>
       </b-message>
       <div id="form-container">
-        <OrderTotals
-          type="checkout"
-          :orderTotal="orderTotal"
-          :orderTax="orderTax"
-          :orderTip="orderTip"
-          :orderDiscount="orderDiscount"
-        />
         <div v-if="hasReward" class="box">
           <div v-if="!rewardRedeemed" class="loyalty">
             <span class="card-title">YOU HAVE A REWARD!</span>
@@ -49,6 +42,8 @@
             >
           </div>
         </div>
+
+        <OrderTotals type="checkout" />
 
         <div id="sq-card-number"></div>
         <div class="third" id="sq-expiration-date"></div>
@@ -79,9 +74,8 @@ import OrderTotals from "./OrderTotals";
 
 import { mapGetters } from "vuex";
 import { orderService } from "../config/api.service";
-import { createHelpers } from "vuex-map-fields";
 import PhoneNumber from "awesome-phonenumber";
-
+import { createHelpers } from "vuex-map-fields";
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
   mutationType: "updateOrderField",
@@ -100,6 +94,10 @@ export default {
       "phone",
       "curbside",
       "orderId",
+      "orderTotal",
+      "orderTip",
+      "orderTax",
+      "orderDiscount",
     ]),
     priceDollars() {
       return this.total / 100;
@@ -114,10 +112,6 @@ export default {
       paymentErrors: [],
       orderErrors: [],
       submitDisabled: false,
-      orderTotal: null,
-      orderTax: null,
-      orderTip: null,
-      orderDiscount: null,
       hasReward: false,
       rewardName: null,
       rewardRedeemed: false,
@@ -313,6 +307,7 @@ export default {
       if (result.data.success) {
         this.orderTotal = result.data.updatedOrderTotal;
         this.rewardRedeemed = true;
+        this.orderDiscount = result.data.discount;
         this.rewardDiscount = result.data.discount / 100;
       }
     },

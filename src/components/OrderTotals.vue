@@ -21,7 +21,7 @@
     <div v-if="type == 'checkout'">
       <p>
         <span>Subtotal: </span>
-        {{ (orderTotal / 100) | currency }}
+        {{ ((orderTotal - orderTax) / 100) | currency }}
       </p>
       <p>
         <span>Tax:</span>
@@ -29,17 +29,15 @@
       </p>
       <p>
         <span>Tip: </span>
-        {{ (orderTip / 100) | currency }}
-      </p>
-      <p>
-        <span>Total: </span>
-        {{
-          ((orderTotal + orderTip + orderTax - orderDiscount) / 100) | currency
-        }}
+        {{ (tip / 100) | currency }}
       </p>
       <p v-if="orderDiscount > 0">
         <span>Discount</span>
-        {{ (orderDiscount / 100) | currency }}
+        {{ -(orderDiscount / 100) | currency }}
+      </p>
+      <p>
+        <span>Total: </span>
+        {{ ((orderTotal + tip) / 100) | currency }}
       </p>
     </div>
     <div v-if="type == 'checkout'">
@@ -70,9 +68,24 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { createHelpers } from "vuex-map-fields";
+const { mapFields } = createHelpers({
+  getterType: "getOrderField",
+  mutationType: "updateOrderField",
+});
+import { orderService } from "../config/api.service";
+
 export default {
   name: "Totals",
   computed: {
+    ...mapGetters(["subtotal", "tip", "tax", "taxRate", "total"]),
+    ...mapFields([
+      "orderId",
+      "orderTotal",
+      "orderTip",
+      "orderTax",
+      "orderDiscount",
+    ]),
     subtotalDollars() {
       return this.subtotal / 100;
     },
@@ -88,19 +101,31 @@ export default {
     mobileButtonText() {
       return this.mobileMenuOpen ? "Hide Totals" : "View Totals";
     },
-    ...mapGetters(["subtotal", "tip", "tax", "taxRate", "total"]),
   },
   data() {
     return {
       mobileMenuOpen: false,
+      invalidDiscountCode: false,
+      discountCodeMessage: "",
+      discountCode: null,
     };
   },
   methods: {
     toggleMobileMenu() {
       this.mobileMenuOpen = !this.mobileMenuOpen;
     },
+    async applyDiscountCode() {
+      const result = await orderService.post("/discount-code", {
+        orderId: this.orderId,
+        discountCode: this.discountCode,
+      });
+      if (result.data.success) {
+        this.orderDiscount = result.data.orderDiscount;
+        this.orderTotal = result.data.orderTotal;
+      }
+    },
   },
-  props: ["type", "orderTotal", "orderTax", "orderTip", "orderDiscount"],
+  props: ["type"],
 };
 </script>
 
