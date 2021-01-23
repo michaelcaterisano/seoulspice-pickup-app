@@ -26,7 +26,13 @@
         </div>
       </b-message>
       <div id="form-container">
-        <OrderTotals type="checkout" :orderTotal="orderTotal" />
+        <OrderTotals
+          type="checkout"
+          :orderTotal="orderTotal"
+          :orderTax="orderTax"
+          :orderTip="orderTip"
+          :orderDiscount="orderDiscount"
+        />
         <div v-if="hasReward" class="box">
           <div v-if="!rewardRedeemed" class="loyalty">
             <span class="card-title">YOU HAVE A REWARD!</span>
@@ -108,8 +114,10 @@ export default {
       paymentErrors: [],
       orderErrors: [],
       submitDisabled: false,
-      // orderId: null,
       orderTotal: null,
+      orderTax: null,
+      orderTip: null,
+      orderDiscount: null,
       hasReward: false,
       rewardName: null,
       rewardRedeemed: false,
@@ -126,6 +134,9 @@ export default {
     } else {
       this.orderId = order.data.orderId;
       this.orderTotal = order.data.orderTotal;
+      this.orderTax = order.data.orderTax;
+      this.orderTip = order.data.orderTip;
+      this.orderDiscount = order.data.orderDiscount;
 
       // handle loyalty reward lookup
       const rewards = await this.getRewards();
