@@ -7,6 +7,8 @@
       @update="setActive"
     />
 
+    <EntreeKBBQ v-if="active === 'entree-kbbq'" />
+
     <EntreeSignatures
       v-if="active === 'entree-signatures'"
       :signatures="menuData.signatures"
@@ -29,6 +31,7 @@
 <script>
 import EntreeCategories from "../components/EntreeCategories";
 import EntreeSignatures from "../components/EntreeSignatures";
+import EntreeKBBQ from "../components/EntreeKBBQ";
 import EntreeOptions from "../components/EntreeOptions";
 import { ADD_ITEM } from "../store/mutations.type";
 import { createHelpers } from "vuex-map-fields";
@@ -41,6 +44,7 @@ export default {
   components: {
     EntreeCategories,
     EntreeSignatures,
+    EntreeKBBQ,
     EntreeOptions,
   },
   name: "OrderEntrees",

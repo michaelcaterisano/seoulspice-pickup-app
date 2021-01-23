@@ -1,48 +1,43 @@
 <template>
   <div class="component-container">
     <div class="page-title category-title">
-      <span>CHOOSE YOUR ENTREE</span>
+      <span>KBBQ OPTIONS</span>
     </div>
     <div class="card-container">
-      <OptionCard
+      some cards go here
+      <!-- <OptionCard
         class="category-card"
         v-for="category in categories"
         :key="category.name"
         :option="category"
         @click.native="setActive(category)"
         @keyup.enter.native="setActive(category)"
-      />
+      /> -->
     </div>
   </div>
 </template>
 
 <script>
-import OptionCard from "../components/OptionCard";
+// import OptionCard from "../components/OptionCard";
 
 export default {
   components: {
-    OptionCard,
+    // OptionCard,
   },
   methods: {
-    setActive(category) {
-      let message;
-      if (
-        category.name === "Korean Feast For 2" ||
-        category.name === "Korean Feast For 4" ||
-        category.name === "Kid's Bowl"
-      ) {
-        message = "entree-options";
-      } else if (category.name === "Korean BBQ") {
-        message = "entree-kbbq";
-      } else {
-        message = "entree-signatures";
-      }
-
-      this.$emit("category-selected", category);
-      this.$emit("update", message);
-    },
+    // navigation here
+    // setActive(category) {
+    //   let message =
+    //     category.name === "Korean Feast For 2" ||
+    //     category.name === "Korean Feast For 4" ||
+    //     category.name === "Kid's Bowl"
+    //       ? "entree-options"
+    //       : "entree-signatures";
+    //   this.$emit("category-selected", category);
+    //   this.$emit("update", message);
+    // },
   },
-  name: "EntreeCategories",
+  name: "EntreeKBBQ",
   props: ["categories"],
 };
 </script>

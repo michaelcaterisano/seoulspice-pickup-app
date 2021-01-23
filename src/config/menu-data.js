@@ -1,6 +1,12 @@
 const menuData = {
   categories: [
     {
+      name: "Korean BBQ",
+      description: "TODO: KBBQ description",
+      imageUrl: "https://via.placeholder.com/938x625",
+      price: null,
+    },
+    {
       name: "Korean Feast For 2",
       description:
         "Let us do the heavy lifting and prepare a complete meal for you and your family! All orders come with an assortment of our four sauces. Serves 2. ",
