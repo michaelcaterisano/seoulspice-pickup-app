@@ -27,26 +27,26 @@
       </b-message>
       <div id="form-container">
         <div v-if="hasReward" class="box">
-          <div v-if="!rewardRedeemed" class="loyalty">
+          <div class="loyalty">
             <span class="card-title">YOU HAVE A REWARD!</span>
             <span class="card-subtitle">{{ rewardName.toUpperCase() }}</span>
             <b-button
+              :loading="rewardLoading"
+              :disabled="rewardRedeemed"
               class="redeem body-text"
               @click.native="createLoyaltyReward"
-              >REDEEM LOYALTY REWARD</b-button
-            >
-          </div>
-          <div v-if="rewardRedeemed" class="loyalty">
-            <span class="body-text"
-              >Order discounted {{ rewardDiscount | currency }}</span
+              >{{ rewardButtonMessage }}</b-button
             >
           </div>
         </div>
+
+        <OrderTotals type="checkout" />
 
         <div id="sq-card-number"></div>
         <div class="third" id="sq-expiration-date"></div>
         <div class="third" id="sq-cvv"></div>
         <div class="third" id="sq-postal-code"></div>
+
         <button
           id="sq-creditcard"
           class="button-credit-card"
@@ -67,16 +67,20 @@
 </template>
 
 <script>
+import OrderTotals from "./OrderTotals";
+
 import { mapGetters } from "vuex";
 import { orderService } from "../config/api.service";
-import { createHelpers } from "vuex-map-fields";
 import PhoneNumber from "awesome-phonenumber";
-
+import { createHelpers } from "vuex-map-fields";
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
   mutationType: "updateOrderField",
 });
 export default {
+  components: {
+    OrderTotals,
+  },
   computed: {
     ...mapGetters(["total", "itemSubtotal", "tax", "taxRate", "items", "tip"]),
     ...mapFields([
@@ -87,12 +91,19 @@ export default {
       "phone",
       "curbside",
       "orderId",
+      "orderTotal",
+      "orderTip",
+      "orderTax",
+      "orderDiscount",
     ]),
     priceDollars() {
       return this.total / 100;
     },
     development() {
       return process.env.NODE_ENV === "development";
+    },
+    rewardButtonMessage() {
+      return this.rewardRedeemed ? "REWARD REDEEMED" : "REDEEM LOYALTY REWARD";
     },
   },
   data() {
@@ -101,11 +112,10 @@ export default {
       paymentErrors: [],
       orderErrors: [],
       submitDisabled: false,
-      // orderId: null,
-      orderTotal: null,
       hasReward: false,
       rewardName: null,
       rewardRedeemed: false,
+      rewardLoading: false,
       loadingComponent: null,
     };
   },
@@ -119,6 +129,9 @@ export default {
     } else {
       this.orderId = order.data.orderId;
       this.orderTotal = order.data.orderTotal;
+      this.orderTax = order.data.orderTax;
+      this.orderTip = order.data.orderTip;
+      this.orderDiscount = order.data.orderDiscount;
 
       // handle loyalty reward lookup
       const rewards = await this.getRewards();
@@ -140,7 +153,9 @@ export default {
         inputStyles: [
           {
             fontSize: "16px",
+            fontFamily: "helvetica",
             lineHeight: "24px",
+            placeholderFontWeight: 300,
             padding: "16px",
             placeholderColor: "#a0a0a0",
             backgroundColor: "transparent",
@@ -284,15 +299,18 @@ export default {
       return result;
     },
     async createLoyaltyReward() {
-      const loadingComponent = this.$buefy.loading.open();
+      // const loadingComponent = this.$buefy.loading.open();
+      this.rewardLoading = true;
       const result = await orderService.post("/create-loyalty-reward", {
         phoneNumber: this.getFormattedPhoneNumber(),
         orderId: this.orderId,
       });
-      loadingComponent.close();
+      // loadingComponent.close();
+      this.rewardLoading = false;
       if (result.data.success) {
         this.orderTotal = result.data.updatedOrderTotal;
         this.rewardRedeemed = true;
+        this.orderDiscount = result.data.discount;
         this.rewardDiscount = result.data.discount / 100;
       }
     },
@@ -311,8 +329,8 @@ export default {
 #form-container {
   position: relative;
   width: 380px;
-  height: 100vh;
-  margin: 0 auto;
+  height: auto;
+  margin: 0 auto 30px auto;
 }
 
 .third {

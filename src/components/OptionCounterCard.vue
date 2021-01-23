@@ -99,4 +99,10 @@ export default {
   padding: 0 20px 20px 20px !important;
   justify-content: flex-start !important;
 }
+
+input {
+  color: black !important;
+  border: none !important;
+  box-shadow: none !important;
+}
 </style>

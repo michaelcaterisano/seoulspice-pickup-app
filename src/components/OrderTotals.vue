@@ -1,29 +1,93 @@
 <template>
   <div class="box body-text">
-    <p>
-      <span>Subtotal: </span>
-      {{ subtotalDollars | currency }}
-    </p>
-    <p v-if="tip > 0">
-      <span>Tip: </span>
-      {{ tipDollars | currency }}
-    </p>
-    <p v-if="taxRate > 0">
-      <span>Tax:</span>
-      {{ taxDollars | currency }}
-    </p>
-    <p>
-      <span>Total: </span>
-      {{ totalDollars | currency }}
-    </p>
+    <div v-if="type !== 'checkout'">
+      <p>
+        <span>Subtotal: </span>
+        {{ subtotalDollars | currency }}
+      </p>
+      <p v-if="tip > 0">
+        <span>Tip: </span>
+        {{ tipDollars | currency }}
+      </p>
+      <p v-if="taxRate > 0">
+        <span>Tax:</span>
+        {{ taxDollars | currency }}
+      </p>
+      <p>
+        <span>Total: </span>
+        {{ totalDollars | currency }}
+      </p>
+    </div>
+    <div v-if="type == 'checkout'">
+      <p>
+        <span>Subtotal: </span>
+        {{ ((orderTotal - orderTax) / 100) | currency }}
+      </p>
+      <p>
+        <span>Tax:</span>
+        {{ (orderTax / 100) | currency }}
+      </p>
+      <p>
+        <span>Tip: </span>
+        {{ (tip / 100) | currency }}
+      </p>
+      <p v-if="orderDiscount > 0">
+        <span>Discount</span>
+        {{ -(orderDiscount / 100) | currency }}
+      </p>
+      <p>
+        <span>Total: </span>
+        {{ ((orderTotal + tip) / 100) | currency }}
+      </p>
+    </div>
+    <div v-if="type == 'checkout'">
+      <p class="discount-code-label">Discount Code</p>
+      <b-field
+        :type="{ 'is-danger': invalidDiscountCode }"
+        :message="discountCodeMessage"
+        class="discount-code-field"
+      >
+        <b-input
+          v-model="discountCode"
+          name="discount-code"
+          placeholder="(optional)"
+          size="is-small"
+          class="discount-code"
+        ></b-input>
+        <p class="control">
+          <b-button
+            :loading="discountLoading"
+            :disabled="discountDisabled"
+            class="button is-success is-small"
+            @click.native="applyDiscountCode"
+            >Apply</b-button
+          >
+        </p>
+      </b-field>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import { createHelpers } from "vuex-map-fields";
+const { mapFields } = createHelpers({
+  getterType: "getOrderField",
+  mutationType: "updateOrderField",
+});
+import { orderService } from "../config/api.service";
+
 export default {
   name: "Totals",
   computed: {
+    ...mapGetters(["subtotal", "tip", "tax", "taxRate", "total"]),
+    ...mapFields([
+      "orderId",
+      "orderTotal",
+      "orderTip",
+      "orderTax",
+      "orderDiscount",
+    ]),
     subtotalDollars() {
       return this.subtotal / 100;
     },
@@ -39,16 +103,39 @@ export default {
     mobileButtonText() {
       return this.mobileMenuOpen ? "Hide Totals" : "View Totals";
     },
-    ...mapGetters(["subtotal", "tip", "tax", "taxRate", "total"]),
   },
   data() {
     return {
       mobileMenuOpen: false,
+      invalidDiscountCode: false,
+      discountCodeMessage: "",
+      discountCode: null,
+      discountLoading: false,
+      discountDisabled: false,
     };
   },
   methods: {
     toggleMobileMenu() {
       this.mobileMenuOpen = !this.mobileMenuOpen;
+    },
+    async applyDiscountCode() {
+      this.discountLoading = true;
+      const result = await orderService.post("/discount-code", {
+        orderId: this.orderId,
+        discountCode: this.discountCode,
+      });
+      if (result.data.success) {
+        this.discountLoading = false;
+        this.discountDisabled = true;
+        this.orderDiscount = result.data.orderDiscount;
+        this.orderTotal = result.data.orderTotal;
+        this.invalidDiscountCode = false;
+        this.discountCodeMessage = "";
+      } else {
+        this.discountLoading = false;
+        this.invalidDiscountCode = true;
+        this.discountCodeMessage = "Invalid discount code";
+      }
     },
   },
   props: ["type"],
@@ -56,45 +143,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .navbar-start {
-//   margin: 0 auto;
-//   padding-right: 280px;
-// }
-
-// .navbar-item img {
-//   max-height: 2.75em;
-// }
-
-// /* mobile and tablet */
-// @media screen and (max-width: 768px) {
-//   .navbar-start {
-//     padding-right: 0;
-//     .navbar-item {
-//       padding-right: 0;
-//     }
-//   }
-
-//   .navbar {
-//     font-size: 80%;
-//   }
-// }
-
-// /* tablet and bigger */
-// @media screen and (min-width: 768px) {
-//   .button.is-medium {
-//     display: none;
-//   }
-// }
-// /* mobile */
-// @media screen and (max-width: 767px) {
-//   .navbar-brand {
-//     .button {
-//       margin: 0 auto;
-//     }
-
-//     .navbar-item {
-//       padding: 0;
-//     }
-//   }
-// }
+.discount-code {
+  display: block;
+  border: 1px solid #dbdbdb !important;
+  border-radius: 4px;
+}
+.discount-code-field {
+  margin-top: 24px;
+}
+.discount-code-label {
+  margin: 24px 0 -24px 2px;
+}
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.4) !important;
+  font-size: 12px !important;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  font-weight: 330;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  font-weight: 330;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  font-weight: 330;
+}
 </style>

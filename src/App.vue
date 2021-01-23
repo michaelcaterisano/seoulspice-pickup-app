@@ -319,6 +319,9 @@ input.input {
   color: black !important;
   border: none !important;
   box-shadow: none !important;
+  // font-family: "Helvetica";
+  // font-weight: 300;
+  letter-spacing: 0.01rem;
 }
 
 // changing dialog font color

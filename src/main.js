@@ -4,7 +4,7 @@ import store from "./store";
 import Buefy from "buefy";
 import VueCurrencyFilter from "vue-currency-filter";
 import VeeValidate from "vee-validate";
-import { hours, phoneNumber } from "./utils/custom-validators";
+import { hours, phoneNumber, discountCode } from "./utils/custom-validators";
 import LogRocket from "logrocket";
 import VueGtag from "vue-gtag";
 import * as Sentry from "@sentry/vue";
@@ -48,6 +48,7 @@ Vue.use(VueCurrencyFilter, {
 
 VeeValidate.Validator.extend("hours", hours);
 VeeValidate.Validator.extend("phoneNumber", phoneNumber);
+VeeValidate.Validator.extend("discountCode", discountCode);
 Vue.use(VeeValidate);
 
 new Vue({

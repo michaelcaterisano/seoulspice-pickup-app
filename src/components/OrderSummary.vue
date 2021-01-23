@@ -83,11 +83,11 @@
 
 <script>
 // import { mapGetters } from "vuex";
-import { createHelpers } from "vuex-map-fields";
 import { orderService } from "../config/api.service";
 import { EMPTY_CART } from "../store/mutations.type";
 import PhoneNumber from "awesome-phonenumber";
 
+import { createHelpers } from "vuex-map-fields";
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
   mutationType: "updateOrderField",
