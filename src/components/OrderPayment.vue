@@ -27,20 +27,23 @@
       </b-message>
       <div id="form-container">
         <div v-if="hasReward" class="box">
-          <div v-if="!rewardRedeemed" class="loyalty">
+          <div class="loyalty">
             <span class="card-title">YOU HAVE A REWARD!</span>
             <span class="card-subtitle">{{ rewardName.toUpperCase() }}</span>
             <b-button
+              :loading="rewardLoading"
+              :disabled="rewardRedeemed"
               class="redeem body-text"
               @click.native="createLoyaltyReward"
-              >REDEEM LOYALTY REWARD</b-button
+              >{{ rewardButtonMessage }}</b-button
             >
           </div>
-          <div v-if="rewardRedeemed" class="loyalty">
+          <!-- <div v-if="rewardRedeemed" class="loyalty">
             <span class="body-text"
-              >Order discounted {{ rewardDiscount | currency }}</span
+              >You got a loyalty discount of
+              {{ rewardDiscount | currency }}</span
             >
-          </div>
+          </div> -->
         </div>
 
         <OrderTotals type="checkout" />
@@ -105,6 +108,9 @@ export default {
     development() {
       return process.env.NODE_ENV === "development";
     },
+    rewardButtonMessage() {
+      return this.rewardRedeemed ? "REWARD REDEEMED" : "REDEEM LOYALTY REWARD";
+    },
   },
   data() {
     return {
@@ -115,6 +121,7 @@ export default {
       hasReward: false,
       rewardName: null,
       rewardRedeemed: false,
+      rewardLoading: false,
       loadingComponent: null,
     };
   },
@@ -298,12 +305,14 @@ export default {
       return result;
     },
     async createLoyaltyReward() {
-      const loadingComponent = this.$buefy.loading.open();
+      // const loadingComponent = this.$buefy.loading.open();
+      this.rewardLoading = true;
       const result = await orderService.post("/create-loyalty-reward", {
         phoneNumber: this.getFormattedPhoneNumber(),
         orderId: this.orderId,
       });
-      loadingComponent.close();
+      // loadingComponent.close();
+      this.rewardLoading = false;
       if (result.data.success) {
         this.orderTotal = result.data.updatedOrderTotal;
         this.rewardRedeemed = true;

@@ -56,6 +56,8 @@
         ></b-input>
         <p class="control">
           <b-button
+            :loading="discountLoading"
+            :disabled="discountDisabled"
             class="button is-success is-small"
             @click.native="applyDiscountCode"
             >Apply</b-button
@@ -108,6 +110,8 @@ export default {
       invalidDiscountCode: false,
       discountCodeMessage: "",
       discountCode: null,
+      discountLoading: false,
+      discountDisabled: false,
     };
   },
   methods: {
@@ -115,13 +119,22 @@ export default {
       this.mobileMenuOpen = !this.mobileMenuOpen;
     },
     async applyDiscountCode() {
+      this.discountLoading = true;
       const result = await orderService.post("/discount-code", {
         orderId: this.orderId,
         discountCode: this.discountCode,
       });
       if (result.data.success) {
+        this.discountLoading = false;
+        this.discountDisabled = true;
         this.orderDiscount = result.data.orderDiscount;
         this.orderTotal = result.data.orderTotal;
+        this.invalidDiscountCode = false;
+        this.discountCodeMessage = "";
+      } else {
+        this.discountLoading = false;
+        this.invalidDiscountCode = true;
+        this.discountCodeMessage = "Invalid discount code";
       }
     },
   },
