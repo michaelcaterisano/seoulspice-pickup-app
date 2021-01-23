@@ -38,12 +38,6 @@
               >{{ rewardButtonMessage }}</b-button
             >
           </div>
-          <!-- <div v-if="rewardRedeemed" class="loyalty">
-            <span class="body-text"
-              >You got a loyalty discount of
-              {{ rewardDiscount | currency }}</span
-            >
-          </div> -->
         </div>
 
         <OrderTotals type="checkout" />
@@ -158,7 +152,7 @@ export default {
         // Customize the CSS for SqPaymentForm iframe elements
         inputStyles: [
           {
-            fontSize: "23px",
+            fontSize: "16px",
             fontFamily: "helvetica",
             lineHeight: "24px",
             placeholderFontWeight: 300,
@@ -335,8 +329,8 @@ export default {
 #form-container {
   position: relative;
   width: 380px;
-  height: 100vh;
-  margin: 0 auto;
+  height: auto;
+  margin: 0 auto 30px auto;
 }
 
 .third {
