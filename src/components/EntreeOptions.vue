@@ -9,15 +9,23 @@
         :key="step"
         :category="category"
         :signature="signature"
-        @next="setActiveOrderStep()"
-        @add-item="addItem()"
+        @next="setActiveOrderStep"
       />
 
       <EntreeOptionsExtras
-        v-show="active === 'extras'"
+        v-if="active === 'kbbq-sides'"
+        :key="'kbbq-sides'"
+        :items="options.getOption('kbbq-sides')"
+        title="sides"
+        @next="setActiveOrderStep"
+      />
+
+      <EntreeOptionsExtras
+        v-if="active === 'extras'"
         :key="'extras'"
-        :extras="options.getOption('extras')"
-        @add-item="addItem()"
+        :items="options.getOption('extras')"
+        title="extras"
+        @add-item="addItem"
       />
     </transition-group>
   </div>
@@ -35,7 +43,9 @@ export default {
   },
   computed: {
     optionSteps() {
-      return this.steps.filter((step) => step !== "extras");
+      return this.steps.filter(
+        (step) => step !== "extras" && step !== "kbbq-sides"
+      );
     },
     ...mapGetters(["items"]),
   },
@@ -91,7 +101,7 @@ export default {
           active = "rices";
           break;
         case this.isKBBQ():
-          active = "proteins";
+          active = "kbbq-proteins";
           break;
         default:
           active = "bases";
@@ -101,7 +111,7 @@ export default {
     getSteps() {
       let steps;
       if (this.isKBBQ()) {
-        steps = ["proteins", "extras"];
+        steps = ["kbbq-proteins", "kbbq-sides", "extras"];
       }
       if (this.isKorrito()) {
         if (this.isSignature()) {
