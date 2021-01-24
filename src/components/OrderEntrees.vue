@@ -7,7 +7,12 @@
       @update="setActive"
     />
 
-    <EntreeKBBQ v-if="active === 'entree-kbbq'" :types="menuData.kbbqTypes" />
+    <EntreeKBBQ
+      v-if="active === 'entree-kbbq'"
+      :types="menuData.kbbqTypes"
+      @signature-selected="setSignature"
+      @update="setActive"
+    />
 
     <EntreeSignatures
       v-if="active === 'entree-signatures'"
@@ -62,10 +67,6 @@ export default {
           price += this.entree.signature.price;
         }
       }
-      if (this.isKBBQ()) {
-        // add kbbq choice base price
-      }
-
       this.menuData.options.forEach((option) => {
         option.choices.forEach((choice) => {
           if (choice.selected) {

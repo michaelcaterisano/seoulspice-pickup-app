@@ -6,8 +6,8 @@
     <div class="card-container">
       <OptionCard
         class="category-card"
-        v-for="type in types"
-        :key="type.name"
+        v-for="(type, index) in types"
+        :key="index"
         :option="type"
         @click.native="setActive(type)"
         @keyup.enter.native="setActive(type)"
@@ -24,17 +24,10 @@ export default {
     OptionCard,
   },
   methods: {
-    // navigation here
-    // setActive(category) {
-    //   let message =
-    //     category.name === "Korean Feast For 2" ||
-    //     category.name === "Korean Feast For 4" ||
-    //     category.name === "Kid's Bowl"
-    //       ? "entree-options"
-    //       : "entree-signatures";
-    //   this.$emit("category-selected", category);
-    //   this.$emit("update", message);
-    // },
+    setActive(type) {
+      this.$emit("signature-selected", type);
+      this.$emit("update", "entree-options");
+    },
   },
   name: "EntreeKBBQ",
   props: ["types"],

@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-      active: this.isKorrito() ? "rices" : "bases",
+      active: this.getInitialActive(),
       steps: this.getSteps(),
     };
   },
@@ -84,8 +84,25 @@ export default {
         this.advanceStep();
       }
     },
+    getInitialActive() {
+      let active;
+      switch (true) {
+        case this.isKorrito():
+          active = "rices";
+          break;
+        case this.isKBBQ():
+          active = "proteins";
+          break;
+        default:
+          active = "bases";
+      }
+      return active;
+    },
     getSteps() {
       let steps;
+      if (this.isKBBQ()) {
+        steps = ["proteins", "extras"];
+      }
       if (this.isKorrito()) {
         if (this.isSignature()) {
           steps = ["rices", "extra proteins", "extras"];
@@ -146,6 +163,9 @@ export default {
         this.category.name === "Korean Feast For 4" ||
         this.category.name === "Korrito"
       );
+    },
+    isKBBQ() {
+      return this.category.name === "Korean BBQ";
     },
     isKoreanFeast() {
       return (
