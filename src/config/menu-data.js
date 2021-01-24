@@ -96,6 +96,29 @@ const menuData = {
       price: 229,
     },
   ],
+  kbbqTypes: [
+    {
+      name: "Korean BBQ At Home Kit",
+      subtitle: "",
+      description: "Includes tabletop grill.",
+      imageUrl: "https://via.placeholder.com/938x625",
+      price: 9900,
+    },
+    {
+      name: "Korean BBQ At Home Kit",
+      subtitle: "",
+      description: "Without the grill.",
+      imageUrl: "https://via.placeholder.com/938x625",
+      price: 6000,
+    },
+    {
+      name: "Korean BBQ Refills",
+      subtitle: "",
+      description: "get some refills",
+      imageUrl: "https://via.placeholder.com/938x625",
+      price: null,
+    },
+  ],
   options: [
     {
       type: "bases",
@@ -400,6 +423,7 @@ const menuData = {
       ],
     },
   ],
+
   drinks: [
     {
       name: "Kale Apple",

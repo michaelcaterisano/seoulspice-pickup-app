@@ -4,25 +4,24 @@
       <span>KBBQ OPTIONS</span>
     </div>
     <div class="card-container">
-      some cards go here
-      <!-- <OptionCard
+      <OptionCard
         class="category-card"
-        v-for="category in categories"
-        :key="category.name"
-        :option="category"
-        @click.native="setActive(category)"
-        @keyup.enter.native="setActive(category)"
-      /> -->
+        v-for="type in types"
+        :key="type.name"
+        :option="type"
+        @click.native="setActive(type)"
+        @keyup.enter.native="setActive(type)"
+      />
     </div>
   </div>
 </template>
 
 <script>
-// import OptionCard from "../components/OptionCard";
+import OptionCard from "../components/OptionCard";
 
 export default {
   components: {
-    // OptionCard,
+    OptionCard,
   },
   methods: {
     // navigation here
@@ -38,7 +37,7 @@ export default {
     // },
   },
   name: "EntreeKBBQ",
-  props: ["categories"],
+  props: ["types"],
 };
 </script>
 

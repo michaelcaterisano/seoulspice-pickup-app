@@ -7,7 +7,7 @@
       @update="setActive"
     />
 
-    <EntreeKBBQ v-if="active === 'entree-kbbq'" />
+    <EntreeKBBQ v-if="active === 'entree-kbbq'" :types="menuData.kbbqTypes" />
 
     <EntreeSignatures
       v-if="active === 'entree-signatures'"
@@ -62,6 +62,10 @@ export default {
           price += this.entree.signature.price;
         }
       }
+      if (this.isKBBQ()) {
+        // add kbbq choice base price
+      }
+
       this.menuData.options.forEach((option) => {
         option.choices.forEach((choice) => {
           if (choice.selected) {
@@ -169,7 +173,6 @@ export default {
       this.entree.category = null;
       this.entree.signature = null;
       this.notes = [];
-      console.log(this.menuData);
       this.menuData.options.forEach((option) => {
         option.choices.forEach((choice) => {
           choice.selected = false;
@@ -200,6 +203,9 @@ export default {
         this.entree.category.name === "Korean Feast For 2" ||
         this.entree.category.name === "Korean Feast For 4"
       );
+    },
+    isKBBQ() {
+      return this.entree.category.name === "Korean BBQ";
     },
   },
   props: ["edit"],
