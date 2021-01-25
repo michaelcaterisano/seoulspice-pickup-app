@@ -208,7 +208,6 @@ export default {
             });
             // change this to hit /create-payment
             let response = await orderService.post("/create-payment", {
-              phoneNumber: this.getFormattedPhoneNumber(),
               locationId: this.location.id,
               sourceId: nonce,
               orderId: this.orderId,
