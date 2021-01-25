@@ -2,7 +2,7 @@
   <div class="component-container">
     <transition-group class="transition-group" name="fade" mode="out-in">
       <EntreeOptionsCheckboxGroup
-        v-for="step in optionSteps"
+        v-for="step in checkboxSteps"
         :group="options.getOption(step)"
         :price="price"
         v-show="active === step"
@@ -42,12 +42,12 @@ export default {
     EntreeOptionsExtras,
   },
   computed: {
-    optionSteps() {
+    ...mapGetters(["items"]),
+    checkboxSteps() {
       return this.steps.filter(
         (step) => step !== "extras" && step !== "kbbq-sides"
       );
     },
-    ...mapGetters(["items"]),
   },
   data() {
     return {
@@ -101,7 +101,11 @@ export default {
           active = "rices";
           break;
         case this.isKBBQ():
-          active = "kbbq-proteins";
+          if (this.signature.name === "Korean BBQ Refills") {
+            active = "kbbq-sides";
+          } else {
+            active = "kbbq-proteins";
+          }
           break;
         default:
           active = "bases";
@@ -111,7 +115,11 @@ export default {
     getSteps() {
       let steps;
       if (this.isKBBQ()) {
-        steps = ["kbbq-proteins", "kbbq-sides", "extras"];
+        if (this.signature.name === "Korean BBQ Refills") {
+          steps = ["kbbq-sides", "extras"];
+        } else {
+          steps = ["kbbq-proteins", "kbbq-sides", "extras"];
+        }
       }
       if (this.isKorrito()) {
         if (this.isSignature()) {
