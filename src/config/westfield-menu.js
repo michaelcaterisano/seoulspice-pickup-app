@@ -1,6 +1,12 @@
 const menuData = {
   categories: [
     {
+      name: "Korean BBQ",
+      description: "TODO: KBBQ description",
+      imageUrl: "https://via.placeholder.com/938x625",
+      price: null,
+    },
+    {
       name: "Korean Feast For 2",
       description:
         "Let us do the heavy lifting and prepare a complete meal for you and your family! All orders come with an assortment of our four sauces. Serves 2. ",
@@ -90,6 +96,29 @@ const menuData = {
       price: 229,
     },
   ],
+  kbbqTypes: [
+    {
+      name: "Korean BBQ At Home Kit",
+      subtitle: "",
+      description: "Includes tabletop grill.",
+      imageUrl: "https://via.placeholder.com/938x625",
+      price: 9900,
+    },
+    {
+      name: "Korean BBQ At Home Kit",
+      subtitle: "",
+      description: "Without the grill.",
+      imageUrl: "https://via.placeholder.com/938x625",
+      price: 6000,
+    },
+    {
+      name: "Korean BBQ Refills",
+      subtitle: "",
+      description: "get some refills",
+      imageUrl: "https://via.placeholder.com/938x625",
+      price: null,
+    },
+  ],
   options: [
     {
       type: "bases",
@@ -173,6 +202,32 @@ const menuData = {
           price: 229,
           selected: false,
           imageUrl: require("../assets/images/proteins/tofu.jpg"),
+        },
+      ],
+    },
+    {
+      type: "kbbq-proteins",
+      label: "Pick your protein",
+      max: 1,
+      cartLabel: "Proteins",
+      choices: [
+        {
+          name: "Beef",
+          price: 0,
+          selected: false,
+          imageUrl: require("../assets/images/proteins/beef.jpg"),
+        },
+        {
+          name: "Chicken",
+          price: 0,
+          selected: false,
+          imageUrl: require("../assets/images/proteins/chicken.jpg"),
+        },
+        {
+          name: "Spicy Pork",
+          price: 0,
+          selected: false,
+          imageUrl: require("../assets/images/proteins/spicy-pork.jpg"),
         },
       ],
     },
@@ -368,6 +423,105 @@ const menuData = {
       ],
     },
     {
+      type: "kbbq-sides",
+      label: "Would you like any sides?",
+      cartLabel: "Sides",
+      max: Infinity,
+      choices: [
+        {
+          name: "Beef (bulgogi) per pound",
+          description: "Ready for your grilling pleasure!",
+          price: 1500,
+          selected: false,
+          imageUrl: require("../assets/images/proteins/beef.jpg"),
+          qty: 0,
+        },
+        {
+          name: "Chicken (dak) per pound",
+          description: "Ready for your grilling pleasure!",
+          price: 1200,
+          selected: false,
+          imageUrl: require("../assets/images/proteins/chicken.jpg"),
+          qty: 0,
+        },
+        {
+          name: "Spicy Pork",
+          description: "Ready for your grilling pleasure!",
+          price: 1300,
+          selected: false,
+          imageUrl: require("../assets/images/proteins/spicy-pork.jpg"),
+          qty: 0,
+        },
+        {
+          name: "Purple Rice (feeds 3-4)",
+          description:
+            "Multi-grain blend of forbidden black rice and sushi-grade white rice.",
+          price: 500,
+          selected: false,
+          imageUrl: require("../assets/images/bases/purple-rice.jpg"),
+          qty: 0,
+        },
+        {
+          name: "White Rice (feeds 3-4)",
+          description: "Perfectly cooked sushi-grade white rice.",
+          price: 500,
+          selected: false,
+          imageUrl: require("../assets/images/bases/white-rice.jpg"),
+          qty: 0,
+        },
+        {
+          name: "Japchae Noodles (feeds 3-4)",
+          description:
+            "Delicious chewy gluten-free noodles tossed with kale, carrots, roasted sesame seeds, and a garlic-ginger-soy-sesame marinade.",
+          price: 800,
+          selected: false,
+          imageUrl: require("../assets/images/bases/noodles.jpg"),
+          qty: 0,
+        },
+        {
+          name: "Kimchi (12oz)",
+          description:
+            "A Shin family recipe, passed down four generations! Korean cabbage pickled in chilis, ginger, and garlic. Vegan-friendly!",
+          price: 600,
+          selected: false,
+          imageUrl: require("../assets/images/veggies/kimchi.jpg"),
+          qty: 0,
+        },
+        {
+          name: "Korean Hot Sauce (12oz bottle)",
+          description: null,
+          price: 799,
+          selected: false,
+          imageUrl: require("../assets/images/sauces/korean-hot-sauce.jpg"),
+          qty: 0,
+        },
+        {
+          name: "Cream Sriracha Sauce (12oz bottle)",
+          description: null,
+          price: 799,
+          selected: false,
+          imageUrl: require("../assets/images/sauces/creamy-sriracha.jpg"),
+          qty: 0,
+        },
+        {
+          name: "Ginger-Carrot Sauce (12oz bottle)",
+          description: null,
+          price: 799,
+          selected: false,
+          imageUrl: require("../assets/images/sauces/ginger-carrot.jpg"),
+          qty: 0,
+        },
+        {
+          name: "Cilantro-Lime Ranch (12oz bottle)",
+          description: null,
+          price: 799,
+          selected: false,
+          imageUrl: require("../assets/images/sauces/cilantro-lime-ranch.jpg"),
+          qty: 0,
+        },
+      ],
+    },
+    {
       type: "extras",
       label: "Extras?",
       cartLabel: "Extras",
@@ -394,6 +548,7 @@ const menuData = {
       ],
     },
   ],
+
   drinks: [
     {
       name: "Kale Apple",
@@ -409,6 +564,7 @@ const menuData = {
       qty: 0,
       imageUrl: require("../assets/images/drinks/sac-sac.jpg"),
     },
+
     {
       name: "Bubly",
       description:

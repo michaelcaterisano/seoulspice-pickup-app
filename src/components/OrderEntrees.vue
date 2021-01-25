@@ -139,8 +139,8 @@ export default {
       const optionsToAdd = JSON.parse(JSON.stringify(options));
 
       const entreeToAdd = {
-        name: this.entree.category.name,
-        signature: this.entree.signature ? this.entree.signature.name : null,
+        name: this.getCategoryName(),
+        signature: this.getEntreeSignatureName(),
         price: this.price,
         qty: 1,
         type: this.entree.type,
@@ -150,6 +150,35 @@ export default {
 
       this.$store.commit(ADD_ITEM, entreeToAdd);
       this.confirmContinue();
+    },
+    getCategoryName() {
+      let categoryName;
+      if (this.isKBBQ()) {
+        if (this.entree.signature.name === "Korean BBQ Refills") {
+          categoryName = this.entree.signature.name;
+        } else {
+          categoryName = this.entree.signature.name;
+        }
+      } else {
+        categoryName = this.entree.category.name;
+      }
+      return categoryName;
+    },
+    getEntreeSignatureName() {
+      if (!this.entree.signature) {
+        return null;
+      }
+      let signatureName;
+      if (this.isKBBQ()) {
+        if (this.entree.signature.name === "Korean BBQ Refills") {
+          signatureName = "";
+        } else {
+          signatureName = this.entree.signature.description;
+        }
+      } else {
+        signatureName = this.entree.signature.name;
+      }
+      return signatureName;
     },
     confirmContinue() {
       if (this.edit) {
