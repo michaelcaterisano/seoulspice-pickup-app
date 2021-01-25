@@ -38,6 +38,9 @@
           {{ shortTime }}
           <br />
         </p>
+        <p v-if="accumulateLoyaltyPointsSuccess">
+          Loyalty Points Earned: {{ accumulatedLoyaltyPoints }}
+        </p>
       </div>
       <div class="box body-text">
         <span><strong>Items Ordered</strong></span>
@@ -72,7 +75,6 @@
             {{ (tip / 100) | currency }}
             <br />
           </span>
-
           <strong>Total:</strong>
           {{ (total / 100) | currency }}
         </p>
@@ -133,6 +135,13 @@ export default {
       this.tip = totalTipMoney.amount;
       this.discount = totalDiscountMoney.amount;
     }
+
+    const accumulatedPoints = await this.accumulateLoyaltyPoints();
+    if (accumulatedPoints.data.success) {
+      this.accumulateLoyaltyPointsSuccess = true;
+      this.accumulatedLoyaltyPoints =
+        accumulatedPoints.data.accumulatedLoyaltyPoints;
+    }
   },
   data() {
     return {
@@ -141,6 +150,8 @@ export default {
       total: null,
       discount: null,
       items: [],
+      accumulatedLoyaltyPoints: null,
+      accumulateLoyaltyPointsSuccess: false,
     };
   },
   methods: {
@@ -164,6 +175,20 @@ export default {
         },
       });
       return orderSummary;
+    },
+    async accumulateLoyaltyPoints() {
+      const accumulatedPoints = await orderService.post(
+        "accumulate-loyalty-points",
+        {
+          phoneNumber: this.getSquareFormattedPhoneNumber(),
+          orderId: this.orderId,
+          locationId: this.location.id,
+        }
+      );
+      return accumulatedPoints;
+    },
+    getSquareFormattedPhoneNumber() {
+      return new PhoneNumber(this.phone, "US").getNumber();
     },
   },
   name: "OrderSummary",
