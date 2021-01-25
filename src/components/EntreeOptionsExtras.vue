@@ -1,20 +1,18 @@
 <template>
   <div class="component-container">
-    <div class="page-title"><span>EXTRAS</span></div>
+    <div class="page-title">
+      <span>{{ title.toUpperCase() }}</span>
+    </div>
     <div class="card-container">
       <OptionCounterCard
         class="extras-card"
-        v-for="(choice, index) in extras.choices"
+        v-for="(choice, index) in items.choices"
         :option="choice"
         :key="index"
         tabindex="0"
       ></OptionCounterCard>
     </div>
-    <b-button
-      class="next-button"
-      type="is-success"
-      @click.prevent="$emit('add-item')"
-    >
+    <b-button class="next-button" type="is-success" @click.prevent="next">
       <!-- <span>Add to Cart ({{ price | currency }})</span> -->
       <span>NEXT</span>
     </b-button>
@@ -28,8 +26,17 @@ export default {
   components: {
     OptionCounterCard,
   },
+  methods: {
+    next() {
+      if (this.title === "sides") {
+        this.$emit("next");
+      } else {
+        this.$emit("add-item");
+      }
+    },
+  },
   name: "EntreeOptionsExtras",
-  props: ["extras"],
+  props: ["items", "title"],
 };
 </script>
 

@@ -7,6 +7,13 @@
       @update="setActive"
     />
 
+    <EntreeKBBQ
+      v-if="active === 'entree-kbbq'"
+      :types="menuData.kbbqTypes"
+      @signature-selected="setSignature"
+      @update="setActive"
+    />
+
     <EntreeSignatures
       v-if="active === 'entree-signatures'"
       :signatures="menuData.signatures"
@@ -29,6 +36,7 @@
 <script>
 import EntreeCategories from "../components/EntreeCategories";
 import EntreeSignatures from "../components/EntreeSignatures";
+import EntreeKBBQ from "../components/EntreeKBBQ";
 import EntreeOptions from "../components/EntreeOptions";
 import { ADD_ITEM } from "../store/mutations.type";
 import { createHelpers } from "vuex-map-fields";
@@ -41,6 +49,7 @@ export default {
   components: {
     EntreeCategories,
     EntreeSignatures,
+    EntreeKBBQ,
     EntreeOptions,
   },
   name: "OrderEntrees",
@@ -130,8 +139,8 @@ export default {
       const optionsToAdd = JSON.parse(JSON.stringify(options));
 
       const entreeToAdd = {
-        name: this.entree.category.name,
-        signature: this.entree.signature ? this.entree.signature.name : null,
+        name: this.getCategoryName(),
+        signature: this.getEntreeSignatureName(),
         price: this.price,
         qty: 1,
         type: this.entree.type,
@@ -141,6 +150,35 @@ export default {
 
       this.$store.commit(ADD_ITEM, entreeToAdd);
       this.confirmContinue();
+    },
+    getCategoryName() {
+      let categoryName;
+      if (this.isKBBQ()) {
+        if (this.entree.signature.name === "Korean BBQ Refills") {
+          categoryName = this.entree.signature.name;
+        } else {
+          categoryName = this.entree.signature.name;
+        }
+      } else {
+        categoryName = this.entree.category.name;
+      }
+      return categoryName;
+    },
+    getEntreeSignatureName() {
+      if (!this.entree.signature) {
+        return null;
+      }
+      let signatureName;
+      if (this.isKBBQ()) {
+        if (this.entree.signature.name === "Korean BBQ Refills") {
+          signatureName = "";
+        } else {
+          signatureName = this.entree.signature.description;
+        }
+      } else {
+        signatureName = this.entree.signature.name;
+      }
+      return signatureName;
     },
     confirmContinue() {
       if (this.edit) {
@@ -165,7 +203,6 @@ export default {
       this.entree.category = null;
       this.entree.signature = null;
       this.notes = [];
-      console.log(this.menuData);
       this.menuData.options.forEach((option) => {
         option.choices.forEach((choice) => {
           choice.selected = false;
@@ -196,6 +233,9 @@ export default {
         this.entree.category.name === "Korean Feast For 2" ||
         this.entree.category.name === "Korean Feast For 4"
       );
+    },
+    isKBBQ() {
+      return this.entree.category.name === "Korean BBQ";
     },
   },
   props: ["edit"],

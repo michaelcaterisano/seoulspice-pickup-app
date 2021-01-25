@@ -9,15 +9,23 @@
         :key="step"
         :category="category"
         :signature="signature"
-        @next="setActiveOrderStep()"
-        @add-item="addItem()"
+        @next="setActiveOrderStep"
       />
 
       <EntreeOptionsExtras
-        v-show="active === 'extras'"
+        v-if="active === 'kbbq-sides'"
+        :key="'kbbq-sides'"
+        :items="options.getOption('kbbq-sides')"
+        title="sides"
+        @next="setActiveOrderStep"
+      />
+
+      <EntreeOptionsExtras
+        v-if="active === 'extras'"
         :key="'extras'"
-        :extras="options.getOption('extras')"
-        @add-item="addItem()"
+        :items="options.getOption('extras')"
+        title="extras"
+        @add-item="addItem"
       />
     </transition-group>
   </div>
@@ -35,13 +43,15 @@ export default {
   },
   computed: {
     optionSteps() {
-      return this.steps.filter((step) => step !== "extras");
+      return this.steps.filter(
+        (step) => step !== "extras" && step !== "kbbq-sides"
+      );
     },
     ...mapGetters(["items"]),
   },
   data() {
     return {
-      active: this.isKorrito() ? "rices" : "bases",
+      active: this.getInitialActive(),
       steps: this.getSteps(),
     };
   },
@@ -84,8 +94,25 @@ export default {
         this.advanceStep();
       }
     },
+    getInitialActive() {
+      let active;
+      switch (true) {
+        case this.isKorrito():
+          active = "rices";
+          break;
+        case this.isKBBQ():
+          active = "kbbq-proteins";
+          break;
+        default:
+          active = "bases";
+      }
+      return active;
+    },
     getSteps() {
       let steps;
+      if (this.isKBBQ()) {
+        steps = ["kbbq-proteins", "kbbq-sides", "extras"];
+      }
       if (this.isKorrito()) {
         if (this.isSignature()) {
           steps = ["rices", "extra proteins", "extras"];
@@ -146,6 +173,9 @@ export default {
         this.category.name === "Korean Feast For 4" ||
         this.category.name === "Korrito"
       );
+    },
+    isKBBQ() {
+      return this.category.name === "Korean BBQ";
     },
     isKoreanFeast() {
       return (

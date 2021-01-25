@@ -1,16 +1,16 @@
 <template>
   <div class="component-container">
     <div class="page-title category-title">
-      <span>CHOOSE YOUR ENTREE</span>
+      <span>KBBQ OPTIONS</span>
     </div>
     <div class="card-container">
       <OptionCard
         class="category-card"
-        v-for="category in categories"
-        :key="category.name"
-        :option="category"
-        @click.native="setActive(category)"
-        @keyup.enter.native="setActive(category)"
+        v-for="(type, index) in types"
+        :key="index"
+        :option="type"
+        @click.native="setActive(type)"
+        @keyup.enter.native="setActive(type)"
       />
     </div>
   </div>
@@ -24,26 +24,13 @@ export default {
     OptionCard,
   },
   methods: {
-    setActive(category) {
-      let message;
-      if (
-        category.name === "Korean Feast For 2" ||
-        category.name === "Korean Feast For 4" ||
-        category.name === "Kid's Bowl"
-      ) {
-        message = "entree-options";
-      } else if (category.name === "Korean BBQ") {
-        message = "entree-kbbq";
-      } else {
-        message = "entree-signatures";
-      }
-
-      this.$emit("category-selected", category);
-      this.$emit("update", message);
+    setActive(type) {
+      this.$emit("signature-selected", type);
+      this.$emit("update", "entree-options");
     },
   },
-  name: "EntreeCategories",
-  props: ["categories"],
+  name: "EntreeKBBQ",
+  props: ["types"],
 };
 </script>
 

@@ -1,5 +1,4 @@
 import PhoneNumber from "awesome-phonenumber";
-import discountCodes from "../config/discount-codes.js";
 
 function formatTime(date) {
   let hours = date.getHours();
@@ -20,14 +19,6 @@ export const phoneNumber = {
   validate(value) {
     let phone = new PhoneNumber(value, "US");
     return phone.isValid();
-  },
-};
-
-export const discountCode = {
-  getMessage: () => `discount code not found`,
-  validate(value) {
-    console.log(discountCodes);
-    return discountCodes.some((discountCode) => discountCode.code === value);
   },
 };
 
