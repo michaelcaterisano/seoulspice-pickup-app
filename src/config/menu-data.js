@@ -4,7 +4,7 @@ const menuData = {
       name: "Korean BBQ",
       description:
         "Bring home the Korean BBQ experience for a fun, communal experience you can enjoy in the comfort of your home.",
-      imageUrl: "https://via.placeholder.com/938x625",
+      imageUrl: require("../assets/images/entrees/kbbq.jpg"),
       price: null,
     },
     {
@@ -23,7 +23,8 @@ const menuData = {
     },
     {
       name: "Bowl",
-      description: "It is sure to #FEEDYOURSEOUL!",
+      description:
+        "Build a bowl with your choice of base, proteins, veggies, sauces, and toppings.",
       imageUrl: require("../assets/images/entrees/bowl.jpg"),
       price: 850,
     },
@@ -117,7 +118,7 @@ const menuData = {
     {
       name: "Korean BBQ Refills",
       subtitle: "",
-      description: "get some refills",
+      description: "Order additional items ala carte.",
       detail: null,
       imageUrl: "",
       price: null,
@@ -278,16 +279,34 @@ const menuData = {
       KFmax: 4,
       choices: [
         {
+          name: "Cucumbers",
+          price: 0,
+          selected: false,
+          imageUrl: require("../assets/images/veggies/cucumbers.jpg"),
+        },
+        {
           name: "Corn",
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/veggies/corn.jpg"),
         },
         {
+          name: "Korean Radish",
+          price: 0,
+          selected: false,
+          imageUrl: require("../assets/images/veggies/radish.jpg"),
+        },
+        {
           name: "Carrots",
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/veggies/carrots.jpg"),
+        },
+        {
+          name: "Bean Sprouts",
+          price: 0,
+          selected: false,
+          imageUrl: require("../assets/images/veggies/sprouts.jpg"),
         },
         {
           name: "Kimchi",
@@ -300,24 +319,6 @@ const menuData = {
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/veggies/kale.jpg"),
-        },
-        {
-          name: "Cucumbers",
-          price: 0,
-          selected: false,
-          imageUrl: require("../assets/images/veggies/cucumbers.jpg"),
-        },
-        {
-          name: "Korean Radish",
-          price: 0,
-          selected: false,
-          imageUrl: require("../assets/images/veggies/radish.jpg"),
-        },
-        {
-          name: "Bean Sprouts",
-          price: 0,
-          selected: false,
-          imageUrl: require("../assets/images/veggies/sprouts.jpg"),
         },
       ],
     },
@@ -360,10 +361,10 @@ const menuData = {
       max: 6,
       choices: [
         {
-          name: "Crispy Garlic",
+          name: "Scallions",
           price: 0,
           selected: false,
-          imageUrl: require("../assets/images/toppings/crispy-garlic.jpg"),
+          imageUrl: require("../assets/images/toppings/scallions.jpg"),
         },
         {
           name: "Cilantro",
@@ -372,16 +373,10 @@ const menuData = {
           imageUrl: require("../assets/images/toppings/cilantro.jpg"),
         },
         {
-          name: "Sesame Oil",
+          name: "Crispy Garlic",
           price: 0,
           selected: false,
-          imageUrl: require("../assets/images/toppings/sesame-oil.jpg"),
-        },
-        {
-          name: "Scallions",
-          price: 0,
-          selected: false,
-          imageUrl: require("../assets/images/toppings/scallions.jpg"),
+          imageUrl: require("../assets/images/toppings/crispy-garlic.jpg"),
         },
         {
           name: "Sesame Seeds",
@@ -394,6 +389,12 @@ const menuData = {
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/toppings/fire-powder.jpg"),
+        },
+        {
+          name: "Sesame Oil",
+          price: 0,
+          selected: false,
+          imageUrl: require("../assets/images/toppings/sesame-oil.jpg"),
         },
       ],
     },
@@ -431,8 +432,8 @@ const menuData = {
     },
     {
       type: "kbbq-sides",
-      label: "Would you like any sides?",
-      cartLabel: "Sides",
+      label: "Additional Items",
+      cartLabel: "Additional Items",
       max: Infinity,
       choices: [
         {
@@ -537,6 +538,15 @@ const menuData = {
           imageUrl: require("../assets/images/sauces/cilantro-lime-ranch.jpg"),
           qty: 0,
         },
+        {
+          name: "Extra Butane Gas",
+          subtitle: "Canister",
+          description: "Add more fuel to the fire!",
+          price: 300,
+          selected: false,
+          imageUrl: "https://via.placeholder.com/100x100",
+          qty: 0,
+        },
       ],
     },
     {
@@ -576,15 +586,28 @@ const menuData = {
       imageUrl: require("../assets/images/drinks/kale-apple.jpg"),
     },
     {
+      name: "Yuzu Lime",
+      description: "Yuzu + lime juice, sweetened with a touch of honey.",
+      price: 99,
+      qty: 0,
+      imageUrl: require("../assets/images/drinks/yuzu-lime.jpg"),
+    },
+    {
       name: "Sac-Sac Grape",
       description: "Nostalgic Korean juice beverage with real fruit.",
       price: 199,
       qty: 0,
       imageUrl: require("../assets/images/drinks/sac-sac.jpg"),
     },
-
     {
-      name: "Bubly",
+      name: "Sac-Sac Orange",
+      description: "Nostalgic Korean juice beverage with real fruit.",
+      price: 199,
+      qty: 0,
+      imageUrl: require("../assets/images/drinks/sac-sac.jpg"),
+    },
+    {
+      name: "Cherry Bubly",
       description:
         "Crisp, sparkling water with natural fruit flavors. zero calories, zero sweeteners, all smiles.",
       price: 99,
@@ -592,11 +615,36 @@ const menuData = {
       imageUrl: require("../assets/images/drinks/bubly.jpg"),
     },
     {
-      name: "Yuzu Lime",
-      description: "Yuzu + lime juice, sweetened with a touch of honey.",
+      name: "Blackberry Bubly",
+      description:
+        "Crisp, sparkling water with natural fruit flavors. zero calories, zero sweeteners, all smiles.",
       price: 99,
       qty: 0,
-      imageUrl: require("../assets/images/drinks/yuzu-lime.jpg"),
+      imageUrl: require("../assets/images/drinks/bubly.jpg"),
+    },
+    {
+      name: "Grapefruit Bubly",
+      description:
+        "Crisp, sparkling water with natural fruit flavors. zero calories, zero sweeteners, all smiles.",
+      price: 99,
+      qty: 0,
+      imageUrl: require("../assets/images/drinks/bubly.jpg"),
+    },
+    {
+      name: "Mango Bubly",
+      description:
+        "Crisp, sparkling water with natural fruit flavors. zero calories, zero sweeteners, all smiles.",
+      price: 99,
+      qty: 0,
+      imageUrl: require("../assets/images/drinks/bubly.jpg"),
+    },
+    {
+      name: "Givn Water",
+      description:
+        "Every bottle purchased provides clean water to people in need.",
+      price: 200,
+      qty: 0,
+      imageUrl: "https://via.placeholder.com/1500x1000",
     },
   ],
   desserts: [

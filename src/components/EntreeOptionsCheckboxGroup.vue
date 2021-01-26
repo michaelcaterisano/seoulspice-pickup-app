@@ -28,13 +28,13 @@
                 v-bind:class="{ overlay: true, selected: choice.selected }"
               ></div>
             </div>
-            <span class="choice-name body-text"
-              >{{ getChoiceName(choice) }}
-            </span>
-            <span v-if="choice.description" class="choice-name body-text">{{
-              choice.description
-            }}</span>
-            <span class="body-text">{{ getChoicePrice(choice) }}</span>
+            <p class="choice-name body-text">
+              {{ getChoiceName(choice).toUpperCase() }}
+            </p>
+            <p v-if="choice.description" class="choice-name body-text">
+              {{ choice.description.toUpperCase() }}
+            </p>
+            <p class="body-text">{{ getChoicePrice(choice) }}</p>
           </div>
         </b-checkbox-button>
       </div>
@@ -161,6 +161,8 @@ export default {
 
 .choice-name {
   margin-bottom: -10px;
+  width: 120px;
+  white-space: normal;
 }
 
 .body-text {
@@ -178,6 +180,9 @@ img {
   border-radius: 15px;
   width: 120px;
   height: 120px;
+}
+.image-description {
+  max-width: 120px;
 }
 .overlay {
   background: rgba(0, 0, 0, 0.5);

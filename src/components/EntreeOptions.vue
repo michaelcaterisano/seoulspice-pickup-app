@@ -16,7 +16,7 @@
         v-if="active === 'kbbq-sides'"
         :key="'kbbq-sides'"
         :items="options.getOption('kbbq-sides')"
-        title="sides"
+        title="additional items"
         @next="setActiveOrderStep"
       />
 

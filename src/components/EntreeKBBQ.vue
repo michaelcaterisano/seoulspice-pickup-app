@@ -1,8 +1,13 @@
 <template>
   <div class="component-container">
-    <div class="page-title category-title">
-      <span>KBBQ OPTIONS</span>
-    </div>
+    <h1 class="page-title category-title">KOREAN BBQ AT HOME</h1>
+    <h5 class="body-text category-description">
+      <strong
+        >Each KBBQ KIT includes 3 pounds of protein, sushi-grade white rice,
+        kimchi, pickled radish, kale slaw, bean sprouts, cloves of garlic, and
+        an assortment of our signature sauces. Feeds 4+.</strong
+      >
+    </h5>
     <div class="card-container">
       <OptionCard
         class="category-card"
@@ -49,6 +54,13 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+}
+.category-description {
+  margin-top: -10px;
+  margin-bottom: 24px;
+  max-width: 300px;
+  text-align: center;
+  font-size: 12px;
 }
 
 .category-card {
