@@ -7,6 +7,7 @@
       <OptionCard
         class="category-card"
         v-for="(type, index) in types"
+        :hideImage="true"
         :key="index"
         :option="type"
         @click.native="setActive(type)"

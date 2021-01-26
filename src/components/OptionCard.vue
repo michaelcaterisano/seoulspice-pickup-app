@@ -1,6 +1,6 @@
 <template>
   <div class="card" tabindex="0">
-    <div class="card-image">
+    <div v-if="!hideImage" class="card-image">
       <figure class="image is-3x2">
         <img
           v-bind:src="option.imageUrl"
@@ -16,14 +16,9 @@
       <span class="card-title">{{ option.name.toUpperCase() }}</span>
       <!-- <br v-if="option.subtitle" /> -->
       <span v-if="option.subtitle" class="card-subtitle">{{
-        " " + option.subtitle.toUpperCase()
+        option.subtitle
       }}</span>
-      <!-- <br v-if="!option.subtitle" /> -->
-
-      <span class="card-description">{{
-        option.description.charAt(0).toUpperCase() +
-          option.description.slice(1).toLowerCase()
-      }}</span>
+      <span class="card-description">{{ option.description }}</span>
     </div>
     <footer class="card-footer">
       <div class="card-footer-item">
@@ -46,7 +41,7 @@ export default {
   },
   methods: {},
   name: "OptionCard",
-  props: ["option", "isSignature"],
+  props: ["option", "isSignature", "hideImage"],
 };
 </script>
 

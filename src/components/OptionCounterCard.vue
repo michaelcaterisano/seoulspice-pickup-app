@@ -14,9 +14,11 @@
     </div>
     <div class="card-content">
       <span class="card-title">{{ option.name.toUpperCase() }}</span>
+      <span v-if="option.subtitle" class="card-subtitle">{{
+        option.subtitle
+      }}</span>
       <span v-if="option.description" class="card-description">{{
-        option.description.charAt(0).toUpperCase() +
-          option.description.slice(1).toLowerCase()
+        option.description
       }}</span>
     </div>
     <footer class="card-footer">
