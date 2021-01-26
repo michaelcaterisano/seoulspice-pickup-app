@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     next() {
-      if (this.title === "sides") {
+      if (this.title === "additional items") {
         this.$emit("next");
       } else {
         this.$emit("add-item");

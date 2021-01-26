@@ -118,7 +118,7 @@ const menuData = {
     {
       name: "Korean BBQ Refills",
       subtitle: "",
-      description: "get some refills",
+      description: "Order additional items ala carte.",
       detail: null,
       imageUrl: "",
       price: null,
@@ -432,8 +432,8 @@ const menuData = {
     },
     {
       type: "kbbq-sides",
-      label: "Would you like any sides?",
-      cartLabel: "Sides",
+      label: "Additional Items",
+      cartLabel: "Additional Items",
       max: Infinity,
       choices: [
         {
@@ -536,6 +536,15 @@ const menuData = {
           price: 799,
           selected: false,
           imageUrl: require("../assets/images/sauces/cilantro-lime-ranch.jpg"),
+          qty: 0,
+        },
+        {
+          name: "Extra Butane Gas",
+          subtitle: "Canister",
+          description: "Add more fuel to the fire!",
+          price: 300,
+          selected: false,
+          imageUrl: "https://via.placeholder.com/100x100",
           qty: 0,
         },
       ],
