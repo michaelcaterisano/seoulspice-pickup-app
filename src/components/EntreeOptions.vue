@@ -81,8 +81,8 @@ export default {
       const option = this.options.getOption(this.active);
 
       if (this.hasNoneSelected(option)) {
-        if (this.isBasesOption(option)) {
-          this.showBasesRequiredDialog();
+        if (this.isRequiredOption(option)) {
+          this.showOptionRequiredDialog(option);
         } else {
           this.showNoneSelectedDialog(option);
         }
@@ -206,8 +206,12 @@ export default {
     isBuildYourOwn() {
       return this.signature.name === "Build Your Own";
     },
-    isBasesOption(option) {
-      return option.type === "bases" || option.type === "rices";
+    isRequiredOption(option) {
+      return (
+        option.type === "bases" ||
+        option.type === "rices" ||
+        option.type === "kbbq-proteins"
+      );
     },
     hasSauceDialog(option) {
       return (
@@ -253,9 +257,11 @@ export default {
         cancelText: "No",
       });
     },
-    showBasesRequiredDialog() {
+    showOptionRequiredDialog(option) {
+      const optionName =
+        option.type === "bases" || option.type === "rices" ? "base" : "protein";
       this.$buefy.dialog.confirm({
-        message: "Please select a base",
+        message: `Please select a ${optionName}`,
         confirmText: "Ok",
       });
     },
