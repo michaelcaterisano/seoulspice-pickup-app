@@ -102,6 +102,7 @@ const menuData = {
       name: "Korean BBQ Kit",
       subtitle: "",
       description: "Includes a tabletop grill and grill plate (yours to keep).",
+      detail: "With Grill",
       imageUrl: "",
       price: 9900,
     },
@@ -109,6 +110,7 @@ const menuData = {
       name: "Korean BBQ Kit",
       subtitle: "",
       description: "Without the grill and grill plate.",
+      detail: "No Grill",
       imageUrl: "",
       price: 6000,
     },
@@ -116,6 +118,7 @@ const menuData = {
       name: "Korean BBQ Refills",
       subtitle: "",
       description: "get some refills",
+      detail: null,
       imageUrl: "",
       price: null,
     },
@@ -213,21 +216,21 @@ const menuData = {
       cartLabel: "Proteins",
       choices: [
         {
-          name: "beef",
+          name: "Beef",
           description: "(uncooked)",
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/proteins/beef.jpg"),
         },
         {
-          name: "chicken",
+          name: "Chicken",
           description: "(uncooked)",
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/proteins/chicken.jpg"),
         },
         {
-          name: "spicy pork",
+          name: "Spicy Pork",
           description: "(uncooked)",
           price: 0,
           selected: false,
@@ -433,7 +436,7 @@ const menuData = {
       max: Infinity,
       choices: [
         {
-          name: "Uncooked Beef ",
+          name: "Uncooked Beef",
           subtitle: "per pound",
           description: "Ready for your grilling pleasure!",
           price: 1500,
@@ -442,7 +445,7 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Chicken (dak) per pound",
+          name: "Uncooked Chicken",
           subtitle: "per pound",
           description: "Ready for your grilling pleasure!",
           price: 1200,
@@ -451,7 +454,7 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Spicy Pork",
+          name: "Uncooked Spicy Pork",
           subtitle: "per pound",
           description: "Ready for your grilling pleasure!",
           price: 1300,
@@ -460,7 +463,8 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Purple Rice (feeds 3-4)",
+          name: "Purple Rice",
+          subtitle: "feeds 3-4",
           description:
             "Multi-grain blend of forbidden black rice and sushi-grade white rice.",
           price: 500,
@@ -469,7 +473,8 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "White Rice (feeds 3-4)",
+          name: "White Rice",
+          subtitle: "feeds 3-4",
           description: "Perfectly cooked sushi-grade white rice.",
           price: 500,
           selected: false,
@@ -477,7 +482,8 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Japchae Noodles (feeds 3-4)",
+          name: "Japchae Noodles",
+          subtitle: "feeds 3-4",
           description:
             "Delicious chewy gluten-free noodles tossed with kale, carrots, roasted sesame seeds, and a garlic-ginger-soy-sesame marinade.",
           price: 800,
@@ -486,7 +492,8 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Kimchi (12oz)",
+          name: "Kimchi",
+          subtitle: "12oz",
           description:
             "A Shin family recipe, passed down four generations! Korean cabbage pickled in chilis, ginger, and garlic. Vegan-friendly!",
           price: 600,
@@ -495,7 +502,8 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Korean Hot Sauce (12oz bottle)",
+          name: "Korean Hot Sauce",
+          subtitle: "12oz bottle",
           description: null,
           price: 799,
           selected: false,
@@ -503,7 +511,8 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Cream Sriracha Sauce (12oz bottle)",
+          name: "Cream Sriracha Sauce",
+          subtitle: "12oz bottle",
           description: null,
           price: 799,
           selected: false,
@@ -511,7 +520,8 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Ginger-Carrot Sauce (12oz bottle)",
+          name: "Ginger-Carrot Sauce",
+          subtitle: "12oz bottle",
           description: null,
           price: 799,
           selected: false,
@@ -519,7 +529,8 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Cilantro-Lime Ranch (12oz bottle)",
+          name: "Cilantro-Lime Ranch",
+          subtitle: "12oz bottle",
           description: null,
           price: 799,
           selected: false,

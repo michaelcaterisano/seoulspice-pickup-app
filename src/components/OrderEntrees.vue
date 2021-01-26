@@ -154,11 +154,7 @@ export default {
     getCategoryName() {
       let categoryName;
       if (this.isKBBQ()) {
-        if (this.entree.signature.name === "Korean BBQ Refills") {
-          categoryName = this.entree.signature.name;
-        } else {
-          categoryName = this.entree.signature.name;
-        }
+        categoryName = this.entree.signature.name;
       } else {
         categoryName = this.entree.category.name;
       }
@@ -170,11 +166,7 @@ export default {
       }
       let signatureName;
       if (this.isKBBQ()) {
-        if (this.entree.signature.name === "Korean BBQ Refills") {
-          signatureName = "";
-        } else {
-          signatureName = this.entree.signature.description;
-        }
+        signatureName = this.entree.signature.detail;
       } else {
         signatureName = this.entree.signature.name;
       }
