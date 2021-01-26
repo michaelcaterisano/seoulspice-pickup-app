@@ -31,6 +31,9 @@
             <span class="choice-name body-text"
               >{{ getChoiceName(choice) }}
             </span>
+            <span v-if="choice.description" class="choice-name body-text">{{
+              choice.description
+            }}</span>
             <span class="body-text">{{ getChoicePrice(choice) }}</span>
           </div>
         </b-checkbox-button>

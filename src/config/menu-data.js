@@ -2,14 +2,15 @@ const menuData = {
   categories: [
     {
       name: "Korean BBQ",
-      description: "TODO: KBBQ description",
+      description:
+        "Bring home the Korean BBQ experience for a fun, communal experience you can enjoy in the comfort of your home.",
       imageUrl: "https://via.placeholder.com/938x625",
       price: null,
     },
     {
       name: "Korean Feast For 2",
       description:
-        "Let us do the heavy lifting and prepare a complete meal for you and your family! All orders come with an assortment of our four sauces. Serves 2. ",
+        "Let us do the heavy lifting and prepare a complete meal for you and your family! All orders come with an assortment of our four sauces. Serves 2.",
       imageUrl: require("../assets/images/entrees/korean-feast.jpg"),
       price: 2500,
     },
@@ -51,7 +52,7 @@ const menuData = {
       name: "Klassic",
       subtitle: "TRADITIONAL KOREAN FLAVORS",
       description:
-        "BEEF, sprouts-carrots-cucumbers, kale, KOREAN HOT SAUCE, scallions-sesame seeds-sesame oil.",
+        "Beef, sprouts-carrots-cucumbers-kale, korean hot sauce, scallions-sesame seeds-sesame oil.",
       imageUrl: require("../assets/images/signatures/klassic.jpg"),
       price: 299,
     },
@@ -59,7 +60,7 @@ const menuData = {
       name: "Seoul Train",
       subtitle: "EAST MEETS WEST",
       description:
-        "BEEF, corn-cucumbers-kale-kimchi, CREAMY SRIRACHA SAUCE, crispy garlic-cilantro-scallions-sesame seeds.",
+        "Beef, corn-cucumbers-kale-kimchi, creamy sriracha sauce, crispy garlic-cilantro-scallions-sesame seeds.",
       imageUrl: require("../assets/images/signatures/seoul-train.jpg"),
       price: 299,
     },
@@ -67,7 +68,7 @@ const menuData = {
       name: "Kimchi Krunch",
       subtitle: "CRUNCHY, PICKLEY, FUNKY",
       description:
-        "CHICKEN, sprouts-carrots-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-cilantro-sesame seeds.",
+        "Chicken, sprouts-carrots-radish-kale-kimchi, ginger-carrot sauce, crispy garlic-cilantro-sesame seeds.",
       imageUrl: require("../assets/images/signatures/kimchi-krunch.jpg"),
       price: 249,
     },
@@ -75,7 +76,7 @@ const menuData = {
       name: "Southwest",
       subtitle: "SOUTHWESTERN FLAVORS",
       description:
-        "CHICKEN, corn-carrots-kale, CILANTRO-LIME-RANCH SAUCE, crispy garlic-cilantro-scallions.",
+        "Chicken, corn-carrots-kale, cilantr-lime ranch sauce, crispy garlic-cilantro-scallions.",
       imageUrl: require("../assets/images/signatures/southwest.jpg"),
       price: 249,
     },
@@ -83,7 +84,7 @@ const menuData = {
       name: "Fireball",
       subtitle: "UNAPOLOGETICALLY SPICY",
       description:
-        "SPICY PORK, corn-radish-kale-kimchi, KOREAN HOT SAUCE, CREAMY SRIRACHA SAUCE, crispy garlic-scallions-sesame seeds-fire powder.",
+        "Spicy pork, corn-radish-kale-kimchi, korean hot sauce, creamy sriracha sauce, crispy garlic-scallions-sesame seeds-fire powder.",
       imageUrl: require("../assets/images/signatures/fireball.jpg"),
       price: 279,
     },
@@ -91,31 +92,31 @@ const menuData = {
       name: "Herbivore",
       subtitle: "A VEGAN DELIGHT",
       description:
-        "TOFU, sprouts-corn-carrots-cucumbers-radish-kale-kimchi, GINGER-CARROT SAUCE, crispy garlic-scallions-sesame seeds.",
+        "Tofu, sprouts-corn-carrots-cucumbers-radish-kale-kimchi, ginger-carrot sauce, crispy garlic-scallions-sesame seeds.",
       imageUrl: require("../assets/images/signatures/herbivore.jpg"),
       price: 229,
     },
   ],
   kbbqTypes: [
     {
-      name: "Korean BBQ At Home Kit",
+      name: "Korean BBQ Kit",
       subtitle: "",
-      description: "Includes tabletop grill.",
-      imageUrl: "https://via.placeholder.com/938x625",
+      description: "Includes a tabletop grill and grill plate (yours to keep).",
+      imageUrl: "",
       price: 9900,
     },
     {
-      name: "Korean BBQ At Home Kit",
+      name: "Korean BBQ Kit",
       subtitle: "",
-      description: "Without the grill.",
-      imageUrl: "https://via.placeholder.com/938x625",
+      description: "Without the grill and grill plate.",
+      imageUrl: "",
       price: 6000,
     },
     {
       name: "Korean BBQ Refills",
       subtitle: "",
       description: "get some refills",
-      imageUrl: "https://via.placeholder.com/938x625",
+      imageUrl: "",
       price: null,
     },
   ],
@@ -212,19 +213,22 @@ const menuData = {
       cartLabel: "Proteins",
       choices: [
         {
-          name: "Beef",
+          name: "beef",
+          description: "(uncooked)",
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/proteins/beef.jpg"),
         },
         {
-          name: "Chicken",
+          name: "chicken",
+          description: "(uncooked)",
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/proteins/chicken.jpg"),
         },
         {
-          name: "Spicy Pork",
+          name: "spicy pork",
+          description: "(uncooked)",
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/proteins/spicy-pork.jpg"),
@@ -429,7 +433,8 @@ const menuData = {
       max: Infinity,
       choices: [
         {
-          name: "Beef (bulgogi) per pound",
+          name: "Uncooked Beef ",
+          subtitle: "per pound",
           description: "Ready for your grilling pleasure!",
           price: 1500,
           selected: false,
@@ -438,6 +443,7 @@ const menuData = {
         },
         {
           name: "Chicken (dak) per pound",
+          subtitle: "per pound",
           description: "Ready for your grilling pleasure!",
           price: 1200,
           selected: false,
@@ -446,6 +452,7 @@ const menuData = {
         },
         {
           name: "Spicy Pork",
+          subtitle: "per pound",
           description: "Ready for your grilling pleasure!",
           price: 1300,
           selected: false,
@@ -530,7 +537,7 @@ const menuData = {
         {
           name: "The Egg",
           description:
-            "perfectly set white, liquid-gold yolk marinated in a sweet-soy base.",
+            "Perfectly set white, liquid-gold yolk marinated in a sweet-soy base.",
           price: 199,
           selected: false,
           imageUrl: require("../assets/images/extras/the-egg.jpg"),
@@ -539,7 +546,7 @@ const menuData = {
         {
           name: "Avocado",
           description:
-            "this nutrient-packed superfood adds a rich, buttery flavor to anything.",
+            "This nutrient-packed superfood adds a rich, buttery flavor to anything.",
           price: 189,
           selected: false,
           imageUrl: require("../assets/images/extras/avocado.jpg"),
@@ -552,14 +559,14 @@ const menuData = {
   drinks: [
     {
       name: "Kale Apple",
-      description: "fresh pressed apples and kale.",
+      description: "Fresh pressed apples and kale.",
       price: 199,
       qty: 0,
       imageUrl: require("../assets/images/drinks/kale-apple.jpg"),
     },
     {
       name: "Sac-Sac Grape",
-      description: "nostalgic Korean juice beverage with real fruit.",
+      description: "Nostalgic Korean juice beverage with real fruit.",
       price: 199,
       qty: 0,
       imageUrl: require("../assets/images/drinks/sac-sac.jpg"),
@@ -568,14 +575,14 @@ const menuData = {
     {
       name: "Bubly",
       description:
-        "crisp, sparkling water with natural fruit flavors. zero calories, zero sweeteners, all smiles.",
+        "Crisp, sparkling water with natural fruit flavors. zero calories, zero sweeteners, all smiles.",
       price: 99,
       qty: 0,
       imageUrl: require("../assets/images/drinks/bubly.jpg"),
     },
     {
       name: "Yuzu Lime",
-      description: "yuzu + lime juice, sweetened with a touch of honey.",
+      description: "Yuzu + lime juice, sweetened with a touch of honey.",
       price: 99,
       qty: 0,
       imageUrl: require("../assets/images/drinks/yuzu-lime.jpg"),
@@ -585,7 +592,7 @@ const menuData = {
     {
       name: "Chewy Chocolate Chip Cookie",
       description:
-        "soft, chewy, and buttery gluten-free chocolate chip cookies from our friends at Rise Bakery in Adams Morgan.",
+        "Soft, chewy, and buttery gluten-free chocolate chip cookies from our friends at Rise Bakery in Adams Morgan.",
       price: 259,
       qty: 0,
       imageUrl: require("../assets/images/desserts/cookie.jpg"),
@@ -593,7 +600,7 @@ const menuData = {
     {
       name: "Rice Krispie Treat",
       description:
-        "delightfully sweet and chewy gluten-free rice krispie treats from our friends at Rise Bakery in Adams Morgan.",
+        "Delightfully sweet and chewy gluten-free rice krispie treats from our friends at Rise Bakery in Adams Morgan.",
       price: 299,
       qty: 0,
       imageUrl: require("../assets/images/desserts/rice-krispie-treat.jpg"),
