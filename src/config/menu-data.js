@@ -405,10 +405,10 @@ const menuData = {
       max: 4,
       choices: [
         {
-          name: "Crispy Garlic",
+          name: "Scallions",
           price: 0,
           selected: false,
-          imageUrl: require("../assets/images/toppings/crispy-garlic.jpg"),
+          imageUrl: require("../assets/images/toppings/scallions.jpg"),
         },
         {
           name: "Cilantro",
@@ -417,10 +417,10 @@ const menuData = {
           imageUrl: require("../assets/images/toppings/cilantro.jpg"),
         },
         {
-          name: "Scallions",
+          name: "Crispy Garlic",
           price: 0,
           selected: false,
-          imageUrl: require("../assets/images/toppings/scallions.jpg"),
+          imageUrl: require("../assets/images/toppings/crispy-garlic.jpg"),
         },
         {
           name: "Sesame Seeds",
@@ -512,7 +512,7 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Cream Sriracha Sauce",
+          name: "Creamy Sriracha",
           subtitle: "12oz bottle",
           description: null,
           price: 799,
@@ -521,7 +521,7 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Ginger-Carrot Sauce",
+          name: "Ginger-Carrot",
           subtitle: "12oz bottle",
           description: null,
           price: 799,
