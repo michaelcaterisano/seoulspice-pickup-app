@@ -270,7 +270,11 @@ export default {
         message:
           "Are you sure you want to continue without selecting any options?",
         onConfirm: () => {
-          option.type === "proteins" ? this.advanceStep(2) : this.advanceStep();
+          option.type === "proteins" &&
+          !this.isKoreanFeast() &&
+          !this.isKidsBowl()
+            ? this.advanceStep(2)
+            : this.advanceStep();
         },
         confirmText: "Yes",
         cancelText: "No",
