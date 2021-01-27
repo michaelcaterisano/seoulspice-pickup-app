@@ -544,7 +544,7 @@ const menuData = {
           description: "Add more fuel to the fire!",
           price: 300,
           selected: false,
-          imageUrl: "https://via.placeholder.com/100x100",
+          imageUrl: require("../assets/images/additional-items/butane.jpg"),
           qty: 0,
         },
       ],
@@ -644,7 +644,7 @@ const menuData = {
         "Every bottle purchased provides clean water to people in need.",
       price: 200,
       qty: 0,
-      imageUrl: "https://via.placeholder.com/1500x1000",
+      imageUrl: require("../assets/images/drinks/givn.jpg"),
     },
   ],
   desserts: [
