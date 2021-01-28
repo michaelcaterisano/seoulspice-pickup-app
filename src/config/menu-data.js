@@ -439,7 +439,8 @@ const menuData = {
         {
           name: "Uncooked Beef",
           subtitle: "per pound",
-          description: "Ready for your grilling pleasure!",
+          description:
+            "Thin-sliced ribeye marinated in our sweet and savory bulgogi marinade.",
           price: 1500,
           selected: false,
           imageUrl: require("../assets/images/proteins/beef.jpg"),
@@ -448,7 +449,8 @@ const menuData = {
         {
           name: "Uncooked Chicken",
           subtitle: "per pound",
-          description: "Ready for your grilling pleasure!",
+          description:
+            "Local chicken, marinated in a soy-garlic-ginger marinade.",
           price: 1200,
           selected: false,
           imageUrl: require("../assets/images/proteins/chicken.jpg"),
@@ -457,7 +459,8 @@ const menuData = {
         {
           name: "Uncooked Spicy Pork",
           subtitle: "per pound",
-          description: "Ready for your grilling pleasure!",
+          description:
+            "Thin-sliced pork marinated in a sweet-spicy chili marinade.",
           price: 1300,
           selected: false,
           imageUrl: require("../assets/images/proteins/spicy-pork.jpg"),
@@ -505,7 +508,8 @@ const menuData = {
         {
           name: "Korean Hot Sauce",
           subtitle: "12oz bottle",
-          description: null,
+          description:
+            "Spicy and earthy, traditional Gochujang paste with the sweet umami of miso.",
           price: 799,
           selected: false,
           imageUrl: require("../assets/images/sauces/korean-hot-sauce.jpg"),
@@ -514,7 +518,8 @@ const menuData = {
         {
           name: "Creamy Sriracha",
           subtitle: "12oz bottle",
-          description: null,
+          description:
+            "Chili-garlic aioli made from everyone’s favorite chili sauce.",
           price: 799,
           selected: false,
           imageUrl: require("../assets/images/sauces/creamy-sriracha.jpg"),
@@ -523,7 +528,8 @@ const menuData = {
         {
           name: "Ginger-Carrot",
           subtitle: "12oz bottle",
-          description: null,
+          description:
+            "Crisp and vibrant, beaming with fresh ginger and carrots.",
           price: 799,
           selected: false,
           imageUrl: require("../assets/images/sauces/ginger-carrot.jpg"),
@@ -532,7 +538,8 @@ const menuData = {
         {
           name: "Cilantro-Lime Ranch",
           subtitle: "12oz bottle",
-          description: null,
+          description:
+            "Creamy ranch bursting with the brightness of fresh cilantro and lime.",
           price: 799,
           selected: false,
           imageUrl: require("../assets/images/sauces/cilantro-lime-ranch.jpg"),
