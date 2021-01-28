@@ -4,7 +4,7 @@ const menuData = {
       name: "Korean BBQ",
       description:
         "Bring home the Korean BBQ experience for a fun, communal experience you can enjoy in the comfort of your home.",
-      imageUrl: "https://via.placeholder.com/938x625",
+      imageUrl: require("../assets/images/entrees/kbbq.jpg"),
       price: null,
     },
     {
@@ -23,7 +23,8 @@ const menuData = {
     },
     {
       name: "Bowl",
-      description: "It is sure to #FEEDYOURSEOUL!",
+      description:
+        "Build a bowl with your choice of base, proteins, veggies, sauces, and toppings.",
       imageUrl: require("../assets/images/entrees/bowl.jpg"),
       price: 850,
     },
@@ -102,6 +103,7 @@ const menuData = {
       name: "Korean BBQ Kit",
       subtitle: "",
       description: "Includes a tabletop grill and grill plate (yours to keep).",
+      detail: "With Grill",
       imageUrl: "",
       price: 9900,
     },
@@ -109,13 +111,15 @@ const menuData = {
       name: "Korean BBQ Kit",
       subtitle: "",
       description: "Without the grill and grill plate.",
+      detail: "No Grill",
       imageUrl: "",
       price: 6000,
     },
     {
       name: "Korean BBQ Refills",
       subtitle: "",
-      description: "get some refills",
+      description: "Order additional items ala carte.",
+      detail: null,
       imageUrl: "",
       price: null,
     },
@@ -213,21 +217,21 @@ const menuData = {
       cartLabel: "Proteins",
       choices: [
         {
-          name: "beef",
+          name: "Beef",
           description: "(uncooked)",
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/proteins/beef.jpg"),
         },
         {
-          name: "chicken",
+          name: "Chicken",
           description: "(uncooked)",
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/proteins/chicken.jpg"),
         },
         {
-          name: "spicy pork",
+          name: "Spicy Pork",
           description: "(uncooked)",
           price: 0,
           selected: false,
@@ -275,16 +279,34 @@ const menuData = {
       KFmax: 4,
       choices: [
         {
+          name: "Cucumbers",
+          price: 0,
+          selected: false,
+          imageUrl: require("../assets/images/veggies/cucumbers.jpg"),
+        },
+        {
           name: "Corn",
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/veggies/corn.jpg"),
         },
         {
+          name: "Korean Radish",
+          price: 0,
+          selected: false,
+          imageUrl: require("../assets/images/veggies/radish.jpg"),
+        },
+        {
           name: "Carrots",
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/veggies/carrots.jpg"),
+        },
+        {
+          name: "Bean Sprouts",
+          price: 0,
+          selected: false,
+          imageUrl: require("../assets/images/veggies/sprouts.jpg"),
         },
         {
           name: "Kimchi",
@@ -297,24 +319,6 @@ const menuData = {
           price: 0,
           selected: false,
           imageUrl: require("../assets/images/veggies/kale.jpg"),
-        },
-        {
-          name: "Cucumbers",
-          price: 0,
-          selected: false,
-          imageUrl: require("../assets/images/veggies/cucumbers.jpg"),
-        },
-        {
-          name: "Korean Radish",
-          price: 0,
-          selected: false,
-          imageUrl: require("../assets/images/veggies/radish.jpg"),
-        },
-        {
-          name: "Bean Sprouts",
-          price: 0,
-          selected: false,
-          imageUrl: require("../assets/images/veggies/sprouts.jpg"),
         },
       ],
     },
@@ -357,10 +361,10 @@ const menuData = {
       max: 6,
       choices: [
         {
-          name: "Crispy Garlic",
+          name: "Scallions",
           price: 0,
           selected: false,
-          imageUrl: require("../assets/images/toppings/crispy-garlic.jpg"),
+          imageUrl: require("../assets/images/toppings/scallions.jpg"),
         },
         {
           name: "Cilantro",
@@ -369,16 +373,10 @@ const menuData = {
           imageUrl: require("../assets/images/toppings/cilantro.jpg"),
         },
         {
-          name: "Sesame Oil",
+          name: "Crispy Garlic",
           price: 0,
           selected: false,
-          imageUrl: require("../assets/images/toppings/sesame-oil.jpg"),
-        },
-        {
-          name: "Scallions",
-          price: 0,
-          selected: false,
-          imageUrl: require("../assets/images/toppings/scallions.jpg"),
+          imageUrl: require("../assets/images/toppings/crispy-garlic.jpg"),
         },
         {
           name: "Sesame Seeds",
@@ -392,6 +390,12 @@ const menuData = {
           selected: false,
           imageUrl: require("../assets/images/toppings/fire-powder.jpg"),
         },
+        {
+          name: "Sesame Oil",
+          price: 0,
+          selected: false,
+          imageUrl: require("../assets/images/toppings/sesame-oil.jpg"),
+        },
       ],
     },
     {
@@ -401,10 +405,10 @@ const menuData = {
       max: 4,
       choices: [
         {
-          name: "Crispy Garlic",
+          name: "Scallions",
           price: 0,
           selected: false,
-          imageUrl: require("../assets/images/toppings/crispy-garlic.jpg"),
+          imageUrl: require("../assets/images/toppings/scallions.jpg"),
         },
         {
           name: "Cilantro",
@@ -413,10 +417,10 @@ const menuData = {
           imageUrl: require("../assets/images/toppings/cilantro.jpg"),
         },
         {
-          name: "Scallions",
+          name: "Crispy Garlic",
           price: 0,
           selected: false,
-          imageUrl: require("../assets/images/toppings/scallions.jpg"),
+          imageUrl: require("../assets/images/toppings/crispy-garlic.jpg"),
         },
         {
           name: "Sesame Seeds",
@@ -428,39 +432,43 @@ const menuData = {
     },
     {
       type: "kbbq-sides",
-      label: "Would you like any sides?",
-      cartLabel: "Sides",
+      label: "Additional Items",
+      cartLabel: "Additional Items",
       max: Infinity,
       choices: [
         {
-          name: "Uncooked Beef ",
+          name: "Uncooked Beef",
           subtitle: "per pound",
-          description: "Ready for your grilling pleasure!",
+          description:
+            "Thin-sliced ribeye marinated in our sweet and savory bulgogi marinade.",
           price: 1500,
           selected: false,
           imageUrl: require("../assets/images/proteins/beef.jpg"),
           qty: 0,
         },
         {
-          name: "Chicken (dak) per pound",
+          name: "Uncooked Chicken",
           subtitle: "per pound",
-          description: "Ready for your grilling pleasure!",
+          description:
+            "Local chicken, marinated in a soy-garlic-ginger marinade.",
           price: 1200,
           selected: false,
           imageUrl: require("../assets/images/proteins/chicken.jpg"),
           qty: 0,
         },
         {
-          name: "Spicy Pork",
+          name: "Uncooked Spicy Pork",
           subtitle: "per pound",
-          description: "Ready for your grilling pleasure!",
+          description:
+            "Thin-sliced pork marinated in a sweet-spicy chili marinade.",
           price: 1300,
           selected: false,
           imageUrl: require("../assets/images/proteins/spicy-pork.jpg"),
           qty: 0,
         },
         {
-          name: "Purple Rice (feeds 3-4)",
+          name: "Purple Rice",
+          subtitle: "feeds 3-4",
           description:
             "Multi-grain blend of forbidden black rice and sushi-grade white rice.",
           price: 500,
@@ -469,7 +477,8 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "White Rice (feeds 3-4)",
+          name: "White Rice",
+          subtitle: "feeds 3-4",
           description: "Perfectly cooked sushi-grade white rice.",
           price: 500,
           selected: false,
@@ -477,7 +486,8 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Japchae Noodles (feeds 3-4)",
+          name: "Japchae Noodles",
+          subtitle: "feeds 3-4",
           description:
             "Delicious chewy gluten-free noodles tossed with kale, carrots, roasted sesame seeds, and a garlic-ginger-soy-sesame marinade.",
           price: 800,
@@ -486,7 +496,8 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Kimchi (12oz)",
+          name: "Kimchi",
+          subtitle: "12oz",
           description:
             "A Shin family recipe, passed down four generations! Korean cabbage pickled in chilis, ginger, and garlic. Vegan-friendly!",
           price: 600,
@@ -495,35 +506,52 @@ const menuData = {
           qty: 0,
         },
         {
-          name: "Korean Hot Sauce (12oz bottle)",
-          description: null,
+          name: "Korean Hot Sauce",
+          subtitle: "12oz bottle",
+          description:
+            "Spicy and earthy, traditional Gochujang paste with the sweet umami of miso.",
           price: 799,
           selected: false,
           imageUrl: require("../assets/images/sauces/korean-hot-sauce.jpg"),
           qty: 0,
         },
         {
-          name: "Cream Sriracha Sauce (12oz bottle)",
-          description: null,
+          name: "Creamy Sriracha",
+          subtitle: "12oz bottle",
+          description:
+            "Chili-garlic aioli made from everyone’s favorite chili sauce.",
           price: 799,
           selected: false,
           imageUrl: require("../assets/images/sauces/creamy-sriracha.jpg"),
           qty: 0,
         },
         {
-          name: "Ginger-Carrot Sauce (12oz bottle)",
-          description: null,
+          name: "Ginger-Carrot",
+          subtitle: "12oz bottle",
+          description:
+            "Crisp and vibrant, beaming with fresh ginger and carrots.",
           price: 799,
           selected: false,
           imageUrl: require("../assets/images/sauces/ginger-carrot.jpg"),
           qty: 0,
         },
         {
-          name: "Cilantro-Lime Ranch (12oz bottle)",
-          description: null,
+          name: "Cilantro-Lime Ranch",
+          subtitle: "12oz bottle",
+          description:
+            "Creamy ranch bursting with the brightness of fresh cilantro and lime.",
           price: 799,
           selected: false,
           imageUrl: require("../assets/images/sauces/cilantro-lime-ranch.jpg"),
+          qty: 0,
+        },
+        {
+          name: "Extra Butane Gas",
+          subtitle: "Canister",
+          description: "Add more fuel to the fire!",
+          price: 300,
+          selected: false,
+          imageUrl: require("../assets/images/additional-items/butane.jpg"),
           qty: 0,
         },
       ],
@@ -565,15 +593,28 @@ const menuData = {
       imageUrl: require("../assets/images/drinks/kale-apple.jpg"),
     },
     {
+      name: "Yuzu Lime",
+      description: "Yuzu + lime juice, sweetened with a touch of honey.",
+      price: 99,
+      qty: 0,
+      imageUrl: require("../assets/images/drinks/yuzu-lime.jpg"),
+    },
+    {
       name: "Sac-Sac Grape",
       description: "Nostalgic Korean juice beverage with real fruit.",
       price: 199,
       qty: 0,
       imageUrl: require("../assets/images/drinks/sac-sac.jpg"),
     },
-
     {
-      name: "Bubly",
+      name: "Sac-Sac Orange",
+      description: "Nostalgic Korean juice beverage with real fruit.",
+      price: 199,
+      qty: 0,
+      imageUrl: require("../assets/images/drinks/sac-sac.jpg"),
+    },
+    {
+      name: "Cherry Bubly",
       description:
         "Crisp, sparkling water with natural fruit flavors. zero calories, zero sweeteners, all smiles.",
       price: 99,
@@ -581,11 +622,36 @@ const menuData = {
       imageUrl: require("../assets/images/drinks/bubly.jpg"),
     },
     {
-      name: "Yuzu Lime",
-      description: "Yuzu + lime juice, sweetened with a touch of honey.",
+      name: "Blackberry Bubly",
+      description:
+        "Crisp, sparkling water with natural fruit flavors. zero calories, zero sweeteners, all smiles.",
       price: 99,
       qty: 0,
-      imageUrl: require("../assets/images/drinks/yuzu-lime.jpg"),
+      imageUrl: require("../assets/images/drinks/bubly.jpg"),
+    },
+    {
+      name: "Grapefruit Bubly",
+      description:
+        "Crisp, sparkling water with natural fruit flavors. zero calories, zero sweeteners, all smiles.",
+      price: 99,
+      qty: 0,
+      imageUrl: require("../assets/images/drinks/bubly.jpg"),
+    },
+    {
+      name: "Mango Bubly",
+      description:
+        "Crisp, sparkling water with natural fruit flavors. zero calories, zero sweeteners, all smiles.",
+      price: 99,
+      qty: 0,
+      imageUrl: require("../assets/images/drinks/bubly.jpg"),
+    },
+    {
+      name: "Givn Water",
+      description:
+        "Every bottle purchased provides clean water to people in need.",
+      price: 200,
+      qty: 0,
+      imageUrl: require("../assets/images/drinks/givn.jpg"),
     },
   ],
   desserts: [
