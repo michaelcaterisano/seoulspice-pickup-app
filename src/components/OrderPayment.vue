@@ -309,8 +309,9 @@ export default {
       if (result.data.success) {
         this.orderTotal = result.data.updatedOrderTotal;
         this.rewardRedeemed = true;
-        this.orderDiscount = result.data.discount;
-        this.rewardDiscount = result.data.discount / 100;
+        this.orderDiscount = result.data.orderDiscount;
+        this.orderTax = result.data.orderTax;
+        this.rewardDiscount = result.data.orderDiscount / 100;
       }
     },
     processPayment() {

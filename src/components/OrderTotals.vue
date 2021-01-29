@@ -19,6 +19,10 @@
       </p>
     </div>
     <div v-if="type == 'checkout'">
+      <p v-if="orderDiscount > 0">
+        <span>Discount</span>
+        {{ -(orderDiscount / 100) | currency }}
+      </p>
       <p>
         <span>Subtotal: </span>
         {{ ((orderTotal - orderTax) / 100) | currency }}
@@ -31,10 +35,7 @@
         <span>Tip: </span>
         {{ (tip / 100) | currency }}
       </p>
-      <p v-if="orderDiscount > 0">
-        <span>Discount</span>
-        {{ -(orderDiscount / 100) | currency }}
-      </p>
+
       <p>
         <span>Total: </span>
         {{ ((orderTotal + tip) / 100) | currency }}
@@ -129,6 +130,7 @@ export default {
         this.discountDisabled = true;
         this.orderDiscount = result.data.orderDiscount;
         this.orderTotal = result.data.orderTotal;
+        this.orderTax = result.data.orderTax;
         this.invalidDiscountCode = false;
         this.discountCodeMessage = "";
       } else {
