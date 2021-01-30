@@ -1,50 +1,47 @@
+const cloudinaryTransform =
+  "c_crop,h_0.6,w_0.6/c_scale,w_400,f_auto,q_auto:good";
+
 const menuData = {
   categories: [
     {
       name: "Korean BBQ",
       description:
         "Bring home the Korean BBQ experience for a fun, communal experience you can enjoy in the comfort of your home.",
-      imageUrl:
-        "https://res.cloudinary.com/seoulspice/image/upload/c_scale,h_200,w_300/seoulspice/entrees/kbbq_rracik.jpg",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/entrees/kbbq_rracik.jpg`,
       price: null,
     },
     {
       name: "Korean Feast For 2",
       description:
         "Let us do the heavy lifting and prepare a complete meal for you and your family! All orders come with an assortment of our four sauces. Serves 2.",
-      imageUrl:
-        "https://res.cloudinary.com/seoulspice/image/upload/c_scale,h_200,w_300/seoulspice/entrees/korean-feast_leyysd.jpg",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/entrees/korean-feast_leyysd.jpg`,
       price: 2500,
     },
     {
       name: "Korean Feast For 4",
       description:
         "Let us do the heavy lifting and prepare a complete meal for you and your family! All orders come with an assortment of our four sauces. Serves 4.",
-      imageUrl:
-        "https://res.cloudinary.com/seoulspice/image/upload/c_scale,h_200,w_300/seoulspice/entrees/korean-feast_leyysd.jpg",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/entrees/korean-feast_leyysd.jpg`,
       price: 4000,
     },
     {
       name: "Bowl",
       description:
         "Build a bowl with your choice of base, proteins, veggies, sauces, and toppings.",
-      imageUrl:
-        "https://res.cloudinary.com/seoulspice/image/upload/c_scale,h_200,w_300/seoulspice/entrees/bowl_b1vhvv.jpg",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/entrees/bowl_b1vhvv.jpg`,
       price: 850,
     },
     {
       name: "Korrito",
       description:
         "The ORIGINAL Korean-style sushi burrito! Your choice of ingredients wrapped in white or purple rice and nori (seaweed).",
-      imageUrl:
-        "https://res.cloudinary.com/seoulspice/image/upload/c_scale,h_200,w_300/seoulspice/entrees/korrito_subb9u.jpg",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/entrees/korrito_subb9u.jpg`,
       price: 775,
     },
     {
       name: "Kid's Bowl",
       description: "A perfectly sized meal for our smaller #SEOULMATES.",
-      imageUrl:
-        "https://res.cloudinary.com/seoulspice/image/upload/c_scale,h_200,w_300/seoulspice/entrees/kids-bowl_amtgy6.jpg",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/entrees/kids-bowl_amtgy6.jpg`,
       price: 550,
     },
   ],
