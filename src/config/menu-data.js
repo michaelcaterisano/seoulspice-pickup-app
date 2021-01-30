@@ -1,4 +1,4 @@
-const cloudinaryTransform = "c_scale,w_400,f_auto,q_auto:good";
+const cloudinaryTransform = "c_scale,w_300,f_auto,q_auto";
 
 const menuData = {
   categories: [
