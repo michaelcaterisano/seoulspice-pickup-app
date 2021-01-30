@@ -65,7 +65,7 @@ export default {
         id,
         name,
         phone: phoneNumber ? phoneNumber : "2125551111",
-        taxRate: 10,
+        taxRate: 6, // make this dynamic per location
       });
       return acc;
     }, []);
