@@ -37,16 +37,16 @@ export default {
       let url;
       switch (this.location.name.toLowerCase()) {
         case "dc noma":
-          url = require("../assets/images/locations/noma.jpg");
+          url = `https://res.cloudinary.com/seoulspice/image/upload/c_scale,w_300,f_auto,q_auto/seoulspice/locations/noma_r4ry5w.jpg`;
           break;
         case "dc tenleytown":
-          url = require("../assets/images/locations/tenley.jpg");
+          url = `https://res.cloudinary.com/seoulspice/image/upload/c_scale,w_300,f_auto,q_auto/seoulspice/locations/tenley_c3qjoq.jpg`;
           break;
         case "md college park":
-          url = require("../assets/images/locations/umd.jpg");
+          url = `https://res.cloudinary.com/seoulspice/image/upload/c_scale,w_300,f_auto,q_auto/seoulspice/locations/umd_i06l2i.jpg`;
           break;
         default:
-          url = require("../assets/images/locations/noma.jpg");
+          url = `https://res.cloudinary.com/seoulspice/image/upload/c_scale,w_300,f_auto,q_auto/seoulspice/locations/noma_r4ry5w.jpg`;
       }
       return url;
     },
