@@ -12,7 +12,7 @@ const getters = {
     return rootState.order.tip ? rootState.order.tip : 0;
   },
   tax(state, getters) {
-    return Math.round(getters.subtotal / getters.taxRate);
+    return Math.round((getters.subtotal * getters.taxRate) / 100);
   },
   taxRate(state, getters, rootState) {
     return rootState.order.location ? rootState.order.location.taxRate : 0;
