@@ -13,7 +13,8 @@
             icon-right="map-marker"
             icon-right-clickable
             @icon-right-click="getUserLocation"
-            @keyup.native.enter="getUserLocation"
+            @keyup.native.enter="getLocations"
+            :loading="geoIsLoading"
             class="address-input"
           >
             ></b-input
@@ -21,8 +22,9 @@
         </b-field>
         <b-button
           v-show="userLocationInput"
+          :loading="submitIsLoading"
           class="is-small is-success submit-location"
-          @click="getUserLocation"
+          @click="getLocations"
           >SUBMIT</b-button
         >
       </div>
@@ -75,6 +77,8 @@ export default {
       userLocationInput: null,
       latitude: null,
       longitude: null,
+      geoIsLoading: false,
+      submitIsLoading: false,
     };
   },
   mounted() {
@@ -92,9 +96,10 @@ export default {
       this.userLocationInput = null;
     },
     getUserLocation() {
+      this.geoIsLoading = true;
       window.navigator.geolocation.getCurrentPosition(
         this.geoSuccess,
-        console.log
+        this.geoFailure
       );
     },
     geoSuccess(position) {
@@ -102,13 +107,25 @@ export default {
       this.longitude = position.coords.longitude;
       this.getLocations();
     },
+    geoFailure() {
+      this.geoIsLoading = false;
+      this.$buefy.toast.open({
+        duration: 2000,
+        message:
+          "Aw snap! We couldn't find your location. Please enter manually.",
+        type: "is-danger",
+      });
+    },
     async getLocations() {
+      this.submitIsLoading = true;
       // get location data
       const result = await orderService.post("/locations", {
-        postalCode: this.postalCode,
+        userAddress: this.userLocationInput,
         latitude: this.latitude,
         longitude: this.longitude,
       });
+      this.geoIsLoading = false;
+      this.submitIsLoading = false;
       const locationData = result.data.reduce((acc, curr) => {
         const {
           address: { addressLine1 },
@@ -154,6 +171,7 @@ export default {
 .address-input-container {
   width: 90%;
   max-width: 600px;
+  margin-bottom: 24px;
 }
 
 .address-input {
