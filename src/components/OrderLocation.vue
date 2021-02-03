@@ -2,6 +2,30 @@
   <section>
     <div class="location-container">
       <span class="page-title location-title">CHOOSE YOUR LOCATION</span>
+      <div class="address-input-container">
+        <b-field>
+          <b-input
+            v-model="userLocationInput"
+            name="userLocationInput"
+            placeholder="Enter address or zip"
+            size="is-small"
+            icon="search"
+            icon-right="map-marker"
+            icon-right-clickable
+            @icon-right-click="getUserLocation"
+            @keyup.native.enter="getUserLocation"
+            class="address-input"
+          >
+            ></b-input
+          >
+        </b-field>
+        <b-button
+          v-show="userLocationInput"
+          class="is-small is-success submit-location"
+          @click="getUserLocation"
+          >SUBMIT</b-button
+        >
+      </div>
       <div class="card-container">
         <order-location-card
           class="location-card"
@@ -48,29 +72,12 @@ export default {
   data() {
     return {
       locations: null,
+      userLocationInput: null,
+      latitude: null,
+      longitude: null,
     };
   },
-  async mounted() {
-    // get location data
-    const result = await orderService.get("/locations");
-    const locationData = result.data.reduce((acc, curr) => {
-      const {
-        address: { addressLine1 },
-        id,
-        name,
-        phoneNumber,
-      } = curr;
-      acc.push({
-        address: addressLine1,
-        id,
-        name,
-        phone: phoneNumber ? phoneNumber : "2125551111",
-        taxRate: 6, // make this dynamic per location
-      });
-      return acc;
-    }, []);
-    this.locations = locationData;
-    // }
+  mounted() {
     window.scrollTo(0, 0);
     // resets tab focus to top of page
     document.body.setAttribute("tabindex", "-1");
@@ -80,6 +87,45 @@ export default {
   methods: {
     clicked() {
       this.$emit("update", "entree");
+    },
+    clearUserLocationInput() {
+      this.userLocationInput = null;
+    },
+    getUserLocation() {
+      window.navigator.geolocation.getCurrentPosition(
+        this.geoSuccess,
+        console.log
+      );
+    },
+    geoSuccess(position) {
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      this.getLocations();
+    },
+    async getLocations() {
+      // get location data
+      const result = await orderService.post("/locations", {
+        postalCode: this.postalCode,
+        latitude: this.latitude,
+        longitude: this.longitude,
+      });
+      const locationData = result.data.reduce((acc, curr) => {
+        const {
+          address: { addressLine1 },
+          id,
+          name,
+          phoneNumber,
+        } = curr;
+        acc.push({
+          address: addressLine1,
+          id,
+          name,
+          phone: phoneNumber ? phoneNumber : "2125551111",
+          taxRate: 6, // make this dynamic per location
+        });
+        return acc;
+      }, []);
+      this.locations = locationData;
     },
   },
   name: "OrderLocation",
@@ -105,7 +151,19 @@ export default {
   margin-bottom: 24px;
 }
 
-.location-card {
+.address-input-container {
+  width: 90%;
+  max-width: 600px;
+}
+
+.address-input {
+  border: 1px solid #dbdbdb !important;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.submit-location {
+  width: 100%;
 }
 
 @media screen and (max-width: 480px) {
