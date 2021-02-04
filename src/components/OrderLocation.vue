@@ -127,24 +127,13 @@ export default {
       });
       this.geoIsLoading = false;
       this.submitIsLoading = false;
-      const locationData = result.data.reduce((acc, curr) => {
-        const {
-          address: { addressLine1 },
-          id,
-          name,
-          phoneNumber,
-          distanceText,
-        } = curr;
-        acc.push({
-          address: addressLine1,
-          id,
-          name,
-          phone: phoneNumber ? phoneNumber : "2125551111",
-          taxRate: 6, // make this dynamic per location
-          distanceText,
-        });
-        return acc;
-      }, []);
+      const locationData = result.data.map((location) => {
+        location.phoneNumber = location.phoneNumber
+          ? location.phoneNumber
+          : "2125551111"; // for dev environment
+        location.taxRate = 6; // make this dynamic
+        return location;
+      });
       this.locations = locationData;
     },
   },
