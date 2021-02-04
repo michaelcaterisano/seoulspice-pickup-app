@@ -97,6 +97,7 @@ export default {
     },
     getUserLocation() {
       this.geoIsLoading = true;
+      this.userLocationInput = null;
       window.navigator.geolocation.getCurrentPosition(
         this.geoSuccess,
         this.geoFailure
