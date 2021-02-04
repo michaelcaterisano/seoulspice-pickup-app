@@ -29,7 +29,7 @@
         >
       </div>
       <div class="card-container">
-        <order-location-card
+        <OrderLocationCard
           class="location-card"
           v-for="(locationInfo, index) in locations"
           :key="index"
@@ -46,7 +46,7 @@
               clicked();
             }
           "
-        ></order-location-card>
+        />
       </div>
     </div>
   </section>
@@ -132,6 +132,7 @@ export default {
           id,
           name,
           phoneNumber,
+          distanceText,
         } = curr;
         acc.push({
           address: addressLine1,
@@ -139,6 +140,7 @@ export default {
           name,
           phone: phoneNumber ? phoneNumber : "2125551111",
           taxRate: 6, // make this dynamic per location
+          distanceText,
         });
         return acc;
       }, []);

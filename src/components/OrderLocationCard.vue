@@ -9,22 +9,11 @@
       <span class="card-title location-description">{{
         location.name.toUpperCase()
       }}</span>
-
       <div class="card-description location-details">
-        <span>{{ location.address }}</span
-        ><br />
-        <span>{{ formattedPhoneNumber }}</span>
+        <p>{{ location.address }}</p>
+        <p>{{ formattedPhoneNumber }}</p>
+        <p>Distance: {{ location.distanceText }}</p>
       </div>
-      <!-- <div class="column is-one-third" align="right">
-        <figure class="image is-96x96">
-          <img
-            width="100"
-            height="100"
-            :src="locationImageUrl"
-            loading="lazy"
-          />
-        </figure>
-      </div> -->
     </div>
   </div>
 </template>
