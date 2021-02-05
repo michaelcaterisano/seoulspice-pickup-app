@@ -4,7 +4,7 @@
       <span class="page-title location-title">CHOOSE YOUR LOCATION</span>
       <div class="address-input-container">
         <b-button
-          data-cy="getUserLocationButton"
+          data-cy="get-user-location-button"
           class="is-small is-success get-user-location-button"
           :loading="geoIsLoading"
           @click="getUserLocation"
