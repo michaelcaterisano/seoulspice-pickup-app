@@ -3,6 +3,10 @@
     <div class="page-title">
       <span>{{ title.toUpperCase() }}</span>
     </div>
+    <div class="box">
+      <p>Promotion: One Free Egg</p>
+      <b-button type="is-success is-small">ADD</b-button>
+    </div>
     <div class="card-container">
       <OptionCounterCard
         class="extras-card"
@@ -74,6 +78,9 @@ export default {
   background: white;
   position: fixed;
   bottom: 0;
+}
+.free-egg-button {
+  margin-top: 24px;
 }
 
 /* @media screen and (max-width: 900px) and (min-width: 600px) {
