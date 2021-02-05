@@ -3,9 +3,9 @@
     <div class="page-title">
       <span>{{ title.toUpperCase() }}</span>
     </div>
-    <div class="box">
+    <div v-if="title === 'extras'" class="box free-egg-promotion">
       <p>Promotion: One Free Egg</p>
-      <b-button type="is-success is-small">ADD</b-button>
+      <b-button type="is-success is-small free-egg-button">ADD</b-button>
     </div>
     <div class="card-container">
       <OptionCounterCard
@@ -80,7 +80,10 @@ export default {
   bottom: 0;
 }
 .free-egg-button {
-  margin-top: 24px;
+  margin-top: 12px;
+}
+.free-egg-promotion {
+  text-align: center;
 }
 
 /* @media screen and (max-width: 900px) and (min-width: 600px) {
