@@ -2,11 +2,45 @@
   <section>
     <div class="location-container">
       <span class="page-title location-title">CHOOSE YOUR LOCATION</span>
+      <div class="address-input-container">
+        <b-button
+          data-cy="get-user-location-button"
+          class="is-small is-success get-user-location-button"
+          :loading="geoIsLoading"
+          @click="getUserLocation"
+          >USE MY LOCATION</b-button
+        >
+        <p>OR</p>
+        <b-field class="location-search-field">
+          <b-input
+            v-model="userLocationInput"
+            name="userLocationInput"
+            placeholder="Enter address or zip"
+            size="is-small"
+            icon="search"
+            @keyup.native.enter="getLocations"
+            class="address-input"
+          >
+            ></b-input
+          >
+        </b-field>
+        <b-button
+          data-cy="submit"
+          v-show="userLocationInput"
+          :loading="submitIsLoading"
+          class="is-small is-success submit-location"
+          @click="getLocations"
+          >SEARCH</b-button
+        >
+      </div>
+
       <div class="card-container">
-        <order-location-card
+        <OrderLocationCard
+          data-cy="location-card"
           class="location-card"
           v-for="(locationInfo, index) in locations"
           :key="index"
+          :index="index"
           :location="locationInfo"
           @click.native="
             () => {
@@ -20,7 +54,7 @@
               clicked();
             }
           "
-        ></order-location-card>
+        />
       </div>
     </div>
   </section>
@@ -48,29 +82,14 @@ export default {
   data() {
     return {
       locations: null,
+      userLocationInput: null,
+      latitude: null,
+      longitude: null,
+      geoIsLoading: false,
+      submitIsLoading: false,
     };
   },
-  async mounted() {
-    // get location data
-    const result = await orderService.get("/locations");
-    const locationData = result.data.reduce((acc, curr) => {
-      const {
-        address: { addressLine1 },
-        id,
-        name,
-        phoneNumber,
-      } = curr;
-      acc.push({
-        address: addressLine1,
-        id,
-        name,
-        phone: phoneNumber ? phoneNumber : "2125551111",
-        taxRate: 6, // make this dynamic per location
-      });
-      return acc;
-    }, []);
-    this.locations = locationData;
-    // }
+  mounted() {
     window.scrollTo(0, 0);
     // resets tab focus to top of page
     document.body.setAttribute("tabindex", "-1");
@@ -80,6 +99,78 @@ export default {
   methods: {
     clicked() {
       this.$emit("update", "entree");
+    },
+    clearUserLocationInput() {
+      this.userLocationInput = null;
+    },
+    getUserLocation() {
+      this.geoIsLoading = true;
+      this.userLocationInput = null;
+      window.navigator.geolocation.getCurrentPosition(
+        this.geoSuccess,
+        this.geoFailure
+      );
+    },
+    geoSuccess(position) {
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      this.getLocations();
+    },
+    geoFailure() {
+      this.geoIsLoading = false;
+      this.$buefy.toast.open({
+        duration: 2000,
+        message:
+          "Aw snap! We couldn't find your location. Please enter manually.",
+        type: "is-danger",
+      });
+    },
+    async getLocations() {
+      if (!this.userLocationInput && !this.latitude && !this.longitude) {
+        return;
+      }
+      this.submitIsLoading = true;
+      // get location data
+      try {
+        const result = await orderService.post("/locations", {
+          userAddress: this.userLocationInput,
+          latitude: this.latitude,
+          longitude: this.longitude,
+        });
+        this.geoIsLoading = false;
+        this.submitIsLoading = false;
+        if (result.data.success) {
+          const locationData = result.data.locations.map((location) => {
+            location.phoneNumber = location.phoneNumber
+              ? location.phoneNumber
+              : "2125551111"; // for dev environment
+            location.taxRate = 6; // make this dynamic
+            return location;
+          });
+          // don't include westfield location in production
+          if (process.env.NODE_ENV === "production") {
+            const westfieldIdx = locationData.findIndex(
+              (location) => location.name.toLowerCase() === "md westfield moco"
+            );
+            locationData.splice(westfieldIdx, 1);
+          }
+          this.locations = locationData;
+        } else {
+          this.$buefy.toast.open({
+            duration: 2000,
+            message: "Something went wrong",
+            type: "is-danger",
+          });
+        }
+      } catch (error) {
+        this.geoIsLoading = false;
+        this.submitIsLoading = false;
+        this.$buefy.toast.open({
+          duration: 2000,
+          message: "Something went wrong",
+          type: "is-danger",
+        });
+      }
     },
   },
   name: "OrderLocation",
@@ -97,15 +188,38 @@ export default {
 
 .card-container {
   width: 90%;
-  max-width: 600px;
+  max-width: 300px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-column-gap: 24px;
   grid-row-gap: 24px;
   margin-bottom: 24px;
 }
 
-.location-card {
+.address-input-container {
+  width: 90%;
+  max-width: 300px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.address-input {
+  border: 1px solid #dbdbdb !important;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.submit-location {
+  width: 100%;
+}
+
+.get-user-location-button {
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.location-search-field {
+  margin-top: 12px;
 }
 
 @media screen and (max-width: 480px) {

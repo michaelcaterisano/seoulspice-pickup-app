@@ -1,0 +1,61 @@
+{
+  "success": true,
+  "locations": [
+    {
+      "id": "LWCAX2ZH1VKKR",
+      "name": "MD Westfield MoCo",
+      "address": {
+        "addressLine1": "7101 Democracy Blvd",
+        "locality": "Bethesda",
+        "administrativeDistrictLevel1": "MD",
+        "postalCode": "20817",
+        "country": "US"
+      },
+      "imageUrl": "https://res.cloudinary.com/seoulspice/image/upload/c_scale,w_300,f_auto,q_auto/seoulspice/locations/noma_r4ry5w.jpg",
+      "distance": 6888,
+      "distanceText": "4.3 mi"
+    },
+    {
+      "id": "J2XWVZW813V8E",
+      "name": "DC Tenleytown",
+      "address": {
+        "addressLine1": "4600 Wisconsin Ave NW",
+        "locality": "Washington",
+        "administrativeDistrictLevel1": "DC",
+        "postalCode": "20016",
+        "country": "US"
+      },
+      "imageUrl": "https://res.cloudinary.com/seoulspice/image/upload/c_scale,w_300,f_auto,q_auto/seoulspice/locations/tenley_c3qjoq.jpg",
+      "distance": 7218,
+      "distanceText": "4.5 mi"
+    },
+    {
+      "id": "1P5RPTGC2ZDS5",
+      "name": "MD College Park",
+      "address": {
+        "addressLine1": "4200 Guilford Dr",
+        "locality": "College Park",
+        "administrativeDistrictLevel1": "MD",
+        "postalCode": "20740",
+        "country": "US"
+      },
+      "imageUrl": "https://res.cloudinary.com/seoulspice/image/upload/c_scale,w_300,f_auto,q_auto/seoulspice/locations/umd_i06l2i.jpg",
+      "distance": 27035,
+      "distanceText": "16.8 mi"
+    },
+    {
+      "id": "CJKHHFZX3XJEF",
+      "name": "DC NoMa",
+      "address": {
+        "addressLine1": "145 N ST NE STE 400",
+        "locality": "Washington",
+        "administrativeDistrictLevel1": "DC",
+        "postalCode": "20002",
+        "country": "US"
+      },
+      "imageUrl": "https://res.cloudinary.com/seoulspice/image/upload/c_scale,w_300,f_auto,q_auto/seoulspice/locations/noma_r4ry5w.jpg",
+      "distance": 32489,
+      "distanceText": "20.2 mi"
+    }
+  ]
+}
