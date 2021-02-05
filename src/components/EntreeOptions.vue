@@ -24,6 +24,7 @@
         v-if="active === 'extras'"
         :key="'extras'"
         :items="options.getOption('extras')"
+        :promotions="options.getOption('promotions')"
         title="extras"
         @add-item="addItem"
       />

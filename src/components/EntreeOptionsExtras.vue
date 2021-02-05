@@ -5,7 +5,12 @@
     </div>
     <div v-if="title === 'extras'" class="box free-egg-promotion">
       <p>Promotion: One Free Egg</p>
-      <b-button type="is-success is-small free-egg-button">ADD</b-button>
+      <b-button
+        type="is-success is-small free-egg-button"
+        :disabled="freeEggAdded"
+        @click="addFreeEgg"
+        >{{ freeEggButtonText }}</b-button
+      >
     </div>
     <div class="card-container">
       <OptionCounterCard
@@ -30,6 +35,16 @@ export default {
   components: {
     OptionCounterCard,
   },
+  computed: {
+    freeEggButtonText() {
+      return this.freeEggAdded ? "ADDED" : "ADD";
+    },
+  },
+  data() {
+    return {
+      freeEggAdded: false,
+    };
+  },
   methods: {
     next() {
       if (this.title === "additional items") {
@@ -38,9 +53,17 @@ export default {
         this.$emit("add-item");
       }
     },
+    addFreeEgg() {
+      const freeEgg = this.promotions.choices.find(
+        (choice) => choice.name === "The Egg"
+      );
+      freeEgg.selected = true;
+      freeEgg.qty = 1;
+      this.freeEggAdded = true;
+    },
   },
   name: "EntreeOptionsExtras",
-  props: ["items", "title"],
+  props: ["items", "promotions", "title"],
 };
 </script>
 

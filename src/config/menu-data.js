@@ -583,6 +583,23 @@ const menuData = {
         },
       ],
     },
+    {
+      type: "promotions",
+      label: "Promotions",
+      cartLabel: "Promotions",
+      max: 1,
+      choices: [
+        {
+          name: "The Egg",
+          description:
+            "Perfectly set white, liquid-gold yolk marinated in a sweet-soy base.",
+          price: 0,
+          selected: false,
+          imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/extras/the-egg_wdncva.jpg`,
+          qty: 0,
+        },
+      ],
+    },
   ],
 
   drinks: [
