@@ -145,6 +145,13 @@ export default {
           location.taxRate = 6; // make this dynamic
           return location;
         });
+        // don't include westfield location in production
+        if (process.env.NODE_ENV === "production") {
+          const westfieldIdx = locationData.findIndex(
+            (location) => location.name.toLowerCase() === "md westfield moco"
+          );
+          locationData.splice(westfieldIdx, 1);
+        }
         this.locations = locationData;
       } else {
         this.$buefy.toast.open({
@@ -197,6 +204,7 @@ export default {
 
 .get-user-location-button {
   width: 100%;
+  margin-top: 12px;
   margin-bottom: 12px;
 }
 .location-search-field {
