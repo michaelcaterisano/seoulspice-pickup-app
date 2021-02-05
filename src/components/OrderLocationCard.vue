@@ -12,7 +12,10 @@
       <div class="card-description location-details">
         <p>{{ location.address.addressLine1 }}</p>
         <p>{{ formattedPhoneNumber }}</p>
-        <p>Distance: {{ location.distanceText }}</p>
+        <p>
+          Distance: {{ location.distanceText }}
+          <span v-if="index === 0">(closest to you)</span>
+        </p>
       </div>
     </div>
   </div>
@@ -29,7 +32,7 @@ export default {
   },
   method: {},
   name: "OrderLocationCard",
-  props: ["location"],
+  props: ["location", "index"],
 };
 </script>
 

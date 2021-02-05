@@ -40,6 +40,7 @@
           class="location-card"
           v-for="(locationInfo, index) in locations"
           :key="index"
+          :index="index"
           :location="locationInfo"
           @click.native="
             () => {
