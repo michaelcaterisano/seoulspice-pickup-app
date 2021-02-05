@@ -21,6 +21,7 @@
           >
         </b-field>
         <b-button
+          data-cy="submit"
           v-show="userLocationInput"
           :loading="submitIsLoading"
           class="is-small is-success submit-location"
@@ -30,6 +31,7 @@
       </div>
       <div class="card-container">
         <OrderLocationCard
+          data-cy="location-card"
           class="location-card"
           v-for="(locationInfo, index) in locations"
           :key="index"
@@ -118,6 +120,9 @@ export default {
       });
     },
     async getLocations() {
+      if (!this.userLocationInput && !this.latitude && !this.longitude) {
+        return;
+      }
       this.submitIsLoading = true;
       // get location data
       const result = await orderService.post("/locations", {
@@ -152,9 +157,9 @@ export default {
 
 .card-container {
   width: 90%;
-  max-width: 600px;
+  max-width: 300px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-column-gap: 24px;
   grid-row-gap: 24px;
   margin-bottom: 24px;
@@ -162,7 +167,7 @@ export default {
 
 .address-input-container {
   width: 90%;
-  max-width: 600px;
+  max-width: 300px;
   margin-bottom: 24px;
 }
 

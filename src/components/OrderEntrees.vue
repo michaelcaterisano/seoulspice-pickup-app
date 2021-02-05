@@ -1,6 +1,7 @@
 <template>
   <section>
     <EntreeCategories
+      data-cy="entree-categories"
       :categories="menuData.categories"
       v-if="active === 'entree-categories'"
       @category-selected="setCategory"
