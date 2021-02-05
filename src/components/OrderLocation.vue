@@ -10,31 +10,28 @@
           @click="getUserLocation"
           >USE MY LOCATION</b-button
         >
-
         <p>OR</p>
-        <p>
-          <b-field>
-            <b-input
-              v-model="userLocationInput"
-              name="userLocationInput"
-              placeholder="Enter address or zip"
-              size="is-small"
-              icon="search"
-              @keyup.native.enter="getLocations"
-              class="address-input"
-            >
-              ></b-input
-            >
-          </b-field>
-          <b-button
-            data-cy="submit"
-            v-show="userLocationInput"
-            :loading="submitIsLoading"
-            class="is-small is-success submit-location"
-            @click="getLocations"
-            >FIND</b-button
+        <b-field class="location-search-field">
+          <b-input
+            v-model="userLocationInput"
+            name="userLocationInput"
+            placeholder="Enter address or zip"
+            size="is-small"
+            icon="search"
+            @keyup.native.enter="getLocations"
+            class="address-input"
           >
-        </p>
+            ></b-input
+          >
+        </b-field>
+        <b-button
+          data-cy="submit"
+          v-show="userLocationInput"
+          :loading="submitIsLoading"
+          class="is-small is-success submit-location"
+          @click="getLocations"
+          >SEARCH</b-button
+        >
       </div>
 
       <div class="card-container">
@@ -140,14 +137,22 @@ export default {
       });
       this.geoIsLoading = false;
       this.submitIsLoading = false;
-      const locationData = result.data.map((location) => {
-        location.phoneNumber = location.phoneNumber
-          ? location.phoneNumber
-          : "2125551111"; // for dev environment
-        location.taxRate = 6; // make this dynamic
-        return location;
-      });
-      this.locations = locationData;
+      if (result.data.success) {
+        const locationData = result.data.locations.map((location) => {
+          location.phoneNumber = location.phoneNumber
+            ? location.phoneNumber
+            : "2125551111"; // for dev environment
+          location.taxRate = 6; // make this dynamic
+          return location;
+        });
+        this.locations = locationData;
+      } else {
+        this.$buefy.toast.open({
+          duration: 2000,
+          message: "Something went wrong",
+          type: "is-danger",
+        });
+      }
     },
   },
   name: "OrderLocation",
@@ -192,6 +197,10 @@ export default {
 
 .get-user-location-button {
   width: 100%;
+  margin-bottom: 12px;
+}
+.location-search-field {
+  margin-top: 12px;
 }
 
 @media screen and (max-width: 480px) {

@@ -10,7 +10,7 @@ describe("test geolocation", () => {
         { method: "POST", url: "/locations" },
         { fixture: "locations.json" }
       ).as("locations");
-      cy.get(".icon.is-right").click();
+      cy.get("[data-cy=getUserLocationButton]").click();
       cy.wait("@locations");
       cy.get("[data-cy=location-card]").should("exist");
     });
