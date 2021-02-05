@@ -15,7 +15,7 @@
     <div class="card-container">
       <OptionCounterCard
         class="extras-card"
-        v-for="(choice, index) in items.choices"
+        v-for="(choice, index) in getChoices()"
         :option="choice"
         :key="index"
         tabindex="0"
@@ -54,16 +54,21 @@ export default {
       }
     },
     addFreeEgg() {
-      const freeEgg = this.promotions.choices.find(
-        (choice) => choice.name === "The Egg"
+      const freeEgg = this.option.choices.find(
+        (choice) => choice.description === "Free egg"
       );
       freeEgg.selected = true;
       freeEgg.qty = 1;
       this.freeEggAdded = true;
     },
+    getChoices() {
+      return this.option.choices.filter(
+        (choice) => choice.description !== "Free egg"
+      );
+    },
   },
   name: "EntreeOptionsExtras",
-  props: ["items", "promotions", "title"],
+  props: ["option", "promotions", "title"],
 };
 </script>
 

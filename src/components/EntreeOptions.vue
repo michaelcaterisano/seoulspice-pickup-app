@@ -15,7 +15,7 @@
       <EntreeOptionsExtras
         v-if="active === 'kbbq-sides'"
         :key="'kbbq-sides'"
-        :items="options.getOption('kbbq-sides')"
+        :option="options.getOption('kbbq-sides')"
         title="additional items"
         @next="setActiveOrderStep"
       />
@@ -23,8 +23,7 @@
       <EntreeOptionsExtras
         v-if="active === 'extras'"
         :key="'extras'"
-        :items="options.getOption('extras')"
-        :promotions="options.getOption('promotions')"
+        :option="options.getOption('extras')"
         title="extras"
         @add-item="addItem"
       />

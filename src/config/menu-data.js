@@ -573,29 +573,20 @@ const menuData = {
           qty: 0,
         },
         {
+          name: "The Egg",
+          description: "Free egg",
+          price: 0,
+          selected: false,
+          imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/extras/the-egg_wdncva.jpg`,
+          qty: 0,
+        },
+        {
           name: "Avocado",
           description:
             "This nutrient-packed superfood adds a rich, buttery flavor to anything.",
           price: 189,
           selected: false,
           imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/extras/avocado_clmvap.jpg`,
-          qty: 0,
-        },
-      ],
-    },
-    {
-      type: "promotions",
-      label: "Promotions",
-      cartLabel: "Promotions",
-      max: 1,
-      choices: [
-        {
-          name: "The Egg",
-          description:
-            "Perfectly set white, liquid-gold yolk marinated in a sweet-soy base.",
-          price: 0,
-          selected: false,
-          imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/extras/the-egg_wdncva.jpg`,
           qty: 0,
         },
       ],
