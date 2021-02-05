@@ -32,7 +32,10 @@
           {{ formattedPhoneNumber }}
           <br />
           Location:
-          {{ location.description }} ({{ location.address }})
+          {{ location.name }}
+          <br />
+          Address:
+          {{ location.address.addressLine1 }}
           <br />
           Time:
           {{ shortTime }}
@@ -60,21 +63,25 @@
         </div>
       </div>
       <div class="box body-text">
-        <p>
+        <p v-if="discount > 0">
           <strong>Discount:</strong>
           {{ -(discount / 100) | currency }}
-          <br />
+        </p>
+        <p>
           <strong>Subtotal:</strong>
           {{ ((total - (tax + tip)) / 100) | currency }}
-          <br />
+        </p>
+        <p>
           <strong>Tax:</strong>
           {{ (tax / 100) | currency }}
-          <br />
-          <span v-if="tip > 0">
-            <strong>Tip:</strong>
-            {{ (tip / 100) | currency }}
-            <br />
-          </span>
+        </p>
+
+        <p v-if="tip > 0">
+          <strong>Tip:</strong>
+          {{ (tip / 100) | currency }}
+        </p>
+
+        <p>
           <strong>Total:</strong>
           {{ (total / 100) | currency }}
         </p>
