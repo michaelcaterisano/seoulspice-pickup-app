@@ -3,4 +3,5 @@ import axios from "axios";
 
 export const orderService = axios.create({
   baseURL: ORDER_API_URL,
+  timeout: 5000,
 });
