@@ -3,32 +3,40 @@
     <div class="location-container">
       <span class="page-title location-title">CHOOSE YOUR LOCATION</span>
       <div class="address-input-container">
-        <b-field>
-          <b-input
-            v-model="userLocationInput"
-            name="userLocationInput"
-            placeholder="Enter address or zip"
-            size="is-small"
-            icon="search"
-            icon-right="map-marker"
-            icon-right-clickable
-            @icon-right-click="getUserLocation"
-            @keyup.native.enter="getLocations"
-            :loading="geoIsLoading"
-            class="address-input"
-          >
-            ></b-input
-          >
-        </b-field>
         <b-button
-          data-cy="submit"
-          v-show="userLocationInput"
-          :loading="submitIsLoading"
-          class="is-small is-success submit-location"
-          @click="getLocations"
-          >SUBMIT</b-button
+          data-cy="getUserLocationButton"
+          class="is-small is-success get-user-location-button"
+          :loading="geoIsLoading"
+          @click="getUserLocation"
+          >USE MY LOCATION</b-button
         >
+
+        <p>OR</p>
+        <p>
+          <b-field>
+            <b-input
+              v-model="userLocationInput"
+              name="userLocationInput"
+              placeholder="Enter address or zip"
+              size="is-small"
+              icon="search"
+              @keyup.native.enter="getLocations"
+              class="address-input"
+            >
+              ></b-input
+            >
+          </b-field>
+          <b-button
+            data-cy="submit"
+            v-show="userLocationInput"
+            :loading="submitIsLoading"
+            class="is-small is-success submit-location"
+            @click="getLocations"
+            >FIND</b-button
+          >
+        </p>
       </div>
+
       <div class="card-container">
         <OrderLocationCard
           data-cy="location-card"
@@ -169,6 +177,7 @@ export default {
   width: 90%;
   max-width: 300px;
   margin-bottom: 24px;
+  text-align: center;
 }
 
 .address-input {
@@ -178,6 +187,10 @@ export default {
 }
 
 .submit-location {
+  width: 100%;
+}
+
+.get-user-location-button {
   width: 100%;
 }
 
