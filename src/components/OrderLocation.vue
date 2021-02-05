@@ -131,30 +131,40 @@ export default {
       }
       this.submitIsLoading = true;
       // get location data
-      const result = await orderService.post("/locations", {
-        userAddress: this.userLocationInput,
-        latitude: this.latitude,
-        longitude: this.longitude,
-      });
-      this.geoIsLoading = false;
-      this.submitIsLoading = false;
-      if (result.data.success) {
-        const locationData = result.data.locations.map((location) => {
-          location.phoneNumber = location.phoneNumber
-            ? location.phoneNumber
-            : "2125551111"; // for dev environment
-          location.taxRate = 6; // make this dynamic
-          return location;
+      try {
+        const result = await orderService.post("/locations", {
+          userAddress: this.userLocationInput,
+          latitude: this.latitude,
+          longitude: this.longitude,
         });
-        // don't include westfield location in production
-        if (process.env.NODE_ENV === "production") {
-          const westfieldIdx = locationData.findIndex(
-            (location) => location.name.toLowerCase() === "md westfield moco"
-          );
-          locationData.splice(westfieldIdx, 1);
+        this.geoIsLoading = false;
+        this.submitIsLoading = false;
+        if (result.data.success) {
+          const locationData = result.data.locations.map((location) => {
+            location.phoneNumber = location.phoneNumber
+              ? location.phoneNumber
+              : "2125551111"; // for dev environment
+            location.taxRate = 6; // make this dynamic
+            return location;
+          });
+          // don't include westfield location in production
+          if (process.env.NODE_ENV === "production") {
+            const westfieldIdx = locationData.findIndex(
+              (location) => location.name.toLowerCase() === "md westfield moco"
+            );
+            locationData.splice(westfieldIdx, 1);
+          }
+          this.locations = locationData;
+        } else {
+          this.$buefy.toast.open({
+            duration: 2000,
+            message: "Something went wrong",
+            type: "is-danger",
+          });
         }
-        this.locations = locationData;
-      } else {
+      } catch (error) {
+        this.geoIsLoading = false;
+        this.submitIsLoading = false;
         this.$buefy.toast.open({
           duration: 2000,
           message: "Something went wrong",
