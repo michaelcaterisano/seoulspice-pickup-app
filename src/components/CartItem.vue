@@ -75,7 +75,7 @@ export default {
           //   choiceText += " (+" + choice.price + ")";
           // }
           if (choice.qty) {
-            choiceText = `${choiceText} (${choice.qty})`;
+            choiceText = `${choiceText} x ${choice.qty}`;
           }
           return choiceText;
         })
