@@ -104,6 +104,10 @@ $colors: (
     $primary,
     $primary-invert,
   ),
+  "counter-button": (
+    $warning,
+    $warning-invert,
+  ),
   "warning": (
     $warning,
     $warning-invert,
@@ -365,9 +369,8 @@ div.b-numberinput.field.is-grouped {
   margin: 0 !important;
 }
 
-button.button.is-warning {
+button.button.is-counter-button {
   width: 100%;
-  border-radius: 0px !important;
 }
 
 p.control.minus {

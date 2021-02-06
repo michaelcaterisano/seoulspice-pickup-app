@@ -27,7 +27,7 @@
       <b-field>
         <b-numberinput
           class="counter-buttons"
-          type="is-warning"
+          type="is-counter-button"
           :min="0"
           v-model="option.qty"
           @input="setSelected"

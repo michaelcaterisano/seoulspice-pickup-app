@@ -3,10 +3,19 @@
     <div class="page-title">
       <span>{{ title.toUpperCase() }}</span>
     </div>
+    <div v-if="title === 'extras'" class="box free-egg-promotion">
+      <p>Promotion: One Free Egg</p>
+      <b-button
+        type="is-success is-small free-egg-button"
+        :disabled="freeEggAdded"
+        @click="addFreeEgg"
+        >{{ freeEggButtonText }}</b-button
+      >
+    </div>
     <div class="card-container">
       <OptionCounterCard
         class="extras-card"
-        v-for="(choice, index) in items.choices"
+        v-for="(choice, index) in getChoices()"
         :option="choice"
         :key="index"
         tabindex="0"
@@ -26,6 +35,16 @@ export default {
   components: {
     OptionCounterCard,
   },
+  computed: {
+    freeEggButtonText() {
+      return this.freeEggAdded ? "ADDED" : "ADD";
+    },
+  },
+  data() {
+    return {
+      freeEggAdded: false,
+    };
+  },
   methods: {
     next() {
       if (this.title === "additional items") {
@@ -34,9 +53,22 @@ export default {
         this.$emit("add-item");
       }
     },
+    addFreeEgg() {
+      const freeEgg = this.option.choices.find(
+        (choice) => choice.description === "Free egg"
+      );
+      freeEgg.selected = true;
+      freeEgg.qty = 1;
+      this.freeEggAdded = true;
+    },
+    getChoices() {
+      return this.option.choices.filter(
+        (choice) => choice.description !== "Free egg"
+      );
+    },
   },
   name: "EntreeOptionsExtras",
-  props: ["items", "title"],
+  props: ["option", "promotions", "title"],
 };
 </script>
 
@@ -74,6 +106,12 @@ export default {
   background: white;
   position: fixed;
   bottom: 0;
+}
+.free-egg-button {
+  margin-top: 12px;
+}
+.free-egg-promotion {
+  text-align: center;
 }
 
 /* @media screen and (max-width: 900px) and (min-width: 600px) {
