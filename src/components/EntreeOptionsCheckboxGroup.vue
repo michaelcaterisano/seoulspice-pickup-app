@@ -38,19 +38,30 @@
           </div>
         </b-checkbox-button>
       </div>
-      <b-button
-        class="next-button"
-        type="is-success"
-        @click.prevent="$emit('next')"
-        v-if="active !== 'extras'"
-      >
-        NEXT
-      </b-button>
+      <div class="navigation-buttons">
+        <b-button
+          class="next-button"
+          type="is-danger"
+          @click.prevent="$emit('next')"
+          v-if="active !== 'extras'"
+        >
+          CANCEL
+        </b-button>
+        <b-button
+          class="next-button"
+          type="is-success"
+          @click.prevent="$emit('next')"
+          v-if="active !== 'extras'"
+        >
+          NEXT
+        </b-button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   computed: {
     quantityText() {
@@ -204,6 +215,12 @@ img {
 }
 .label-text {
   text-align: center;
+}
+
+.navigation-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 30px;
 }
 
 @media screen and (max-width: 480px) {
