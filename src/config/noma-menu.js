@@ -573,6 +573,15 @@ const menuData = {
           qty: 0,
         },
         {
+          name: "FREE EGG",
+          description: "Free egg",
+          price: 0,
+          selected: false,
+          imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/extras/the-egg_wdncva.jpg`,
+          qty: 0,
+          complimentary: true,
+        },
+        {
           name: "Avocado",
           description:
             "This nutrient-packed superfood adds a rich, buttery flavor to anything.",
