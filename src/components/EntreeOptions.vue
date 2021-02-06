@@ -28,6 +28,7 @@
         :option="options.getOption('extras')"
         title="extras"
         @add-item="addItem"
+        @next="setActiveOrderStep"
         @cancel="$emit('cancel')"
       />
     </transition-group>

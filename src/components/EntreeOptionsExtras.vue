@@ -22,14 +22,10 @@
       ></OptionCounterCard>
     </div>
     <div class="navigation-buttons">
-      <b-button v-if="active !== 'extras'" type="is-danger" @click="cancel">
+      <b-button type="is-danger" @click="cancel">
         CANCEL
       </b-button>
-      <b-button
-        v-if="active !== 'extras'"
-        type="is-success"
-        @click.prevent="$emit('next')"
-      >
+      <b-button type="is-success" @click.prevent="next">
         NEXT
       </b-button>
     </div>

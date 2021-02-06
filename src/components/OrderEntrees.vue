@@ -197,7 +197,6 @@ export default {
       }
     },
     clearEntree() {
-      alert("clear entree");
       this.entree.category = null;
       this.entree.signature = null;
       this.notes = [];

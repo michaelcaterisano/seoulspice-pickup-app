@@ -4,7 +4,7 @@
       <span>{{ group.label.toUpperCase() }} </span>
       <span class="card-title">{{ quantityText.toUpperCase() }}</span>
     </div>
-    <div class="options-and-button">
+    <div class="options-container">
       <div class="checkbox-container">
         <b-checkbox-button
           v-for="choice in group.choices"
@@ -38,18 +38,18 @@
           </div>
         </b-checkbox-button>
       </div>
-      <div class="navigation-buttons">
-        <b-button v-if="active !== 'extras'" type="is-danger" @click="cancel">
-          CANCEL
-        </b-button>
-        <b-button
-          v-if="active !== 'extras'"
-          type="is-success"
-          @click.prevent="$emit('next')"
-        >
-          NEXT
-        </b-button>
-      </div>
+    </div>
+    <div class="navigation-buttons">
+      <b-button type="is-danger" @click="cancel">
+        CANCEL
+      </b-button>
+      <b-button
+        v-if="active !== 'extras'"
+        type="is-success"
+        @click.prevent="$emit('next')"
+      >
+        NEXT
+      </b-button>
     </div>
   </div>
 </template>
@@ -143,8 +143,7 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.options-and-button {
-  text-align: center;
+.options-container {
   max-width: 600px;
 }
 .checkbox-container {
