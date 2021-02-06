@@ -19,6 +19,7 @@
         :option="options.getOption('kbbq-sides')"
         title="additional items"
         @next="setActiveOrderStep"
+        @cancel="$emit('cancel')"
       />
 
       <EntreeOptionsExtras
@@ -27,6 +28,7 @@
         :option="options.getOption('extras')"
         title="extras"
         @add-item="addItem"
+        @cancel="$emit('cancel')"
       />
     </transition-group>
   </div>

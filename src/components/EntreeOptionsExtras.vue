@@ -21,15 +21,24 @@
         tabindex="0"
       ></OptionCounterCard>
     </div>
-    <b-button class="next-button" type="is-success" @click.prevent="next">
-      <!-- <span>Add to Cart ({{ price | currency }})</span> -->
-      <span>NEXT</span>
-    </b-button>
+    <div class="navigation-buttons">
+      <b-button v-if="active !== 'extras'" type="is-danger" @click="cancel">
+        CANCEL
+      </b-button>
+      <b-button
+        v-if="active !== 'extras'"
+        type="is-success"
+        @click.prevent="$emit('next')"
+      >
+        NEXT
+      </b-button>
+    </div>
   </div>
 </template>
 
 <script>
 import OptionCounterCard from "./OptionCounterCard";
+import { mapMutations } from "vuex";
 
 export default {
   components: {
@@ -46,6 +55,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("routes", ["backToEntrees"]),
     next() {
       if (this.title === "additional items") {
         this.$emit("next");
@@ -65,6 +75,10 @@ export default {
       return this.option.choices.filter(
         (choice) => choice.description !== "Free egg"
       );
+    },
+    cancel() {
+      this.backToEntrees();
+      this.$emit("cancel");
     },
   },
   name: "EntreeOptionsExtras",
@@ -114,11 +128,12 @@ export default {
   text-align: center;
 }
 
-/* @media screen and (max-width: 900px) and (min-width: 600px) {
-  .component-card {
-    flex-basis: calc(100% / 2 - 24px);
-  }
-} */
+.navigation-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 30px;
+  margin-bottom: 30px;
+}
 
 @media screen and (max-width: 480px) {
   .card-container {
