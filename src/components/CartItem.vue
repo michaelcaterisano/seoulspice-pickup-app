@@ -40,7 +40,7 @@
           :value="item.qty"
           @input="updateQty"
           min="1"
-          type="is-warning"
+          type="is-counter-button"
           size="is-small"
         ></b-numberinput>
       </b-field>
