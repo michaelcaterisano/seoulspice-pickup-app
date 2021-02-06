@@ -122,6 +122,10 @@ export default {
   },
 
   mounted() {
+    // resets tab focus to top of page
+    document.body.setAttribute("tabindex", "-1");
+    document.body.focus();
+    document.body.removeAttribute("tabindex");
     this.clearEntree();
   },
   methods: {
@@ -197,6 +201,7 @@ export default {
       }
     },
     clearEntree() {
+      window.scrollTo(0, 0);
       this.entree.category = null;
       this.entree.signature = null;
       this.notes = [];
