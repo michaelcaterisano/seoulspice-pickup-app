@@ -10,6 +10,7 @@
         :category="category"
         :signature="signature"
         @next="setActiveOrderStep"
+        @cancel="$emit('cancel')"
       />
 
       <EntreeOptionsExtras

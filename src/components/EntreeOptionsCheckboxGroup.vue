@@ -39,11 +39,7 @@
         </b-checkbox-button>
       </div>
       <div class="navigation-buttons">
-        <b-button
-          v-if="active !== 'extras'"
-          type="is-danger"
-          @click.prevent="$emit('next')"
-        >
+        <b-button v-if="active !== 'extras'" type="is-danger" @click="cancel">
           CANCEL
         </b-button>
         <b-button
@@ -108,6 +104,10 @@ export default {
           ? group.KFmax
           : group.max
         : group.max;
+    },
+    cancel() {
+      this.backToEntrees();
+      this.$emit("cancel");
     },
   },
   name: "EntreeOptionsCheckboxGroup",
