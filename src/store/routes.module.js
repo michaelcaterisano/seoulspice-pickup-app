@@ -1,14 +1,21 @@
-state = {
-  entreeRoute = 'entree-categories'
-}
+const state = {
+  entreeRoute: "entree-categories",
+};
 
-getters = {}
+const getters = {};
 
-mutations = {}
+const mutations = {
+  updateEntreeRoute(state, route) {
+    state.entreeRoute = route;
+  },
+  backToEntrees() {
+    state.entreeRoute = "entree-categories";
+  },
+};
 
 export default {
   namespaced: true,
   state,
   getters,
-  mutations
-}
+  mutations,
+};
