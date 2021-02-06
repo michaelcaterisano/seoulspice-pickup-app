@@ -25,7 +25,7 @@
         <span class="is-size-7">CHECKOUT</span>
       </b-button>
     </div>
-    <div v-if="!items.length">
+    <div v-if="!items.length" class="cart-is-empty-message">
       <span class="body-text">Your cart is empty</span>
     </div>
   </div>
@@ -99,6 +99,10 @@ export default {
   text-align: center;
   margin-bottom: 12px;
   font-weight: 700;
+}
+
+.cart-is-empty-message {
+  text-align: center;
 }
 
 @media screen and (max-width: 480px) {
