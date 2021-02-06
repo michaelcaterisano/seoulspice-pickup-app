@@ -144,7 +144,6 @@ export default {
             location.phoneNumber = location.phoneNumber
               ? location.phoneNumber
               : "2125551111"; // for dev environment
-            location.taxRate = 6; // make this dynamic
             return location;
           });
           // don't include westfield location in production
