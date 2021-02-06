@@ -40,18 +40,16 @@
       </div>
       <div class="navigation-buttons">
         <b-button
-          class="next-button"
+          v-if="active !== 'extras'"
           type="is-danger"
           @click.prevent="$emit('next')"
-          v-if="active !== 'extras'"
         >
           CANCEL
         </b-button>
         <b-button
-          class="next-button"
+          v-if="active !== 'extras'"
           type="is-success"
           @click.prevent="$emit('next')"
-          v-if="active !== 'extras'"
         >
           NEXT
         </b-button>
@@ -61,6 +59,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   computed: {
     quantityText() {
@@ -82,6 +81,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations("routes", ["backToEntrees"]),
     checkboxIsDisabled(item) {
       let max = this.getOptionMax(this.category, this.group);
       return this.countSelectedOptions >= max && !item.selected;
@@ -165,10 +165,6 @@ export default {
   margin-bottom: -35px;
 }
 
-.next-button {
-  margin-bottom: 30px;
-}
-
 .choice-name {
   margin-bottom: -10px;
   width: 120px;
@@ -220,6 +216,7 @@ img {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 30px;
+  margin-bottom: 30px;
 }
 
 @media screen and (max-width: 480px) {
