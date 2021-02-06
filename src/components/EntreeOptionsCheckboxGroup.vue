@@ -4,7 +4,7 @@
       <span>{{ group.label.toUpperCase() }} </span>
       <span class="card-title">{{ quantityText.toUpperCase() }}</span>
     </div>
-    <div class="options-and-button">
+    <div class="options-container">
       <div class="checkbox-container">
         <b-checkbox-button
           v-for="choice in group.choices"
@@ -38,11 +38,15 @@
           </div>
         </b-checkbox-button>
       </div>
+    </div>
+    <div class="navigation-buttons">
+      <b-button type="is-danger" @click="cancel">
+        CANCEL
+      </b-button>
       <b-button
-        class="next-button"
+        v-if="active !== 'extras'"
         type="is-success"
         @click.prevent="$emit('next')"
-        v-if="active !== 'extras'"
       >
         NEXT
       </b-button>
@@ -51,6 +55,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   computed: {
     quantityText() {
@@ -72,6 +77,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations("routes", ["backToEntrees"]),
     checkboxIsDisabled(item) {
       let max = this.getOptionMax(this.category, this.group);
       return this.countSelectedOptions >= max && !item.selected;
@@ -98,6 +104,10 @@ export default {
           ? group.KFmax
           : group.max
         : group.max;
+    },
+    cancel() {
+      this.backToEntrees();
+      this.$emit("cancel");
     },
   },
   name: "EntreeOptionsCheckboxGroup",
@@ -133,8 +143,7 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.options-and-button {
-  text-align: center;
+.options-container {
   max-width: 600px;
 }
 .checkbox-container {
@@ -153,10 +162,6 @@ export default {
   flex-wrap: wrap;
   overflow: hidden;
   margin-bottom: -35px;
-}
-
-.next-button {
-  margin-bottom: 30px;
 }
 
 .choice-name {
@@ -204,6 +209,13 @@ img {
 }
 .label-text {
   text-align: center;
+}
+
+.navigation-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 30px;
+  margin-bottom: 30px;
 }
 
 @media screen and (max-width: 480px) {

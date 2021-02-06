@@ -1,35 +1,36 @@
 <template>
   <section>
     <EntreeCategories
-      data-cy="entree-categories"
+      v-if="entreeRoute === 'entree-categories'"
       :categories="menuData.categories"
-      v-if="active === 'entree-categories'"
       @category-selected="setCategory"
       @update="setActive"
+      data-cy="entree-categories"
     />
 
     <EntreeKBBQ
-      v-if="active === 'entree-kbbq'"
+      v-if="entreeRoute === 'entree-kbbq'"
       :types="menuData.kbbqTypes"
       @signature-selected="setSignature"
       @update="setActive"
     />
 
     <EntreeSignatures
-      v-if="active === 'entree-signatures'"
+      v-if="entreeRoute === 'entree-signatures'"
       :signatures="menuData.signatures"
       @signature-selected="setSignature"
       @update="setActive"
     />
 
     <EntreeOptions
+      v-if="entreeRoute === 'entree-options'"
       :options="menuData"
       :price="price"
       :category="entree.category"
       :signature="entree.signature"
-      v-if="active === 'entree-options'"
       @note="addNote"
       @valid="addToCart"
+      @cancel="clearEntree"
     />
   </section>
 </template>
@@ -39,6 +40,7 @@ import EntreeCategories from "../components/EntreeCategories";
 import EntreeSignatures from "../components/EntreeSignatures";
 import EntreeKBBQ from "../components/EntreeKBBQ";
 import EntreeOptions from "../components/EntreeOptions";
+import { mapState, mapMutations } from "vuex";
 import { ADD_ITEM } from "../store/mutations.type";
 import { createHelpers } from "vuex-map-fields";
 const { mapFields } = createHelpers({
@@ -55,6 +57,7 @@ export default {
   },
   name: "OrderEntrees",
   computed: {
+    ...mapState("routes", ["entreeRoute"]),
     ...mapFields(["location"]),
     price() {
       let price = 0;
@@ -119,9 +122,14 @@ export default {
   },
 
   mounted() {
+    // resets tab focus to top of page
+    document.body.setAttribute("tabindex", "-1");
+    document.body.focus();
+    document.body.removeAttribute("tabindex");
     this.clearEntree();
   },
   methods: {
+    ...mapMutations("routes", ["updateEntreeRoute"]),
     addToCart() {
       let options = this.menuData.options
         .map((option) => {
@@ -193,6 +201,7 @@ export default {
       }
     },
     clearEntree() {
+      window.scrollTo(0, 0);
       this.entree.category = null;
       this.entree.signature = null;
       this.notes = [];
@@ -205,7 +214,7 @@ export default {
     },
 
     setActive(section) {
-      this.active = section;
+      this.updateEntreeRoute(section);
     },
     setCategory(category) {
       window.scrollTo(0, 0);
@@ -249,7 +258,7 @@ export default {
 }
 
 .yellow-button {
-  margin-right: 0rem !important; /* overring buefy */
+  margin-right: 0rem !important;
   margin-bottom: 20px;
   border-radius: 10px;
   width: 80%;
