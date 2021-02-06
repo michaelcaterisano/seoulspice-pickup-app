@@ -33,6 +33,8 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { mapMutations } from "vuex";
+
 import CartItem from "./CartItem";
 import OrderTotals from "./OrderTotals";
 import { SET_CART_OPEN } from "../store/mutations.type";
@@ -52,9 +54,11 @@ export default {
   },
   name: "OrderConfirmation",
   methods: {
+    ...mapMutations("routes", ["backToEntrees"]),
     editOrder(type) {
       this.$store.commit(SET_CART_OPEN, false);
       this.$emit("edit", type);
+      this.backToEntrees();
     },
     confirmItems() {
       this.$store.commit(SET_CART_OPEN, false);
