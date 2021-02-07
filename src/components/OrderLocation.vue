@@ -5,7 +5,7 @@
       <div class="address-input-container">
         <b-button
           data-cy="get-user-location-button"
-          class="is-small is-success get-user-location-button"
+          class="is-small get-user-location-button"
           :loading="geoIsLoading"
           @click="getUserLocation"
           >USE MY LOCATION</b-button
