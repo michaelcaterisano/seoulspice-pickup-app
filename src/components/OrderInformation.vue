@@ -51,6 +51,7 @@
             :message="errors.first('time')"
           >
             <b-timepicker
+              class="text-field"
               v-model="time"
               name="time"
               hour-format="12"
@@ -59,6 +60,7 @@
               :min-time="minTime"
               :max-time="maxTime"
               :mobile-native="false"
+              :unselectable-times="unselectableTimes"
               v-validate="{ required: true, hours: [minTime, maxTime] }"
               :use-html5-validation="false"
             ></b-timepicker>
@@ -135,11 +137,12 @@ export default {
     },
     maxTime() {
       let maxTime = new Date();
-      maxTime.setHours(orderEndTime, 0, 0);
+      maxTime.setHours(orderEndTime, 45, 0);
       return maxTime;
     },
   },
   created() {
+    this.setUnselectableHours();
     const now = new Date();
 
     if (now.getHours() >= orderEndTime || now.getHours() < orderStartTime) {
@@ -163,6 +166,7 @@ export default {
   data() {
     return {
       tipDollars: "",
+      unselectableTimes: [],
       masks: {
         numeral: {
           numeral: true,
@@ -207,6 +211,23 @@ export default {
         position: "is-top",
         type: "is-danger",
       });
+    },
+    setUnselectableHours() {
+      const now = new Date();
+      now.setMinutes(now.getMinutes() + 15); // don't allow orders within 15 minutes
+      console.log(now);
+      const quarterHours = [0, 15, 30, 45];
+      for (let i = orderStartTime; i <= now.getHours(); i++) {
+        for (let j = 0; j < 4; j++) {
+          let time = new Date();
+          time.setHours(i);
+          time.setMinutes(quarterHours[j]);
+          if (time < now) {
+            console.log(time);
+            this.unselectableTimes.push(time);
+          }
+        }
+      }
     },
   },
   name: "OrderInformation",
