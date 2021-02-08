@@ -142,15 +142,16 @@ export default {
     },
   },
   created() {
-    this.setUnselectableHours();
-    const now = new Date();
-
-    if (now.getHours() >= orderEndTime || now.getHours() < orderStartTime) {
-      now.setHours(orderStartTime);
-      now.setMinutes(0);
-      this.time = now;
+    this.now = new Date();
+    if (
+      this.now.getHours() >= orderEndTime ||
+      this.now.getHours() < orderStartTime
+    ) {
+      this.now.setHours(orderStartTime);
+      this.now.setMinutes(0);
+      this.time = this.now;
     } else {
-      let startTime = new Date(now.getTime() + 15 * 60000);
+      let startTime = new Date(this.now.getTime() + 15 * 60000);
       const minutes = startTime.getMinutes();
       const hours = startTime.getHours();
 
@@ -162,11 +163,13 @@ export default {
 
       this.time = startTime;
     }
+    this.setUnselectableHours();
   },
   data() {
     return {
       tipDollars: "",
       unselectableTimes: [],
+      now: null,
       masks: {
         numeral: {
           numeral: true,
@@ -213,18 +216,14 @@ export default {
       });
     },
     setUnselectableHours() {
-      const now = new Date();
-      now.setMinutes(now.getMinutes() + 15); // don't allow orders within 15 minutes
-      console.log(now);
       const quarterHours = [0, 15, 30, 45];
-      for (let i = orderStartTime; i <= now.getHours(); i++) {
+      for (let i = orderStartTime; i <= this.time.getHours(); i++) {
         for (let j = 0; j < 4; j++) {
-          let time = new Date();
-          time.setHours(i);
-          time.setMinutes(quarterHours[j]);
-          if (time < now) {
-            console.log(time);
-            this.unselectableTimes.push(time);
+          let unselectableTime = new Date();
+          unselectableTime.setHours(i);
+          unselectableTime.setMinutes(quarterHours[j]);
+          if (unselectableTime < this.time) {
+            this.unselectableTimes.push(unselectableTime);
           }
         }
       }
