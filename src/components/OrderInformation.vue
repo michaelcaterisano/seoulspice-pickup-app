@@ -51,6 +51,7 @@
             :message="errors.first('time')"
           >
             <b-timepicker
+              :disabled="timepickerDisabled"
               class="text-field"
               v-model="time"
               name="time"
@@ -111,7 +112,6 @@ import { createHelpers } from "vuex-map-fields";
 import { mapGetters } from "vuex";
 import LogRocket from "logrocket";
 import cleave from "../utils/cleave-directive";
-import { orderStartTime, orderEndTime } from "../config/config";
 import money from "currency.js";
 
 const { mapFields } = createHelpers({
@@ -132,25 +132,28 @@ export default {
     ...mapGetters(["subtotal", "items", "taxRate"]),
     minTime() {
       let minTime = new Date();
-      minTime.setHours(orderStartTime, 0, 0);
+      minTime.setHours(this.orderStartTime, 0, 0);
       return minTime;
     },
     maxTime() {
       let maxTime = new Date();
-      maxTime.setHours(orderEndTime, 45, 0);
+      maxTime.setHours(this.orderEndTime, 45, 0);
       return maxTime;
     },
   },
   created() {
     this.now = new Date();
-    if (
-      this.now.getHours() >= orderEndTime ||
-      this.now.getHours() < orderStartTime
-    ) {
-      this.now.setHours(orderStartTime);
-      this.now.setMinutes(0);
-      this.time = this.now;
+    if (this.now.getHours() >= 21 || this.now.getHours() < 10) {
+      this.timepickerDisabled = true;
+      this.time.setHours(this.orderStartTime);
+      this.time.setMinutes(0);
+    } else if (this.now.getHours() >= 10 && this.now.getHours() < 11) {
+      // allow morning orders between 10 and 11
+      let startTime = new Date();
+      startTime.setHours(11, 0, 0);
+      this.time = startTime;
     } else {
+      this.timepickerDisabled = false;
       let startTime = new Date(this.now.getTime() + 15 * 60000);
       const minutes = startTime.getMinutes();
       const hours = startTime.getHours();
@@ -170,6 +173,9 @@ export default {
       tipDollars: "",
       unselectableTimes: [],
       now: null,
+      orderStartTime: 11,
+      orderEndTime: 20,
+      timepickerDisabled: false,
       masks: {
         numeral: {
           numeral: true,
@@ -193,7 +199,7 @@ export default {
           this.$emit("update", "payment"); // emits event to change active component
         } else {
           this.formError();
-          // window.scrollTo(0, 0);
+          window.scrollTo(0, 0);
         }
       });
     },
@@ -217,12 +223,12 @@ export default {
     },
     setUnselectableHours() {
       const quarterHours = [0, 15, 30, 45];
-      for (let i = orderStartTime; i <= this.time.getHours(); i++) {
+      for (let i = this.orderStartTime; i <= this.now.getHours(); i++) {
         for (let j = 0; j < 4; j++) {
           let unselectableTime = new Date();
           unselectableTime.setHours(i);
           unselectableTime.setMinutes(quarterHours[j]);
-          if (unselectableTime < this.time) {
+          if (unselectableTime.getMinutes() <= this.now.getMinutes()) {
             this.unselectableTimes.push(unselectableTime);
           }
         }
