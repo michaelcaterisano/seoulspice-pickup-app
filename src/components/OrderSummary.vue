@@ -156,7 +156,7 @@ export default {
         accumulatedPoints.data.accumulatedLoyaltyPoints;
     }
 
-    const receiptResponse = this.textReceipt();
+    const receiptResponse = await this.textReceipt();
     if (receiptResponse.data.success) {
       console.log(receiptResponse.data);
     }
