@@ -671,7 +671,7 @@ const menuData = {
         "Soft, chewy, and buttery gluten-free chocolate chip cookies from our friends at Rise Bakery in Adams Morgan.",
       price: 259,
       qty: 0,
-      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/desserts/rice-krispie-treat_ivr4gp.jpg`,
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/desserts/cookie_adwep1.jpg`,
     },
     {
       name: "Rice Krispie Treat",
@@ -679,7 +679,7 @@ const menuData = {
         "Delightfully sweet and chewy gluten-free rice krispie treats from our friends at Rise Bakery in Adams Morgan.",
       price: 299,
       qty: 0,
-      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/desserts/cookie_adwep1.jpg`,
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/desserts/rice-krispie-treat_ivr4gp.jpg`,
     },
   ],
 
