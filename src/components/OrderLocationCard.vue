@@ -16,6 +16,12 @@
           Distance: {{ location.distanceText }}
           <span v-if="index === 0">(closest to you)</span>
         </p>
+        <p v-if="preorder" class="preorder">
+          Preorder available
+        </p>
+        <p v-if="preorder" class="preorder">
+          Next pickup {{ tomorrow }} 11:00am
+        </p>
       </div>
     </div>
   </div>
@@ -29,8 +35,33 @@ export default {
       const formattedNumber = new PhoneNumber(this.location.phoneNumber, "US");
       return formattedNumber.getNumber("national");
     },
+    tomorrow() {
+      const tomorrow = new Date(this.now);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      console.log(tomorrow);
+      return `${tomorrow.getMonth() + 1}/${tomorrow.getDate()}`;
+    },
   },
-  method: {},
+  data() {
+    return {
+      now: null,
+      preorder: false,
+    };
+  },
+  created() {
+    this.now = new Date();
+    const openingTime = new Date(this.now);
+    const closingTime = new Date(this.now);
+    openingTime.setHours(11);
+    closingTime.setHours(20);
+    closingTime.setMinutes(45);
+
+    if (this.now < openingTime) {
+      this.preorder = true;
+    } else if (this.now > closingTime) {
+      this.preorder = true;
+    }
+  },
   name: "OrderLocationCard",
   props: ["location", "index"],
 };
@@ -48,5 +79,8 @@ export default {
 }
 .location-details {
   font-size: 13px;
+}
+.preorder {
+  color: red;
 }
 </style>
