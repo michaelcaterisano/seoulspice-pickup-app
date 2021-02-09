@@ -20,7 +20,7 @@
           Preorder available
         </p>
         <p v-if="preorder" class="preorder">
-          Next pickup {{ tomorrow }} 11:00am
+          Next pickup {{ pickupDate }} 11:00am
         </p>
       </div>
     </div>
@@ -28,6 +28,11 @@
 </template>
 
 <script>
+import {
+  openingTimeHour,
+  closingTimeHour,
+  closingTimeMinute,
+} from "../config/config";
 const PhoneNumber = require("awesome-phonenumber");
 export default {
   computed: {
@@ -35,11 +40,12 @@ export default {
       const formattedNumber = new PhoneNumber(this.location.phoneNumber, "US");
       return formattedNumber.getNumber("national");
     },
-    tomorrow() {
-      const tomorrow = new Date(this.now);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      console.log(tomorrow);
-      return `${tomorrow.getMonth() + 1}/${tomorrow.getDate()}`;
+    pickupDate() {
+      const date = new Date(this.now);
+      if (date.getHours() >= closingTimeHour) {
+        date.setDate(date.getDate() + 1);
+      }
+      return `${date.getMonth() + 1}/${date.getDate()}`;
     },
   },
   data() {
@@ -52,9 +58,9 @@ export default {
     this.now = new Date();
     const openingTime = new Date(this.now);
     const closingTime = new Date(this.now);
-    openingTime.setHours(11);
-    closingTime.setHours(20);
-    closingTime.setMinutes(45);
+    openingTime.setHours(openingTimeHour);
+    closingTime.setHours(closingTimeHour);
+    closingTime.setMinutes(closingTimeMinute);
 
     if (this.now < openingTime) {
       this.preorder = true;
