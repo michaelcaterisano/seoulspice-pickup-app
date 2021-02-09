@@ -42,7 +42,7 @@ export default {
     },
     pickupDate() {
       const date = new Date(this.now);
-      if (date.getHours() >= closingTimeHour) {
+      if (date > this.closingTime) {
         date.setDate(date.getDate() + 1);
       }
       return `${date.getMonth() + 1}/${date.getDate()}`;
@@ -52,19 +52,21 @@ export default {
     return {
       now: null,
       preorder: false,
+      openingTime: null,
+      closingTime: null,
     };
   },
   created() {
     this.now = new Date();
-    const openingTime = new Date(this.now);
-    const closingTime = new Date(this.now);
-    openingTime.setHours(openingTimeHour);
-    closingTime.setHours(closingTimeHour);
-    closingTime.setMinutes(closingTimeMinute);
+    this.openingTime = new Date(this.now);
+    this.closingTime = new Date(this.now);
+    this.openingTime.setHours(openingTimeHour);
+    this.closingTime.setHours(closingTimeHour);
+    this.closingTime.setMinutes(closingTimeMinute);
 
-    if (this.now < openingTime) {
+    if (this.now < this.openingTime) {
       this.preorder = true;
-    } else if (this.now > closingTime) {
+    } else if (this.now > this.closingTime) {
       this.preorder = true;
     }
   },
