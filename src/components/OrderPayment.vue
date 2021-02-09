@@ -69,7 +69,7 @@
 <script>
 import OrderTotals from "./OrderTotals";
 
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { orderService } from "../config/api.service";
 import PhoneNumber from "awesome-phonenumber";
 import { createHelpers } from "vuex-map-fields";
@@ -225,6 +225,8 @@ export default {
                   tax: this.tax.toFixed(2),
                 });
 
+                this.updateReceiptUrl(response.data.receiptUrl);
+
                 this.$emit("update", "summary");
               } else {
                 this.submitDisabled = false;
@@ -275,6 +277,7 @@ export default {
     this.paymentForm.build();
   },
   methods: {
+    ...mapMutations(["updateReceiptUrl"]),
     getFormattedPhoneNumber() {
       return new PhoneNumber(this.phone, "US").getNumber();
     },
