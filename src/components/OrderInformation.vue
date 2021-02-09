@@ -45,11 +45,7 @@
               v-validate="'required|phoneNumber'"
             ></b-input>
           </b-field>
-          <b-field
-            label="Time"
-            :type="{ 'is-danger': errors.has('time') }"
-            :message="errors.first('time')"
-          >
+          <b-field label="Time" type="is-danger" :message="timepickerMessage">
             <b-timepicker
               :disabled="timepickerDisabled"
               class="text-field"
@@ -113,6 +109,11 @@ import { mapGetters } from "vuex";
 import LogRocket from "logrocket";
 import cleave from "../utils/cleave-directive";
 import money from "currency.js";
+import {
+  openingTimeHour,
+  closingTimeHour,
+  closingTimeMinute,
+} from "../config/config";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
@@ -132,27 +133,49 @@ export default {
     ...mapGetters(["subtotal", "items", "taxRate"]),
     minTime() {
       let minTime = new Date();
-      minTime.setHours(this.orderStartTime, 0, 0);
+      minTime.setHours(openingTimeHour, 0, 0);
       return minTime;
     },
     maxTime() {
       let maxTime = new Date();
-      maxTime.setHours(this.orderEndTime, 45, 0);
+      maxTime.setHours(closingTimeHour, closingTimeMinute, 0);
       return maxTime;
+    },
+    timepickerMessage() {
+      if (this.preorder) {
+        return `Preorder for ${this.pickupDate}`;
+      } else {
+        return "";
+      }
+    },
+    pickupDate() {
+      const date = new Date(this.now);
+      if (date.getHours() >= closingTimeHour) {
+        date.setDate(date.getDate() + 1);
+      }
+      return `${date.getMonth() + 1}/${date.getDate()}`;
     },
   },
   created() {
     this.now = new Date();
-    if (this.now.getHours() >= 21 || this.now.getHours() < 10) {
+    this.openingTime = new Date(this.now);
+    this.closingTime = new Date(this.now);
+    this.openingTime.setHours(openingTimeHour);
+    this.closingTime.setHours(closingTimeHour);
+    this.closingTime.setMinutes(closingTimeMinute);
+    if (this.now < this.openingTime) {
       this.timepickerDisabled = true;
+      this.preorder = true;
       this.time = new Date();
-      this.time.setHours(this.orderStartTime);
+      this.time.setHours(openingTimeHour);
       this.time.setMinutes(0);
-    } else if (this.now.getHours() >= 10 && this.now.getHours() < 11) {
-      // allow morning orders between 10 and 11
-      let startTime = new Date();
-      startTime.setHours(11, 0, 0);
-      this.time = startTime;
+    } else if (this.tooLate()) {
+      this.timepickerDisabled = true;
+      this.preorder = true;
+      this.time = new Date();
+      this.time.setDate(this.time.getDate() + 1);
+      this.time.setHours(openingTimeHour);
+      this.time.setMinutes(0);
     } else {
       this.timepickerDisabled = false;
       let startTime = new Date(this.now.getTime() + 15 * 60000);
@@ -174,9 +197,10 @@ export default {
       tipDollars: "",
       unselectableTimes: [],
       now: null,
-      orderStartTime: 11,
-      orderEndTime: 20,
+      openingTime: null,
+      closingTime: null,
       timepickerDisabled: false,
+      preorder: false,
       masks: {
         numeral: {
           numeral: true,
@@ -224,16 +248,39 @@ export default {
     },
     setUnselectableHours() {
       const quarterHours = [0, 15, 30, 45];
-      for (let i = this.orderStartTime; i <= this.now.getHours(); i++) {
+      for (let i = openingTimeHour; i <= this.now.getHours(); i++) {
         for (let j = 0; j < 4; j++) {
-          let unselectableTime = new Date();
-          unselectableTime.setHours(i);
-          unselectableTime.setMinutes(quarterHours[j]);
-          if (unselectableTime <= this.now) {
+          let unselectableTime = this.getUnselectableTime(
+            i,
+            quarterHours[j],
+            0,
+            0
+          );
+          if (unselectableTime <= this.now || this.tooSoon(unselectableTime)) {
             this.unselectableTimes.push(unselectableTime);
           }
         }
       }
+    },
+    getUnselectableTime(hours, minutes, seconds, milliseconds) {
+      let unselectableTime = new Date();
+      unselectableTime.setHours(hours);
+      unselectableTime.setMinutes(minutes);
+      unselectableTime.setSeconds(seconds);
+      unselectableTime.setMilliseconds(milliseconds);
+      return unselectableTime;
+    },
+    tooSoon(time) {
+      return (
+        time.getHours() === this.now.getHours() &&
+        Math.abs(time.getMinutes() - this.now.getMinutes()) < 8
+      );
+    },
+    tooLate() {
+      return (
+        this.now.getHours() === this.closingTime.getHours() &&
+        Math.abs(this.now.getMinutes() - this.closingTime.getMinutes()) < 8
+      );
     },
   },
   name: "OrderInformation",
