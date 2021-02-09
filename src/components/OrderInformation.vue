@@ -142,7 +142,7 @@ export default {
       return maxTime;
     },
     timepickerMessage() {
-      if (this.now < this.openingTime || this.now > this.closingTime) {
+      if (this.preorder) {
         return `Preorder for ${this.pickupDate}`;
       } else {
         return "";
@@ -169,7 +169,7 @@ export default {
       this.time = new Date();
       this.time.setHours(openingTimeHour);
       this.time.setMinutes(0);
-    } else if (this.now > this.closingTime) {
+    } else if (this.tooLate()) {
       this.timepickerDisabled = true;
       this.preorder = true;
       this.time = new Date();
@@ -250,14 +250,37 @@ export default {
       const quarterHours = [0, 15, 30, 45];
       for (let i = openingTimeHour; i <= this.now.getHours(); i++) {
         for (let j = 0; j < 4; j++) {
-          let unselectableTime = new Date();
-          unselectableTime.setHours(i);
-          unselectableTime.setMinutes(quarterHours[j]);
-          if (unselectableTime <= this.now) {
+          let unselectableTime = this.getUnselectableTime(
+            i,
+            quarterHours[j],
+            0,
+            0
+          );
+          if (unselectableTime <= this.now || this.tooSoon(unselectableTime)) {
             this.unselectableTimes.push(unselectableTime);
           }
         }
       }
+    },
+    getUnselectableTime(hours, minutes, seconds, milliseconds) {
+      let unselectableTime = new Date();
+      unselectableTime.setHours(hours);
+      unselectableTime.setMinutes(minutes);
+      unselectableTime.setSeconds(seconds);
+      unselectableTime.setMilliseconds(milliseconds);
+      return unselectableTime;
+    },
+    tooSoon(time) {
+      return (
+        time.getHours() === this.now.getHours() &&
+        Math.abs(time.getMinutes() - this.now.getMinutes()) < 8
+      );
+    },
+    tooLate() {
+      return (
+        this.now.getHours() === this.closingTime.getHours() &&
+        Math.abs(this.now.getMinutes() - this.closingTime.getMinutes()) < 8
+      );
     },
   },
   name: "OrderInformation",
