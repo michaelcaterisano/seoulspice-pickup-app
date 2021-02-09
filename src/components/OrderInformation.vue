@@ -45,7 +45,11 @@
               v-validate="'required|phoneNumber'"
             ></b-input>
           </b-field>
-          <b-field label="Time" type="is-danger" :message="timepickerMessage">
+          <b-field
+            label="Time"
+            :type="{ 'is-danger': errors.has('time') }"
+            :message="errors.first('time')"
+          >
             <b-timepicker
               :disabled="timepickerDisabled"
               class="text-field"
@@ -62,6 +66,9 @@
               :use-html5-validation="false"
             ></b-timepicker>
           </b-field>
+          <p v-if="preorder" class="timepicker-message">
+            {{ timepickerMessage }}
+          </p>
           <b-field label="Would you like to add a tip?">
             <div class="tip-buttons is-size-7">
               <b-radio name="name" native-value=".1" @input="updateTip">
@@ -169,7 +176,7 @@ export default {
       this.time = new Date();
       this.time.setHours(openingTimeHour);
       this.time.setMinutes(0);
-    } else if (this.tooLate()) {
+    } else if (this.tooLate(this.now)) {
       this.timepickerDisabled = true;
       this.preorder = true;
       this.time = new Date();
@@ -188,9 +195,22 @@ export default {
       startTime.setMinutes(m);
       startTime.setHours(h);
 
-      this.time = startTime;
+      if (this.tooLate(startTime)) {
+        this.preorder = true;
+        this.time = new Date();
+        this.time.setDate(this.time.getDate() + 1);
+        this.time.setHours(openingTimeHour);
+        this.time.setMinutes(0);
+      } else {
+        this.time = startTime;
+      }
     }
     this.setUnselectableHours();
+  },
+  mounted() {
+    if (this.isPM()) {
+      this.disableAM();
+    }
   },
   data() {
     return {
@@ -248,7 +268,7 @@ export default {
     },
     setUnselectableHours() {
       const quarterHours = [0, 15, 30, 45];
-      for (let i = openingTimeHour; i <= this.now.getHours(); i++) {
+      for (let i = 0; i <= this.now.getHours(); i++) {
         for (let j = 0; j < 4; j++) {
           let unselectableTime = this.getUnselectableTime(
             i,
@@ -276,11 +296,25 @@ export default {
         Math.abs(time.getMinutes() - this.now.getMinutes()) < 8
       );
     },
-    tooLate() {
-      return (
-        this.now.getHours() === this.closingTime.getHours() &&
-        Math.abs(this.now.getMinutes() - this.closingTime.getMinutes()) < 8
-      );
+    tooLate(time) {
+      return time > this.closingTime;
+    },
+    isPM() {
+      const noon = new Date();
+      noon.setHours(12);
+      noon.setMinutes(0);
+      noon.setSeconds(0);
+      noon.setMilliseconds(0);
+      return this.now >= noon;
+    },
+    disableAM() {
+      console.log("disable am");
+      const options = document.getElementsByTagName("option");
+      for (let option of options) {
+        if (option.value === "AM") {
+          option.disabled = true;
+        }
+      }
     },
   },
   name: "OrderInformation",
@@ -321,6 +355,12 @@ export default {
   color: black;
   margin: 0px !important;
   padding: 10px 0 10px 0;
+}
+
+.timepicker-message {
+  margin-top: -15px;
+  color: red;
+  font-size: 17px;
 }
 
 @media screen and (max-width: 480px) {
