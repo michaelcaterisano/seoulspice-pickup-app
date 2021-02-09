@@ -18,6 +18,7 @@ const state = {
   orderTip: null,
   orderTax: null,
   orderDiscount: null,
+  receiptUrl: null,
 };
 
 const getters = {
@@ -26,6 +27,9 @@ const getters = {
 
 const mutations = {
   updateOrderField,
+  updateReceiptUrl(state, url) {
+    state.receiptUrl = url;
+  },
 };
 
 export default {
