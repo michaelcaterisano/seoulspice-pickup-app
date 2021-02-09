@@ -228,7 +228,7 @@ export default {
           let unselectableTime = new Date();
           unselectableTime.setHours(i);
           unselectableTime.setMinutes(quarterHours[j]);
-          if (unselectableTime.getMinutes() <= this.now.getMinutes()) {
+          if (unselectableTime <= this.now) {
             this.unselectableTimes.push(unselectableTime);
           }
         }
