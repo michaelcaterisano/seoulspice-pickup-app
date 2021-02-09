@@ -145,6 +145,7 @@ export default {
     this.now = new Date();
     if (this.now.getHours() >= 21 || this.now.getHours() < 10) {
       this.timepickerDisabled = true;
+      this.time = new Date();
       this.time.setHours(this.orderStartTime);
       this.time.setMinutes(0);
     } else if (this.now.getHours() >= 10 && this.now.getHours() < 11) {
