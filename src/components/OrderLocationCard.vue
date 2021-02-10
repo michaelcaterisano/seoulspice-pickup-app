@@ -6,9 +6,12 @@
       </figure>
     </div>
     <div class="card-content">
-      <span class="card-title location-description">{{
-        location.name.toUpperCase()
-      }}</span>
+      <p class="card-title location-description">
+        {{ location.locationName.toUpperCase() }}
+      </p>
+      <p class="card-title location-description">
+        {{ location.locationCity.toUpperCase() }}
+      </p>
       <div class="card-description location-details">
         <p>{{ location.address.addressLine1 }}</p>
         <p>{{ formattedPhoneNumber }}</p>
