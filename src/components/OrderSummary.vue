@@ -3,9 +3,7 @@
     <div class="container">
       <div class="box body-text">
         <span>
-          <strong>
-            Thank you for choosing SEOULSPICE!
-          </strong>
+          <strong> Thank you for choosing SEOULSPICE! </strong>
           <br />
         </span>
         <span>
@@ -14,7 +12,7 @@
         </span>
         <p v-if="curbside" class="curbside">
           <em>
-            Please call {{ formattedPhoneNumber }} upon arriving at the
+            Please call {{ locationPhoneNumber }} upon arriving at the
             restaurant and we will bring your order out to you.
           </em>
         </p>
@@ -29,7 +27,7 @@
           {{ email }}
           <br />
           Phone:
-          {{ formattedPhoneNumber }}
+          {{ customerPhoneNumber }}
           <br />
           Location:
           {{ location.name }}
@@ -112,13 +110,21 @@ export default {
       "phone",
       "curbside",
       "orderId",
+      "receiptUrl",
     ]),
     shortTime() {
       return this.time.toLocaleTimeString("en-US", {
         timeStyle: "short",
       });
     },
-    formattedPhoneNumber() {
+    locationPhoneNumber() {
+      const formattedPhoneNumber = new PhoneNumber(
+        this.location.phoneNumber,
+        "US"
+      );
+      return formattedPhoneNumber.getNumber("national");
+    },
+    customerPhoneNumber() {
       const formattedPhoneNumber = new PhoneNumber(this.phone, "US");
       return formattedPhoneNumber.getNumber("national");
     },
@@ -149,6 +155,8 @@ export default {
       this.accumulatedLoyaltyPoints =
         accumulatedPoints.data.accumulatedLoyaltyPoints;
     }
+
+    await this.textReceipt();
   },
   data() {
     return {
@@ -193,6 +201,14 @@ export default {
         }
       );
       return accumulatedPoints;
+    },
+
+    async textReceipt() {
+      const receiptResponse = await orderService.post("/text-receipt", {
+        phoneNumber: this.getSquareFormattedPhoneNumber(),
+        receiptUrl: this.receiptUrl,
+      });
+      return receiptResponse;
     },
     getSquareFormattedPhoneNumber() {
       return new PhoneNumber(this.phone, "US").getNumber();

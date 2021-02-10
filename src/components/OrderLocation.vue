@@ -108,7 +108,8 @@ export default {
       this.userLocationInput = null;
       window.navigator.geolocation.getCurrentPosition(
         this.geoSuccess,
-        this.geoFailure
+        this.geoFailure,
+        { timeout: 10000 }
       );
     },
     geoSuccess(position) {
