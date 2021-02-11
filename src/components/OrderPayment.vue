@@ -282,6 +282,7 @@ export default {
       return new PhoneNumber(this.phone, "US").getNumber();
     },
     async createOrder() {
+      console.log(JSON.stringify(this.items, null, 2));
       const result = await orderService.post("/create-order", {
         items: this.items,
         locationId: this.location.id,

@@ -25,7 +25,11 @@
       <b-button type="is-danger" @click="cancel">
         CANCEL
       </b-button>
-      <b-button type="is-success" @click.prevent="next">
+      <b-button
+        type="is-success"
+        @click.prevent="next"
+        data-cy="extras-next-button"
+      >
         NEXT
       </b-button>
     </div>
