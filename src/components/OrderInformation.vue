@@ -312,7 +312,6 @@ export default {
       return this.now >= noon;
     },
     disableAM() {
-      console.log("disable am");
       const options = document.getElementsByTagName("option");
       for (let option of options) {
         if (option.value === "AM") {

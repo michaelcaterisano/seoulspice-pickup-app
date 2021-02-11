@@ -65,6 +65,34 @@ describe("makes a random order", () => {
         .click();
 
       cy.wait("@create-order");
+
+      //  pay
+      cy.route("POST", "/create-payment").as("create-payment");
+      cy.wait("@create-payment", { timeout: 20000 });
+
+      // fake summary
+      cy.intercept("GET", "/order-summary", {
+        success: true,
+        totals: {
+          totalMoney: {
+            amount: 5569,
+            currency: "USD",
+          },
+          totalTaxMoney: {
+            amount: 461,
+            currency: "USD",
+          },
+          totalDiscountMoney: {
+            amount: 512,
+            currency: "USD",
+          },
+          totalTipMoney: {
+            amount: 500,
+            currency: "USD",
+          },
+        },
+      });
+      cy.request("GET", "/order-summary");
     });
   });
 });

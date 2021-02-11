@@ -188,9 +188,10 @@ export default {
             }
 
             this.submitDisabled = true;
-            const loadingComponent = this.$buefy.loading.open({
-              container: null,
-            });
+            // const loadingComponent = this.$buefy.loading.open({
+            //   container: null,
+            // });
+            this.isLoading = true;
             // change this to hit /create-payment
             let response = await orderService.post("/create-payment", {
               locationId: this.location.id,
@@ -199,7 +200,6 @@ export default {
               amount: this.orderTotal,
               tip: this.tip,
             });
-            loadingComponent.close();
 
             if (response.status === 200) {
               if (response.data.success) {
@@ -211,7 +211,7 @@ export default {
                 });
 
                 this.updateReceiptUrl(response.data.receiptUrl);
-
+                this.isLoading = false;
                 this.$emit("update", "summary");
               } else {
                 this.submitDisabled = false;
