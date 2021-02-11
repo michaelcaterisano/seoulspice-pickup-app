@@ -1,29 +1,21 @@
 <template>
   <section>
     <div class="container">
+      <b-loading
+        is-full-page
+        v-model="isLoading"
+        :can-cancel="false"
+      ></b-loading>
+
       <b-message
         type="is-danger"
         title="Payment Error"
         v-if="paymentErrors.length"
       >
-        <p>We were unable to process your payment.</p>
-        <div v-if="development" class="content">
-          <ul>
-            <li v-for="(error, index) in paymentErrors" :key="index">
-              {{ error.message }}
-            </li>
-          </ul>
-        </div>
+        <p>We were unable to process your payment. Please try again.</p>
       </b-message>
-      <b-message type="is-danger" title="Order Error" v-if="orderErrors.length">
-        <p>We were unable to create your order.</p>
-        <div v-if="development" class="content">
-          <ul>
-            <li v-for="(error, index) in orderErrors" :key="index">
-              {{ error.message }}
-            </li>
-          </ul>
-        </div>
+      <b-message type="is-danger" title="Order Error" v-if="orderError">
+        Something went wrong. We were unable to create your order.
       </b-message>
       <div id="form-container">
         <div v-if="hasReward" class="box">
@@ -108,9 +100,10 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       paymentForm: null,
       paymentErrors: [],
-      orderErrors: [],
+      orderError: false,
       submitDisabled: false,
       hasReward: false,
       rewardName: null,
@@ -120,26 +113,18 @@ export default {
     };
   },
   async mounted() {
-    this.loadingComponent = this.$buefy.loading.open();
+    this.isLoading = true;
     // create order
     const order = await this.createOrder();
     if (!order.data.success) {
-      this.orderErrors.push({ error: order.data.error });
-      this.loadingComponent.close();
+      this.orderError = true;
+      this.isLoading = false;
     } else {
       this.orderId = order.data.orderId;
       this.orderTotal = order.data.orderTotal;
       this.orderTax = order.data.orderTax;
       this.orderTip = order.data.orderTip;
       this.orderDiscount = order.data.orderDiscount;
-
-      // handle loyalty reward lookup
-      const rewards = await this.getRewards();
-      if (rewards.data.success && rewards.data.hasReward) {
-        // add button
-        this.hasReward = true;
-        this.rewardName = rewards.data.name;
-      }
 
       // payment
       // eslint-disable-next-line no-undef
@@ -186,8 +171,8 @@ export default {
         },
         // SqPaymentForm callback functions
         callbacks: {
-          paymentFormLoaded: () => {
-            this.loadingComponent.close();
+          paymentFormLoaded: async () => {
+            await this.getRewards();
           },
           /*
            * callback function: cardNonceResponseReceived
@@ -203,9 +188,10 @@ export default {
             }
 
             this.submitDisabled = true;
-            const loadingComponent = this.$buefy.loading.open({
-              container: null,
-            });
+            // const loadingComponent = this.$buefy.loading.open({
+            //   container: null,
+            // });
+            this.isLoading = true;
             // change this to hit /create-payment
             let response = await orderService.post("/create-payment", {
               locationId: this.location.id,
@@ -214,7 +200,6 @@ export default {
               amount: this.orderTotal,
               tip: this.tip,
             });
-            loadingComponent.close();
 
             if (response.status === 200) {
               if (response.data.success) {
@@ -226,7 +211,7 @@ export default {
                 });
 
                 this.updateReceiptUrl(response.data.receiptUrl);
-
+                this.isLoading = false;
                 this.$emit("update", "summary");
               } else {
                 this.submitDisabled = false;
@@ -282,23 +267,55 @@ export default {
       return new PhoneNumber(this.phone, "US").getNumber();
     },
     async createOrder() {
-      const result = await orderService.post("/create-order", {
-        items: this.items,
-        locationId: this.location.id,
-        name: this.name,
-        email: this.email,
-        curbside: this.curbside,
-        // tip: this.tip,
-        taxRate: this.taxRate,
-        time: this.time,
-      });
-      return result;
+      try {
+        const result = await orderService.post("/create-order", {
+          items: this.items,
+          locationId: this.location.id,
+          name: this.name,
+          email: this.email,
+          curbside: this.curbside,
+          // tip: this.tip,
+          taxRate: this.taxRate,
+          time: this.time,
+        });
+        return result;
+      } catch (error) {
+        if (process.env.NODE_ENV === "development") {
+          // eslint-disable-next-line
+          console.log(error);
+        }
+      }
     },
+
+    // handle loyalty reward lookup
+    // const rewards = await this.getRewards();
+
     async getRewards() {
-      const result = await orderService.post("/get-loyalty-account", {
-        phoneNumber: this.getFormattedPhoneNumber(),
-      });
-      return result;
+      try {
+        const rewards = await orderService.post("/get-loyalty-account", {
+          phoneNumber: this.getFormattedPhoneNumber(),
+        });
+        if (rewards.data.success) {
+          // add button
+          if (rewards.data.hasReward) {
+            this.hasReward = true;
+            this.rewardName = rewards.data.name;
+          }
+          this.isLoading = false;
+        } else {
+          if (process.env.NODE_ENV === "development") {
+            // eslint-disable-next-line
+            console.log("loyalty failed");
+          }
+          this.isLoading = false;
+        }
+      } catch (error) {
+        this.isLoading = false;
+        if (process.env.NODE_ENV === "development") {
+          // eslint-disable-next-line
+          console.log(error);
+        }
+      }
     },
     async createLoyaltyReward() {
       // const loadingComponent = this.$buefy.loading.open();

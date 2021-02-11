@@ -15,6 +15,7 @@
               type="text"
               key="name-input"
               v-validate="'required'"
+              data-cy="info-name"
             ></b-input>
           </b-field>
           <b-field
@@ -29,6 +30,7 @@
               type="email"
               icon="envelope"
               v-validate="'required|email'"
+              data-cy="info-email"
             ></b-input>
           </b-field>
           <b-field
@@ -43,6 +45,7 @@
               type="phone"
               icon="phone"
               v-validate="'required|phoneNumber'"
+              data-cy="info-phone"
             ></b-input>
           </b-field>
           <b-field
@@ -91,6 +94,7 @@
               v-cleave="masks.numeral"
               v-model="tipDollars"
               @change.native="setCustomTip"
+              data-cy="info-tip"
             ></b-input>
           </b-field>
           <b-field>
@@ -308,7 +312,6 @@ export default {
       return this.now >= noon;
     },
     disableAM() {
-      console.log("disable am");
       const options = document.getElementsByTagName("option");
       for (let option of options) {
         if (option.value === "AM") {
