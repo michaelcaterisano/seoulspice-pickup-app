@@ -2,7 +2,7 @@
   <section>
     <div class="container">
       <b-loading
-        :is-full-page="isFullPage"
+        is-full-page
         v-model="isLoading"
         :can-cancel="false"
       ></b-loading>
@@ -12,14 +12,7 @@
         title="Payment Error"
         v-if="paymentErrors.length"
       >
-        <p>We were unable to process your payment.</p>
-        <div v-if="development" class="content">
-          <ul>
-            <li v-for="(error, index) in paymentErrors" :key="index">
-              {{ error.message }}
-            </li>
-          </ul>
-        </div>
+        <p>We were unable to process your payment. Please try again.</p>
       </b-message>
       <b-message type="is-danger" title="Order Error" v-if="orderError">
         Something went wrong. We were unable to create your order.
@@ -133,14 +126,6 @@ export default {
       this.orderTip = order.data.orderTip;
       this.orderDiscount = order.data.orderDiscount;
 
-      // handle loyalty reward lookup
-      const rewards = await this.getRewards();
-      if (rewards.data.success && rewards.data.hasReward) {
-        // add button
-        this.hasReward = true;
-        this.rewardName = rewards.data.name;
-      }
-
       // payment
       // eslint-disable-next-line no-undef
       this.paymentForm = new SqPaymentForm({
@@ -186,8 +171,8 @@ export default {
         },
         // SqPaymentForm callback functions
         callbacks: {
-          paymentFormLoaded: () => {
-            this.isLoading = false;
+          paymentFormLoaded: async () => {
+            await this.getRewards();
           },
           /*
            * callback function: cardNonceResponseReceived
@@ -295,17 +280,41 @@ export default {
         });
         return result;
       } catch (error) {
-        alert(error);
+        if (process.env.NODE_ENV === "development") {
+          // eslint-disable-next-line
+          console.log(error);
+        }
       }
     },
+
+    // handle loyalty reward lookup
+    // const rewards = await this.getRewards();
+
     async getRewards() {
       try {
-        const result = await orderService.post("/get-loyalty-account", {
+        const rewards = await orderService.post("/get-loyalty-account", {
           phoneNumber: this.getFormattedPhoneNumber(),
         });
-        return result;
+        if (rewards.data.success) {
+          // add button
+          if (rewards.data.hasReward) {
+            this.hasReward = true;
+            this.rewardName = rewards.data.name;
+          }
+          this.isLoading = false;
+        } else {
+          if (process.env.NODE_ENV === "development") {
+            // eslint-disable-next-line
+            console.log("loyalty failed");
+          }
+          this.isLoading = false;
+        }
       } catch (error) {
-        alert(error);
+        this.isLoading = false;
+        if (process.env.NODE_ENV === "development") {
+          // eslint-disable-next-line
+          console.log(error);
+        }
       }
     },
     async createLoyaltyReward() {

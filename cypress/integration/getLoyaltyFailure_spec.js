@@ -54,8 +54,13 @@ describe("makes a random order", () => {
         .click();
 
       // order info
-      cy.route("POST", "/create-order").as("create-order");
-      cy.get("[data-cy=info-name]").type("kbbq with grill");
+      cy.intercept("POST", "/create-order", { success: true }).as(
+        "create-order"
+      );
+      cy.intercept("POST", "/get-loyalty-account", { success: false }).as(
+        "loyalty"
+      );
+      cy.get("[data-cy=info-name]").type("test order");
       cy.get("[data-cy=info-email]").type("asdf@gmail.com");
       cy.get("[data-cy=info-phone]").type("2143950129");
       cy.get("[data-cy=info-tip]").type("1");
@@ -65,6 +70,9 @@ describe("makes a random order", () => {
         .click();
 
       cy.wait("@create-order");
+      cy.wait("@loyalty");
+
+      cy.get(".button-google-pay");
     });
   });
 });
