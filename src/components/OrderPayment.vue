@@ -1,6 +1,12 @@
 <template>
   <section>
     <div class="container">
+      <b-loading
+        :is-full-page="isFullPage"
+        v-model="isLoading"
+        :can-cancel="false"
+      ></b-loading>
+
       <b-message
         type="is-danger"
         title="Payment Error"
@@ -15,15 +21,8 @@
           </ul>
         </div>
       </b-message>
-      <b-message type="is-danger" title="Order Error" v-if="orderErrors.length">
-        <p>We were unable to create your order.</p>
-        <div v-if="development" class="content">
-          <ul>
-            <li v-for="(error, index) in orderErrors" :key="index">
-              {{ error.message }}
-            </li>
-          </ul>
-        </div>
+      <b-message type="is-danger" title="Order Error" v-if="orderError">
+        Something went wrong. We were unable to create your order.
       </b-message>
       <div id="form-container">
         <div v-if="hasReward" class="box">
@@ -108,9 +107,10 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       paymentForm: null,
       paymentErrors: [],
-      orderErrors: [],
+      orderError: false,
       submitDisabled: false,
       hasReward: false,
       rewardName: null,
@@ -120,12 +120,12 @@ export default {
     };
   },
   async mounted() {
-    this.loadingComponent = this.$buefy.loading.open();
+    this.isLoading = true;
     // create order
     const order = await this.createOrder();
     if (!order.data.success) {
-      this.orderErrors.push({ error: order.data.error });
-      this.loadingComponent.close();
+      this.orderError = true;
+      this.isLoading = false;
     } else {
       this.orderId = order.data.orderId;
       this.orderTotal = order.data.orderTotal;
@@ -187,7 +187,7 @@ export default {
         // SqPaymentForm callback functions
         callbacks: {
           paymentFormLoaded: () => {
-            this.loadingComponent.close();
+            this.isLoading = false;
           },
           /*
            * callback function: cardNonceResponseReceived
@@ -282,24 +282,31 @@ export default {
       return new PhoneNumber(this.phone, "US").getNumber();
     },
     async createOrder() {
-      console.log(JSON.stringify(this.items, null, 2));
-      const result = await orderService.post("/create-order", {
-        items: this.items,
-        locationId: this.location.id,
-        name: this.name,
-        email: this.email,
-        curbside: this.curbside,
-        // tip: this.tip,
-        taxRate: this.taxRate,
-        time: this.time,
-      });
-      return result;
+      try {
+        const result = await orderService.post("/create-order", {
+          items: this.items,
+          locationId: this.location.id,
+          name: this.name,
+          email: this.email,
+          curbside: this.curbside,
+          // tip: this.tip,
+          taxRate: this.taxRate,
+          time: this.time,
+        });
+        return result;
+      } catch (error) {
+        alert(error);
+      }
     },
     async getRewards() {
-      const result = await orderService.post("/get-loyalty-account", {
-        phoneNumber: this.getFormattedPhoneNumber(),
-      });
-      return result;
+      try {
+        const result = await orderService.post("/get-loyalty-account", {
+          phoneNumber: this.getFormattedPhoneNumber(),
+        });
+        return result;
+      } catch (error) {
+        alert(error);
+      }
     },
     async createLoyaltyReward() {
       // const loadingComponent = this.$buefy.loading.open();
