@@ -1,11 +1,11 @@
-describe("", () => {
+describe("Order KBBQ Refills", () => {
   beforeEach(() => {
     cy.visit("http://localhost:8080");
     cy.server();
   });
 
   context("order", () => {
-    it("", () => {
+    it("Orders KBBQ Refills", () => {
       // choose location
       cy.route("POST", "/locations").as("locations");
       cy.get("input").type("20007");
@@ -17,6 +17,27 @@ describe("", () => {
         .click();
 
       /* Order here */
+      cy.get("[data-cy=entree-categories]")
+        .should("exist")
+        .contains("Korean BBQ")
+        .click();
+
+      cy.contains("refills", { matchCase: false }).click({ force: true });
+
+      // additional items
+      cy.get(".fa-plus").each(($el) => {
+        cy.wrap($el).click();
+      });
+      // next
+      cy.contains("next", { matchCase: false }).click({ force: true });
+
+      cy.wait(1000);
+
+      // extras
+      cy.get(".fa-plus").each(($el) => {
+        cy.wrap($el).click();
+      });
+      cy.get("[data-cy=extras-next-button]").click();
 
       /*************** CHECKOUT ****************************/
       // decline to order another entree
@@ -37,7 +58,7 @@ describe("", () => {
 
       // order info
       cy.route("POST", "/create-order").as("create-order");
-      cy.get("[data-cy=info-name]").type("");
+      cy.get("[data-cy=info-name]").type("kbbq refills");
       cy.get("[data-cy=info-email]").type("asdf@gmail.com");
       cy.get("[data-cy=info-phone]").type("2143950129");
       cy.get("[data-cy=info-tip]").type("1");

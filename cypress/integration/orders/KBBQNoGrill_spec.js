@@ -32,6 +32,12 @@ describe("Order KBBQ No Grill", () => {
         .click({ force: true });
       cy.contains("next", { matchCase: false }).click({ force: true });
 
+      // choose cucumber
+      cy.get("[data-cy=Veggies]")
+        .contains("cucumber", { matchCase: false })
+        .click({ force: true });
+      cy.contains("next", { matchCase: false }).click({ force: true });
+
       // decline extras
       cy.get("[data-cy=extras-next-button]").click();
       cy.get(".button")

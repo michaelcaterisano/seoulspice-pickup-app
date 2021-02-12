@@ -30,6 +30,12 @@ describe("Order KBBQ With Grill", () => {
         .click({ force: true });
       cy.contains("next", { matchCase: false }).click({ force: true });
 
+      // choose cucumber
+      cy.get("[data-cy=Veggies]")
+        .contains("cucumber", { matchCase: false })
+        .click({ force: true });
+      cy.contains("next", { matchCase: false }).click({ force: true });
+
       // additional items
       cy.get(".fa-plus").each(($el) => {
         cy.wrap($el).click();
@@ -64,7 +70,7 @@ describe("Order KBBQ With Grill", () => {
 
       // order info
       cy.route("POST", "/create-order").as("create-order");
-      cy.get("[data-cy=info-name]").type("");
+      cy.get("[data-cy=info-name]").type("kbbq with grill");
       cy.get("[data-cy=info-email]").type("asdf@gmail.com");
       cy.get("[data-cy=info-phone]").type("2143950129");
       cy.get("[data-cy=info-tip]").type("1");
