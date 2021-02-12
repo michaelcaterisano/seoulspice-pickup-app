@@ -16,8 +16,44 @@ describe("makes a random order", () => {
         .eq(0)
         .click();
 
-      /*ORDER KORRITO SOUTHWEST (NO OPTIONS)*/
-      cy.contains("korrito", { matchCase: false }).click({ force: true });
+      /* ORDER BOWL SIGNATURE*/
+      cy.contains("bowl", { matchCase: false }).click({ force: true });
+      cy.get(".signature-card")
+        .contains("southwest", { matchCase: false })
+        .click({
+          force: true,
+        });
+
+      // choose base
+      cy.contains("white rice", { matchCase: false }).click({ force: true });
+      cy.contains("next", { matchCase: false }).click({ force: true });
+
+      // extra proteins
+      cy.wait(1000);
+      cy.get(".button")
+        .contains("Yes", { matchCase: true })
+        .click({ force: true });
+
+      // choose protein
+      cy.get("[data-cy='Extra Proteins']")
+        .contains("beef", { matchCase: false })
+        .click({ force: true });
+      cy.contains("next", { matchCase: false }).click({ force: true });
+
+      // choose extras
+      cy.get(".fa-plus").each(($el) => {
+        cy.wrap($el).click({ force: true });
+      });
+      cy.get("[data-cy=extras-next-button]").click({ force: true });
+
+      // order another entree
+      cy.wait(1000);
+      cy.get(".button")
+        .contains("Yes", { matchCase: true })
+        .click({ force: true });
+
+      /*ORDER BOWL SIGNATURE (NO OPTIONS)*/
+      cy.contains("bowl", { matchCase: false }).click({ force: true });
       cy.get(".signature-card")
         .contains("southwest", { matchCase: false })
         .click({
@@ -34,6 +70,7 @@ describe("makes a random order", () => {
         .contains("No", { matchCase: true })
         .click({ force: true });
 
+      // decline extras
       cy.get("[data-cy=extras-next-button]").click({ force: true });
 
       /*************** CHECKOUT ****************************/
@@ -55,7 +92,7 @@ describe("makes a random order", () => {
 
       // order info
       cy.route("POST", "/create-order").as("create-order");
-      cy.get("[data-cy=info-name]").type("kbbq with grill");
+      cy.get("[data-cy=info-name]").type("Bowl Signature");
       cy.get("[data-cy=info-email]").type("asdf@gmail.com");
       cy.get("[data-cy=info-phone]").type("2143950129");
       cy.get("[data-cy=info-tip]").type("1");
@@ -65,34 +102,6 @@ describe("makes a random order", () => {
         .click();
 
       cy.wait("@create-order");
-
-      //  pay
-      cy.route("POST", "/create-payment").as("create-payment");
-      cy.wait("@create-payment", { timeout: 20000 });
-
-      // fake summary
-      cy.intercept("GET", "/order-summary", {
-        success: true,
-        totals: {
-          totalMoney: {
-            amount: 5569,
-            currency: "USD",
-          },
-          totalTaxMoney: {
-            amount: 461,
-            currency: "USD",
-          },
-          totalDiscountMoney: {
-            amount: 512,
-            currency: "USD",
-          },
-          totalTipMoney: {
-            amount: 500,
-            currency: "USD",
-          },
-        },
-      });
-      cy.request("GET", "/order-summary");
     });
   });
 });
