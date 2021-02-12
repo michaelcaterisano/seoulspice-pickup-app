@@ -122,7 +122,7 @@ export default {
         if (this.signature.name === "Korean BBQ Refills") {
           steps = ["kbbq-sides", "extras"];
         } else {
-          steps = ["kbbq-proteins", "kbbq-sides", "extras"];
+          steps = ["kbbq-proteins", "veggies", "kbbq-sides", "extras"];
         }
       }
       if (this.isKorrito()) {

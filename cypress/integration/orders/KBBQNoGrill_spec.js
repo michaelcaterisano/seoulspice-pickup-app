@@ -1,11 +1,11 @@
-describe("makes a random order", () => {
+describe("Order KBBQ No Grill", () => {
   beforeEach(() => {
     cy.visit("http://localhost:8080");
     cy.server();
   });
 
-  context("random order", () => {
-    it("makes a random order", () => {
+  context("order", () => {
+    it("Orders KBBQ With No Grill", () => {
       // choose location
       cy.route("POST", "/locations").as("locations");
       cy.get("input").type("20007");
@@ -16,24 +16,36 @@ describe("makes a random order", () => {
         .eq(0)
         .click();
 
-      /*ORDER KORRITO SOUTHWEST (NO OPTIONS)*/
-      cy.contains("korrito", { matchCase: false }).click({ force: true });
-      cy.get(".signature-card")
-        .contains("southwest", { matchCase: false })
-        .click({
-          force: true,
-        });
+      /* Order here */
+      cy.get("[data-cy=entree-categories]")
+        .should("exist")
+        .contains("Korean BBQ")
+        .click();
 
-      // choose base
-      cy.contains("white rice", { matchCase: false }).click({ force: true });
-      cy.contains("next", { matchCase: false }).click({ force: true });
-
-      // extra proteins
-      cy.wait(1000);
-      cy.get(".button")
-        .contains("No", { matchCase: true })
+      cy.get(".card-description")
+        .contains("without", { matchCase: false })
         .click({ force: true });
 
+      // choose beef
+      cy.get("[data-cy=Proteins]")
+        .contains("beef", { matchCase: false })
+        .click({ force: true });
+      cy.contains("next", { matchCase: false }).click({ force: true });
+
+      // choose cucumber
+      cy.get("[data-cy=Veggies]")
+        .contains("cucumber", { matchCase: false })
+        .click({ force: true });
+      cy.contains("next", { matchCase: false }).click({ force: true });
+
+      // decline extras
+      cy.get("[data-cy=extras-next-button]").click();
+      cy.get(".button")
+        .contains("Yes", { matchCase: true })
+        .click({ force: true });
+
+      cy.wait(1000);
+      // decline extras
       cy.get("[data-cy=extras-next-button]").click({ force: true });
 
       /*************** CHECKOUT ****************************/
@@ -55,7 +67,7 @@ describe("makes a random order", () => {
 
       // order info
       cy.route("POST", "/create-order").as("create-order");
-      cy.get("[data-cy=info-name]").type("kbbq with grill");
+      cy.get("[data-cy=info-name]").type("KBBQ No Grill");
       cy.get("[data-cy=info-email]").type("asdf@gmail.com");
       cy.get("[data-cy=info-phone]").type("2143950129");
       cy.get("[data-cy=info-tip]").type("1");
@@ -65,34 +77,6 @@ describe("makes a random order", () => {
         .click();
 
       cy.wait("@create-order");
-
-      //  pay
-      cy.route("POST", "/create-payment").as("create-payment");
-      cy.wait("@create-payment", { timeout: 20000 });
-
-      // fake summary
-      cy.intercept("GET", "/order-summary", {
-        success: true,
-        totals: {
-          totalMoney: {
-            amount: 5569,
-            currency: "USD",
-          },
-          totalTaxMoney: {
-            amount: 461,
-            currency: "USD",
-          },
-          totalDiscountMoney: {
-            amount: 512,
-            currency: "USD",
-          },
-          totalTipMoney: {
-            amount: 500,
-            currency: "USD",
-          },
-        },
-      });
-      cy.request("GET", "/order-summary");
     });
   });
 });

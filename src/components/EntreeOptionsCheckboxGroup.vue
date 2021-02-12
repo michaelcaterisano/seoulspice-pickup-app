@@ -5,7 +5,7 @@
       <span class="card-title">{{ quantityText.toUpperCase() }}</span>
     </div>
     <div class="options-container">
-      <div class="checkbox-container">
+      <div class="checkbox-container" :data-cy="group.cartLabel">
         <b-checkbox-button
           v-for="choice in group.choices"
           :key="choice.name"
@@ -99,7 +99,8 @@ export default {
     getOptionMax(category, group) {
       return category.name === "Korean Feast For 2" ||
         category.name === "Korean Feast For 4" ||
-        category.name === "Kid's Bowl"
+        category.name === "Kid's Bowl" ||
+        category.name === "Korean BBQ"
         ? group.KFmax
           ? group.KFmax
           : group.max
