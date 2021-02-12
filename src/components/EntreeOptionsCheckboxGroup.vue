@@ -99,7 +99,8 @@ export default {
     getOptionMax(category, group) {
       return category.name === "Korean Feast For 2" ||
         category.name === "Korean Feast For 4" ||
-        category.name === "Kid's Bowl"
+        category.name === "Kid's Bowl" ||
+        category.name === "Korean BBQ"
         ? group.KFmax
           ? group.KFmax
           : group.max
