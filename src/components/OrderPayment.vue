@@ -1,12 +1,7 @@
 <template>
   <section>
-    <div class="container">
-      <b-loading
-        is-full-page
-        v-model="isLoading"
-        :can-cancel="false"
-      ></b-loading>
-
+    <b-loading is-full-page v-model="isLoading" :can-cancel="false"></b-loading>
+    <div v-show="!isLoading" class="container">
       <b-message
         type="is-danger"
         title="Payment Error"
@@ -18,7 +13,7 @@
         Something went wrong. We were unable to create your order.
       </b-message>
       <div id="form-container">
-        <div v-if="hasReward" class="box">
+        <div v-if="hasReward && !orderError" class="box">
           <div class="loyalty">
             <span class="card-title">YOU HAVE A REWARD!</span>
             <span class="card-subtitle">{{ rewardName.toUpperCase() }}</span>
@@ -32,7 +27,7 @@
           </div>
         </div>
 
-        <OrderTotals type="checkout" />
+        <OrderTotals v-if="!orderError" type="checkout" />
 
         <div id="sq-card-number"></div>
         <div class="third" id="sq-expiration-date"></div>
@@ -40,6 +35,7 @@
         <div class="third" id="sq-postal-code"></div>
 
         <button
+          v-if="!orderError"
           id="sq-creditcard"
           class="button-credit-card"
           @click.prevent="processPayment"
@@ -47,10 +43,15 @@
           Pay with card {{ ((orderTotal + tip) / 100) | currency }}
         </button>
         <button
+          v-if="!orderError"
           class="apple-pay-button apple-pay-button-black"
           id="sq-apple-pay"
         ></button>
-        <button id="sq-google-pay" class="button-google-pay"></button>
+        <button
+          v-if="!orderError"
+          id="sq-google-pay"
+          class="button-google-pay"
+        ></button>
       </div>
     </div>
   </section>

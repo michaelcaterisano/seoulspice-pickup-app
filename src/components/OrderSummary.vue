@@ -1,11 +1,7 @@
 <template>
   <section>
-    <div class="container">
-      <b-loading
-        is-full-page
-        v-model="isLoading"
-        :can-cancel="false"
-      ></b-loading>
+    <b-loading is-full-page v-model="isLoading" :can-cancel="false"></b-loading>
+    <div v-show="!isLoading" class="container">
       <div class="box body-text">
         <span>
           <strong> Thank you for choosing SEOULSPICE! </strong>
