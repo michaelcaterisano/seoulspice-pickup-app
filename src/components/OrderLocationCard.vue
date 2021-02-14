@@ -19,6 +19,9 @@
           Distance: {{ location.distanceText }}
           <span v-if="index === 0">(closest to you)</span>
         </p>
+        <p v-if="closed" class="preorder">
+          Closed
+        </p>
         <p v-if="preorder" class="preorder">
           Preorder available
         </p>
@@ -34,7 +37,7 @@
 import {
   openingTimeHour,
   closingTimeHour,
-  closingTimeMinute,
+  closingTimeMinute
 } from "../config/config";
 const PhoneNumber = require("awesome-phonenumber");
 export default {
@@ -49,18 +52,19 @@ export default {
         date.setDate(date.getDate() + 1);
       }
       return `${date.getMonth() + 1}/${date.getDate()}`;
-    },
+    }
   },
   data() {
     return {
       now: null,
       preorder: false,
+      closed: false,
       openingTime: null,
-      closingTime: null,
+      closingTime: null
     };
   },
   created() {
-    this.now = new Date();
+    this.now = new Date("February 14, 2021 22:00:00");
     this.openingTime = new Date(this.now);
     this.closingTime = new Date(this.now);
     this.openingTime.setHours(openingTimeHour);
@@ -70,11 +74,11 @@ export default {
     if (this.now < this.openingTime) {
       this.preorder = true;
     } else if (this.now > this.closingTime) {
-      this.preorder = true;
+      this.closed = true;
     }
   },
   name: "OrderLocationCard",
-  props: ["location", "index"],
+  props: ["location", "index"]
 };
 </script>
 

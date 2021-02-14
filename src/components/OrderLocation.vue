@@ -63,20 +63,24 @@
 <script>
 import OrderLocationCard from "./OrderLocationCard";
 import { orderService } from "../config/api.service";
-
 import { createHelpers } from "vuex-map-fields";
+import {
+  openingTimeHour,
+  closingTimeHour,
+  closingTimeMinute
+} from "../config/config";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
-  mutationType: "updateOrderField",
+  mutationType: "updateOrderField"
 });
 
 export default {
   components: {
-    OrderLocationCard,
+    OrderLocationCard
   },
   computed: {
-    ...mapFields(["location"]),
+    ...mapFields(["location"])
   },
 
   data() {
@@ -87,7 +91,17 @@ export default {
       longitude: null,
       geoIsLoading: false,
       submitIsLoading: false,
+      now: null,
+      closingTime: null
     };
+  },
+  created() {
+    this.now = new Date();
+    this.closingTime = new Date();
+    this.openingTime = new Date();
+    this.openingTime.setHours(openingTimeHour);
+    this.closingTime.setHours(closingTimeHour);
+    this.closingTime.setMinutes(closingTimeMinute);
   },
   mounted() {
     window.scrollTo(0, 0);
@@ -98,7 +112,18 @@ export default {
   },
   methods: {
     clicked() {
-      this.$emit("update", "entree");
+      if (
+        this.now > this.closingTime ||
+        this.openingTime.getHours() - this.now.getHours() > 3
+      ) {
+        this.$buefy.toast.open({
+          duration: 2000,
+          message: "Sorry, we're not accepting orders right now.",
+          type: "is-danger"
+        });
+      } else {
+        this.$emit("update", "entree");
+      }
     },
     clearUserLocationInput() {
       this.userLocationInput = null;
@@ -123,7 +148,7 @@ export default {
         duration: 2000,
         message:
           "Aw snap! We couldn't find your location. Please enter manually.",
-        type: "is-danger",
+        type: "is-danger"
       });
     },
     async getLocations() {
@@ -136,12 +161,12 @@ export default {
         const result = await orderService.post("/locations", {
           userAddress: this.userLocationInput,
           latitude: this.latitude,
-          longitude: this.longitude,
+          longitude: this.longitude
         });
         this.geoIsLoading = false;
         this.submitIsLoading = false;
         if (result.data.success) {
-          const locationData = result.data.locations.map((location) => {
+          const locationData = result.data.locations.map(location => {
             location.phoneNumber = location.phoneNumber
               ? location.phoneNumber
               : "2125551111"; // for dev environment
@@ -150,7 +175,7 @@ export default {
           // don't include westfield location in production
           if (process.env.NODE_ENV === "production") {
             const westfieldIdx = locationData.findIndex(
-              (location) => location.name.toLowerCase() === "md westfield moco"
+              location => location.name.toLowerCase() === "md westfield moco"
             );
             locationData.splice(westfieldIdx, 1);
           }
@@ -159,7 +184,7 @@ export default {
           this.$buefy.toast.open({
             duration: 2000,
             message: "Something went wrong",
-            type: "is-danger",
+            type: "is-danger"
           });
         }
       } catch (error) {
@@ -168,13 +193,13 @@ export default {
         this.$buefy.toast.open({
           duration: 2000,
           message: "Something went wrong",
-          type: "is-danger",
+          type: "is-danger"
         });
       }
-    },
+    }
   },
   name: "OrderLocation",
-  props: [],
+  props: []
 };
 </script>
 
