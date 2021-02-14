@@ -64,7 +64,11 @@
 import OrderLocationCard from "./OrderLocationCard";
 import { orderService } from "../config/api.service";
 import { createHelpers } from "vuex-map-fields";
-import { closingTimeHour, closingTimeMinute } from "../config/config";
+import {
+  openingTimeHour,
+  closingTimeHour,
+  closingTimeMinute
+} from "../config/config";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
@@ -94,6 +98,8 @@ export default {
   created() {
     this.now = new Date();
     this.closingTime = new Date();
+    this.openingTime = new Date();
+    this.openingTime.setHours(openingTimeHour);
     this.closingTime.setHours(closingTimeHour);
     this.closingTime.setMinutes(closingTimeMinute);
   },
@@ -106,10 +112,13 @@ export default {
   },
   methods: {
     clicked() {
-      if (this.now > this.closingTime) {
+      if (
+        this.now > this.closingTime ||
+        this.openingTime.getHours() - this.now.getHours() > 3
+      ) {
         this.$buefy.toast.open({
           duration: 2000,
-          message: "Sorry, we're no longer accepting orders for today.",
+          message: "Sorry, we're not accepting orders right now.",
           type: "is-danger"
         });
       } else {

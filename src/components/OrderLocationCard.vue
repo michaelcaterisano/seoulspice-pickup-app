@@ -20,7 +20,7 @@
           <span v-if="index === 0">(closest to you)</span>
         </p>
         <p v-if="closed" class="preorder">
-          Closed. Reopens tomorrow at 11:00am.
+          Closed
         </p>
         <p v-if="preorder" class="preorder">
           Preorder available
@@ -64,7 +64,7 @@ export default {
     };
   },
   created() {
-    this.now = new Date();
+    this.now = new Date("February 14, 2021 22:00:00");
     this.openingTime = new Date(this.now);
     this.closingTime = new Date(this.now);
     this.openingTime.setHours(openingTimeHour);

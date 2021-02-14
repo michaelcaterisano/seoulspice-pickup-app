@@ -69,7 +69,7 @@
               :use-html5-validation="false"
             ></b-timepicker>
           </b-field>
-          <p v-if="preorder" class="timepicker-message">
+          <p v-if="preorder || closed" class="timepicker-message">
             {{ timepickerMessage }}
           </p>
           <b-field label="Would you like to add a tip?">
@@ -123,12 +123,12 @@ import money from "currency.js";
 import {
   openingTimeHour,
   closingTimeHour,
-  closingTimeMinute,
+  closingTimeMinute
 } from "../config/config";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
-  mutationType: "updateOrderField",
+  mutationType: "updateOrderField"
 });
 export default {
   computed: {
@@ -139,7 +139,7 @@ export default {
       "location",
       "time",
       "curbside",
-      "tip",
+      "tip"
     ]),
     ...mapGetters(["subtotal", "items", "taxRate"]),
     minTime() {
@@ -155,6 +155,8 @@ export default {
     timepickerMessage() {
       if (this.preorder) {
         return `Preorder for ${this.pickupDate}`;
+      } else if (this.closed) {
+        return "Sorry, we're no longer accepting orders";
       } else {
         return "";
       }
@@ -165,7 +167,7 @@ export default {
         date.setDate(date.getDate() + 1);
       }
       return `${date.getMonth() + 1}/${date.getDate()}`;
-    },
+    }
   },
   created() {
     this.now = new Date();
@@ -175,18 +177,13 @@ export default {
     this.closingTime.setHours(closingTimeHour);
     this.closingTime.setMinutes(closingTimeMinute);
     if (this.now < this.openingTime) {
-      this.timepickerDisabled = true;
-      this.preorder = true;
       this.time = new Date();
       this.time.setHours(openingTimeHour);
       this.time.setMinutes(0);
     } else if (this.tooLate(this.now)) {
+      this.closed = true;
       this.timepickerDisabled = true;
-      this.preorder = true;
-      this.time = new Date();
-      this.time.setDate(this.time.getDate() + 1);
-      this.time.setHours(openingTimeHour);
-      this.time.setMinutes(0);
+      this.time = this.closingTime;
     } else {
       this.timepickerDisabled = false;
       let startTime = new Date(this.now.getTime() + 15 * 60000);
@@ -199,12 +196,12 @@ export default {
       startTime.setMinutes(m);
       startTime.setHours(h);
 
+      this.time = startTime;
+
+      //don't allow orders after 8:45pm
       if (this.tooLate(startTime)) {
-        this.preorder = true;
-        this.time = new Date();
-        this.time.setDate(this.time.getDate() + 1);
-        this.time.setHours(openingTimeHour);
-        this.time.setMinutes(0);
+        this.time.setHours(closingTimeHour);
+        this.time.setMinutes(closingTimeMinute);
       } else {
         this.time = startTime;
       }
@@ -225,32 +222,41 @@ export default {
       closingTime: null,
       timepickerDisabled: false,
       preorder: false,
+      closed: false,
       masks: {
         numeral: {
           numeral: true,
           numeralDecimalScale: 2,
           numeralThousandsGroupStyle: "thousand",
-          prefix: "$ ",
-        },
-      },
+          prefix: "$ "
+        }
+      }
     };
   },
   directives: { cleave },
   methods: {
     pay() {
-      this.$validator.validateAll().then((result) => {
-        if (result) {
-          if (process.env.NODE_ENV === "production") {
-            LogRocket.identify(this.email, {
-              name: this.name,
-            });
+      if (!this.closed) {
+        this.$validator.validateAll().then(result => {
+          if (result) {
+            if (process.env.NODE_ENV === "production") {
+              LogRocket.identify(this.email, {
+                name: this.name
+              });
+            }
+            this.$emit("update", "payment"); // emits event to change active component
+          } else {
+            this.formError();
+            window.scrollTo(0, 0);
           }
-          this.$emit("update", "payment"); // emits event to change active component
-        } else {
-          this.formError();
-          window.scrollTo(0, 0);
-        }
-      });
+        });
+      } else {
+        this.$buefy.toast.open({
+          duration: 2000,
+          message: "Sorry, we're no longer accepting orders for today.",
+          type: "is-danger"
+        });
+      }
     },
     updateTip(val) {
       let tipAmountCents = Math.round(this.subtotal * val);
@@ -267,7 +273,7 @@ export default {
         duration: 1000,
         message: `Please correct the form errors`,
         position: "is-top",
-        type: "is-danger",
+        type: "is-danger"
       });
     },
     setUnselectableHours() {
@@ -318,9 +324,9 @@ export default {
           option.disabled = true;
         }
       }
-    },
+    }
   },
-  name: "OrderInformation",
+  name: "OrderInformation"
 };
 </script>
 
