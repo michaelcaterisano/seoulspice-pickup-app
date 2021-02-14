@@ -64,7 +64,7 @@ export default {
     };
   },
   created() {
-    this.now = new Date("February 14, 2021 22:00:00");
+    this.now = new Date();
     this.openingTime = new Date(this.now);
     this.closingTime = new Date(this.now);
     this.openingTime.setHours(openingTimeHour);
