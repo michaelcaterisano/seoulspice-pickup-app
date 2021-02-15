@@ -1,7 +1,7 @@
 <template>
   <section>
     <b-loading is-full-page v-model="isLoading" :can-cancel="false"></b-loading>
-    <div v-show="!isLoading" class="container">
+    <div class="container">
       <div class="box body-text">
         <span>
           <strong> Thank you for choosing SEOULSPICE! </strong>
@@ -102,7 +102,7 @@ import PhoneNumber from "awesome-phonenumber";
 import { createHelpers } from "vuex-map-fields";
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
-  mutationType: "updateOrderField",
+  mutationType: "updateOrderField"
 });
 export default {
   computed: {
@@ -115,11 +115,11 @@ export default {
       "phone",
       "curbside",
       "orderId",
-      "receiptUrl",
+      "receiptUrl"
     ]),
     shortTime() {
       return this.time.toLocaleTimeString("en-US", {
-        timeStyle: "short",
+        timeStyle: "short"
       });
     },
     locationPhoneNumber() {
@@ -132,7 +132,7 @@ export default {
     customerPhoneNumber() {
       const formattedPhoneNumber = new PhoneNumber(this.phone, "US");
       return formattedPhoneNumber.getNumber("national");
-    },
+    }
   },
   data() {
     return {
@@ -144,7 +144,7 @@ export default {
       accumulatedLoyaltyPoints: null,
       accumulateLoyaltyPointsSuccess: false,
       orderSummarySuccess: null,
-      isLoading: false,
+      isLoading: false
     };
   },
   beforeMount() {
@@ -161,7 +161,7 @@ export default {
           totalMoney,
           totalTaxMoney,
           totalDiscountMoney,
-          totalTipMoney,
+          totalTipMoney
         } = orderSummary.data.totals;
 
         this.total = totalMoney.amount;
@@ -194,7 +194,7 @@ export default {
       let optionText = "";
       optionText += option.cartLabel + ": ";
       optionText += option.choices
-        .map((choice) => {
+        .map(choice => {
           let choiceText = choice.qty
             ? choice.name + ` (${choice.qty})`
             : choice.name;
@@ -207,8 +207,8 @@ export default {
       try {
         const orderSummary = await orderService.get("/order-summary", {
           params: {
-            orderId: this.orderId,
-          },
+            orderId: this.orderId
+          }
         });
         return orderSummary;
       } catch (error) {
@@ -223,7 +223,7 @@ export default {
         {
           phoneNumber: this.getSquareFormattedPhoneNumber(),
           orderId: this.orderId,
-          locationId: this.location.id,
+          locationId: this.location.id
         }
       );
       return accumulatedPoints;
@@ -232,7 +232,7 @@ export default {
     async textReceipt() {
       const receiptResponse = await orderService.post("/text-receipt", {
         phoneNumber: this.getSquareFormattedPhoneNumber(),
-        receiptUrl: this.receiptUrl,
+        receiptUrl: this.receiptUrl
       });
       return receiptResponse;
     },
@@ -243,9 +243,9 @@ export default {
       return (
         this.accumulateLoyaltyPointsSuccess && this.accumulatedLoyaltyPoints > 0
       );
-    },
+    }
   },
-  name: "OrderSummary",
+  name: "OrderSummary"
 };
 </script>
 
