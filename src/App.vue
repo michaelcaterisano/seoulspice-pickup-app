@@ -61,6 +61,12 @@ export default {
   computed: {
     ...mapGetters(["cartIsOpen"]),
   },
+  created() {
+    window.addEventListener("beforeunload", event => {
+      event.preventDefault();
+      event.returnValue = "";
+    });
+  },
   data() {
     return {
       active: "location", // current active module

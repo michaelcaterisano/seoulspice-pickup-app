@@ -3,7 +3,9 @@
     <template slot="brand">
       <b-navbar-item>
         <div class="logo">
-          <img src="../assets/logo.png" alt="seoulspice restaurant logo" />
+          <a href="https://seoulspice.com">
+            <img src="../assets/logo.png" alt="seoulspice restaurant logo" />
+          </a>
           <span v-if="showNodeEnv" class="env-message">
             NODE_ENV=DEVELOPMENT
           </span>
