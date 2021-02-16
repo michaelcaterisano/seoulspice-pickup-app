@@ -68,11 +68,11 @@ import PhoneNumber from "awesome-phonenumber";
 import { createHelpers } from "vuex-map-fields";
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
-  mutationType: "updateOrderField"
+  mutationType: "updateOrderField",
 });
 export default {
   components: {
-    OrderTotals
+    OrderTotals,
   },
   computed: {
     ...mapGetters(["total", "itemSubtotal", "tax", "taxRate", "items", "tip"]),
@@ -87,7 +87,7 @@ export default {
       "orderTotal",
       "orderTip",
       "orderTax",
-      "orderDiscount"
+      "orderDiscount",
     ]),
     priceDollars() {
       return this.total / 100;
@@ -97,7 +97,7 @@ export default {
     },
     rewardButtonMessage() {
       return this.rewardRedeemed ? "REWARD REDEEMED" : "REDEEM LOYALTY REWARD";
-    }
+    },
   },
   data() {
     return {
@@ -110,7 +110,7 @@ export default {
       rewardName: null,
       rewardRedeemed: false,
       rewardLoading: false,
-      loadingComponent: null
+      loadingComponent: null,
     };
   },
   async mounted() {
@@ -144,31 +144,31 @@ export default {
             placeholderFontWeight: 300,
             padding: "16px",
             placeholderColor: "#a0a0a0",
-            backgroundColor: "transparent"
-          }
+            backgroundColor: "transparent",
+          },
         ],
         // Initialize the credit card placeholders
         cardNumber: {
           elementId: "sq-card-number",
-          placeholder: "Card Number"
+          placeholder: "Card Number",
         },
         cvv: {
           elementId: "sq-cvv",
-          placeholder: "CVV"
+          placeholder: "CVV",
         },
         expirationDate: {
           elementId: "sq-expiration-date",
-          placeholder: "MM/YY"
+          placeholder: "MM/YY",
         },
         postalCode: {
           elementId: "sq-postal-code",
-          placeholder: "Postal"
+          placeholder: "Postal",
         },
         applePay: {
-          elementId: "sq-apple-pay"
+          elementId: "sq-apple-pay",
         },
         googlePay: {
-          elementId: "sq-google-pay"
+          elementId: "sq-google-pay",
         },
         // SqPaymentForm callback functions
         callbacks: {
@@ -199,7 +199,7 @@ export default {
               sourceId: nonce,
               orderId: this.orderId,
               amount: this.orderTotal,
-              tip: this.tip
+              tip: this.tip,
             });
 
             if (response.status === 200) {
@@ -208,7 +208,7 @@ export default {
                   transaction_id:
                     new Date().getTime() + Math.ceil(Math.random() * 1000),
                   value: this.total.toFixed(2),
-                  tax: this.tax.toFixed(2)
+                  tax: this.tax.toFixed(2),
                 });
 
                 this.updateReceiptUrl(response.data.receiptUrl);
@@ -250,13 +250,13 @@ export default {
                 amount: ((this.orderTotal + this.tip) / 100)
                   .toFixed(2)
                   .toString(),
-                pending: false
-              }
+                pending: false,
+              },
             };
 
             return paymentRequestJson;
-          }
-        }
+          },
+        },
       });
     }
 
@@ -277,7 +277,7 @@ export default {
           curbside: this.curbside,
           // tip: this.tip,
           taxRate: this.taxRate,
-          time: this.time
+          time: this.time,
         });
         return result;
       } catch (error) {
@@ -294,7 +294,7 @@ export default {
     async getRewards() {
       try {
         const rewards = await orderService.post("/get-loyalty-account", {
-          phoneNumber: this.getFormattedPhoneNumber()
+          phoneNumber: this.getFormattedPhoneNumber(),
         });
         if (rewards.data.success) {
           // add button
@@ -323,7 +323,7 @@ export default {
       this.rewardLoading = true;
       const result = await orderService.post("/create-loyalty-reward", {
         phoneNumber: this.getFormattedPhoneNumber(),
-        orderId: this.orderId
+        orderId: this.orderId,
       });
       // loadingComponent.close();
       this.rewardLoading = false;
@@ -340,9 +340,9 @@ export default {
       if (!this.submitDisabled) {
         this.paymentForm.requestCardNonce();
       }
-    }
+    },
   },
-  name: "OrderPayment"
+  name: "OrderPayment",
 };
 </script>
 
