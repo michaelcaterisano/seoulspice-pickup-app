@@ -183,6 +183,8 @@ export default {
             if (errors) {
               // Log errors from nonce generation to the browser developer console.
               errors.forEach(error => {
+                // eslint-disable-next-line
+                console.log(error);
                 this.paymentErrors.push(error);
               });
               return;
