@@ -113,6 +113,11 @@ export default {
       return this.rewardRedeemed ? "REWARD REDEEMED" : "REDEEM LOYALTY REWARD";
     },
   },
+  created() {
+    window.addEventListener("beforeunload", async () => {
+      await this.cleanUp();
+    });
+  },
   data() {
     return {
       isLoading: false,
@@ -125,6 +130,7 @@ export default {
       rewardName: null,
       rewardRedeemed: false,
       rewardLoading: false,
+      rewardId: null,
       loadingComponent: null,
     };
   },
@@ -352,6 +358,7 @@ export default {
         this.orderDiscount = result.data.orderDiscount;
         this.orderTax = result.data.orderTax;
         this.rewardDiscount = result.data.orderDiscount / 100;
+        this.rewardId = result.data.rewardId;
       }
     },
     processPayment() {
@@ -359,6 +366,20 @@ export default {
       this.creditCardErrors = [];
       if (!this.submitDisabled) {
         this.paymentForm.requestCardNonce();
+      }
+    },
+    async cleanUp() {
+      if (this.rewardId) {
+        try {
+          await orderService.post("/delete-loyalty-reward", {
+            rewardId: this.rewardId,
+          });
+        } catch (error) {
+          if (process.env.NODE_ENV === "development") {
+            // eslint-disable-next-line
+            console.log(error);
+          }
+        }
       }
     },
   },
