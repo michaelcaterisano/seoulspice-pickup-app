@@ -227,12 +227,12 @@ export default {
 
             if (response.status === 200) {
               if (response.data.success) {
-                this.$gtag.event("transaction", {
-                  transaction_id:
-                    new Date().getTime() + Math.ceil(Math.random() * 1000),
-                  value: this.total.toFixed(2),
-                  tax: this.tax.toFixed(2),
-                });
+                // this.$gtag.event("transaction", {
+                //   transaction_id:
+                //     new Date().getTime() + Math.ceil(Math.random() * 1000),
+                //   value: this.total.toFixed(2),
+                //   tax: this.tax.toFixed(2),
+                // });
 
                 this.updateReceiptUrl(response.data.receiptUrl);
                 this.isLoading = false;
