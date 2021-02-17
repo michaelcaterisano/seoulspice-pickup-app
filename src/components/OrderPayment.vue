@@ -13,7 +13,7 @@
         Something went wrong. We were unable to create your order.
       </b-message>
       <div id="form-container">
-        <!-- <div v-if="hasReward && !orderError" class="box">
+        <div v-if="hasReward && !orderError" class="box">
           <div class="loyalty">
             <span class="card-title">YOU HAVE A REWARD!</span>
             <span class="card-subtitle">{{ rewardName.toUpperCase() }}</span>
@@ -25,7 +25,7 @@
               >{{ rewardButtonMessage }}</b-button
             >
           </div>
-        </div> -->
+        </div>
 
         <OrderTotals v-if="!orderError" type="checkout" />
 
