@@ -118,6 +118,7 @@ export default {
     window.addEventListener("beforeunload", async () => {
       await this.cleanUp();
     });
+    console.log(window);
   },
   data() {
     return {

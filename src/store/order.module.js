@@ -24,6 +24,9 @@ const state = {
 
 const getters = {
   getOrderField,
+  orderIsPaid() {
+    return state.paid;
+  },
 };
 
 const mutations = {
