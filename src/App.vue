@@ -63,7 +63,6 @@ export default {
   },
   created() {
     window.addEventListener("beforeunload", this.handleUnload);
-    console.log(window);
   },
   data() {
     return {
