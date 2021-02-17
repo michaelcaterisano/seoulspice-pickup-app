@@ -9,6 +9,20 @@
       >
         <p>We were unable to process your payment. Please try again.</p>
       </b-message>
+      <b-message
+        type="is-danger"
+        title="Payment Error"
+        v-if="creditCardErrors.length"
+      >
+        <p>Please correct the following errors:</p>
+        <div class="content">
+          <ul>
+            <li v-for="(error, index) in creditCardErrors" :key="index">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+      </b-message>
       <b-message type="is-danger" title="Order Error" v-if="orderError">
         Something went wrong. We were unable to create your order.
       </b-message>
@@ -104,6 +118,7 @@ export default {
       isLoading: false,
       paymentForm: null,
       paymentErrors: [],
+      creditCardErrors: [],
       orderError: false,
       submitDisabled: false,
       hasReward: false,
@@ -185,7 +200,7 @@ export default {
               errors.forEach(error => {
                 // eslint-disable-next-line
                 console.log(error);
-                this.paymentErrors.push(error);
+                this.creditCardErrors.push(error);
               });
               return;
             }
@@ -339,6 +354,7 @@ export default {
     },
     processPayment() {
       this.paymentErrors = [];
+      this.creditCardErrors = [];
       if (!this.submitDisabled) {
         this.paymentForm.requestCardNonce();
       }
