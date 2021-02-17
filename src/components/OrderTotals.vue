@@ -41,7 +41,7 @@
         {{ ((orderTotal + tip) / 100) | currency }}
       </p>
     </div>
-    <div v-if="type == 'checkout'">
+    <!-- <div v-if="type == 'checkout'">
       <p class="discount-code-label">Discount Code</p>
       <b-field
         :type="{ 'is-danger': invalidDiscountCode }"
@@ -65,7 +65,7 @@
           >
         </p>
       </b-field>
-    </div>
+    </div> -->
   </div>
 </template>
 
