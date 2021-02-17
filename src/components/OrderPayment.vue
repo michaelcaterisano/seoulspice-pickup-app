@@ -232,8 +232,10 @@ export default {
                 this.isLoading = false;
                 this.$emit("update", "summary");
               } else {
+                this.isLoading = false;
                 this.submitDisabled = false;
                 this.paymentErrors.push({ message: response.data.error });
+                console.log(response.data.error);
               }
             }
           },
