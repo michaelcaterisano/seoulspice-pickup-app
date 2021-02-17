@@ -59,19 +59,24 @@ export default {
     OrderSummary,
   },
   computed: {
-    ...mapGetters(["cartIsOpen"]),
+    ...mapGetters(["cartIsOpen", "orderIsPaid"]),
   },
   created() {
-    window.addEventListener("beforeunload", event => {
-      event.preventDefault();
-      event.returnValue = "";
-    });
+    window.addEventListener("beforeunload", this.handleUnload);
+    console.log(window);
   },
   data() {
     return {
       active: "location", // current active module
       edit: false,
     };
+  },
+  watch: {
+    orderIsPaid(status) {
+      if (status === true) {
+        window.removeEventListener("beforeunload", this.handleUnload);
+      }
+    },
   },
   methods: {
     setActive(section) {
@@ -86,6 +91,10 @@ export default {
     },
     closeCart() {
       this.$store.commit(SET_CART_OPEN, false);
+    },
+    handleUnload(event) {
+      event.preventDefault();
+      event.returnValue = "";
     },
   },
   name: "App",

@@ -62,7 +62,7 @@ export default {
     },
     confirmItems() {
       this.$store.commit(SET_CART_OPEN, false);
-      this.$gtag.event("begin-checkout");
+      // this.$gtag.event("begin-checkout");
       this.$emit("update", "order-info");
     },
   },

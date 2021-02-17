@@ -19,16 +19,23 @@ const state = {
   orderTax: null,
   orderDiscount: null,
   receiptUrl: null,
+  paid: false,
 };
 
 const getters = {
   getOrderField,
+  orderIsPaid() {
+    return state.paid;
+  },
 };
 
 const mutations = {
   updateOrderField,
   updateReceiptUrl(state, url) {
     state.receiptUrl = url;
+  },
+  updateOrderPaid(state, status) {
+    state.paid = status;
   },
 };
 

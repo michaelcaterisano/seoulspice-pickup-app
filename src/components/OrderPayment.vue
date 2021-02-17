@@ -89,7 +89,15 @@ export default {
     OrderTotals,
   },
   computed: {
-    ...mapGetters(["total", "itemSubtotal", "tax", "taxRate", "items", "tip"]),
+    ...mapGetters([
+      "total",
+      "itemSubtotal",
+      "tax",
+      "taxRate",
+      "items",
+      "tip",
+      "orderIsPaid",
+    ]),
     ...mapFields([
       "name",
       "location",
@@ -113,6 +121,11 @@ export default {
       return this.rewardRedeemed ? "REWARD REDEEMED" : "REDEEM LOYALTY REWARD";
     },
   },
+  created() {
+    window.addEventListener("beforeunload", async () => {
+      await this.cleanUp();
+    });
+  },
   data() {
     return {
       isLoading: false,
@@ -125,6 +138,7 @@ export default {
       rewardName: null,
       rewardRedeemed: false,
       rewardLoading: false,
+      rewardId: null,
       loadingComponent: null,
     };
   },
@@ -221,14 +235,15 @@ export default {
 
             if (response.status === 200) {
               if (response.data.success) {
-                this.$gtag.event("transaction", {
-                  transaction_id:
-                    new Date().getTime() + Math.ceil(Math.random() * 1000),
-                  value: this.total.toFixed(2),
-                  tax: this.tax.toFixed(2),
-                });
+                // this.$gtag.event("transaction", {
+                //   transaction_id:
+                //     new Date().getTime() + Math.ceil(Math.random() * 1000),
+                //   value: this.total.toFixed(2),
+                //   tax: this.tax.toFixed(2),
+                // });
 
                 this.updateReceiptUrl(response.data.receiptUrl);
+                this.updateOrderPaid(true);
                 this.isLoading = false;
                 this.$emit("update", "summary");
               } else {
@@ -282,7 +297,7 @@ export default {
     this.paymentForm.build();
   },
   methods: {
-    ...mapMutations(["updateReceiptUrl"]),
+    ...mapMutations(["updateReceiptUrl", "updateOrderPaid"]),
     getFormattedPhoneNumber() {
       return new PhoneNumber(this.phone, "US").getNumber();
     },
@@ -352,6 +367,7 @@ export default {
         this.orderDiscount = result.data.orderDiscount;
         this.orderTax = result.data.orderTax;
         this.rewardDiscount = result.data.orderDiscount / 100;
+        this.rewardId = result.data.rewardId;
       }
     },
     processPayment() {
@@ -359,6 +375,20 @@ export default {
       this.creditCardErrors = [];
       if (!this.submitDisabled) {
         this.paymentForm.requestCardNonce();
+      }
+    },
+    async cleanUp() {
+      if (this.rewardId && !this.orderIsPaid) {
+        try {
+          await orderService.post("/delete-loyalty-reward", {
+            rewardId: this.rewardId,
+          });
+        } catch (error) {
+          if (process.env.NODE_ENV === "development") {
+            // eslint-disable-next-line
+            console.log(error);
+          }
+        }
       }
     },
   },
