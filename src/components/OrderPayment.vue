@@ -102,6 +102,7 @@ export default {
       "orderTip",
       "orderTax",
       "orderDiscount",
+      "paid",
     ]),
     priceDollars() {
       return this.total / 100;
@@ -235,6 +236,7 @@ export default {
                 // });
 
                 this.updateReceiptUrl(response.data.receiptUrl);
+                this.updateOrderPaid(true);
                 this.isLoading = false;
                 this.$emit("update", "summary");
               } else {
@@ -288,7 +290,7 @@ export default {
     this.paymentForm.build();
   },
   methods: {
-    ...mapMutations(["updateReceiptUrl"]),
+    ...mapMutations(["updateReceiptUrl", "updateOrderPaid"]),
     getFormattedPhoneNumber() {
       return new PhoneNumber(this.phone, "US").getNumber();
     },
@@ -369,7 +371,7 @@ export default {
       }
     },
     async cleanUp() {
-      if (this.rewardId) {
+      if (this.rewardId && this.paid) {
         try {
           await orderService.post("/delete-loyalty-reward", {
             rewardId: this.rewardId,
