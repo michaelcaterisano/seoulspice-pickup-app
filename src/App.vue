@@ -62,7 +62,7 @@ export default {
     ...mapGetters(["cartIsOpen", "orderIsPaid"]),
   },
   created() {
-    window.addEventListener("beforeunload", handleUnload);
+    window.addEventListener("beforeunload", this.handleUnload);
     console.log(window);
   },
   data() {
@@ -74,7 +74,7 @@ export default {
   watch: {
     orderIsPaid(status) {
       if (status === true) {
-        window.removeEventListener("beforeunload", handleUnload);
+        window.removeEventListener("beforeunload", this.handleUnload);
       }
     },
   },
