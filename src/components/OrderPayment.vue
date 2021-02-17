@@ -89,7 +89,15 @@ export default {
     OrderTotals,
   },
   computed: {
-    ...mapGetters(["total", "itemSubtotal", "tax", "taxRate", "items", "tip"]),
+    ...mapGetters([
+      "total",
+      "itemSubtotal",
+      "tax",
+      "taxRate",
+      "items",
+      "tip",
+      "orderIsPaid",
+    ]),
     ...mapFields([
       "name",
       "location",
@@ -102,7 +110,6 @@ export default {
       "orderTip",
       "orderTax",
       "orderDiscount",
-      "paid",
     ]),
     priceDollars() {
       return this.total / 100;
@@ -118,7 +125,6 @@ export default {
     window.addEventListener("beforeunload", async () => {
       await this.cleanUp();
     });
-    console.log(window);
   },
   data() {
     return {
@@ -372,7 +378,7 @@ export default {
       }
     },
     async cleanUp() {
-      if (this.rewardId && this.paid) {
+      if (this.rewardId && !this.orderIsPaid) {
         try {
           await orderService.post("/delete-loyalty-reward", {
             rewardId: this.rewardId,
