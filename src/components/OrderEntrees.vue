@@ -17,7 +17,7 @@
 
     <EntreeSignatures
       v-if="entreeRoute === 'entree-signatures'"
-      :signatures="menuData.signatures"
+      :signatures="signatures"
       @signature-selected="setSignature"
       @update="setActive"
     />
@@ -59,6 +59,11 @@ export default {
   computed: {
     ...mapState("routes", ["entreeRoute"]),
     ...mapFields(["location"]),
+    signatures() {
+      return this.entree.category.name === "$6 Signature Sundays"
+        ? this.menuData.sundaySignatures
+        : this.menuData.signatures;
+    },
     price() {
       let price = 0;
       if (this.entree.category) {
@@ -71,8 +76,8 @@ export default {
           price += this.entree.signature.price;
         }
       }
-      this.menuData.options.forEach((option) => {
-        option.choices.forEach((choice) => {
+      this.menuData.options.forEach(option => {
+        option.choices.forEach(choice => {
           if (choice.selected) {
             if (
               (this.isKidsBowl() || this.isKoreanFeast()) &&
@@ -132,8 +137,8 @@ export default {
     ...mapMutations("routes", ["updateEntreeRoute"]),
     addToCart() {
       let options = this.menuData.options
-        .map((option) => {
-          let choices = option.choices.filter((choice) => choice.selected);
+        .map(option => {
+          let choices = option.choices.filter(choice => choice.selected);
           if (choices.length) {
             return {
               type: option.type,
@@ -143,7 +148,7 @@ export default {
           }
           return null;
         })
-        .filter((option) => option !== null);
+        .filter(option => option !== null);
 
       const optionsToAdd = JSON.parse(JSON.stringify(options));
 
@@ -205,8 +210,8 @@ export default {
       this.entree.category = null;
       this.entree.signature = null;
       this.notes = [];
-      this.menuData.options.forEach((option) => {
-        option.choices.forEach((choice) => {
+      this.menuData.options.forEach(option => {
+        option.choices.forEach(choice => {
           choice.selected = false;
           choice.qty ? (choice.qty = 0) : null;
         });
