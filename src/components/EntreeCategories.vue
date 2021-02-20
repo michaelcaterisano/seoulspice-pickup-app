@@ -6,7 +6,7 @@
     <div class="card-container">
       <OptionCard
         class="category-card"
-        v-for="category in categories"
+        v-for="category in availableCategories"
         :key="category.name"
         :option="category"
         @click.native="setActive(category)"
@@ -22,6 +22,16 @@ import OptionCard from "../components/OptionCard";
 export default {
   components: {
     OptionCard,
+  },
+  computed: {
+    availableCategories() {
+      const day = new Date().getDay();
+      return day === 0
+        ? this.categories
+        : this.categories.filter(
+            category => category.name !== "$6 Signature Sundays",
+          );
+    },
   },
   methods: {
     setActive(category) {
