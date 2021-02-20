@@ -43,6 +43,12 @@ const menuData = {
       imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/entrees/kids-bowl_amtgy6.jpg`,
       price: 550,
     },
+    {
+      name: "$6 Signature Sundays",
+      description: "A perfectly sized meal for our smaller #SEOULMATES.",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/entrees/kids-bowl_amtgy6.jpg`,
+      price: 600,
+    },
   ],
   signatures: [
     {
@@ -98,6 +104,56 @@ const menuData = {
         "Tofu, sprouts-corn-carrots-cucumbers-radish-kale-kimchi, ginger-carrot sauce, crispy garlic-scallions-sesame seeds.",
       imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/herbivore_qfscrr.jpg`,
       price: 229,
+    },
+  ],
+  sundaySignatures: [
+    {
+      name: "Klassic",
+      subtitle: "TRADITIONAL KOREAN FLAVORS",
+      description:
+        "Beef, sprouts-carrots-cucumbers-kale, korean hot sauce, scallions-sesame seeds-sesame oil.",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/klassic_kj8ni5.jpg`,
+      price: 0,
+    },
+    {
+      name: "Seoul Train",
+      subtitle: "EAST MEETS WEST",
+      description:
+        "Beef, corn-cucumbers-kale-kimchi, creamy sriracha sauce, crispy garlic-cilantro-scallions-sesame seeds.",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/seoul-train_yhlpjw.jpg`,
+      price: 0,
+    },
+    {
+      name: "Kimchi Krunch",
+      subtitle: "CRUNCHY, PICKLEY, FUNKY",
+      description:
+        "Chicken, sprouts-carrots-radish-kale-kimchi, ginger-carrot sauce, crispy garlic-cilantro-sesame seeds.",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/kimchi-krunch_xzzpuy.jpg`,
+      price: 0,
+    },
+    {
+      name: "Southwest",
+      subtitle: "SOUTHWESTERN FLAVORS",
+      description:
+        "Chicken, corn-carrots-kale, cilantr-lime ranch sauce, crispy garlic-cilantro-scallions.",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/southwest_tsgjpc.jpg`,
+      price: 0,
+    },
+    {
+      name: "Fireball",
+      subtitle: "UNAPOLOGETICALLY SPICY",
+      description:
+        "Spicy pork, corn-radish-kale-kimchi, korean hot sauce, creamy sriracha sauce, crispy garlic-scallions-sesame seeds-fire powder.",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/fireball_ob1b8c.jpg`,
+      price: 0,
+    },
+    {
+      name: "Herbivore",
+      subtitle: "A VEGAN DELIGHT",
+      description:
+        "Tofu, sprouts-corn-carrots-cucumbers-radish-kale-kimchi, ginger-carrot sauce, crispy garlic-scallions-sesame seeds.",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/herbivore_qfscrr.jpg`,
+      price: 0,
     },
   ],
   kbbqTypes: [
@@ -684,7 +740,7 @@ const menuData = {
   ],
 
   getOption(type) {
-    return this.options.find((option) => option.type === type);
+    return this.options.find(option => option.type === type);
   },
 };
 
