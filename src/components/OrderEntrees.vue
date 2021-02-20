@@ -18,6 +18,7 @@
     <EntreeSignatures
       v-if="entreeRoute === 'entree-signatures'"
       :signatures="signatures"
+      :isSundaySignatures="isSundaySignatures"
       @signature-selected="setSignature"
       @update="setActive"
     />
@@ -63,6 +64,9 @@ export default {
       return this.entree.category.name === "$6 Signature Sundays"
         ? this.menuData.sundaySignatures
         : this.menuData.signatures;
+    },
+    isSundaySignatures() {
+      return this.entree.category.name === "$6 Signature Sundays";
     },
     price() {
       let price = 0;

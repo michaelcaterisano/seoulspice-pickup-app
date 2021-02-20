@@ -1,7 +1,7 @@
 <template>
   <div class="component-container">
     <div class="page-title">
-      <span>WOULD YOU LIKE A SIGNATURE COMBO OR TO BUILD YOUR OWN?</span>
+      <span>{{ title }}</span>
     </div>
 
     <div class="card-container">
@@ -25,6 +25,13 @@ export default {
   components: {
     OptionCard,
   },
+  computed: {
+    title() {
+      return this.isSundaySignatures
+        ? "CHOOSE A SIGNATURE COMBINATION"
+        : "WOULD YOU LIKE A SIGNATURE COMBO OR TO BUILD YOUR OWN?";
+    },
+  },
   methods: {
     setActive(signature) {
       this.$emit("signature-selected", signature);
@@ -32,7 +39,7 @@ export default {
     },
   },
   name: "EntreeSignatures",
-  props: ["signatures"],
+  props: ["signatures", "isSundaySignatures"],
 };
 </script>
 
