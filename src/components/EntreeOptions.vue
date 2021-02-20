@@ -49,7 +49,7 @@ export default {
     ...mapGetters(["items"]),
     checkboxSteps() {
       return this.steps.filter(
-        (step) => step !== "extras" && step !== "kbbq-sides"
+        step => step !== "extras" && step !== "kbbq-sides",
       );
     },
   },
@@ -67,11 +67,11 @@ export default {
       window.scrollTo(0, 0);
       if (!numSteps) {
         this.active = this.steps[
-          this.steps.findIndex((step) => step === this.active) + 1
+          this.steps.findIndex(step => step === this.active) + 1
         ];
       } else {
         this.active = this.steps[
-          this.steps.findIndex((step) => step === this.active) + numSteps
+          this.steps.findIndex(step => step === this.active) + numSteps
         ];
       }
     },
@@ -79,7 +79,7 @@ export default {
       if (option.type === "extra proteins") {
         return true;
       }
-      return option.choices.some((choice) => choice.selected);
+      return option.choices.some(choice => choice.selected);
     },
     setActiveOrderStep() {
       const option = this.options.getOption(this.active);
@@ -199,7 +199,10 @@ export default {
       return this.category.name === "Korrito";
     },
     isBowl() {
-      return this.category.name === "Bowl";
+      return (
+        this.category.name === "Bowl" ||
+        this.category.name === "$6 Signature Sundays"
+      );
     },
     isKidsBowl() {
       return this.category.name === "Kid's Bowl";
@@ -230,7 +233,7 @@ export default {
     hasExtraProteinDialog(option) {
       return (
         this.checkMinSelected(option) &&
-        this.steps[this.steps.findIndex((step) => step === this.active) + 1] ===
+        this.steps[this.steps.findIndex(step => step === this.active) + 1] ===
           "extra proteins"
       );
     },

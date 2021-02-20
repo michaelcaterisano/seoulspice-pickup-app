@@ -45,8 +45,8 @@ const menuData = {
     },
     {
       name: "$6 Signature Sundays",
-      description: "A perfectly sized meal for our smaller #SEOULMATES.",
-      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/entrees/kids-bowl_amtgy6.jpg`,
+      description: "Signature Sundays description",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/entrees/bowl_b1vhvv.jpg`,
       price: 600,
     },
   ],
