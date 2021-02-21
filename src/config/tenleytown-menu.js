@@ -45,8 +45,9 @@ const menuData = {
     },
     {
       name: "$6 Signature Sundays",
-      description: "Signature Sundays description",
-      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/entrees/bowl_b1vhvv.jpg`,
+      description:
+        "Enjoy any of your favorite signature combinations for $6, every Sunday!",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/entrees/sunday-signature_twgv7j`,
       price: 600,
     },
   ],
