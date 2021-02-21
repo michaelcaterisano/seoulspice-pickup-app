@@ -217,7 +217,9 @@ export default {
       return (
         option.type === "bases" ||
         option.type === "rices" ||
-        option.type === "kbbq-proteins"
+        option.type === "kbbq-proteins" ||
+        (option.type === "kbbq-sides" &&
+          this.signature.name === "Korean BBQ Refills")
       );
     },
     hasSauceDialog(option) {
@@ -265,10 +267,20 @@ export default {
       });
     },
     showOptionRequiredDialog(option) {
-      const optionName =
-        option.type === "bases" || option.type === "rices" ? "base" : "protein";
+      let message;
+      switch (true) {
+        case option.type === "bases" || option.type === "rices":
+          message = "Please choose a base";
+          break;
+        case option.type === "kbbq-proteins":
+          message = "Please pick a protein";
+          break;
+        case option.type === "kbbq-sides":
+          message = "Please choose at least one item";
+          break;
+      }
       this.$buefy.dialog.confirm({
-        message: `Please select a ${optionName}`,
+        message,
         confirmText: "Ok",
       });
     },
