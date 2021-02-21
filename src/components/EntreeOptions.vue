@@ -218,6 +218,7 @@ export default {
         option.type === "bases" ||
         option.type === "rices" ||
         option.type === "kbbq-proteins" ||
+        (option.type === "proteins" && this.isKoreanFeast()) ||
         (option.type === "kbbq-sides" &&
           this.signature.name === "Korean BBQ Refills")
       );
@@ -273,6 +274,9 @@ export default {
           message = "Please choose a base";
           break;
         case option.type === "kbbq-proteins":
+          message = "Please pick a protein";
+          break;
+        case option.type === "proteins":
           message = "Please pick a protein";
           break;
         case option.type === "kbbq-sides":
