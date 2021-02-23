@@ -58,22 +58,22 @@ const menuData = {
       imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/build-your-own_dnsabs.jpg`,
       price: 0,
     },
-    // {
-    //   name: "Klassic",
-    //   subtitle: "TRADITIONAL KOREAN FLAVORS",
-    //   description:
-    //     "Beef, sprouts-carrots-cucumbers-kale, korean hot sauce, scallions-sesame seeds-sesame oil.",
-    //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/klassic_kj8ni5.jpg`,
-    //   price: 299,
-    // },
-    // {
-    //   name: "Seoul Train",
-    //   subtitle: "EAST MEETS WEST",
-    //   description:
-    //     "Beef, corn-cucumbers-kale-kimchi, creamy sriracha sauce, crispy garlic-cilantro-scallions-sesame seeds.",
-    //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/seoul-train_yhlpjw.jpg`,
-    //   price: 299,
-    // },
+    {
+      name: "Klassic",
+      subtitle: "TRADITIONAL KOREAN FLAVORS",
+      description:
+        "Beef, sprouts-carrots-cucumbers-kale, korean hot sauce, scallions-sesame seeds-sesame oil.",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/klassic_kj8ni5.jpg`,
+      price: 299,
+    },
+    {
+      name: "Seoul Train",
+      subtitle: "EAST MEETS WEST",
+      description:
+        "Beef, corn-cucumbers-kale-kimchi, creamy sriracha sauce, crispy garlic-cilantro-scallions-sesame seeds.",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/seoul-train_yhlpjw.jpg`,
+      price: 299,
+    },
     {
       name: "Kimchi Krunch",
       subtitle: "CRUNCHY, PICKLEY, FUNKY",
@@ -108,22 +108,22 @@ const menuData = {
     },
   ],
   sundaySignatures: [
-    // {
-    //   name: "Klassic",
-    //   subtitle: "TRADITIONAL KOREAN FLAVORS",
-    //   description:
-    //     "Beef, sprouts-carrots-cucumbers-kale, korean hot sauce, scallions-sesame seeds-sesame oil.",
-    //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/klassic_kj8ni5.jpg`,
-    //   price: 0,
-    // },
-    // {
-    //   name: "Seoul Train",
-    //   subtitle: "EAST MEETS WEST",
-    //   description:
-    //     "Beef, corn-cucumbers-kale-kimchi, creamy sriracha sauce, crispy garlic-cilantro-scallions-sesame seeds.",
-    //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/seoul-train_yhlpjw.jpg`,
-    //   price: 0,
-    // },
+    {
+      name: "Klassic",
+      subtitle: "TRADITIONAL KOREAN FLAVORS",
+      description:
+        "Beef, sprouts-carrots-cucumbers-kale, korean hot sauce, scallions-sesame seeds-sesame oil.",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/klassic_kj8ni5.jpg`,
+      price: 0,
+    },
+    {
+      name: "Seoul Train",
+      subtitle: "EAST MEETS WEST",
+      description:
+        "Beef, corn-cucumbers-kale-kimchi, creamy sriracha sauce, crispy garlic-cilantro-scallions-sesame seeds.",
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/seoul-train_yhlpjw.jpg`,
+      price: 0,
+    },
     {
       name: "Kimchi Krunch",
       subtitle: "CRUNCHY, PICKLEY, FUNKY",
@@ -243,12 +243,12 @@ const menuData = {
       max: 1,
       cartLabel: "Proteins",
       choices: [
-        // {
-        //   name: "Beef",
-        //   price: 299,
-        //   selected: false,
-        //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/beef_vhmzxi.jpg`,
-        // },
+        {
+          name: "Beef",
+          price: 299,
+          selected: false,
+          imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/beef_vhmzxi.jpg`,
+        },
         {
           name: "Chicken",
           price: 249,
@@ -275,13 +275,13 @@ const menuData = {
       max: 1,
       cartLabel: "Proteins",
       choices: [
-        // {
-        //   name: "Beef",
-        //   description: "(uncooked)",
-        //   price: 0,
-        //   selected: false,
-        //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/beef_vhmzxi.jpg`,
-        // },
+        {
+          name: "Beef",
+          description: "(uncooked)",
+          price: 0,
+          selected: false,
+          imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/beef_vhmzxi.jpg`,
+        },
         {
           name: "Chicken",
           description: "(uncooked)",
@@ -304,12 +304,12 @@ const menuData = {
       cartLabel: "Extra Proteins",
       max: 4,
       choices: [
-        // {
-        //   name: "Beef",
-        //   price: 299,
-        //   selected: false,
-        //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/beef_vhmzxi.jpg`,
-        // },
+        {
+          name: "Beef",
+          price: 299,
+          selected: false,
+          imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/beef_vhmzxi.jpg`,
+        },
         {
           name: "Chicken",
           price: 249,
@@ -495,16 +495,16 @@ const menuData = {
       cartLabel: "Additional Items",
       max: Infinity,
       choices: [
-        // {
-        //   name: "Uncooked Beef",
-        //   subtitle: "per pound",
-        //   description:
-        //     "Thin-sliced ribeye marinated in our sweet and savory bulgogi marinade.",
-        //   price: 1500,
-        //   selected: false,
-        //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/beef_vhmzxi.jpg`,
-        //   qty: 0,
-        // },
+        {
+          name: "Uncooked Beef",
+          subtitle: "per pound",
+          description:
+            "Thin-sliced ribeye marinated in our sweet and savory bulgogi marinade.",
+          price: 1500,
+          selected: false,
+          imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/beef_vhmzxi.jpg`,
+          qty: 0,
+        },
         {
           name: "Uncooked Chicken",
           subtitle: "per pound",
