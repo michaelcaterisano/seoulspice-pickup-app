@@ -83,7 +83,10 @@
         </p>
         <br />
         <p v-if="accumulateLoyaltyPointsSuccess">
-          <strong>Loyalty Points Earned:</strong> {{ accumulatedLoyaltyPoints }}
+          <strong>Hearts Earned:</strong> {{ accumulatedLoyaltyPoints }}
+        </p>
+        <p v-if="accountBalance">
+          <strong>Total Hearts</strong> {{ accountBalance }}
         </p>
       </div>
       <div v-if="orderSummarySuccess == false" class="box body-text">
@@ -102,7 +105,7 @@ import PhoneNumber from "awesome-phonenumber";
 import { createHelpers } from "vuex-map-fields";
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
-  mutationType: "updateOrderField"
+  mutationType: "updateOrderField",
 });
 export default {
   computed: {
@@ -115,24 +118,24 @@ export default {
       "phone",
       "curbside",
       "orderId",
-      "receiptUrl"
+      "receiptUrl",
     ]),
     shortTime() {
-      return this.time.toLocaleTimeString("en-US", {
-        timeStyle: "short"
+      return this.time.toLocaleTimeString([], {
+        timeStyle: "short",
       });
     },
     locationPhoneNumber() {
       const formattedPhoneNumber = new PhoneNumber(
         this.location.phoneNumber,
-        "US"
+        "US",
       );
       return formattedPhoneNumber.getNumber("national");
     },
     customerPhoneNumber() {
       const formattedPhoneNumber = new PhoneNumber(this.phone, "US");
       return formattedPhoneNumber.getNumber("national");
-    }
+    },
   },
   data() {
     return {
@@ -144,7 +147,8 @@ export default {
       accumulatedLoyaltyPoints: null,
       accumulateLoyaltyPointsSuccess: false,
       orderSummarySuccess: null,
-      isLoading: false
+      isLoading: false,
+      accountBalance: null,
     };
   },
   beforeMount() {
@@ -154,31 +158,12 @@ export default {
   async mounted() {
     try {
       this.isLoading = true;
-      const orderSummary = await this.getOrderSummary();
-      if (orderSummary.data.success) {
-        this.orderSummarySuccess = true;
-        const {
-          totalMoney,
-          totalTaxMoney,
-          totalDiscountMoney,
-          totalTipMoney
-        } = orderSummary.data.totals;
-
-        this.total = totalMoney.amount;
-        this.tax = totalTaxMoney.amount;
-        this.tip = totalTipMoney.amount;
-        this.discount = totalDiscountMoney.amount;
-      } else {
-        this.orderSummarySuccess = false;
-      }
-
-      const accumulatedPoints = await this.accumulateLoyaltyPoints();
-      if (accumulatedPoints.data.success) {
-        this.accumulateLoyaltyPointsSuccess = true;
-        this.accumulatedLoyaltyPoints =
-          accumulatedPoints.data.accumulatedLoyaltyPoints;
-      }
-
+      // get order summary
+      await this.getOrderSummary();
+      // accumulate loyalty point
+      await this.accumulateLoyaltyPoints();
+      // get loyalty balance
+      await this.getLoyaltyPointBalance();
       this.isLoading = false;
     } catch (error) {
       if (process.env.NODE_ENV === "development") {
@@ -204,17 +189,34 @@ export default {
       return optionText;
     },
     async getOrderSummary() {
-      try {
-        const orderSummary = await orderService.get("/order-summary", {
-          params: {
-            orderId: this.orderId
-          }
-        });
-        return orderSummary;
-      } catch (error) {
-        if (process.env.NODE_ENV === "development") {
-          console.log(error);
-        }
+      const orderSummary = await orderService.get("/order-summary", {
+        params: {
+          orderId: this.orderId,
+        },
+      });
+      if (orderSummary.data.success) {
+        this.orderSummarySuccess = true;
+        const {
+          totalMoney,
+          totalTaxMoney,
+          totalDiscountMoney,
+          totalTipMoney,
+        } = orderSummary.data.totals;
+
+        this.total = totalMoney.amount;
+        this.tax = totalTaxMoney.amount;
+        this.tip = totalTipMoney.amount;
+        this.discount = totalDiscountMoney.amount;
+      } else {
+        this.orderSummarySuccess = false;
+      }
+    },
+    async getLoyaltyPointBalance() {
+      const result = await orderService.post("/get-loyalty-account", {
+        phoneNumber: this.getSquareFormattedPhoneNumber(),
+      });
+      if (result.data.success) {
+        this.accountBalance = result.data.accountBalance;
       }
     },
     async accumulateLoyaltyPoints() {
@@ -223,16 +225,20 @@ export default {
         {
           phoneNumber: this.getSquareFormattedPhoneNumber(),
           orderId: this.orderId,
-          locationId: this.location.id
-        }
+          locationId: this.location.id,
+        },
       );
-      return accumulatedPoints;
+      if (accumulatedPoints.data.success) {
+        this.accumulateLoyaltyPointsSuccess = true;
+        this.accumulatedLoyaltyPoints =
+          accumulatedPoints.data.accumulatedLoyaltyPoints;
+      }
     },
 
     async textReceipt() {
       const receiptResponse = await orderService.post("/text-receipt", {
         phoneNumber: this.getSquareFormattedPhoneNumber(),
-        receiptUrl: this.receiptUrl
+        receiptUrl: this.receiptUrl,
       });
       return receiptResponse;
     },
@@ -243,9 +249,9 @@ export default {
       return (
         this.accumulateLoyaltyPointsSuccess && this.accumulatedLoyaltyPoints > 0
       );
-    }
+    },
   },
-  name: "OrderSummary"
+  name: "OrderSummary",
 };
 </script>
 
