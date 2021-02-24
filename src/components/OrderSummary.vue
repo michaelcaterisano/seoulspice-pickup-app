@@ -122,7 +122,8 @@ export default {
     ]),
     shortTime() {
       return this.time.toLocaleTimeString([], {
-        timeStyle: "short",
+        hour: "2-digit",
+        minute: "2-digit",
       });
     },
     locationPhoneNumber() {
