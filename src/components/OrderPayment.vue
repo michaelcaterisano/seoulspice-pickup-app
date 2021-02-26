@@ -7,7 +7,14 @@
         title="Payment Error"
         v-if="paymentErrors.length"
       >
-        <p>We were unable to process your payment. Please try again.</p>
+        <p>We were unable to process your payment.</p>
+        <div class="content">
+          <ul>
+            <li v-for="(error, index) in paymentErrors" :key="index">
+              {{ error.detail }}
+            </li>
+          </ul>
+        </div>
       </b-message>
       <b-message
         type="is-danger"
@@ -122,7 +129,7 @@ export default {
     },
   },
   created() {
-    window.addEventListener("unload", async () => {
+    window.addEventListener("beforeunload", async () => {
       await this.cleanUp();
     });
   },
@@ -214,6 +221,7 @@ export default {
               errors.forEach(error => {
                 // eslint-disable-next-line
                 console.log(error);
+                window.scrollTo(0, 0);
                 this.creditCardErrors.push(error);
               });
               return;
@@ -247,10 +255,10 @@ export default {
                 this.isLoading = false;
                 this.$emit("update", "summary");
               } else {
+                window.scrollTo(0, 0);
                 this.isLoading = false;
                 this.submitDisabled = false;
-                this.paymentErrors.push({ message: response.data.error });
-                console.log(response.data.error);
+                this.paymentErrors.push(response.data.error.errors[0]);
               }
             }
           },
