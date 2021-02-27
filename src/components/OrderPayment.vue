@@ -11,7 +11,7 @@
         <div class="content">
           <ul>
             <li v-for="(error, index) in paymentErrors" :key="index">
-              {{ error.detail }}
+              {{ error.message.detail }}
             </li>
           </ul>
         </div>
@@ -258,7 +258,9 @@ export default {
                 window.scrollTo(0, 0);
                 this.isLoading = false;
                 this.submitDisabled = false;
-                this.paymentErrors.push(response.data.error.errors[0]);
+                this.paymentErrors.push({
+                  message: response.data.error.errors[0],
+                });
               }
             }
           },
