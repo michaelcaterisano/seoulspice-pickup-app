@@ -82,7 +82,6 @@
 
 <script>
 import OrderTotals from "./OrderTotals";
-
 import { mapGetters, mapMutations } from "vuex";
 import { orderService } from "../config/api.service";
 import PhoneNumber from "awesome-phonenumber";

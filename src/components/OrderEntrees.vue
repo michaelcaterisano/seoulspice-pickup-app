@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="menuData">
     <EntreeCategories
       v-if="entreeRoute === 'entree-categories'"
       :categories="menuData.categories"
@@ -41,6 +41,7 @@ import EntreeCategories from "../components/EntreeCategories";
 import EntreeSignatures from "../components/EntreeSignatures";
 import EntreeKBBQ from "../components/EntreeKBBQ";
 import EntreeOptions from "../components/EntreeOptions";
+import { orderService } from "../config/api.service";
 import { mapState, mapMutations } from "vuex";
 import { ADD_ITEM } from "../store/mutations.type";
 import { createHelpers } from "vuex-map-fields";
@@ -111,22 +112,37 @@ export default {
       notes: [],
     };
   },
-  beforeMount() {
-    switch (this.location.name.toLowerCase()) {
-      case "dc noma":
-        this.menuData = require("../config/noma-menu.js");
-        break;
-      case "dc tenleytown":
-        this.menuData = require("../config/tenleytown-menu.js");
-        break;
-      case "md college park":
-        this.menuData = require("../config/college-park-menu.js");
-        break;
-      case "md westfield":
-        this.menuData = require("../config/westfield-menu.js");
-        break;
-      default:
-        this.menuData = require("../config/menu-data.js");
+  async created() {
+    // switch (this.location.name.toLowerCase()) {
+    //   case "dc noma":
+    //     this.menuData = require("../config/noma-menu.js");
+    //     break;
+    //   case "dc tenleytown":
+    //     this.menuData = require("../config/tenleytown-menu.js");
+    //     break;
+    //   case "md college park":
+    //     this.menuData = require("../config/college-park-menu.js");
+    //     break;
+    //   case "md westfield":
+    //     this.menuData = require("../config/westfield-menu.js");
+    //     break;
+    //   default:
+    //     this.menuData = require("../config/menu-data.js");
+    // }
+    try {
+      const response = await orderService.get("/menu", {
+        params: {
+          locationId: this.location.id,
+        },
+      });
+      if (response.data.success) {
+        this.menuData = response.data.menuData;
+        this.menuData.getOption = function(type) {
+          return this.options.find(option => option.type === type);
+        };
+      }
+    } catch (error) {
+      console.log(error);
     }
   },
 
@@ -210,16 +226,18 @@ export default {
       }
     },
     clearEntree() {
-      window.scrollTo(0, 0);
-      this.entree.category = null;
-      this.entree.signature = null;
-      this.notes = [];
-      this.menuData.options.forEach(option => {
-        option.choices.forEach(choice => {
-          choice.selected = false;
-          choice.qty ? (choice.qty = 0) : null;
+      if (this.menuData) {
+        window.scrollTo(0, 0);
+        this.entree.category = null;
+        this.entree.signature = null;
+        this.notes = [];
+        this.menuData.options.forEach(option => {
+          option.choices.forEach(choice => {
+            choice.selected = false;
+            choice.qty ? (choice.qty = 0) : null;
+          });
         });
-      });
+      }
     },
 
     setActive(section) {
