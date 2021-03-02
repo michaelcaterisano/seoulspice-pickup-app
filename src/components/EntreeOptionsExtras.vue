@@ -3,7 +3,7 @@
     <div class="page-title">
       <span>{{ title.toUpperCase() }}</span>
     </div>
-    <div v-if="title === 'extras'" class="box free-egg-promotion">
+    <!-- <div v-if="title === 'extras'" class="box free-egg-promotion">
       <p>Promotion: One Free Egg</p>
       <b-button
         type="is-success is-small free-egg-button"
@@ -11,7 +11,7 @@
         @click="addFreeEgg"
         >{{ freeEggButtonText }}</b-button
       >
-    </div>
+    </div> -->
     <div class="card-container">
       <OptionCounterCard
         class="extras-card"
@@ -65,7 +65,7 @@ export default {
     },
     addFreeEgg() {
       const freeEgg = this.option.choices.find(
-        (choice) => choice.description === "Free egg"
+        choice => choice.description === "Free egg",
       );
       freeEgg.selected = true;
       freeEgg.qty = 1;
@@ -73,7 +73,7 @@ export default {
     },
     getChoices() {
       return this.option.choices.filter(
-        (choice) => choice.description !== "Free egg"
+        choice => choice.description !== "Free egg",
       );
     },
     cancel() {
