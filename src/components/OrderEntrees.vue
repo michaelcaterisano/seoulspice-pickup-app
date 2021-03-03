@@ -41,7 +41,6 @@ import EntreeCategories from "../components/EntreeCategories";
 import EntreeSignatures from "../components/EntreeSignatures";
 import EntreeKBBQ from "../components/EntreeKBBQ";
 import EntreeOptions from "../components/EntreeOptions";
-import { orderService } from "../config/api.service";
 import { mapState, mapMutations } from "vuex";
 import { ADD_ITEM } from "../store/mutations.type";
 import { createHelpers } from "vuex-map-fields";
@@ -60,6 +59,7 @@ export default {
   name: "OrderEntrees",
   computed: {
     ...mapState("routes", ["entreeRoute"]),
+    ...mapState("menu", ["menu"]),
     ...mapFields(["location"]),
     signatures() {
       return this.entree.category.name === "$6 Signature Sundays"
@@ -108,42 +108,15 @@ export default {
         signature: null,
         type: "entree",
       },
-      menuData: null,
       notes: [],
+      menuData: null,
     };
   },
   async created() {
-    // switch (this.location.name.toLowerCase()) {
-    //   case "dc noma":
-    //     this.menuData = require("../config/noma-menu.js");
-    //     break;
-    //   case "dc tenleytown":
-    //     this.menuData = require("../config/tenleytown-menu.js");
-    //     break;
-    //   case "md college park":
-    //     this.menuData = require("../config/college-park-menu.js");
-    //     break;
-    //   case "md westfield":
-    //     this.menuData = require("../config/westfield-menu.js");
-    //     break;
-    //   default:
-    //     this.menuData = require("../config/menu-data.js");
-    // }
-    try {
-      const response = await orderService.get("/menu", {
-        params: {
-          locationId: this.location.id,
-        },
-      });
-      if (response.data.success) {
-        this.menuData = response.data.menuData;
-        this.menuData.getOption = function(type) {
-          return this.options.find(option => option.type === type);
-        };
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    this.menuData = JSON.parse(JSON.stringify(this.menu)); // make local copy of menu
+    this.menuData.getOption = function(type) {
+      return this.options.find(option => option.type === type);
+    };
   },
 
   mounted() {

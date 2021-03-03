@@ -24,6 +24,7 @@
 import { ADD_ITEM } from "../store/mutations.type";
 import AddonsOptions from "./AddonsOptions";
 import { createHelpers } from "vuex-map-fields";
+import { mapState } from "vuex";
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
   mutationType: "updateOrderField",
@@ -33,33 +34,23 @@ export default {
     AddonsOptions,
   },
   computed: {
+    ...mapState("menu", ["menu"]),
     ...mapFields(["location"]),
 
     buttonText() {
       return "NEXT";
     },
   },
-  beforeMount() {
-    switch (this.location.name.toLowerCase()) {
-      case "dc noma":
-        this.menuData = require("../config/noma-menu.js");
-        break;
-      case "dc tenleytown":
-        this.menuData = require("../config/tenleytown-menu.js");
-        break;
-      case "md college park":
-        this.menuData = require("../config/college-park-menu.js");
-        break;
-      case "md westfield":
-        this.menuData = require("../config/westfield-menu.js");
-        break;
-      default:
-        this.menuData = require("../config/menu-data.js");
-    }
+  async created() {
+    this.menuData = JSON.parse(JSON.stringify(this.menu)); // make local copy of menu
+    this.menuData.getOption = function(type) {
+      return this.options.find(option => option.type === type);
+    };
   },
   data() {
     return {
       active: "drinks",
+      menuData: null,
     };
   },
   methods: {
@@ -68,10 +59,10 @@ export default {
         this.active === "drinks"
           ? this.menuData.drinks
           : this.menuData.desserts;
-      const choicesToAdd = choices.filter((choice) => choice.qty > 0);
+      const choicesToAdd = choices.filter(choice => choice.qty > 0);
 
       if (choicesToAdd.length) {
-        choicesToAdd.forEach((choice) => {
+        choicesToAdd.forEach(choice => {
           const itemToAdd = {
             name: choice.name,
             qty: choice.qty,
