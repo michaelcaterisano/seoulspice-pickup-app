@@ -11,8 +11,6 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@sentry/tracing": "^5.29.2",
-    "@sentry/vue": "^5.29.2",
     "awesome-phonenumber": "^2.43.0",
     "axios": "^0.21.1",
     "buefy": "^0.9.4",
