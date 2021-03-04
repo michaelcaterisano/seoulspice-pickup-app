@@ -4,6 +4,7 @@ import totals from "./totals.module";
 import cart from "./cart.module";
 import order from "./order.module";
 import routes from "./routes.module";
+import menu from "./menu.module";
 
 Vue.use(Vuex);
 
@@ -14,5 +15,6 @@ export default new Vuex.Store({
     cart,
     order,
     routes,
+    menu,
   },
 });
