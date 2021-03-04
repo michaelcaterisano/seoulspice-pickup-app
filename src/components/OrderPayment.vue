@@ -129,7 +129,7 @@ export default {
     },
   },
   created() {
-    window.addEventListener("beforeunload", async () => {
+    window.addEventListener("unload", async () => {
       await this.cleanUp();
     });
   },
