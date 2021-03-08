@@ -154,8 +154,8 @@ export default {
     // create order
     const order = await this.createOrder();
     if (!order.data.success) {
-      this.orderError = true;
       this.isLoading = false;
+      this.orderError = true;
     } else {
       this.orderId = order.data.orderId;
       this.orderTotal = order.data.orderTotal;
@@ -217,6 +217,7 @@ export default {
            */
           cardNonceResponseReceived: async (errors, nonce) => {
             if (errors) {
+              this.isLoading = false;
               // Log errors from nonce generation to the browser developer console.
               errors.forEach(error => {
                 // eslint-disable-next-line
@@ -243,6 +244,7 @@ export default {
 
             if (response.status === 200) {
               if (response.data.success) {
+                this.isLoading = false;
                 // this.$gtag.event("transaction", {
                 //   transaction_id:
                 //     new Date().getTime() + Math.ceil(Math.random() * 1000),
@@ -252,11 +254,10 @@ export default {
 
                 this.updateReceiptUrl(response.data.receiptUrl);
                 this.updateOrderPaid(true);
-                this.isLoading = false;
                 this.$emit("update", "summary");
               } else {
-                window.scrollTo(0, 0);
                 this.isLoading = false;
+                window.scrollTo(0, 0);
                 this.submitDisabled = false;
                 this.paymentErrors.push({
                   message: response.data.error.errors[0],
@@ -348,11 +349,11 @@ export default {
           }
           this.isLoading = false;
         } else {
+          this.isLoading = false;
           if (process.env.NODE_ENV === "development") {
             // eslint-disable-next-line
             console.log("loyalty failed");
           }
-          this.isLoading = false;
         }
       } catch (error) {
         this.isLoading = false;
@@ -363,21 +364,25 @@ export default {
       }
     },
     async createLoyaltyReward() {
-      // const loadingComponent = this.$buefy.loading.open();
-      this.rewardLoading = true;
-      const result = await orderService.post("/create-loyalty-reward", {
-        phoneNumber: this.getFormattedPhoneNumber(),
-        orderId: this.orderId,
-      });
-      // loadingComponent.close();
-      this.rewardLoading = false;
-      if (result.data.success) {
-        this.orderTotal = result.data.updatedOrderTotal;
-        this.rewardRedeemed = true;
-        this.orderDiscount = result.data.orderDiscount;
-        this.orderTax = result.data.orderTax;
-        this.rewardDiscount = result.data.orderDiscount / 100;
-        this.rewardId = result.data.rewardId;
+      try {
+        this.rewardLoading = true;
+        const result = await orderService.post("/create-loyalty-reward", {
+          phoneNumber: this.getFormattedPhoneNumber(),
+          orderId: this.orderId,
+        });
+        if (result.data.success) {
+          this.rewardLoading = false;
+          this.orderTotal = result.data.updatedOrderTotal;
+          this.rewardRedeemed = true;
+          this.orderDiscount = result.data.orderDiscount;
+          this.orderTax = result.data.orderTax;
+          this.rewardDiscount = result.data.orderDiscount / 100;
+          this.rewardId = result.data.rewardId;
+        } else {
+          this.rewardLoading = false;
+        }
+      } catch (error) {
+        this.rewardLoading = false;
       }
     },
     processPayment() {
