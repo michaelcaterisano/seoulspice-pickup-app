@@ -320,7 +320,7 @@ export default {
           name: this.name,
           email: this.email,
           curbside: this.curbside,
-          // tip: this.tip,
+          phoneNumber: this.phone,
           taxRate: this.taxRate,
           time: this.time,
         });
