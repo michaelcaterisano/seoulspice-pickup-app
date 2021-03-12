@@ -1,3 +1,10 @@
+const getStatusCode = () => {
+  let errorStatus = Math.floor(Math.random() * (599 - 500) + 500);
+  return Math.floor(Math.random() * 2) === 0
+    ? { statusCode: errorStatus }
+    : { success: true };
+};
+
 describe("makes a random order", () => {
   beforeEach(() => {
     cy.visit("http://localhost:8080");
@@ -53,9 +60,7 @@ describe("makes a random order", () => {
         .click();
 
       // order info
-      cy.intercept("POST", "/create-order", { success: false }).as(
-        "create-order",
-      );
+      cy.intercept("POST", "/create-order", getStatusCode()).as("create-order");
       cy.get("[data-cy=info-name]").type("kbbq with grill");
       cy.get("[data-cy=info-email]").type("asdf@gmail.com");
       cy.get("[data-cy=info-phone]").type("2143950129");
