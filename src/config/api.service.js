@@ -7,10 +7,15 @@ const orderService = axios.create({
   timeout: 5000,
 });
 
+let serverErrorNumbers = Array(100)
+  .fill()
+  .map((v, i) => i + 500);
+
 axiosRetry(orderService, {
   retries: 3,
   retryCondition: error => {
-    return error.response.status === 500;
+    console.log("retrying");
+    return serverErrorNumbers.includes(error.response.status);
   },
 });
 
