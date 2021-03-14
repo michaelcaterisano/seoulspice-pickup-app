@@ -158,18 +158,18 @@ export default {
     getFormattedPhoneNumber() {
       return new PhoneNumber(this.phone, "US").getNumber();
     },
-    showOrderErrorDialog() {
-      this.$buefy.dialog.alert({
-        title: "Order Error",
-        message:
-          "Something went wrong and we were unable to create your order.",
-        type: "is-danger",
-        ariaRole: "alertdialog",
-        ariaModal: true,
-        confirmText: "Try again",
-        onConfirm: () => this.createOrder(),
-      });
-    },
+    // showOrderErrorDialog() {
+    //   this.$buefy.dialog.alert({
+    //     title: "Order Error",
+    //     message:
+    //       "Something went wrong and we were unable to create your order.",
+    //     type: "is-danger",
+    //     ariaRole: "alertdialog",
+    //     ariaModal: true,
+    //     confirmText: "Try again",
+    //     onConfirm: () => this.createOrder(),
+    //   });
+    // },
     showStartOverDialog() {
       this.$buefy.dialog.alert({
         title: "Order Error",
@@ -353,7 +353,7 @@ export default {
         }
       } catch (error) {
         this.isLoading = false;
-        this.showOrderErrorDialog();
+        this.showStartOverDialog();
       }
     },
 
