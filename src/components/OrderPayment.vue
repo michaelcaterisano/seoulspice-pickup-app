@@ -30,10 +30,6 @@
           </ul>
         </div>
       </b-message>
-      <b-message type="is-danger" title="Order Error" v-if="orderError">
-        Something went wrong and we were unable to create your order.<br /><br />
-        <b-button @click.native="createOrder">try again</b-button>
-      </b-message>
       <div id="form-container">
         <div v-if="hasReward && !orderError" class="box">
           <div class="loyalty">
@@ -158,18 +154,6 @@ export default {
     getFormattedPhoneNumber() {
       return new PhoneNumber(this.phone, "US").getNumber();
     },
-    // showOrderErrorDialog() {
-    //   this.$buefy.dialog.alert({
-    //     title: "Order Error",
-    //     message:
-    //       "Something went wrong and we were unable to create your order.",
-    //     type: "is-danger",
-    //     ariaRole: "alertdialog",
-    //     ariaModal: true,
-    //     confirmText: "Try again",
-    //     onConfirm: () => this.createOrder(),
-    //   });
-    // },
     showStartOverDialog() {
       this.$buefy.dialog.alert({
         title: "Order Error",
@@ -200,6 +184,7 @@ export default {
         });
         if (!order.data.success) {
           this.isLoading = false;
+          this.orderError = true;
           this.showStartOverDialog();
         } else {
           this.orderError = false;
@@ -353,6 +338,7 @@ export default {
         }
       } catch (error) {
         this.isLoading = false;
+        this.orderError = true;
         this.showStartOverDialog();
       }
     },
