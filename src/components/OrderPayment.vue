@@ -30,9 +30,6 @@
           </ul>
         </div>
       </b-message>
-      <b-message type="is-danger" title="Order Error" v-if="orderError">
-        Something went wrong. We were unable to create your order.
-      </b-message>
       <div id="form-container">
         <div v-if="hasReward && !orderError" class="box">
           <div class="loyalty">
@@ -82,7 +79,7 @@
 
 <script>
 import OrderTotals from "./OrderTotals";
-
+import { EMPTY_CART } from "../store/mutations.type";
 import { mapGetters, mapMutations } from "vuex";
 import { orderService } from "../config/api.service";
 import PhoneNumber from "awesome-phonenumber";
@@ -150,171 +147,32 @@ export default {
     };
   },
   async mounted() {
-    this.isLoading = true;
-    // create order
-    const order = await this.createOrder();
-    if (!order.data.success) {
-      this.isLoading = false;
-      this.orderError = true;
-    } else {
-      this.orderId = order.data.orderId;
-      this.orderTotal = order.data.orderTotal;
-      this.orderTax = order.data.orderTax;
-      this.orderTip = order.data.orderTip;
-      this.orderDiscount = order.data.orderDiscount;
-
-      // payment
-      // eslint-disable-next-line no-undef
-      this.paymentForm = new SqPaymentForm({
-        // Initialize the payment form elements
-        applicationId: process.env.VUE_APP_SQUAREUP_APPLICATION_ID,
-        inputClass: "sq-input",
-        locationId: this.location.id,
-        autoBuild: false,
-        // Customize the CSS for SqPaymentForm iframe elements
-        inputStyles: [
-          {
-            fontSize: "16px",
-            fontFamily: "helvetica",
-            lineHeight: "24px",
-            placeholderFontWeight: 300,
-            padding: "16px",
-            placeholderColor: "#a0a0a0",
-            backgroundColor: "transparent",
-          },
-        ],
-        // Initialize the credit card placeholders
-        cardNumber: {
-          elementId: "sq-card-number",
-          placeholder: "Card Number",
-        },
-        cvv: {
-          elementId: "sq-cvv",
-          placeholder: "CVV",
-        },
-        expirationDate: {
-          elementId: "sq-expiration-date",
-          placeholder: "MM/YY",
-        },
-        postalCode: {
-          elementId: "sq-postal-code",
-          placeholder: "Postal",
-        },
-        applePay: {
-          elementId: "sq-apple-pay",
-        },
-        googlePay: {
-          elementId: "sq-google-pay",
-        },
-        // SqPaymentForm callback functions
-        callbacks: {
-          paymentFormLoaded: async () => {
-            await this.getRewards();
-          },
-          /*
-           * callback function: cardNonceResponseReceived
-           * Triggered when: SqPaymentForm completes a card nonce request
-           */
-          cardNonceResponseReceived: async (errors, nonce) => {
-            if (errors) {
-              this.isLoading = false;
-              // Log errors from nonce generation to the browser developer console.
-              errors.forEach(error => {
-                // eslint-disable-next-line
-                console.log(error);
-                window.scrollTo(0, 0);
-                this.creditCardErrors.push(error);
-              });
-              return;
-            }
-
-            this.submitDisabled = true;
-            // const loadingComponent = this.$buefy.loading.open({
-            //   container: null,
-            // });
-            this.isLoading = true;
-            // change this to hit /create-payment
-            let response = await orderService.post("/create-payment", {
-              locationId: this.location.id,
-              sourceId: nonce,
-              orderId: this.orderId,
-              amount: this.orderTotal,
-              tip: this.tip,
-            });
-
-            if (response.status === 200) {
-              if (response.data.success) {
-                this.isLoading = false;
-                // this.$gtag.event("transaction", {
-                //   transaction_id:
-                //     new Date().getTime() + Math.ceil(Math.random() * 1000),
-                //   value: this.total.toFixed(2),
-                //   tax: this.tax.toFixed(2),
-                // });
-
-                this.updateReceiptUrl(response.data.receiptUrl);
-                this.updateOrderPaid(true);
-                this.$emit("update", "summary");
-              } else {
-                this.isLoading = false;
-                window.scrollTo(0, 0);
-                this.submitDisabled = false;
-                this.paymentErrors.push({
-                  message: response.data.error.errors[0],
-                });
-              }
-            }
-          },
-          methodsSupported: (methods, unsupportedReason) => {
-            // eslint-disable-next-line
-            console.log(methods);
-
-            var applePayBtn = document.getElementById("sq-apple-pay");
-            var googlePayBtn = document.getElementById("sq-google-pay");
-
-            // Only show the button if Apple Pay on the Web is enabled
-            // Otherwise, display the wallet not enabled message.
-            if (methods.applePay === true) {
-              applePayBtn.style.display = "inline-block";
-            }
-            if (methods.googlePay === true) {
-              googlePayBtn.style.display = "inline-block";
-            } else {
-              // eslint-disable-next-line
-              console.log(unsupportedReason);
-            }
-          },
-          createPaymentRequest: () => {
-            const paymentRequestJson = {
-              requestShippingAddress: false,
-              requestBillingInfo: false,
-              currencyCode: "USD",
-              countryCode: "US",
-              total: {
-                label: "Seoulspice",
-                amount: ((this.orderTotal + this.tip) / 100)
-                  .toFixed(2)
-                  .toString(),
-                pending: false,
-              },
-            };
-
-            return paymentRequestJson;
-          },
-        },
-      });
-    }
-
-    this.paymentForm.build();
+    await this.createOrder();
   },
   methods: {
     ...mapMutations(["updateReceiptUrl", "updateOrderPaid"]),
     getFormattedPhoneNumber() {
       return new PhoneNumber(this.phone, "US").getNumber();
     },
+    showStartOverDialog() {
+      this.$buefy.dialog.alert({
+        title: "Order Error",
+        message:
+          "Something went wrong and we were unable to create your order.",
+        type: "is-danger",
+        ariaRole: "alertdialog",
+        ariaModal: true,
+        confirmText: "Start Over",
+        onConfirm: () => {
+          this.$store.commit(EMPTY_CART);
+          this.$emit("update", "location");
+        },
+      });
+    },
     async createOrder() {
+      this.isLoading = true;
       try {
-        const result = await orderService.post("/create-order", {
+        const order = await orderService.post("/create-order", {
           items: this.items,
           locationId: this.location.id,
           name: this.name,
@@ -324,12 +182,164 @@ export default {
           taxRate: this.taxRate,
           time: this.time,
         });
-        return result;
-      } catch (error) {
-        if (process.env.NODE_ENV === "development") {
-          // eslint-disable-next-line
-          console.log(error);
+        if (!order.data.success) {
+          this.isLoading = false;
+          this.orderError = true;
+          this.showStartOverDialog();
+        } else {
+          this.orderError = false;
+          this.orderId = order.data.orderId;
+          this.orderTotal = order.data.orderTotal;
+          this.orderTax = order.data.orderTax;
+          this.orderTip = order.data.orderTip;
+          this.orderDiscount = order.data.orderDiscount;
+
+          // payment
+          // eslint-disable-next-line no-undef
+          this.paymentForm = new SqPaymentForm({
+            // Initialize the payment form elements
+            applicationId: process.env.VUE_APP_SQUAREUP_APPLICATION_ID,
+            inputClass: "sq-input",
+            locationId: this.location.id,
+            autoBuild: false,
+            // Customize the CSS for SqPaymentForm iframe elements
+            inputStyles: [
+              {
+                fontSize: "16px",
+                fontFamily: "helvetica",
+                lineHeight: "24px",
+                placeholderFontWeight: 300,
+                padding: "16px",
+                placeholderColor: "#a0a0a0",
+                backgroundColor: "transparent",
+              },
+            ],
+            // Initialize the credit card placeholders
+            cardNumber: {
+              elementId: "sq-card-number",
+              placeholder: "Card Number",
+            },
+            cvv: {
+              elementId: "sq-cvv",
+              placeholder: "CVV",
+            },
+            expirationDate: {
+              elementId: "sq-expiration-date",
+              placeholder: "MM/YY",
+            },
+            postalCode: {
+              elementId: "sq-postal-code",
+              placeholder: "Postal",
+            },
+            applePay: {
+              elementId: "sq-apple-pay",
+            },
+            googlePay: {
+              elementId: "sq-google-pay",
+            },
+            // SqPaymentForm callback functions
+            callbacks: {
+              paymentFormLoaded: async () => {
+                await this.getRewards();
+              },
+              /*
+               * callback function: cardNonceResponseReceived
+               * Triggered when: SqPaymentForm completes a card nonce request
+               */
+              cardNonceResponseReceived: async (errors, nonce) => {
+                if (errors) {
+                  this.isLoading = false;
+                  // Log errors from nonce generation to the browser developer console.
+                  errors.forEach(error => {
+                    // eslint-disable-next-line
+                    console.log(error);
+                    window.scrollTo(0, 0);
+                    this.creditCardErrors.push(error);
+                  });
+                  return;
+                }
+
+                this.submitDisabled = true;
+                // const loadingComponent = this.$buefy.loading.open({
+                //   container: null,
+                // });
+                this.isLoading = true;
+                // change this to hit /create-payment
+                let response = await orderService.post("/create-payment", {
+                  locationId: this.location.id,
+                  sourceId: nonce,
+                  orderId: this.orderId,
+                  amount: this.orderTotal,
+                  tip: this.tip,
+                });
+
+                if (response.status === 200) {
+                  if (response.data.success) {
+                    this.isLoading = false;
+                    // this.$gtag.event("transaction", {
+                    //   transaction_id:
+                    //     new Date().getTime() + Math.ceil(Math.random() * 1000),
+                    //   value: this.total.toFixed(2),
+                    //   tax: this.tax.toFixed(2),
+                    // });
+
+                    this.updateReceiptUrl(response.data.receiptUrl);
+                    this.updateOrderPaid(true);
+                    this.$emit("update", "summary");
+                  } else {
+                    this.isLoading = false;
+                    window.scrollTo(0, 0);
+                    this.submitDisabled = false;
+                    this.paymentErrors.push({
+                      message: response.data.error.errors[0],
+                    });
+                  }
+                }
+              },
+              methodsSupported: (methods, unsupportedReason) => {
+                // eslint-disable-next-line
+                console.log(methods);
+
+                var applePayBtn = document.getElementById("sq-apple-pay");
+                var googlePayBtn = document.getElementById("sq-google-pay");
+
+                // Only show the button if Apple Pay on the Web is enabled
+                // Otherwise, display the wallet not enabled message.
+                if (methods.applePay === true) {
+                  applePayBtn.style.display = "inline-block";
+                }
+                if (methods.googlePay === true) {
+                  googlePayBtn.style.display = "inline-block";
+                } else {
+                  // eslint-disable-next-line
+                  console.log(unsupportedReason);
+                }
+              },
+              createPaymentRequest: () => {
+                const paymentRequestJson = {
+                  requestShippingAddress: false,
+                  requestBillingInfo: false,
+                  currencyCode: "USD",
+                  countryCode: "US",
+                  total: {
+                    label: "Seoulspice",
+                    amount: ((this.orderTotal + this.tip) / 100)
+                      .toFixed(2)
+                      .toString(),
+                    pending: false,
+                  },
+                };
+
+                return paymentRequestJson;
+              },
+            },
+          });
+          this.paymentForm.build();
         }
+      } catch (error) {
+        this.isLoading = false;
+        this.orderError = true;
+        this.showStartOverDialog();
       }
     },
 
