@@ -14,7 +14,6 @@ let serverErrorNumbers = Array(100)
 axiosRetry(orderService, {
   retries: 3,
   retryCondition: error => {
-    console.log("retrying");
     return serverErrorNumbers.includes(error.response.status);
   },
 });
