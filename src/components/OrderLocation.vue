@@ -127,7 +127,6 @@ export default {
         });
       } else {
         await this.getMenu();
-        this.$emit("update", "entree");
       }
     },
     clearUserLocationInput() {
