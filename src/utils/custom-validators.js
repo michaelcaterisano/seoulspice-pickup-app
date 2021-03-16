@@ -15,7 +15,7 @@ function formatMinutes(minutes) {
 }
 
 export const phoneNumber = {
-  getMessage: (field) => `${field} is not a valid US phone number`,
+  getMessage: field => `${field} is not a valid US phone number`,
   validate(value) {
     let phone = new PhoneNumber(value, "US");
     return phone.isValid();
