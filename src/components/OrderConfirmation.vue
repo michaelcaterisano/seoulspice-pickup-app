@@ -11,6 +11,7 @@
         :items="items"
         :item="item"
         :index="index"
+        @update="update"
       />
     </div>
 
@@ -64,6 +65,10 @@ export default {
       this.$store.commit(SET_CART_OPEN, false);
       // this.$gtag.event("begin-checkout");
       this.$emit("update", "order-info");
+    },
+    update(val) {
+      this.$emit("update", val);
+      this.backToEntrees();
     },
   },
   props: ["type"],

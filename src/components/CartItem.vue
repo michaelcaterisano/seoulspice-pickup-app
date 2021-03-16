@@ -87,7 +87,18 @@ export default {
       this.$store.commit(UPDATE_QTY, { qty: val, index: this.index });
     },
     removeItem() {
-      this.$store.commit(REMOVE_ITEM, this.index);
+      if (this.countItems === 1) {
+        this.$buefy.dialog.confirm({
+          message:
+            "Are you sure you want to empty your cart? This will take you back to the main menu.",
+          onConfirm: () => {
+            this.$emit("update", "entree");
+            this.$store.commit(REMOVE_ITEM, this.index);
+          },
+        });
+      } else {
+        this.$store.commit(REMOVE_ITEM, this.index);
+      }
     },
   },
   name: "CartItem",
