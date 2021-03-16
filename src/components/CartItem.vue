@@ -5,7 +5,7 @@
         <b-button
           size="is-small"
           icon-left="fas fa-times-circle"
-          @click.native="removeItem"
+          @click.stop="removeItem"
         >
         </b-button>
       </div>
@@ -14,7 +14,6 @@
           >{{ item.name.toUpperCase() }}
           {{ signatureText.toUpperCase() }} </span
         ><br />
-        <!-- <span>{{ price | currency }}</span> -->
       </div>
       <ul
         v-if="item.type === 'entree'"
@@ -32,6 +31,8 @@
           <strong>Order Notes:</strong> {{ note }}
         </li>
       </ul>
+
+      <span class="is-size-7">{{ price | currency }}</span>
     </div>
 
     <div>
@@ -54,7 +55,7 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["countEntrees"]),
+    ...mapGetters(["countEntrees", "countItems"]),
     price() {
       return (this.item.price / 100) * this.item.qty;
     },
@@ -69,7 +70,7 @@ export default {
       let optionText = "";
       optionText += "<strong>" + option.cartLabel + ": </strong>";
       optionText += option.choices
-        .map((choice) => {
+        .map(choice => {
           let choiceText = choice.name;
           // if (choice.price > 0) {
           //   choiceText += " (+" + choice.price + ")";
@@ -86,16 +87,7 @@ export default {
       this.$store.commit(UPDATE_QTY, { qty: val, index: this.index });
     },
     removeItem() {
-      if (this.item.type === "entree" && this.countEntrees === 1) {
-        this.$buefy.toast.open({
-          duration: 2000,
-          message:
-            "You must have at least one entree in your cart to place an order.",
-          type: "is-danger",
-        });
-      } else {
-        this.$store.commit(REMOVE_ITEM, this.index);
-      }
+      this.$store.commit(REMOVE_ITEM, this.index);
     },
   },
   name: "CartItem",
