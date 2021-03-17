@@ -713,9 +713,9 @@ const menuData = {
       imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/drinks/bubly_ey1sn0.jpg`,
     },
     {
-      name: "Givn Water",
+      name: "Life Water",
       description:
-        "Every bottle purchased provides clean water to people in need.",
+        "Every bottle purchased provides clean water to people in need. 20oz.",
       price: 200,
       qty: 0,
       imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/drinks/givn_u63cv4.jpg`,
