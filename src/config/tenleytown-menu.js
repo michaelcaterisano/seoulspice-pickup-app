@@ -715,10 +715,10 @@ const menuData = {
     {
       name: "Life Water",
       description:
-        "Every bottle purchased provides clean water to people in need. 20oz.",
+        "LIFEWTR is purified water, pH balanced with electrolytes added for taste. Refresh your mind and restore your body with a daily dose of inspiration. 20oz.",
       price: 200,
       qty: 0,
-      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/drinks/givn_u63cv4.jpg`,
+      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/drinks/lifewater_hyujoy.jpg`,
     },
   ],
   desserts: [
