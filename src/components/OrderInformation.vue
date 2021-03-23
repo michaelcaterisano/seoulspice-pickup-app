@@ -67,6 +67,7 @@
               :unselectable-times="unselectableTimes"
               v-validate="{ required: true, hours: [minTime, maxTime] }"
               :use-html5-validation="false"
+              @input="timeChanged"
             ></b-timepicker>
           </b-field>
           <p v-if="preorder || closed" class="timepicker-message">
@@ -123,12 +124,12 @@ import money from "currency.js";
 import {
   openingTimeHour,
   closingTimeHour,
-  closingTimeMinute
+  closingTimeMinute,
 } from "../config/config";
 
 const { mapFields } = createHelpers({
   getterType: "getOrderField",
-  mutationType: "updateOrderField"
+  mutationType: "updateOrderField",
 });
 export default {
   computed: {
@@ -139,7 +140,7 @@ export default {
       "location",
       "time",
       "curbside",
-      "tip"
+      "tip",
     ]),
     ...mapGetters(["subtotal", "items", "taxRate"]),
     minTime() {
@@ -167,7 +168,7 @@ export default {
         date.setDate(date.getDate() + 1);
       }
       return `${date.getMonth() + 1}/${date.getDate()}`;
-    }
+    },
   },
   created() {
     this.now = new Date();
@@ -228,9 +229,9 @@ export default {
           numeral: true,
           numeralDecimalScale: 2,
           numeralThousandsGroupStyle: "thousand",
-          prefix: "$ "
-        }
-      }
+          prefix: "$ ",
+        },
+      },
     };
   },
   directives: { cleave },
@@ -241,7 +242,7 @@ export default {
           if (result) {
             if (process.env.NODE_ENV === "production") {
               LogRocket.identify(this.email, {
-                name: this.name
+                name: this.name,
               });
             }
             this.$emit("update", "payment"); // emits event to change active component
@@ -254,7 +255,7 @@ export default {
         this.$buefy.toast.open({
           duration: 2000,
           message: "Sorry, we're no longer accepting orders for today.",
-          type: "is-danger"
+          type: "is-danger",
         });
       }
     },
@@ -273,7 +274,7 @@ export default {
         duration: 1000,
         message: `Please correct the form errors`,
         position: "is-top",
-        type: "is-danger"
+        type: "is-danger",
       });
     },
     setUnselectableHours() {
@@ -284,7 +285,7 @@ export default {
             i,
             quarterHours[j],
             0,
-            0
+            0,
           );
           if (unselectableTime <= this.now || this.tooSoon(unselectableTime)) {
             this.unselectableTimes.push(unselectableTime);
@@ -324,9 +325,21 @@ export default {
           option.disabled = true;
         }
       }
-    }
+    },
+    timeChanged(time) {
+      if (time > this.getClosingTime()) {
+        this.time = this.getClosingTime();
+      }
+    },
+    getClosingTime() {
+      let newTime = new Date(this.time);
+      newTime.setHours(closingTimeHour);
+      newTime.setMinutes(closingTimeMinute);
+      newTime.setSeconds(0);
+      return newTime;
+    },
   },
-  name: "OrderInformation"
+  name: "OrderInformation",
 };
 </script>
 

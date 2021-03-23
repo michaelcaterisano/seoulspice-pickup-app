@@ -37,7 +37,7 @@
 import {
   openingTimeHour,
   closingTimeHour,
-  closingTimeMinute
+  closingTimeMinute,
 } from "../config/config";
 const PhoneNumber = require("awesome-phonenumber");
 export default {
@@ -52,7 +52,7 @@ export default {
         date.setDate(date.getDate() + 1);
       }
       return `${date.getMonth() + 1}/${date.getDate()}`;
-    }
+    },
   },
   data() {
     return {
@@ -60,7 +60,7 @@ export default {
       preorder: false,
       closed: false,
       openingTime: null,
-      closingTime: null
+      closingTime: null,
     };
   },
   created() {
@@ -78,7 +78,7 @@ export default {
     }
   },
   name: "OrderLocationCard",
-  props: ["location", "index"]
+  props: ["location", "index"],
 };
 </script>
 
