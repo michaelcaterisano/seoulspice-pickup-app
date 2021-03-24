@@ -90,14 +90,14 @@ const menuData = {
       imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/southwest_tsgjpc.jpg`,
       price: 249,
     },
-    {
-      name: "Fireball",
-      subtitle: "UNAPOLOGETICALLY SPICY",
-      description:
-        "Spicy pork, corn-radish-kale-kimchi, korean hot sauce, creamy sriracha sauce, crispy garlic-scallions-sesame seeds-fire powder.",
-      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/fireball_ob1b8c.jpg`,
-      price: 279,
-    },
+    // {
+    //   name: "Fireball",
+    //   subtitle: "UNAPOLOGETICALLY SPICY",
+    //   description:
+    //     "Spicy pork, corn-radish-kale-kimchi, korean hot sauce, creamy sriracha sauce, crispy garlic-scallions-sesame seeds-fire powder.",
+    //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/fireball_ob1b8c.jpg`,
+    //   price: 279,
+    // },
     {
       name: "Herbivore",
       subtitle: "A VEGAN DELIGHT",
@@ -140,14 +140,14 @@ const menuData = {
       imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/southwest_tsgjpc.jpg`,
       price: 0,
     },
-    {
-      name: "Fireball",
-      subtitle: "UNAPOLOGETICALLY SPICY",
-      description:
-        "Spicy pork, corn-radish-kale-kimchi, korean hot sauce, creamy sriracha sauce, crispy garlic-scallions-sesame seeds-fire powder.",
-      imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/fireball_ob1b8c.jpg`,
-      price: 0,
-    },
+    // {
+    //   name: "Fireball",
+    //   subtitle: "UNAPOLOGETICALLY SPICY",
+    //   description:
+    //     "Spicy q, corn-radish-kale-kimchi, korean hot sauce, creamy sriracha sauce, crispy garlic-scallions-sesame seeds-fire powder.",
+    //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/signatures/fireball_ob1b8c.jpg`,
+    //   price: 0,
+    // },
     {
       name: "Herbivore",
       subtitle: "A VEGAN DELIGHT",
@@ -255,12 +255,12 @@ const menuData = {
           selected: false,
           imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/chicken_gbew64.jpg`,
         },
-        {
-          name: "Spicy Pork",
-          price: 279,
-          selected: false,
-          imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/spicy-pork_cj6adp.jpg`,
-        },
+        // {
+        //   name: "Spicy Pork",
+        //   price: 279,
+        //   selected: false,
+        //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/spicy-pork_cj6adp.jpg`,
+        // },
         {
           name: "Tofu",
           price: 229,
@@ -289,13 +289,13 @@ const menuData = {
           selected: false,
           imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/chicken_gbew64.jpg`,
         },
-        {
-          name: "Spicy Pork",
-          description: "(uncooked)",
-          price: 0,
-          selected: false,
-          imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/spicy-pork_cj6adp.jpg`,
-        },
+        // {
+        //   name: "Spicy Pork",
+        //   description: "(uncooked)",
+        //   price: 0,
+        //   selected: false,
+        //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/spicy-pork_cj6adp.jpg`,
+        // },
       ],
     },
     {
@@ -316,12 +316,12 @@ const menuData = {
           selected: false,
           imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/chicken_gbew64.jpg`,
         },
-        {
-          name: "Spicy Pork",
-          price: 279,
-          selected: false,
-          imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/spicy-pork_cj6adp.jpg`,
-        },
+        // {
+        //   name: "Spicy Pork",
+        //   price: 279,
+        //   selected: false,
+        //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/spicy-pork_cj6adp.jpg`,
+        // },
         {
           name: "Tofu",
           price: 229,
@@ -515,16 +515,16 @@ const menuData = {
           imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/chicken_gbew64.jpg`,
           qty: 0,
         },
-        {
-          name: "Uncooked Spicy Pork",
-          subtitle: "per pound",
-          description:
-            "Thin-sliced pork marinated in a sweet-spicy chili marinade.",
-          price: 1300,
-          selected: false,
-          imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/spicy-pork_cj6adp.jpg`,
-          qty: 0,
-        },
+        // {
+        //   name: "Uncooked Spicy Pork",
+        //   subtitle: "per pound",
+        //   description:
+        //     "Thin-sliced pork marinated in a sweet-spicy chili marinade.",
+        //   price: 1300,
+        //   selected: false,
+        //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/proteins/spicy-pork_cj6adp.jpg`,
+        //   qty: 0,
+        // },
         {
           name: "Purple Rice",
           subtitle: "feeds 3-4",
