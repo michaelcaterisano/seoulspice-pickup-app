@@ -75,8 +75,12 @@ export default {
       }
 
       if (this.active === "drinks") {
-        window.scrollTo(0, 0);
-        this.active = "desserts";
+        if (this.menuData.desserts.length) {
+          window.scrollTo(0, 0);
+          this.active = "desserts";
+        } else {
+          this.$emit("update", "confirmation");
+        }
       } else {
         this.$emit("update", "confirmation");
       }
