@@ -41,7 +41,7 @@
         {{ ((orderTotal + tip) / 100) | currency }}
       </p>
     </div>
-    <!-- <div v-if="type == 'checkout'">
+    <div v-if="type == 'checkout'">
       <p class="discount-code-label">Discount Code</p>
       <b-field
         :type="{ 'is-danger': invalidDiscountCode }"
@@ -65,7 +65,7 @@
           >
         </p>
       </b-field>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -121,22 +121,27 @@ export default {
     },
     async applyDiscountCode() {
       this.discountLoading = true;
-      const result = await orderService.post("/discount-code", {
-        orderId: this.orderId,
-        discountCode: this.discountCode,
-      });
-      if (result.data.success) {
-        this.discountLoading = false;
-        this.discountDisabled = true;
-        this.orderDiscount = result.data.orderDiscount;
-        this.orderTotal = result.data.orderTotal;
-        this.orderTax = result.data.orderTax;
-        this.invalidDiscountCode = false;
-        this.discountCodeMessage = "";
-      } else {
-        this.discountLoading = false;
-        this.invalidDiscountCode = true;
-        this.discountCodeMessage = "Invalid discount code";
+      try {
+        const result = await orderService.post("/discount-code", {
+          orderId: this.orderId,
+          discountCode: this.discountCode,
+        });
+        if (result.data.success) {
+          this.discountLoading = false;
+          this.discountDisabled = true;
+          this.orderDiscount = result.data.orderDiscount;
+          this.orderTotal = result.data.orderTotal;
+          this.orderTax = result.data.orderTax;
+          this.invalidDiscountCode = false;
+          this.discountCodeMessage = "";
+        } else {
+          this.discountLoading = false;
+          this.invalidDiscountCode = true;
+          this.discountCodeMessage = "Invalid discount code";
+        }
+      } catch (error) {
+        // show error toast
+        console.log(error);
       }
     },
   },
