@@ -133,15 +133,19 @@ export default {
           this.orderTotal = result.data.orderTotal;
           this.orderTax = result.data.orderTax;
           this.invalidDiscountCode = false;
-          this.discountCodeMessage = "";
+          this.discountCodeMessage = result.data.message;
         } else {
           this.discountLoading = false;
           this.invalidDiscountCode = true;
           this.discountCodeMessage = "Invalid discount code";
         }
       } catch (error) {
-        // show error toast
-        console.log(error);
+        this.discountLoading = false;
+        this.$buefy.toast.open({
+          duration: 2000,
+          message: "Whoops! We had trouble discounting your order.",
+          type: "is-danger",
+        });
       }
     },
   },
