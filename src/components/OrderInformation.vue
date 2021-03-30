@@ -237,7 +237,7 @@ export default {
   directives: { cleave },
   methods: {
     pay() {
-      if (!this.closed) {
+      if (!this.closed || process.env.VUE_APP_AFTER_HOURS_ORDERING) {
         this.$validator.validateAll().then(result => {
           if (result) {
             if (process.env.NODE_ENV === "production") {
