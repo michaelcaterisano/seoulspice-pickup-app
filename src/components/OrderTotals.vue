@@ -41,7 +41,7 @@
         {{ ((orderTotal + tip) / 100) | currency }}
       </p>
     </div>
-    <div v-if="type == 'checkout'">
+    <div v-if="type == 'checkout' && isCollegePark">
       <p class="discount-code-label">Discount Code</p>
       <b-field
         :type="{ 'is-danger': invalidDiscountCode }"
@@ -83,6 +83,7 @@ export default {
   computed: {
     ...mapGetters(["subtotal", "tip", "tax", "taxRate", "total"]),
     ...mapFields([
+      "location",
       "orderId",
       "orderTotal",
       "orderTip",
@@ -103,6 +104,9 @@ export default {
     },
     mobileButtonText() {
       return this.mobileMenuOpen ? "Hide Totals" : "View Totals";
+    },
+    isCollegePark() {
+      return this.location.name === "MD College Park";
     },
   },
   data() {
