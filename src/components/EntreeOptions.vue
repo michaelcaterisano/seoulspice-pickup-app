@@ -60,19 +60,29 @@ export default {
     };
   },
   methods: {
+    optionInStock(option) {
+      return this.options.getOption(option).choices.length;
+    },
     addItem() {
       this.$emit("valid");
     },
     advanceStep(numSteps) {
       window.scrollTo(0, 0);
+      let nextStep, inStock;
       if (!numSteps) {
-        this.active = this.steps[
+        nextStep = this.steps[
           this.steps.findIndex(step => step === this.active) + 1
         ];
       } else {
-        this.active = this.steps[
+        nextStep = this.steps[
           this.steps.findIndex(step => step === this.active) + numSteps
         ];
+      }
+      inStock = this.optionInStock(nextStep);
+      if (nextStep === "extras" && !inStock) {
+        this.addItem();
+      } else {
+        this.active = nextStep;
       }
     },
     checkMinSelected(option) {

@@ -66,7 +66,7 @@ export default {
       return max === Infinity ? "unlimited" : " Choose up to  " + max + "";
     },
     countSelectedOptions() {
-      return this.group.choices.filter((choice) => choice.selected).length;
+      return this.group.choices.filter(choice => choice.selected).length;
     },
     showPrice() {
       return (
