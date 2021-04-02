@@ -13,7 +13,7 @@ const cleave = {
   unbind(el) {
     const input = el.querySelector("input");
     input._vCleave.destroy();
-  }
+  },
 };
 
 export default cleave;

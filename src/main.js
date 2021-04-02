@@ -7,8 +7,6 @@ import VeeValidate from "vee-validate";
 import { hours, phoneNumber } from "./utils/custom-validators";
 import LogRocket from "logrocket";
 import VueGtag from "vue-gtag";
-import * as Sentry from "@sentry/vue";
-import { Integrations } from "@sentry/tracing";
 
 // Configuration VueAnalytics
 Vue.use(VueGtag, {
@@ -17,18 +15,6 @@ Vue.use(VueGtag, {
 
 if (process.env.NODE_ENV === "production") {
   LogRocket.init("mphkf6/seoulspice-pickup");
-  Sentry.init({
-    Vue,
-    dsn:
-      "https://788b08e2123e4e91b21de5b1ee06990e@o503252.ingest.sentry.io/5588157",
-    autoSessionTracking: true,
-    // logErrors true,
-    tracingOptions: {
-      trackComponents: true,
-    },
-    integrations: [new Integrations.BrowserTracing()],
-    tracesSampleRate: 1.0,
-  });
 }
 
 Vue.config.productionTip = false;
@@ -52,5 +38,5 @@ Vue.use(VeeValidate);
 
 new Vue({
   store,
-  render: (h) => h(App),
+  render: h => h(App),
 }).$mount("#app");

@@ -15,14 +15,17 @@ const getters = {
   itemSubtotal(state) {
     return state.items.reduce(
       (carry, item) => carry + item.price * item.qty,
-      0
+      0,
     );
   },
   items(state) {
     return state.items;
   },
   countEntrees() {
-    return state.items.filter((item) => item.type === "entree").length;
+    return state.items.filter(item => item.type === "entree").length;
+  },
+  countItems() {
+    return state.items.length;
   },
   cartIsOpen(state) {
     return state.cartIsOpen;
@@ -35,7 +38,7 @@ const mutations = {
     let cartIndex;
     if (item.type !== "entree") {
       cartIndex = state.items.findIndex(
-        (cartItem) => item.type === cartItem.type && cartItem.name === item.name
+        cartItem => item.type === cartItem.type && cartItem.name === item.name,
       );
     }
     if (cartIndex > 0) {
@@ -44,10 +47,10 @@ const mutations = {
       state.items.push(item);
     }
     state.items.sort((a, b) =>
-      orderTypeArray.findIndex((type) => type === a.type) >
-      orderTypeArray.findIndex((type) => type === b.type)
+      orderTypeArray.findIndex(type => type === a.type) >
+      orderTypeArray.findIndex(type => type === b.type)
         ? 1
-        : -1
+        : -1,
     );
   },
   [UPDATE_QTY](state, payload) {

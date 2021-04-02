@@ -63,6 +63,8 @@
 <script>
 import OrderLocationCard from "./OrderLocationCard";
 import { orderService } from "../config/api.service";
+import { mapMutations } from "vuex";
+
 import { createHelpers } from "vuex-map-fields";
 import {
   openingTimeHour,
@@ -111,7 +113,8 @@ export default {
     document.body.removeAttribute("tabindex");
   },
   methods: {
-    clicked() {
+    ...mapMutations("menu", ["updateMenuData"]),
+    async clicked() {
       if (
         !process.env.VUE_APP_AFTER_HOURS_ORDERING &&
         (this.now > this.closingTime ||
@@ -123,7 +126,7 @@ export default {
           type: "is-danger",
         });
       } else {
-        this.$emit("update", "entree");
+        await this.getMenu();
       }
     },
     clearUserLocationInput() {
@@ -191,6 +194,32 @@ export default {
       } catch (error) {
         this.geoIsLoading = false;
         this.submitIsLoading = false;
+        this.$buefy.toast.open({
+          duration: 2000,
+          message: "Something went wrong",
+          type: "is-danger",
+        });
+      }
+    },
+    async getMenu() {
+      try {
+        const response = await orderService.get("/menu", {
+          params: {
+            locationId: this.location.id,
+          },
+        });
+        if (response.data.success) {
+          let menuData = response.data.menuData;
+          this.updateMenuData(menuData);
+          this.$emit("update", "entree");
+        } else {
+          this.$buefy.toast.open({
+            duration: 2000,
+            message: "Something went wrong",
+            type: "is-danger",
+          });
+        }
+      } catch (error) {
         this.$buefy.toast.open({
           duration: 2000,
           message: "Something went wrong",
