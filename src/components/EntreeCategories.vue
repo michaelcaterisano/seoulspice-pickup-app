@@ -25,6 +25,7 @@ export default {
   },
   computed: {
     availableCategories() {
+      // active $6 Sundays if it's Sunday
       const day = new Date().getDay();
       return day === 0
         ? this.categories
@@ -44,6 +45,14 @@ export default {
         message = "entree-options";
       } else if (category.name === "Korean BBQ") {
         message = "entree-kbbq";
+      } else if (category.name === "Drinks") {
+        message = "drinks";
+        this.$emit("update", message);
+        return;
+      } else if (category.name === "Desserts") {
+        message = "desserts";
+        this.$emit("update", message);
+        return;
       } else {
         message = "entree-signatures";
       }

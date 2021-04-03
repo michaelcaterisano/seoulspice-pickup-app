@@ -214,7 +214,15 @@ export default {
     },
 
     setActive(section) {
-      this.updateEntreeRoute(section);
+      if (section === "drinks") {
+        this.$emit("edit", "addon");
+        this.$emit("addon-type", "drinks");
+      } else if (section === "desserts") {
+        this.$emit("edit", "addon");
+        this.$emit("addon-type", "desserts");
+      } else {
+        this.updateEntreeRoute(section);
+      }
     },
     setCategory(category) {
       window.scrollTo(0, 0);

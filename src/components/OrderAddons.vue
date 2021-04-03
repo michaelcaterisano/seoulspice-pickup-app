@@ -49,7 +49,6 @@ export default {
   },
   data() {
     return {
-      active: "drinks",
       menuData: null,
     };
   },
@@ -74,19 +73,11 @@ export default {
         });
       }
 
-      if (this.active === "drinks") {
-        if (this.menuData.desserts.length) {
-          window.scrollTo(0, 0);
-          this.active = "desserts";
-        } else {
-          this.$emit("update", "confirmation");
-        }
-      } else {
-        this.$emit("update", "confirmation");
-      }
+      this.$emit("update", "confirmation");
     },
   },
   name: "OrderAddons",
+  props: ["active"],
 };
 </script>
 

@@ -28,6 +28,9 @@
     </div>
     <div v-if="!items.length" class="cart-is-empty-message">
       <span class="body-text">Your cart is empty</span>
+      <b-button class="is-warning" @click.prevent="editOrder('entree')">
+        <span class="is-size-7">ADD ITEMS TO YOUR CART</span>
+      </b-button>
     </div>
   </div>
 </template>

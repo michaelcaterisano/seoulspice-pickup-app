@@ -13,9 +13,15 @@
         <OrderEntrees
           v-if="active === 'entree'"
           @update="setActive"
+          @edit="setEdit"
+          @addon-type="setAddonType"
           :edit="edit"
         />
-        <OrderAddons v-if="active === 'addon'" @update="setActive" />
+        <OrderAddons
+          v-if="active === 'addon'"
+          @update="setActive"
+          :active="addonType"
+        />
         <OrderConfirmation
           v-if="active === 'confirmation'"
           @update="setActive"
@@ -68,6 +74,7 @@ export default {
     return {
       active: "location", // current active module
       edit: false,
+      addonType: "drinks",
     };
   },
   watch: {
@@ -87,6 +94,9 @@ export default {
     setEdit(section) {
       this.setActive(section);
       this.edit = true;
+    },
+    setAddonType(type) {
+      this.addonType = type;
     },
     closeCart() {
       this.$store.commit(SET_CART_OPEN, false);
