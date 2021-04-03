@@ -17,10 +17,7 @@
 
     <div v-if="items.length" class="has-text-centered buttons">
       <b-button class="is-warning" @click.prevent="editOrder('entree')">
-        <span class="is-size-7">ADD ENTREE</span>
-      </b-button>
-      <b-button class=" is-warning" @click.prevent="editOrder('addon')">
-        <span class="is-size-7">ADD DRINK/DESERT</span>
+        <span class="is-size-7">ADD MORE ITEMS</span>
       </b-button>
       <b-button class="is-success" @click.prevent="confirmItems()">
         <span class="is-size-7">CHECKOUT</span>

@@ -190,7 +190,7 @@ export default {
             this.setActive("entree-categories");
           },
           onCancel: () => {
-            this.$emit("update", "addon");
+            this.$emit("update", "confirmation");
             this.clearEntree();
           },
           confirmText: "Yes",
