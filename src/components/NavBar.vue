@@ -41,6 +41,7 @@ export default {
     },
     showCart() {
       return (
+        this.active !== "location" &&
         this.active !== "confirmation" &&
         this.active !== "order-info" &&
         this.active !== "payment" &&
