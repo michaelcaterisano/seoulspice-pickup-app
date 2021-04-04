@@ -638,15 +638,15 @@ const menuData = {
         //   qty: 0,
         //   complimentary: true,
         // },
-        {
-          name: "Avocado",
-          description:
-            "This nutrient-packed superfood adds a rich, buttery flavor to anything.",
-          price: 189,
-          selected: false,
-          imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/extras/avocado_clmvap.jpg`,
-          qty: 0,
-        },
+        // {
+        //   name: "Avocado",
+        //   description:
+        //     "This nutrient-packed superfood adds a rich, buttery flavor to anything.",
+        //   price: 189,
+        //   selected: false,
+        //   imageUrl: `https://res.cloudinary.com/seoulspice/image/upload/${cloudinaryTransform}/seoulspice/extras/avocado_clmvap.jpg`,
+        //   qty: 0,
+        // },
       ],
     },
   ],
