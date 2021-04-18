@@ -1,33 +1,27 @@
-# Online Ordering Application for Seoulspice Restaurant
+# Seoulspice Pickup Front End
 
-This repository contains the front end code for the Seoulspice Restaurant online ordering app. It was built between November 2020 and February 2021, and is being actively maintained. It works in conjuction with the [Seoulspice API](https://github.com/michaelcaterisano/seoulspice-api).
+### Setup Prerequisites
 
-### Install packages
+- Install git if you don't have it already. The link below describes several ways to do this.
 
-```
-npm install
-```
+  https://git-scm.com/download/mac
 
-### Compiles and hot-reloads for development
+- Optional: Install nvm. This makes it easy to install multiple versions of node and switch between them.
+  https://github.com/nvm-sh/nvm
 
-```
-npm run serve
-```
+- Install node if you don't have it already. I'm using node version 14. You can use nvm to install node, or install it directly from the node website:
+  https://nodejs.org/en/download/
 
-### Compiles and minifies for production
+### Client setup
 
-```
-npm run build
-```
+- Fork the client app: `https://github.com/michaelcaterisano/seoulspice-pickup-app`
 
-### Lints and fixes files
+- Create three files in the project root directory: `.env`, `.env.development`, and `.env.staging`. I'll send you the contents for each of the files. Copy the contents into the appropriate files.
 
-```
-npm run lint
-```
+- In the project root directory, run `npm install` to install node modules
 
-### TODO:
+- To start the app in development mode, run `npm run serve:development`. You'll now have an instance of the Vue app running on localhost:8080, and it will send API calls to localhost:3002, the development version of the server.
 
-- Move menu data to backend API
-- Remove menu flow logic from client, get from server instead
-- Add client-side router for better navigation
+- To run the app in staging mode, run `npm run serve:staging`. This will also run the Vue app on localhost:8080 (assuming no other instance of the Vue app is already running), and will target localhost:3001, the production version of the server.
+
+- To run in production mode, run `npm run serve:production`. This will behave the same as above. You likely won't need to run the app in this mode; staging mode should be sufficient for testing against the production server.
