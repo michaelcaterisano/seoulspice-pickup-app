@@ -14,14 +14,34 @@
 
 ### Client setup
 
-- Fork the client app: `https://github.com/michaelcaterisano/seoulspice-pickup-app`
+Clone the project:
 
-- Create three files in the project root directory: `.env`, `.env.development`, and `.env.staging`. I'll send you the contents for each of the files. Copy the contents into the appropriate files.
+```bash
+git clone https://github.com/michaelcaterisano/seoulspice-pickup-app
+```
 
-- In the project root directory, run `npm install` to install node modules
+Go to the project directory
 
-- To start the app in development mode, run `npm run serve:development`. You'll now have an instance of the Vue app running on localhost:8080, and it will send API calls to localhost:3002, the development version of the server.
+```bash
+  cd seoulspice-pickup-app
+```
 
-- To run the app in staging mode, run `npm run serve:staging`. This will also run the Vue app on localhost:8080 (assuming no other instance of the Vue app is already running), and will target localhost:3001, the production version of the server.
+Install dependencies
 
-- To run in production mode, run `npm run serve:production`. This will behave the same as above. You likely won't need to run the app in this mode; staging mode should be sufficient for testing against the production server.
+```bash
+  npm install
+```
+
+Create three files in the project root directory: `.env`, `.env.development`, and `.env.staging`. Contact me for the contents of these files.
+
+Start the development server
+
+```bash
+  npm run serve:development
+```
+
+You'll now have an instance of the Vue app running on localhost:8080, and it will send API calls to localhost:3002, the development version of the server.
+
+To run the app in staging mode, run `npm run serve:staging`. This will also run the Vue app on localhost:8080 (assuming no other instance of the Vue app is already running), and will target localhost:3001, the production version of the server.
+
+To run in production mode, run `npm run serve:production`. This will behave the same as above. You likely won't need to run the app in this mode; staging mode should be sufficient for testing against the production server.
